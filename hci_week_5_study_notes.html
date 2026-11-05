@@ -1,0 +1,1790 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HCI Week 5 — Design Principles & Guidelines (Annotated Exam Study Notes)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans, JetBrains Mono, Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['"Caveat"', 'cursive'],
+          },
+          colors: {
+            paper: '#FAF8F5',
+            card: '#FFFFFF',
+            ink: '#18181B',
+            muted: '#52525B',
+            borderLight: '#E4E2DD',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Warm Academic Engineering Notebook Paper Background */
+    body {
+      background-color: #F6F4F0;
+      color: #18181B;
+      background-image: 
+        radial-gradient(#D4D0C8 1.15px, transparent 1.15px),
+        linear-gradient(to right, rgba(220, 216, 208, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(220, 216, 208, 0.35) 1px, transparent 1px);
+      background-size: 24px 24px, 96px 96px, 96px 96px;
+    }
+
+    /* Realistic Marker Highlighter Spans */
+    .hl-yellow {
+      background: linear-gradient(104deg, rgba(254, 240, 138, 0) 0.9%, rgba(254, 240, 138, 0.95) 2.4%, rgba(254, 240, 138, 0.65) 5.8%, rgba(254, 240, 138, 0.88) 93%, rgba(254, 240, 138, 0.7) 96%, rgba(254, 240, 138, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-green {
+      background: linear-gradient(104deg, rgba(187, 247, 208, 0) 0.9%, rgba(187, 247, 208, 0.95) 2.4%, rgba(187, 247, 208, 0.65) 5.8%, rgba(187, 247, 208, 0.88) 93%, rgba(187, 247, 208, 0.7) 96%, rgba(187, 247, 208, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-blue {
+      background: linear-gradient(104deg, rgba(186, 230, 253, 0) 0.9%, rgba(186, 230, 253, 0.92) 2.4%, rgba(186, 230, 253, 0.65) 5.8%, rgba(186, 230, 253, 0.88) 93%, rgba(186, 230, 253, 0.7) 96%, rgba(186, 230, 253, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-pink {
+      background: linear-gradient(104deg, rgba(254, 205, 211, 0) 0.9%, rgba(254, 205, 211, 0.92) 2.4%, rgba(254, 205, 211, 0.65) 5.8%, rgba(254, 205, 211, 0.88) 93%, rgba(254, 205, 211, 0.7) 96%, rgba(254, 205, 211, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-purple {
+      background: linear-gradient(104deg, rgba(233, 213, 255, 0) 0.9%, rgba(233, 213, 255, 0.92) 2.4%, rgba(233, 213, 255, 0.65) 5.8%, rgba(233, 213, 255, 0.88) 93%, rgba(233, 213, 255, 0.7) 96%, rgba(233, 213, 255, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    /* Notebook Sheet Card */
+    .note-sheet {
+      background-color: #FFFFFF;
+      border: 1px solid #E4E2DD;
+      box-shadow: 0 4px 20px -4px rgba(24, 24, 27, 0.06), 0 2px 6px -1px rgba(24, 24, 27, 0.03);
+      position: relative;
+    }
+
+    /* Sticky Note Callout */
+    .sticky-callout {
+      background-color: #FEF9C3;
+      border: 1px solid #FDE047;
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Scrollbar Utility */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+
+  <!-- Modular Collapsible Navigation Engine -->
+  <script src="nav.js" defer></script>
+</head>
+<body class="antialiased selection:bg-yellow-200 selection:text-zinc-900">
+
+  <!-- =====================================================================
+       STICKY QUICK-JUMP NAVIGATION & HIGHLIGHTER LEGEND BAR
+       ===================================================================== -->
+  <header class="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E4E2DD] shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-zinc-900 text-amber-300 font-mono text-xs font-bold">W5</span>
+          <div>
+            <span class="font-extrabold text-sm text-zinc-900 tracking-tight">HCI Week 5: Design Principles &amp; Guidelines</span>
+            <span class="hidden md:inline-block text-xs text-zinc-500 ml-1.5 font-mono">• Slides 01–49 Complete (Zero Hidden Content)</span>
+          </div>
+        </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN STUDY NOTEBOOK CONTAINER
+       ===================================================================== -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-12">
+
+    <!-- ===================================================================
+         SECTION 1: OVERVIEW & ENGINEERING ARGUMENT (SLIDES 01–04)
+         =================================================================== -->
+    <div id="sec-intro" class="scroll-mt-28 space-y-8">
+
+      <!-- SLIDES 01 & 02: TITLE & 4-STEP ENGINEERING REASONING CHAIN -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-zinc-900">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 01</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 02</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• Design Principles &amp; Guidelines + Engineering Argument</span>
+          </div>
+          <span class="font-mono text-xs text-zinc-500">WEEK 05 · HUMAN-COMPUTER INTERACTION</span>
+        </div>
+
+        <div class="mb-8">
+          <div class="inline-block px-3 py-1 rounded-md bg-amber-100 border border-amber-300 font-mono text-xs font-bold uppercase tracking-wider text-amber-900 mb-2">
+            From Human Limitations to Defensible Engineering Decisions
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 leading-tight">
+            Design Principles &amp; Guidelines
+          </h1>
+
+          <!-- Slide 01: WHY / HOW / TODAY -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-5">
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-mono text-xs font-bold text-rose-700 uppercase">• WHY?</span>
+                <span class="font-mono text-[10px] text-zinc-400">SLIDE 01</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-800 font-medium">
+                <span class="hl-pink font-bold">A functioning interface can still fail the human who uses it.</span>
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-mono text-xs font-bold text-sky-800 uppercase">• HOW?</span>
+                <span class="font-mono text-[10px] text-zinc-400">SLIDE 01</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-800 font-medium">
+                <span class="hl-blue font-bold">Diagnose the interaction, name the principle, justify the redesign.</span>
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-mono text-xs font-bold text-emerald-800 uppercase">• TODAY</span>
+                <span class="font-mono text-[10px] text-zinc-400">SLIDE 01</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-800 font-bold">
+                <span class="hl-yellow">Norman → Nielsen → Shneiderman → applied design critique.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 02: A design diagnosis is an engineering argument -->
+        <div class="border-t border-zinc-200 pt-7">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div>
+              <span class="font-mono text-xs uppercase font-bold text-sky-800">SLIDE 02 • A DESIGN DIAGNOSIS IS AN ENGINEERING ARGUMENT</span>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Use This 4-Step Reasoning Chain Throughout Today</h2>
+            </div>
+            <span class="font-hand text-xl text-amber-800 font-bold">★ Core Exam Formula</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-4 rounded-xl bg-sky-50/70 border-2 border-sky-200">
+              <div class="flex items-center justify-between mb-1">
+                <span class="w-6 h-6 rounded-full bg-sky-800 text-white font-mono text-xs font-bold flex items-center justify-center">1</span>
+                <span class="font-mono text-xs font-bold text-sky-900">OBSERVE</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                What exactly does the user <span class="hl-blue font-semibold">see, do, or misunderstand?</span>
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-amber-50/70 border-2 border-amber-200">
+              <div class="flex items-center justify-between mb-1">
+                <span class="w-6 h-6 rounded-full bg-amber-800 text-white font-mono text-xs font-bold flex items-center justify-center">2</span>
+                <span class="font-mono text-xs font-bold text-amber-900">EXPLAIN</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                What <span class="hl-yellow font-semibold">human capability or expectation</span> does the design ignore?
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-purple-50/70 border-2 border-purple-200">
+              <div class="flex items-center justify-between mb-1">
+                <span class="w-6 h-6 rounded-full bg-purple-800 text-white font-mono text-xs font-bold flex items-center justify-center">3</span>
+                <span class="font-mono text-xs font-bold text-purple-900">JUSTIFY</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                Which <span class="hl-purple font-semibold">established principle</span> supports the proposed change?
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-emerald-50/70 border-2 border-emerald-200">
+              <div class="flex items-center justify-between mb-1">
+                <span class="w-6 h-6 rounded-full bg-emerald-800 text-white font-mono text-xs font-bold flex items-center justify-center">4</span>
+                <span class="font-mono text-xs font-bold text-emerald-900">REDESIGN</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                What would you <span class="hl-green font-semibold">change, and what outcome</span> should improve?
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDES 03 & 04: THE NORMAN DOOR COGNITIVE CLASH & THE DUAL PILLARS OF INTERACTION -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 03</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 04</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• The Norman Door Cognitive Clash &amp; The Dual Pillars of Interaction</span>
+          </div>
+        </div>
+
+        <!-- Slide 03: Norman Door Cognitive Clash -->
+        <div class="mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-rose-700 mb-2">SLIDE 03 • COGNITIVE CLASH: PHYSICAL FORM VS. TAPED-ON SIGN</div>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div class="lg:col-span-7 p-4 rounded-2xl bg-slate-950 text-white border border-slate-800">
+              <svg viewBox="0 0 520 210" class="w-full h-auto" aria-label="Norman Door Cognitive Clash Diagram">
+                <!-- Door Frame -->
+                <rect x="20" y="12" width="260" height="186" rx="6" fill="#1E293B" stroke="#475569" stroke-width="2"/>
+                <!-- Taped-On PULL Sign -->
+                <rect x="105" y="28" width="90" height="42" rx="3" fill="#F8FAFC" stroke="#94A3B8" stroke-width="1.5"/>
+                <rect x="132" y="21" width="36" height="10" fill="#94A3B8" fill-opacity="0.6"/>
+                <rect x="132" y="66" width="36" height="10" fill="#94A3B8" fill-opacity="0.6"/>
+                <text x="150" y="56" text-anchor="middle" class="font-mono text-[20px] fill-slate-900 font-extrabold">PULL</text>
+
+                <!-- Arrow from PULL Sign to Right Callout -->
+                <line x1="202" y1="49" x2="315" y2="49" stroke="#F59E0B" stroke-width="2.5"/>
+                <rect x="318" y="22" width="188" height="54" rx="6" fill="#0F172A" stroke="#F59E0B" stroke-width="1.5"/>
+                <text x="328" y="40" class="font-mono text-[10px] fill-amber-300 font-bold">Explicit instruction</text>
+                <text x="328" y="53" class="font-mono text-[10px] fill-amber-300 font-bold">contradicts</text>
+                <text x="328" y="66" class="font-mono text-[10px] fill-amber-300 font-bold">physical form.</text>
+
+                <!-- Cognitive Clash Waveform -->
+                <path d="M 220 98 L 235 98 L 242 82 L 248 114 L 255 78 L 262 118 L 268 88 L 275 106 L 285 98 L 305 98" fill="none" stroke="#F43F5E" stroke-width="2"/>
+                <text x="312" y="102" class="font-mono text-[11px] fill-rose-400 font-extrabold">⚠ COGNITIVE CLASH</text>
+
+                <!-- Wide Horizontal Push Bar -->
+                <rect x="36" y="122" width="228" height="44" rx="4" fill="#CBD5E1" stroke="#38BDF8" stroke-width="2"/>
+                <text x="150" y="148" text-anchor="middle" class="font-mono text-[11px] fill-slate-900 font-bold">FLAT HORIZONTAL PUSH BAR</text>
+
+                <!-- Line to Bottom Right Callout -->
+                <line x1="266" y1="144" x2="315" y2="144" stroke="#38BDF8" stroke-width="2"/>
+                <rect x="318" y="120" width="188" height="48" rx="6" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+                <text x="328" y="140" class="font-mono text-[10px] fill-sky-300 font-bold">Physical property</text>
+                <text x="328" y="155" class="font-mono text-[10px] fill-sky-300 font-bold">affords pushing.</text>
+              </svg>
+            </div>
+
+            <div class="lg:col-span-5 space-y-4">
+              <div class="sticky-callout rounded-2xl p-5">
+                <span class="font-hand text-2xl text-amber-900 block mb-1">Norman's Mantra (Slide 03):</span>
+                <p class="text-sm sm:text-base font-extrabold text-zinc-900 leading-snug">
+                  “<span class="hl-yellow">When an interface requires a taped-on sign to explain how to use it, the design has failed.</span> <span class="hl-pink">Blame the design, not the user.</span>”
+                </p>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-700">
+                • <strong>Signal 1 (Taped Label):</strong> Explicit instruction (<code class="font-mono font-bold">PULL</code>) contradicts physical form.<br/>
+                • <strong>Signal 2 (Flat Bar):</strong> Physical property affords pushing.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 04: The Dual Pillars of Interaction -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="font-mono text-xs uppercase font-bold text-sky-800 mb-2">SLIDE 04 • THE DUAL PILLARS OF INTERACTION</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-4">Discoverability vs. Understanding</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Pillar 1: Discoverability -->
+            <div class="p-5 rounded-2xl bg-sky-50/60 border-2 border-sky-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-mono text-xs font-bold text-sky-900 uppercase">PILLAR 1 • DISCOVERABILITY</span>
+                  <span class="px-2 py-0.5 rounded bg-sky-200 text-sky-950 font-mono text-[11px] font-bold">SLIDE 04</span>
+                </div>
+                <h3 class="text-lg font-extrabold text-zinc-900">“What actions are possible, and where do I perform them?”</h3>
+                <ul class="mt-3 space-y-1.5 text-xs sm:text-sm text-zinc-800">
+                  <li>• <strong>Smartphone Lock Screen Example:</strong> Visual cues highlight <code class="font-mono">ACTIONABLE REGION DETECTED</code>, bottom <code class="font-mono">WAKE GESTURE AFFORDANCE</code> (<code class="font-mono">^</code> bar), and the corner Camera icon.</li>
+                </ul>
+              </div>
+              <div class="mt-4 p-3.5 rounded-xl bg-sky-950 text-white text-xs sm:text-sm font-semibold">
+                ✔ <span class="text-sky-300 font-bold">Rule (Slide 04):</span> Discoverability prevents the user from having to guess or blindly tap.
+              </div>
+            </div>
+
+            <!-- Pillar 2: Understanding -->
+            <div class="p-5 rounded-2xl bg-amber-50/60 border-2 border-amber-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-mono text-xs font-bold text-amber-900 uppercase">PILLAR 2 • UNDERSTANDING</span>
+                  <span class="px-2 py-0.5 rounded bg-amber-200 text-amber-950 font-mono text-[11px] font-bold">SLIDE 04</span>
+                </div>
+                <h3 class="text-lg font-extrabold text-zinc-900">“How does this work, and what do the controls mean?”</h3>
+                <ul class="mt-3 space-y-1.5 text-xs sm:text-sm text-zinc-800">
+                  <li>• <strong>Commercial Espresso Machine Example:</strong> Clear <code class="font-mono">LOGICAL GROUPINGS IDENTIFIED</code>, <code class="font-mono">SYSTEM STATUS MONITORING</code> (pressure gauges), <code class="font-mono">BREW GROUP ACTIVATION</code> buttons aligned above each brew head, and <code class="font-mono">STEAM &amp; HOT WATER CONTROLS</code> mapped to the steam wand.</li>
+                </ul>
+              </div>
+              <div class="mt-4 p-3.5 rounded-xl bg-amber-950 text-white text-xs sm:text-sm font-semibold">
+                ✔ <span class="text-amber-300 font-bold">Rule (Slide 04):</span> Understanding prevents catastrophic errors by aligning the system's logic with human expectations.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 2A: PART I — NORMAN'S VOCABULARY: AFFORDANCE, SIGNIFIER, MAPPING & CONSTRAINTS (SLIDES 05–11)
+         =================================================================== -->
+    <div id="sec-norman-1" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-sky-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-sky-700 text-white">SLIDES 05–11 • Part I: Norman's Design Vocabulary (Affordances, Signifiers, Mappings &amp; Constraints)</span>
+        </div>
+
+        <!-- Slide 05: Affordance: The Invisible Potential -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-sky-800 mb-1">SLIDE 05 • AFFORDANCE: THE INVISIBLE POTENTIAL</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-2">What Actions Are Physically or Digitally Possible</h2>
+          <p class="text-sm sm:text-base text-zinc-800 mb-4">
+            <strong>Definition (Slide 05):</strong> “<span class="hl-yellow font-semibold">The relationship between the physical properties of an object and the capabilities of the interacting agent that determine how the object could possibly be used.</span>”
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div class="p-4 rounded-xl bg-slate-950 text-white border border-slate-800">
+              <span class="font-mono text-xs text-sky-400 font-bold">EXAMPLE 1 • CHAIR</span>
+              <p class="text-xs sm:text-sm text-slate-200 mt-1.5">
+                “<strong>Affords support/sitting</strong> (for a human).”
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-950 text-white border border-slate-800">
+              <span class="font-mono text-xs text-amber-400 font-bold">EXAMPLE 2 • HEAVY CRATE</span>
+              <p class="text-xs sm:text-sm text-slate-200 mt-1.5">
+                “<strong>Affords lifting (but only for a strong agent).</strong> <span class="text-rose-300 font-semibold">If the user is weak, the affordance does not exist.</span>”
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-950 text-white border border-slate-800">
+              <span class="font-mono text-xs text-emerald-400 font-bold">EXAMPLE 3 • TABLET GLASS</span>
+              <p class="text-xs sm:text-sm text-slate-200 mt-1.5">
+                “<strong>Affords touching and swiping</strong> (requires physical contact capabilities).”
+              </p>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-sky-50 border border-sky-200 text-xs sm:text-sm font-bold text-zinc-900 text-center">
+            ★ Key Rule (Slide 05): <span class="hl-blue">Affordances define what actions are possible. They exist even if they are invisible to the user.</span>
+          </div>
+        </div>
+
+        <!-- Slide 06: Signifier: The Visible Communication -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-amber-800 mb-1">SLIDE 06 • SIGNIFIER: THE VISIBLE COMMUNICATION</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-2">Where and How the Action Should Take Place</h2>
+          <p class="text-sm sm:text-base text-zinc-800 mb-4">
+            <strong>Definition (Slide 06):</strong> “<span class="hl-yellow font-semibold">Any mark, sound, or perceivable indicator that communicates appropriate behavior to a person. Signifiers tell us where the action should take place.</span>”
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200">
+              <span class="font-mono text-xs font-bold text-amber-900">1. MAP ZOOM BUTTONS (+ / −)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                The entire screen affords touching, <span class="hl-green font-semibold">but the ‘+’ and ‘−’ icons signify where to tap to zoom.</span>
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200">
+              <span class="font-mono text-xs font-bold text-amber-900">2. FOOTPRINTS IN SNOW</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                The footprints of previous walkers are <span class="hl-blue font-semibold">accidental, yet powerful signifiers</span> of the best path.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200">
+              <span class="font-mono text-xs font-bold text-amber-900">3. ELEVATOR BUTTON ‘4’ + BRAILLE</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                The physical button affords pushing; <span class="hl-green font-semibold">the raised Braille and printed numbers signify which button to push.</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-zinc-900 text-white text-xs sm:text-sm font-bold text-center">
+            ★ Key Rule (Slide 06): <span class="text-amber-300">“In design, signifiers are more important than affordances. They are the communication layer.”</span>
+          </div>
+        </div>
+
+        <!-- Slide 07: Diagnostic Matrix: Affordance vs. Signifier -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <span class="font-mono text-xs uppercase font-bold text-zinc-700">SLIDE 07 • DIAGNOSTIC MATRIX: AFFORDANCE VS. SIGNIFIER</span>
+            <span class="font-mono text-xs text-zinc-500">Video cue: Norman_s_Design_Vocabulary.mp4 (8:53)</span>
+          </div>
+
+          <div class="overflow-x-auto rounded-xl border-2 border-zinc-900">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                  <th class="py-3.5 px-4">Dimension</th>
+                  <th class="py-3.5 px-4 text-sky-300">Affordance</th>
+                  <th class="py-3.5 px-4 text-amber-300">Signifier</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Definition</td>
+                  <td class="py-3.5 px-4 text-zinc-800">The <span class="hl-blue font-semibold">potential relationship</span> between object and agent.</td>
+                  <td class="py-3.5 px-4 text-zinc-800">The <span class="hl-yellow font-semibold">perceivable cue</span> that communicates the affordance.</td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Primary Function</td>
+                  <td class="py-3.5 px-4 text-zinc-800">Determines <strong>what actions are possible.</strong></td>
+                  <td class="py-3.5 px-4 text-zinc-800">Communicates <strong>where and how to perform the action.</strong></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Nature of the Concept</td>
+                  <td class="py-3.5 px-4 text-zinc-800">A physical or programmed reality (<span class="hl-pink font-semibold">can be invisible</span>).</td>
+                  <td class="py-3.5 px-4 text-zinc-800">A communication mechanism (<span class="hl-green font-semibold">must be perceivable</span>).</td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Digital Example (The Submit Button)</td>
+                  <td class="py-3.5 px-4 text-zinc-800 font-mono text-xs">The invisible <strong>44×44 pixel clickable hit box</strong> coded in HTML.</td>
+                  <td class="py-3.5 px-4 text-zinc-800">The <strong>drop-shadow, rounded corners, and the word Submit</strong> rendered on screen.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Slide 08 & Slide 09: Mapping & Autopsy of a Mapping Failure -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-emerald-800 mb-1">SLIDES 08 &amp; 09 • MAPPING: SPATIAL CORRESPONDENCE &amp; STOVE AUTOPSY</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-2">Natural Mapping vs. Arbitrary Mapping</h2>
+          <p class="text-sm sm:text-base text-zinc-800 mb-4">
+            <strong>Definition (Slide 08):</strong> “<span class="hl-yellow font-semibold">The relationship between a set of controls and the devices or actions they dictate. Natural mapping takes advantage of spatial analogies to yield immediate understanding.</span>”
+          </p>
+
+          <!-- Slide 08 Car Seat Control + Slide 09 Stove Burners -->
+          <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            <!-- Slide 08: Car Seat Switch -->
+            <div class="p-4 rounded-2xl bg-slate-950 text-white border border-emerald-500/50 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs text-emerald-400 font-bold">SLIDE 08 • CAR SEAT CONTROL</span>
+                <h3 class="font-extrabold text-base text-white mt-1">Best Spatial Mapping</h3>
+                <p class="text-xs text-slate-300 mt-1">
+                  “Controls are arranged in the exact spatial configuration as the object being controlled.”
+                </p>
+              </div>
+              <svg viewBox="0 0 240 130" class="w-full h-auto mt-3" aria-label="Car Seat Natural Mapping Diagram">
+                <!-- Switch Profile -->
+                <rect x="10" y="15" width="95" height="100" rx="8" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+                <path d="M 32 30 L 46 30 L 56 78 L 38 78 Z" fill="#94A3B8" stroke="#E2E8F0" stroke-width="1.5"/>
+                <rect x="38" y="82" width="52" height="16" rx="6" fill="#94A3B8" stroke="#E2E8F0" stroke-width="1.5"/>
+                <!-- Actual Seat Profile -->
+                <path d="M 155 20 L 178 20 L 190 82 L 162 82 Z" fill="#334155" stroke="#64748B" stroke-width="2"/>
+                <rect x="162" y="85" width="65" height="22" rx="8" fill="#334155" stroke="#64748B" stroke-width="2"/>
+                <!-- Green Spatial Correspondence Lines -->
+                <line x1="45" y1="50" x2="170" y2="50" stroke="#34D399" stroke-width="2" stroke-dasharray="3,2"/>
+                <circle cx="170" cy="50" r="5" fill="#34D399"/>
+                <line x1="70" y1="90" x2="195" y2="95" stroke="#34D399" stroke-width="2" stroke-dasharray="3,2"/>
+                <circle cx="195" cy="95" r="5" fill="#34D399"/>
+              </svg>
+            </div>
+
+            <!-- Slide 09 Left: Arbitrary Mapping (Stove) -->
+            <div class="p-4 rounded-2xl bg-slate-950 text-white border border-rose-500/50 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs text-rose-400 font-bold">SLIDE 09 • ARBITRARY MAPPING</span>
+                <h3 class="font-extrabold text-base text-rose-300 mt-1">✘ Crossed &amp; Ambiguous</h3>
+                <p class="text-xs text-slate-300 mt-1">
+                  Requires conscious cognitive effort, memorization, or reading tiny labels. <strong>Prone to severe errors under stress.</strong>
+                </p>
+              </div>
+              <svg viewBox="0 0 240 130" class="w-full h-auto mt-3" aria-label="Arbitrary Stove Mapping Failure">
+                <!-- 4 Burners -->
+                <circle cx="75" cy="32" r="18" fill="none" stroke="#94A3B8" stroke-width="2"/>
+                <circle cx="165" cy="32" r="18" fill="none" stroke="#94A3B8" stroke-width="2"/>
+                <circle cx="75" cy="74" r="18" fill="none" stroke="#94A3B8" stroke-width="2"/>
+                <circle cx="165" cy="74" r="18" fill="none" stroke="#94A3B8" stroke-width="2"/>
+                <!-- 4 Linear Knobs -->
+                <circle cx="50" cy="112" r="10" fill="#1E293B" stroke="#E2E8F0" stroke-width="1.5"/>
+                <circle cx="96" cy="112" r="10" fill="#1E293B" stroke="#E2E8F0" stroke-width="1.5"/>
+                <circle cx="144" cy="112" r="10" fill="#1E293B" stroke="#E2E8F0" stroke-width="1.5"/>
+                <circle cx="190" cy="112" r="10" fill="#1E293B" stroke="#E2E8F0" stroke-width="1.5"/>
+                <!-- Tangled Red Arrows -->
+                <path d="M 50 102 L 165 74" stroke="#F43F5E" stroke-width="2"/>
+                <path d="M 96 102 L 165 32" stroke="#F43F5E" stroke-width="2"/>
+                <path d="M 144 102 L 75 32" stroke="#F43F5E" stroke-width="2"/>
+                <path d="M 190 102 L 75 74" stroke="#F43F5E" stroke-width="2"/>
+              </svg>
+            </div>
+
+            <!-- Slide 09 Right: Natural Mapping (Stove) -->
+            <div class="p-4 rounded-2xl bg-slate-950 text-white border border-emerald-500/50 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs text-emerald-400 font-bold">SLIDE 09 • NATURAL MAPPING</span>
+                <h3 class="font-extrabold text-base text-emerald-300 mt-1">✔ Spatial Alignment</h3>
+                <p class="text-xs text-slate-300 mt-1">
+                  Exploits spatial analogies. <strong>Zero cognitive load. Immediate understanding.</strong>
+                </p>
+              </div>
+              <svg viewBox="0 0 240 130" class="w-full h-auto mt-3" aria-label="Natural Stove Mapping Success">
+                <!-- 4 Burners -->
+                <circle cx="75" cy="32" r="18" fill="none" stroke="#94A3B8" stroke-width="2"/>
+                <circle cx="165" cy="32" r="18" fill="none" stroke="#94A3B8" stroke-width="2"/>
+                <circle cx="75" cy="74" r="18" fill="none" stroke="#94A3B8" stroke-width="2"/>
+                <circle cx="165" cy="74" r="18" fill="none" stroke="#94A3B8" stroke-width="2"/>
+                <!-- 4 Aligned Knobs -->
+                <circle cx="55" cy="112" r="10" fill="#1E293B" stroke="#34D399" stroke-width="1.5"/>
+                <circle cx="95" cy="112" r="10" fill="#1E293B" stroke="#34D399" stroke-width="1.5"/>
+                <circle cx="145" cy="112" r="10" fill="#1E293B" stroke="#34D399" stroke-width="1.5"/>
+                <circle cx="185" cy="112" r="10" fill="#1E293B" stroke="#34D399" stroke-width="1.5"/>
+                <!-- Clean Green Lines -->
+                <path d="M 55 102 L 55 74 L 57 74" fill="none" stroke="#34D399" stroke-width="2"/>
+                <path d="M 95 102 L 95 32 L 93 32" fill="none" stroke="#34D399" stroke-width="2"/>
+                <path d="M 145 102 L 145 32 L 147 32" fill="none" stroke="#34D399" stroke-width="2"/>
+                <path d="M 185 102 L 185 74 L 183 74" fill="none" stroke="#34D399" stroke-width="2"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 10 & Slide 11: Constraints & The Four Pillars of Constraint -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="font-mono text-xs uppercase font-bold text-purple-800 mb-1">SLIDES 10 &amp; 11 • CONSTRAINTS: THE POWER OF LIMITATION &amp; THE 4 PILLARS</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-2">Making Incorrect Actions Impossible or Unlikely</h2>
+          <p class="text-sm sm:text-base text-zinc-800 mb-4">
+            <strong>Definition (Slide 10):</strong> “<span class="hl-yellow font-semibold">Physical, logical, semantic, and cultural limits that prevent wrong actions. Constraints relieve the user's short-term memory by making incorrect actions impossible or highly unlikely.</span>”
+          </p>
+
+          <!-- Slide 10 Examples: Physical USB Blocker vs. Digital Disabled Menu -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="p-4 rounded-xl bg-rose-50/70 border border-rose-200">
+              <span class="font-mono text-xs font-bold text-rose-900">SLIDE 10 • PHYSICAL CONSTRAINT (USB-A PORT)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                <code class="font-mono font-bold text-rose-700">⚠ BLOCKER — ORIENTATION MISMATCH: PHYSICALLY RESTRICTED</code>. Physical geometry blocks upside-down insertion.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-sky-50/70 border border-sky-200">
+              <span class="font-mono text-xs font-bold text-sky-900">SLIDE 10 • DIGITAL EQUIVALENT (CONTEXT MENU)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                Deactivating invalid options based on current state (e.g., <code class="font-mono">Cut</code>, <code class="font-mono">Copy</code>, <code class="font-mono">Delete</code> active; <code class="font-mono text-zinc-400">Paste</code>, <code class="font-mono text-zinc-400">Group</code>, <code class="font-mono text-zinc-400">Ungroup</code> grayed out).
+              </p>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-zinc-900 text-white text-xs sm:text-sm font-bold text-center mb-6">
+            ✔ Rule (Slide 10): “Good constraints make the desired action obvious and the incorrect action impossible. To err is human; design should anticipate it.”
+          </div>
+
+          <!-- Slide 11: The Four Pillars of Constraint (2x4 Matrix) -->
+          <div class="font-mono text-xs uppercase font-bold text-zinc-700 mb-2">SLIDE 11 • THE FOUR PILLARS OF CONSTRAINT (PHYSICAL WORLD VS. DIGITAL WORLD)</div>
+          <div class="overflow-x-auto rounded-xl border-2 border-zinc-900">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                  <th class="py-3.5 px-4">Constraint Pillar</th>
+                  <th class="py-3.5 px-4">Core Mechanism (Slide 11)</th>
+                  <th class="py-3.5 px-4 text-amber-300">Physical World Example</th>
+                  <th class="py-3.5 px-4 text-sky-300">Digital World Example</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+                <tr>
+                  <td class="py-3.5 px-4 font-extrabold text-zinc-900 bg-zinc-50">1. Physical</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-blue">Relies on physical properties to restrict action.</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>SIM Card: Only Fits One Way</strong> (<code class="font-mono">BLOCKER: PHYSICALLY NOTCH</code> — Tray restricts orientation).</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>UI Slider (Volume 100%):</strong> Physically cannot be dragged past 100%.</td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-extrabold text-zinc-900 bg-zinc-50">2. Logical</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-yellow">Uses deductive reasoning to determine alternatives.</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Leftover Bolt:</strong> Deductive reasoning during shelf assembly — <em>“Something's Wrong”</em>.</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Graying out the <code class="font-mono">Next</code> button</strong> until all mandatory form fields are filled (<code class="font-mono text-rose-700">INACTIVE: MANDATORY FIELDS EMPTY</code>).</td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-extrabold text-zinc-900 bg-zinc-50">3. Semantic</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-green">Relies on the meaning of the situation to control options.</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Motorcycle Windshield:</strong> Meaning of riding forward — must sit in front of rider to block forward wind.</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Digital avatar builder</strong> where a hat can only be placed on a head, not a foot (<code class="font-mono text-rose-700">INVALID PLACEMENT: HAT FOR HEAD ONLY</code>).</td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-extrabold text-zinc-900 bg-zinc-50">4. Cultural</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-purple">Relies on accepted cultural conventions.</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Red Traffic Light:</strong> <code class="font-mono">STOP: RED LIGHT UNIVERSAL DANGER/STOP</code>.</td>
+                  <td class="py-3.5 px-4 text-zinc-800">Placing the <strong>Close Window <code class="font-mono">‘X’</code></strong> in the top right corner of a screen (<code class="font-mono text-emerald-700">CLOSE WINDOW 'X': CULTURAL CONVENTION</code>).</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 2B: FEEDBACK, CONCEPTUAL MODELS, 7 STAGES OF ACTION & BRIDGING THE GULFS (SLIDES 12–18)
+         =================================================================== -->
+    <div id="sec-norman-2" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-emerald-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-700 text-white">SLIDES 12–18 • Feedback, Conceptual Models, System Image, 7 Stages of Action &amp; Gulfs</span>
+        </div>
+
+        <!-- Slide 12: Feedback should match the action -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-emerald-800 mb-1">SLIDE 12 • FEEDBACK SHOULD MATCH THE ACTION</div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900 mb-3">Avoid Treating 0.1 Seconds as a Universal Hard Limit</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-sky-800">• IMMEDIATE FEEL</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                <span class="hl-blue font-semibold">Very short response times support direct manipulation.</span>
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-amber-800">• PROGRESS FEEDBACK</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                <span class="hl-yellow font-semibold">Longer operations should show meaningful status or progress.</span>
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-emerald-800">• ACTION OUTCOME</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                <span class="hl-green font-semibold">Users must know whether the action succeeded, failed, or needs attention.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 13 & Slide 14: The Conceptual Model & The Burden of the System Image -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Slide 13: The Conceptual Model -->
+            <div class="p-5 rounded-2xl bg-amber-50/60 border-2 border-amber-200 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs font-bold text-amber-900 uppercase">SLIDE 13 • THE CONCEPTUAL MODEL</span>
+                <h3 class="text-xl font-extrabold text-zinc-900 mt-0.5">Thermostat: User's Valve vs. System's Binary Switch</h3>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-2">
+                  <strong>Definition:</strong> <span class="hl-yellow">A highly simplified, internal explanation of how a system works.</span> It doesn't have to be physically accurate, it just has to be useful. When a system's conceptual model matches the user's mental model, interaction feels intuitive.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 text-xs">
+                  <div class="p-3 rounded-xl bg-slate-950 text-white border border-rose-500/40">
+                    <strong class="text-rose-300 font-mono block">User's Model: The Valve</strong>
+                    <p class="text-slate-200 mt-1 italic">“It's like a valve. If I turn it to 90 degrees, it will heat the room faster!”</p>
+                  </div>
+                  <div class="p-3 rounded-xl bg-slate-950 text-white border border-emerald-500/40">
+                    <strong class="text-emerald-300 font-mono block">System's Model: Binary Switch</strong>
+                    <p class="text-slate-200 mt-1"><strong>System Logic:</strong> Full power (<code class="font-mono">ON/OFF</code>) until target temp is reached, then off.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 p-3 rounded-lg bg-amber-950 text-amber-200 text-xs font-bold text-center">
+                “Users act on their models. If the design projects the wrong model, inevitable mistakes will follow.” (Slide 13)
+              </div>
+            </div>
+
+            <!-- Slide 14: The Burden of the System Image -->
+            <div class="p-5 rounded-2xl bg-sky-50/60 border-2 border-sky-200 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs font-bold text-sky-900 uppercase">SLIDE 14 • THE BURDEN OF THE SYSTEM IMAGE</span>
+                <h3 class="text-xl font-extrabold text-zinc-900 mt-0.5">Why Designers Cannot Speak Directly to Users</h3>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-2">
+                  The only way the Designer can communicate their Conceptual Model to the User is through <span class="hl-blue font-bold">the System Image.</span> <strong>Affordances, signifiers, constraints, and mappings</strong> are the vocabulary of this image.
+                </p>
+
+                <!-- SVG Diagram of Slide 14 -->
+                <div class="mt-4 p-3 rounded-xl bg-slate-950 text-white">
+                  <svg viewBox="0 0 360 125" class="w-full h-auto" aria-label="Burden of the System Image Diagram">
+                    <!-- Designer -->
+                    <rect x="10" y="12" width="95" height="32" rx="5" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+                    <text x="57" y="32" text-anchor="middle" class="font-mono text-[9px] fill-sky-300 font-bold">Designer's Model</text>
+
+                    <!-- Wall Blockage -->
+                    <rect x="148" y="6" width="64" height="44" rx="4" fill="#450A0A" stroke="#F43F5E" stroke-width="1.5"/>
+                    <text x="180" y="25" text-anchor="middle" class="font-mono text-[11px] fill-rose-400 font-extrabold">✕ BLOCKED</text>
+                    <text x="180" y="39" text-anchor="middle" class="font-mono text-[7.5px] fill-rose-200">No Direct Comm.</text>
+
+                    <!-- User -->
+                    <rect x="255" y="12" width="95" height="32" rx="5" fill="#0F172A" stroke="#34D399" stroke-width="1.5"/>
+                    <text x="302" y="32" text-anchor="middle" class="font-mono text-[9px] fill-emerald-300 font-bold">The User's Model</text>
+
+                    <!-- Encoding Arrow -->
+                    <path d="M 57 46 L 130 92" stroke="#38BDF8" stroke-width="2"/>
+                    <text x="62" y="78" class="font-mono text-[8.5px] fill-sky-300 font-bold">ENCODING ↘</text>
+
+                    <!-- System Image Box -->
+                    <rect x="122" y="82" width="116" height="34" rx="6" fill="#064E3B" stroke="#34D399" stroke-width="2"/>
+                    <text x="180" y="103" text-anchor="middle" class="font-mono text-[10px] fill-emerald-200 font-extrabold">The System Image</text>
+
+                    <!-- Decoding Arrow -->
+                    <path d="M 238 92 L 302 46" stroke="#34D399" stroke-width="2"/>
+                    <text x="248" y="78" class="font-mono text-[8.5px] fill-emerald-300 font-bold">↗ DECODING</text>
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 15: The 7 Stages of Action & Slides 16–17: Bridging the Gulfs -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <!-- Slide 15: The 7 Stages of Action -->
+            <div class="lg:col-span-5 p-5 rounded-2xl bg-slate-950 text-white border border-slate-800 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs text-sky-400 font-bold uppercase">SLIDE 15 • THE 7 STAGES OF ACTION</span>
+                <h3 class="text-lg font-extrabold text-white mt-0.5">The Mind (Psychology) ⇄ The World (Technology)</h3>
+              </div>
+
+              <svg viewBox="0 0 300 250" class="w-full h-auto my-2" aria-label="Norman's 7 Stages of Action Cycle">
+                <!-- Center Divider -->
+                <line x1="150" y1="38" x2="150" y2="205" stroke="#334155" stroke-width="1.5" stroke-dasharray="4,3"/>
+                <text x="105" y="122" text-anchor="middle" class="font-mono text-[9px] fill-sky-300 font-bold">The Mind</text>
+                <text x="105" y="134" text-anchor="middle" class="font-mono text-[8px] fill-slate-400">Psychology</text>
+                <text x="195" y="122" text-anchor="middle" class="font-mono text-[9px] fill-emerald-300 font-bold">The World</text>
+                <text x="195" y="134" text-anchor="middle" class="font-mono text-[8px] fill-slate-400">Technology</text>
+
+                <!-- 1. Form the Goal (Top) -->
+                <rect x="92" y="8" width="116" height="26" rx="5" fill="#1E293B" stroke="#E2E8F0" stroke-width="1.5"/>
+                <text x="150" y="25" text-anchor="middle" class="font-mono text-[10px] fill-white font-extrabold">1. Form the Goal</text>
+
+                <!-- Left Execution Stages (2, 3, 4) -->
+                <rect x="12" y="56" width="76" height="24" rx="4" fill="#0C4A6E" stroke="#38BDF8" stroke-width="1.5"/>
+                <text x="50" y="72" text-anchor="middle" class="font-mono text-[9.5px] fill-sky-200 font-bold">2. Plan</text>
+
+                <rect x="8" y="112" width="80" height="24" rx="4" fill="#0C4A6E" stroke="#38BDF8" stroke-width="1.5"/>
+                <text x="48" y="128" text-anchor="middle" class="font-mono text-[9.5px] fill-sky-200 font-bold">3. Specify</text>
+
+                <rect x="12" y="168" width="80" height="24" rx="4" fill="#78350F" stroke="#F59E0B" stroke-width="1.5"/>
+                <text x="52" y="184" text-anchor="middle" class="font-mono text-[9.5px] fill-amber-200 font-bold">4. Perform</text>
+
+                <!-- Bottom: The Physical Interface -->
+                <rect x="85" y="212" width="130" height="30" rx="6" fill="#0F172A" stroke="#34D399" stroke-width="2"/>
+                <text x="150" y="231" text-anchor="middle" class="font-mono text-[9.5px] fill-emerald-300 font-extrabold">The Physical Interface</text>
+
+                <!-- Right Evaluation Stages (5, 6, 7) -->
+                <rect x="208" y="168" width="82" height="24" rx="4" fill="#064E3B" stroke="#34D399" stroke-width="1.5"/>
+                <text x="249" y="184" text-anchor="middle" class="font-mono text-[9.5px] fill-emerald-200 font-bold">5. Perceive</text>
+
+                <rect x="208" y="112" width="84" height="24" rx="4" fill="#78350F" stroke="#F59E0B" stroke-width="1.5"/>
+                <text x="250" y="128" text-anchor="middle" class="font-mono text-[9.5px] fill-amber-200 font-bold">6. Interpret</text>
+
+                <rect x="208" y="56" width="82" height="24" rx="4" fill="#064E3B" stroke="#34D399" stroke-width="1.5"/>
+                <text x="249" y="72" text-anchor="middle" class="font-mono text-[9.5px] fill-emerald-200 font-bold">7. Compare</text>
+              </svg>
+
+              <div class="text-[11px] font-mono text-slate-300 text-center">
+                Execution: 1 → 2 → 3 → 4 &nbsp;|&nbsp; Evaluation: 5 → 6 → 7 → 1
+              </div>
+            </div>
+
+            <!-- Slides 16 & 17: The Abysses of Interaction & Bridging the Gulfs -->
+            <div class="lg:col-span-7 p-5 rounded-2xl bg-zinc-50 border-2 border-zinc-200 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs font-bold text-zinc-700 uppercase">SLIDES 16 &amp; 17 • THE ABYSSES OF INTERACTION &amp; BRIDGING THE GULFS</span>
+                <h3 class="text-xl font-extrabold text-zinc-900 mt-0.5">Engineering the Two Bridges Between User and System</h3>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3">
+                  <!-- Gulf of Execution -->
+                  <div class="p-3.5 rounded-xl bg-sky-50 border border-sky-200">
+                    <span class="font-mono text-xs font-bold text-sky-900 block">1. THE GULF OF EXECUTION (Slide 16)</span>
+                    <p class="text-xs text-zinc-800 mt-1">
+                      The gap between what the user wants to do and what the interface lets them express.
+                    </p>
+                    <p class="text-xs font-bold text-sky-950 mt-1.5">
+                      <span class="hl-purple">Diagnostic Question: “How do I work this?”</span>
+                    </p>
+                    <div class="mt-2 pt-2 border-t border-sky-200 text-xs">
+                      <strong class="text-sky-900 block">Bridging Execution (Slide 17):</strong>
+                      <em>Feedforward answers: “What can I do?”</em><br/>
+                      <strong>4 Pillars:</strong> <code class="font-mono font-bold">Affordances</code>, <code class="font-mono font-bold">Signifiers</code>, <code class="font-mono font-bold">Constraints</code>, <code class="font-mono font-bold">Mappings</code>.
+                    </div>
+                  </div>
+
+                  <!-- Gulf of Evaluation -->
+                  <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200">
+                    <span class="font-mono text-xs font-bold text-emerald-900 block">2. THE GULF OF EVALUATION (Slide 16)</span>
+                    <p class="text-xs text-zinc-800 mt-1">
+                      The gap between the system's state and the user's ability to perceive/understand it.
+                    </p>
+                    <p class="text-xs font-bold text-emerald-950 mt-1.5">
+                      <span class="hl-purple">Diagnostic Question: “What just happened? Is it working?”</span>
+                    </p>
+                    <div class="mt-2 pt-2 border-t border-emerald-200 text-xs">
+                      <strong class="text-emerald-900 block">Bridging Evaluation (Slide 17):</strong>
+                      <em>Feedback answers: “What happened?”</em><br/>
+                      <strong>2 Pillars:</strong> <code class="font-mono font-bold">Feedback</code>, <code class="font-mono font-bold">Conceptual Models</code>.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Two-Bridge SVG from Slide 17 -->
+              <div class="mt-4 p-3 rounded-xl bg-slate-950 text-white">
+                <svg viewBox="0 0 460 115" class="w-full h-auto" aria-label="Bridging Execution and Evaluation Diagram">
+                  <!-- Left Cliff: USER -->
+                  <rect x="6" y="8" width="64" height="100" rx="4" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/>
+                  <text x="38" y="62" text-anchor="middle" class="font-mono text-[12px] fill-white font-extrabold">USER</text>
+                  <!-- Right Cliff: SYSTEM -->
+                  <rect x="390" y="8" width="64" height="100" rx="4" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/>
+                  <text x="422" y="62" text-anchor="middle" class="font-mono text-[11px] fill-white font-extrabold">SYSTEM</text>
+
+                  <!-- Top Bridge: Bridging Execution -->
+                  <rect x="70" y="18" width="320" height="16" fill="#0284C7" fill-opacity="0.35" stroke="#38BDF8" stroke-width="1.5"/>
+                  <text x="230" y="29" text-anchor="middle" class="font-mono text-[9px] fill-sky-200 font-bold">BRIDGING EXECUTION (Feedforward: What can I do?)</text>
+                  <!-- 4 Pillars -->
+                  <rect x="88" y="34" width="58" height="18" rx="3" fill="#0F172A" stroke="#38BDF8"/>
+                  <text x="117" y="46" text-anchor="middle" class="font-mono text-[7.5px] fill-sky-300">Affordances</text>
+                  <rect x="162" y="34" width="58" height="18" rx="3" fill="#0F172A" stroke="#38BDF8"/>
+                  <text x="191" y="46" text-anchor="middle" class="font-mono text-[7.5px] fill-sky-300">Signifiers</text>
+                  <rect x="236" y="34" width="58" height="18" rx="3" fill="#0F172A" stroke="#38BDF8"/>
+                  <text x="265" y="46" text-anchor="middle" class="font-mono text-[7.5px] fill-sky-300">Constraints</text>
+                  <rect x="310" y="34" width="58" height="18" rx="3" fill="#0F172A" stroke="#38BDF8"/>
+                  <text x="339" y="46" text-anchor="middle" class="font-mono text-[7.5px] fill-sky-300">Mappings</text>
+
+                  <!-- Bottom Bridge: Bridging Evaluation -->
+                  <rect x="70" y="66" width="320" height="16" fill="#059669" fill-opacity="0.35" stroke="#34D399" stroke-width="1.5"/>
+                  <text x="230" y="77" text-anchor="middle" class="font-mono text-[9px] fill-emerald-200 font-bold">BRIDGING EVALUATION (Feedback: What happened?)</text>
+                  <!-- 2 Pillars -->
+                  <rect x="115" y="82" width="80" height="18" rx="3" fill="#0F172A" stroke="#34D399"/>
+                  <text x="155" y="94" text-anchor="middle" class="font-mono text-[8px] fill-emerald-300">Feedback</text>
+                  <rect x="265" y="82" width="95" height="18" rx="3" fill="#0F172A" stroke="#34D399"/>
+                  <text x="312" y="94" text-anchor="middle" class="font-mono text-[8px] fill-emerald-300">Conceptual Models</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 18: Checkpoint 1 · Norman -->
+        <div class="border-t border-zinc-200 pt-6">
+          <div class="p-5 rounded-2xl bg-zinc-900 text-white">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <span class="font-mono text-xs text-amber-300 font-bold uppercase">SLIDE 18 • CHECKPOINT 1 · NORMAN</span>
+              <span class="font-mono text-xs text-zinc-400">A familiar interface, three kinds of diagnosis</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs sm:text-sm">
+              <div class="p-3.5 rounded-xl bg-zinc-800 border border-zinc-700">
+                <strong class="text-sky-300 font-mono block">• WHAT CAN I DO?</strong>
+                Affordance, signifiers and constraints.
+              </div>
+              <div class="p-3.5 rounded-xl bg-zinc-800 border border-zinc-700">
+                <strong class="text-amber-300 font-mono block">• HOW DOES IT WORK?</strong>
+                Mapping and the user's conceptual model.
+              </div>
+              <div class="p-3.5 rounded-xl bg-zinc-800 border border-zinc-700">
+                <strong class="text-emerald-300 font-mono block">• WHAT JUST HAPPENED?</strong>
+                Feedback and the gulf of evaluation.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 3: PART II — JAKOB NIELSEN'S 10 USABILITY HEURISTICS (SLIDES 19–33)
+         =================================================================== -->
+    <div id="sec-nielsen" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-purple-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-purple-700 text-white">SLIDES 19–33 • Part II: Jakob Nielsen's 10 Usability Heuristics &amp; Heuristic Evaluation</span>
+          <span class="font-mono text-xs text-zinc-500">Video cue: HCI__10_Usability_Heuristics.mp4 (8:13)</span>
+        </div>
+
+        <!-- Slides 19, 20 & 21: Intro to The Diagnostic Toolkit -->
+        <div class="mb-8 p-5 rounded-2xl bg-purple-50/60 border-2 border-purple-200">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="font-mono text-xs font-bold text-purple-900 uppercase">SLIDES 19, 20 &amp; 21 • THE DIAGNOSTIC TOOLKIT: 10 LENSES OF INTERACTION</span>
+            <span class="px-2 py-0.5 rounded bg-purple-200 text-purple-950 font-mono text-xs font-bold">Nielsen &amp; Molich (1990 / 1994)</span>
+          </div>
+          <p class="text-xs sm:text-sm text-zinc-800 mb-4">
+            Introduced by <strong>Jakob Nielsen and Rolf Molich in 1990 (refined in 1994)</strong>, these are <span class="hl-yellow font-bold">not rigid laws. They are heuristics—broad rules of thumb and general principles</span> that guide design decisions and structure system critiques.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
+            <div class="p-3 rounded-xl bg-white border border-purple-200">
+              <strong class="font-mono text-purple-900 block">• TARGET (Slide 20)</strong>
+              Find likely usability problems systematically.
+            </div>
+            <div class="p-3 rounded-xl bg-white border border-purple-200">
+              <strong class="font-mono text-purple-900 block">• EVIDENCE (Slide 20)</strong>
+              Identify the visible issue and the affected task.
+            </div>
+            <div class="p-3 rounded-xl bg-white border border-rose-200">
+              <strong class="font-mono text-rose-900 block">• LIMIT (Slide 20)</strong>
+              <span class="hl-pink font-semibold">A heuristic inspection does not replace observation of real users.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ALL 10 HEURISTICS (SLIDES 22–31) IN A 2-COLUMN EXAM GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+
+          <!-- Heuristic #1 (Slide 22) -->
+          <div class="p-5 rounded-2xl bg-white border-2 border-zinc-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded bg-zinc-900 text-white font-mono text-xs font-bold">HEURISTIC #1</span>
+                <span class="font-mono text-xs font-bold text-zinc-500">SLIDE 22</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">1. Visibility of System Status</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-yellow">Always keep users informed about what is going on through appropriate feedback within a reasonable time.</span>
+              </p>
+
+              <div class="grid grid-cols-2 gap-2.5 my-3 text-xs">
+                <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200">
+                  <strong class="text-rose-800 font-mono block">SYMPTOM:</strong>
+                  Unlabeled spinner → <em>“Am I frozen? Did it crash?”</em>
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <strong class="text-emerald-800 font-mono block">CURE:</strong>
+                  <code class="font-mono">Uploading Files... 68% Complete • Est: 12s [Cancel]</code>
+                </div>
+              </div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-purple-50 border border-purple-200 text-xs text-purple-950 font-semibold">
+              <strong>Diagnostic Q:</strong> Does the user know where they are, what the system is doing, and how long it will take?
+            </div>
+          </div>
+
+          <!-- Heuristic #2 (Slide 23) -->
+          <div class="p-5 rounded-2xl bg-white border-2 border-zinc-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded bg-zinc-900 text-white font-mono text-xs font-bold">HEURISTIC #2</span>
+                <span class="font-mono text-xs font-bold text-zinc-500">SLIDE 23</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">2. Match Between System and Real World</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-yellow">Speak the user's language with familiar words, phrases, and concepts rather than system-oriented terms.</span> Follow real-world conventions.
+              </p>
+
+              <div class="grid grid-cols-2 gap-2.5 my-3 text-xs">
+                <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200">
+                  <strong class="text-rose-800 font-mono block">SYMPTOM:</strong>
+                  <code class="font-mono">Exception Error 0x80040154: Class not registered. Terminate process?</code> (<em>Alien language!</em>)
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <strong class="text-emerald-800 font-mono block">CURE:</strong>
+                  Desktop folders &amp; Trash Can icon (<em>Familiar metaphor.</em>)
+                </div>
+              </div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-purple-50 border border-purple-200 text-xs text-purple-950 font-semibold">
+              <strong>Diagnostic Q:</strong> Does the interface force the user to learn technical jargon, or does it map to their existing mental model of the world?
+            </div>
+          </div>
+
+          <!-- Heuristic #3 (Slide 24) -->
+          <div class="p-5 rounded-2xl bg-white border-2 border-zinc-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded bg-zinc-900 text-white font-mono text-xs font-bold">HEURISTIC #3</span>
+                <span class="font-mono text-xs font-bold text-zinc-500">SLIDE 24</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">3. User Control and Freedom</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                Users often choose system functions by mistake. They need a clearly marked <span class="hl-green font-semibold">“emergency exit”</span> to leave the unwanted state without an extended dialogue. <strong>Support undo and redo.</strong>
+              </p>
+
+              <div class="grid grid-cols-2 gap-2.5 my-3 text-xs">
+                <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200">
+                  <strong class="text-rose-800 font-mono block">SYMPTOM:</strong>
+                  <code class="font-mono">Step 4 of 5: Review Order</code> with only a <code class="font-mono">[Next]</code> button (<em>Trapped!</em> No Back/Cancel).
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <strong class="text-emerald-800 font-mono block">CURE:</strong>
+                  Gmail toast: <code class="font-mono">Message Sent [Undo]</code>.
+                </div>
+              </div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-purple-50 border border-purple-200 text-xs text-purple-950 font-semibold">
+              <strong>Diagnostic Q:</strong> If the user misclicks, how painful is the recovery?
+            </div>
+          </div>
+
+          <!-- Heuristic #4 (Slide 25) -->
+          <div class="p-5 rounded-2xl bg-white border-2 border-zinc-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded bg-zinc-900 text-white font-mono text-xs font-bold">HEURISTIC #4</span>
+                <span class="font-mono text-xs font-bold text-zinc-500">SLIDE 25</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">4. Consistency and Standards</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-yellow">Users should not have to wonder whether different words, situations, or actions mean the same thing.</span> Follow platform conventions.
+              </p>
+
+              <div class="grid grid-cols-2 gap-2.5 my-3 text-xs">
+                <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200">
+                  <strong class="text-rose-800 font-mono block">SYMPTOM:</strong>
+                  Non-standard button placement &amp; styling (<code class="font-mono">[Save] [Cancel]</code> swapped — <em>Fights platform standards!</em>)
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <strong class="text-emerald-800 font-mono block">CURE:</strong>
+                  Standard top-left back arrow <code class="font-mono">←</code> and top-right <code class="font-mono">+</code> (<em>Expected placement.</em>)
+                </div>
+              </div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-purple-50 border border-purple-200 text-xs text-purple-950 font-semibold">
+              <strong>Diagnostic Q:</strong> Does this design reinvent the wheel, forcing the user to learn a new interaction pattern for a standard task?
+            </div>
+          </div>
+
+          <!-- Heuristic #5 (Slide 26) -->
+          <div class="p-5 rounded-2xl bg-white border-2 border-zinc-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded bg-zinc-900 text-white font-mono text-xs font-bold">HEURISTIC #5</span>
+                <span class="font-mono text-xs font-bold text-zinc-500">SLIDE 26</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">5. Error Prevention</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-green">Even better than good error messages is a careful design that prevents a problem from occurring in the first place.</span> Eliminate error-prone conditions or use constraints.
+              </p>
+
+              <div class="grid grid-cols-2 gap-2.5 my-3 text-xs">
+                <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200">
+                  <strong class="text-rose-800 font-mono block">SYMPTOM:</strong>
+                  Free-text input <code class="font-mono">Departure Date: [March 5th]</code> (<em>Guaranteed formatting error.</em>)
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <strong class="text-emerald-800 font-mono block">CURE:</strong>
+                  Structured calendar date picker (<em>Constrained to valid choices.</em>)
+                </div>
+              </div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-purple-50 border border-purple-200 text-xs text-purple-950 font-semibold">
+              <strong>Diagnostic Q:</strong> Does the interface allow the user to make an invalid choice, or does it constrain them to only valid actions?
+            </div>
+          </div>
+
+          <!-- Heuristic #6 (Slide 27) -->
+          <div class="p-5 rounded-2xl bg-white border-2 border-zinc-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded bg-zinc-900 text-white font-mono text-xs font-bold">HEURISTIC #6</span>
+                <span class="font-mono text-xs font-bold text-zinc-500">SLIDE 27</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">6. Recognition Rather Than Recall</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-yellow">Minimize memory load by making objects, actions, and options visible.</span> The user should not have to remember information from one part of the dialog to another.
+              </p>
+
+              <div class="grid grid-cols-2 gap-2.5 my-3 text-xs">
+                <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200">
+                  <strong class="text-rose-800 font-mono block">SYMPTOM (Recall):</strong>
+                  Terminal <code class="font-mono">$ tar zxvf archive.tar.gz</code> (<em>Requires rote memorization.</em>)
+                </div>
+                <div class="p-2.5 rounded-lg bg-amber-50 border border-amber-200">
+                  <strong class="text-amber-900 font-mono block">NUANCE (Slide 27):</strong>
+                  200-country dropdown: <em>“Recognition isn't always best! Predictive typing (recall + recognition) wins here.”</em>
+                </div>
+              </div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-purple-50 border border-purple-200 text-xs text-purple-950 font-semibold">
+              <strong>Diagnostic Q:</strong> Are options visually present, or is the user relying on their fragile working memory to proceed?
+            </div>
+          </div>
+
+          <!-- Heuristic #7 (Slide 28) -->
+          <div class="p-5 rounded-2xl bg-white border-2 border-zinc-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded bg-zinc-900 text-white font-mono text-xs font-bold">HEURISTIC #7</span>
+                <span class="font-mono text-xs font-bold text-zinc-500">SLIDE 28</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">7. Flexibility and Efficiency of Use</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-blue">Accelerators—unseen by the novice user—may often speed up the interaction for the expert user.</span> Allow users to tailor frequent actions.
+              </p>
+
+              <div class="grid grid-cols-2 gap-2.5 my-3 text-xs">
+                <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200">
+                  <strong class="text-rose-800 font-mono block">SYMPTOM:</strong>
+                  Rigid 8-step <code class="font-mono">Setup Wizard [Next &gt;]</code> (<em>Slows down experts.</em>)
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <strong class="text-emerald-800 font-mono block">CURE:</strong>
+                  Menu bar with shortcuts (<code class="font-mono">⌘N</code>, <code class="font-mono">⌘T</code>, <code class="font-mono">⌘S</code>, <code class="font-mono">⌘P</code> — <em>Accelerators for power users.</em>)
+                </div>
+              </div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-purple-50 border border-purple-200 text-xs text-purple-950 font-semibold">
+              <strong>Diagnostic Q:</strong> Does the interface support both the slow, guided walk of a beginner and the rapid, customized sprint of an expert?
+            </div>
+          </div>
+
+          <!-- Heuristic #8 (Slide 29) -->
+          <div class="p-5 rounded-2xl bg-white border-2 border-zinc-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded bg-zinc-900 text-white font-mono text-xs font-bold">HEURISTIC #8</span>
+                <span class="font-mono text-xs font-bold text-zinc-500">SLIDE 29</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">8. Aesthetic and Minimalist Design</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                Dialogs should not contain information that is irrelevant or rarely needed. <span class="hl-pink font-semibold">Every extra unit of information competes with the relevant units and diminishes visibility.</span>
+              </p>
+
+              <div class="grid grid-cols-2 gap-2.5 my-3 text-xs">
+                <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200">
+                  <strong class="text-rose-800 font-mono block">SYMPTOM:</strong>
+                  Cluttered portal (<code class="font-mono">WIN A FREE IPOD! CLICK HERE!</code> — <em>Irrelevant noise.</em>)
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <strong class="text-emerald-800 font-mono block">CURE:</strong>
+                  Clean Google Search home page (<em>High signal-to-noise ratio.</em>)
+                </div>
+              </div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-purple-50 border border-purple-200 text-xs text-purple-950 font-semibold">
+              <strong>Diagnostic Q:</strong> Can any visual element be removed without reducing the user's understanding of the task?
+            </div>
+          </div>
+
+          <!-- Heuristic #9 (Slide 30) -->
+          <div class="p-5 rounded-2xl bg-white border-2 border-zinc-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded bg-zinc-900 text-white font-mono text-xs font-bold">HEURISTIC #9</span>
+                <span class="font-mono text-xs font-bold text-zinc-500">SLIDE 30</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">9. Recognize, Diagnose, &amp; Recover from Errors</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-green">Error messages should be expressed in plain language (no codes), precisely indicate the problem, and constructively suggest a solution.</span>
+              </p>
+
+              <div class="grid grid-cols-2 gap-2.5 my-3 text-xs">
+                <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200">
+                  <strong class="text-rose-800 font-mono block">SYMPTOM:</strong>
+                  Blank <code class="font-mono">404 Not Found</code> page (<em>Dead end. Blames the user.</em>)
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <strong class="text-emerald-800 font-mono block">CURE:</strong>
+                  Plain explanation + <code class="font-mono">[Go to Homepage] [Search the Site] [Contact Support]</code> (<em>Actionable recovery paths.</em>)
+                </div>
+              </div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-purple-50 border border-purple-200 text-xs text-purple-950 font-semibold">
+              <strong>Diagnostic Q:</strong> Does the error message blame the user, or does it offer a clear, actionable path forward?
+            </div>
+          </div>
+
+          <!-- Heuristic #10 (Slide 31) -->
+          <div class="p-5 rounded-2xl bg-white border-2 border-zinc-200 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <span class="px-2.5 py-0.5 rounded bg-zinc-900 text-white font-mono text-xs font-bold">HEURISTIC #10</span>
+                <span class="font-mono text-xs font-bold text-zinc-500">SLIDE 31</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">10. Help and Documentation</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                Even though it is better if the system can be used without documentation, it may be necessary to provide help. <span class="hl-blue">It should be easy to search, focused on the user's task, and concise.</span>
+              </p>
+
+              <div class="grid grid-cols-2 gap-2.5 my-3 text-xs">
+                <div class="p-2.5 rounded-lg bg-rose-50 border border-rose-200">
+                  <strong class="text-rose-800 font-mono block">SYMPTOM:</strong>
+                  <code class="font-mono">User Manual: 500 Pages</code> (<em>Nobody reads this.</em>)
+                </div>
+                <div class="p-2.5 rounded-lg bg-emerald-50 border border-emerald-200">
+                  <strong class="text-emerald-800 font-mono block">CURE:</strong>
+                  Inline popover tooltip on <code class="font-mono">?</code> icon (<em>Contextual &amp; immediate.</em>)
+                </div>
+              </div>
+            </div>
+            <div class="p-2.5 rounded-lg bg-purple-50 border border-purple-200 text-xs text-purple-950 font-semibold">
+              <strong>Diagnostic Q:</strong> Is help contextual, appearing at the exact moment and place the user needs it?
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Slide 32 & Slide 33: The Psychology Beneath the Rules & Heuristic Evaluation != Usability Testing -->
+        <div class="border-t border-zinc-200 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <!-- Slide 32: Psychology Beneath the Rules -->
+          <div class="lg:col-span-7 p-5 rounded-2xl bg-slate-950 text-white border border-slate-800 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-purple-400 font-bold uppercase">SLIDE 32 • THE PSYCHOLOGY BENEATH THE RULES</span>
+              <h3 class="text-xl font-extrabold text-white mt-0.5">Cognitive Foundations → The Heuristics</h3>
+
+              <svg viewBox="0 0 440 145" class="w-full h-auto my-3" aria-label="Cognitive Foundations to Heuristics Mapping">
+                <!-- Left Column: Cognitive Foundations -->
+                <rect x="8" y="10" width="165" height="34" rx="6" fill="#3B0764" stroke="#E879F9" stroke-width="1.5"/>
+                <text x="90" y="25" text-anchor="middle" class="font-mono text-[8.5px] fill-fuchsia-200 font-bold">Fragile Working Memory</text>
+                <text x="90" y="37" text-anchor="middle" class="font-mono text-[8px] fill-fuchsia-300">(Miller's 7±2)</text>
+
+                <rect x="8" y="55" width="165" height="34" rx="6" fill="#083344" stroke="#22D3EE" stroke-width="1.5"/>
+                <text x="90" y="70" text-anchor="middle" class="font-mono text-[8.5px] fill-cyan-200 font-bold">Selective Visual</text>
+                <text x="90" y="82" text-anchor="middle" class="font-mono text-[8px] fill-cyan-300">Attention</text>
+
+                <rect x="8" y="100" width="165" height="34" rx="6" fill="#451A03" stroke="#F59E0B" stroke-width="1.5"/>
+                <text x="90" y="115" text-anchor="middle" class="font-mono text-[8.5px] fill-amber-200 font-bold">Existing Mental</text>
+                <text x="90" y="127" text-anchor="middle" class="font-mono text-[8px] fill-amber-300">Schemas</text>
+
+                <!-- Connecting Lines -->
+                <path d="M 173 27 L 245 22" stroke="#E879F9" stroke-width="2"/>
+                <path d="M 173 72 L 245 58" stroke="#22D3EE" stroke-width="2"/>
+                <path d="M 173 117 L 245 94" stroke="#F59E0B" stroke-width="2"/>
+                <path d="M 173 117 L 245 128" stroke="#F59E0B" stroke-width="2"/>
+
+                <!-- Right Column: The Heuristics -->
+                <rect x="245" y="6" width="185" height="28" rx="5" fill="#0F172A" stroke="#E879F9" stroke-width="1.5"/>
+                <text x="337" y="24" text-anchor="middle" class="font-mono text-[8.5px] fill-fuchsia-300 font-bold">Rule #6: Recognition over Recall</text>
+
+                <rect x="245" y="42" width="185" height="28" rx="5" fill="#0F172A" stroke="#22D3EE" stroke-width="1.5"/>
+                <text x="337" y="60" text-anchor="middle" class="font-mono text-[8px] fill-cyan-300 font-bold">Rule #8: Aesthetic &amp; Minimalist</text>
+
+                <rect x="245" y="78" width="185" height="28" rx="5" fill="#0F172A" stroke="#F59E0B" stroke-width="1.5"/>
+                <text x="337" y="96" text-anchor="middle" class="font-mono text-[8.5px] fill-amber-300 font-bold">Rule #2: Match Real World</text>
+
+                <rect x="245" y="114" width="185" height="26" rx="5" fill="#0F172A" stroke="#F59E0B" stroke-width="1.5"/>
+                <text x="337" y="131" text-anchor="middle" class="font-mono text-[8.5px] fill-amber-300 font-bold">Rule #4: Consistency</text>
+              </svg>
+            </div>
+            <div class="p-3 rounded-xl bg-amber-400 text-zinc-900 text-xs font-extrabold text-center">
+              ★ Takeaway (Slide 32): “Heuristics are just human cognitive constraints translated into software engineering rules.”
+            </div>
+          </div>
+
+          <!-- Slide 33: Heuristic Evaluation != Usability Testing -->
+          <div class="lg:col-span-5 p-5 rounded-2xl bg-zinc-50 border-2 border-zinc-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-rose-800 uppercase">SLIDE 33 • CRITICAL DISTINCTION</span>
+              <h3 class="text-xl font-extrabold text-zinc-900 mt-0.5">Heuristic Evaluation ≠ Usability Testing</h3>
+              <p class="text-xs text-zinc-600 mb-3">Both are useful; neither replaces the other.</p>
+
+              <div class="space-y-3 text-xs sm:text-sm">
+                <div class="p-3 rounded-xl bg-white border border-zinc-200">
+                  <strong class="font-mono text-purple-900 block">• HEURISTIC INSPECTION</strong>
+                  <span class="hl-blue">Evaluators inspect a design against established guidelines.</span>
+                </div>
+                <div class="p-3 rounded-xl bg-white border border-zinc-200">
+                  <strong class="font-mono text-emerald-900 block">• USABILITY TESTING</strong>
+                  <span class="hl-green">Representative users attempt representative tasks; we observe outcomes.</span>
+                </div>
+                <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+                  <strong class="font-mono text-amber-900 block">• WEEK 9 PREVIEW</strong>
+                  Evaluator independence, severity ratings, study design, and reporting.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 4: PART III — SHNEIDERMAN'S 8 GOLDEN RULES (SLIDES 34–41)
+         =================================================================== -->
+    <div id="sec-shneiderman" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-amber-500">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-600 text-white">SLIDES 34–41 • Part III: Shneiderman's 8 Golden Rules &amp; Three Complementary Lenses</span>
+          <span class="font-mono text-xs text-zinc-500">Video cue: HCI__Shneiderman_s_Rules.mp4 (8:56)</span>
+        </div>
+
+        <!-- Slides 34 & 35: Three Complementary Lenses -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-amber-800 mb-1">SLIDES 34 &amp; 35 • THREE COMPLEMENTARY LENSES</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-3">Shared Human Concerns, Different Teaching Purposes</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-sky-50 border-2 border-sky-200">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-mono text-xs font-extrabold text-sky-900">• NORMAN</span>
+                <span class="px-2 py-0.5 rounded bg-sky-200 text-sky-950 font-mono text-[11px] font-bold">EXPLANATORY</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                <span class="hl-blue font-semibold">How do people understand and act through a design?</span>
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-purple-50 border-2 border-purple-200">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-mono text-xs font-extrabold text-purple-900">• NIELSEN</span>
+                <span class="px-2 py-0.5 rounded bg-purple-200 text-purple-950 font-mono text-[11px] font-bold">DIAGNOSTIC</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                <span class="hl-purple font-semibold">What usability issues can evaluators spot?</span>
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-amber-50 border-2 border-amber-200">
+              <div class="flex items-center justify-between mb-1">
+                <span class="font-mono text-xs font-extrabold text-amber-900">• SHNEIDERMAN</span>
+                <span class="px-2 py-0.5 rounded bg-amber-200 text-amber-950 font-mono text-[11px] font-bold">PRESCRIPTIVE</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                <span class="hl-yellow font-semibold">What design rules help build effective interaction?</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ALL 8 GOLDEN RULES (SLIDES 36–41) -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+          <!-- Rule 1 (Slide 36) -->
+          <div class="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2.5 py-0.5 rounded bg-amber-600 text-white font-mono text-xs font-bold">GOLDEN RULE #1</span>
+                <span class="font-mono text-xs text-zinc-500">SLIDE 36</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">1. Strive for consistency.</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-yellow">Action sequences, layouts, and terminology must be predictable to leverage existing mental models.</span>
+              </p>
+            </div>
+            <div class="mt-3 p-3 rounded-xl bg-white border border-zinc-200 flex items-center justify-around font-mono text-xs">
+              <span class="px-3 py-1 rounded bg-sky-600 text-white font-bold">Submit</span>
+              <span class="px-3 py-1 rounded bg-sky-600 text-white font-bold">Submit</span>
+              <span class="px-3 py-1 rounded bg-sky-600 text-white font-bold">Submit</span>
+            </div>
+          </div>
+
+          <!-- Rule 2 (Slide 36) -->
+          <div class="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2.5 py-0.5 rounded bg-amber-600 text-white font-mono text-xs font-bold">GOLDEN RULE #2</span>
+                <span class="font-mono text-xs text-zinc-500">SLIDE 36</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">2. Cater to universal usability.</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-blue">Design for a spectrum of users—provide walk-up-and-use menus for novices, but enable shortcuts/macros for experts.</span>
+              </p>
+            </div>
+            <div class="mt-3 p-3 rounded-xl bg-slate-900 text-white font-mono text-xs flex items-center justify-between">
+              <span>File ▸ Save File <span class="text-slate-400">(Novice Menu)</span></span>
+              <span class="px-2 py-0.5 rounded bg-amber-500 text-zinc-950 font-bold">Ctrl + S (Expert)</span>
+            </div>
+          </div>
+
+          <!-- Rule 3 (Slide 37) -->
+          <div class="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2.5 py-0.5 rounded bg-amber-600 text-white font-mono text-xs font-bold">GOLDEN RULE #3</span>
+                <span class="font-mono text-xs text-zinc-500">SLIDE 37</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">3. Offer informative feedback.</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-green">Every action demands a perceivable system response proportional to the magnitude of the action.</span>
+              </p>
+            </div>
+            <div class="mt-3 p-3 rounded-xl bg-white border border-zinc-200 font-mono text-xs text-center font-bold text-zinc-800">
+              User ──(Action)──► System ──(Reaction)──► User
+            </div>
+          </div>
+
+          <!-- Rule 4 (Slide 37) -->
+          <div class="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2.5 py-0.5 rounded bg-amber-600 text-white font-mono text-xs font-bold">GOLDEN RULE #4</span>
+                <span class="font-mono text-xs text-zinc-500">SLIDE 37</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">4. Design dialogs to yield closure.</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-yellow">Organize sequences into beginning, middle, and end.</span> Closure provides psychological relief and readies the user for the next group of actions.
+              </p>
+            </div>
+            <div class="mt-3 p-3 rounded-xl bg-emerald-950 text-emerald-200 font-mono text-xs">
+              Cart → Shipping → Payment → <strong>Confirmation: ✓ Success! Receipt Emailed. (100%)</strong>
+            </div>
+          </div>
+
+          <!-- Rule 5 (Slide 38) -->
+          <div class="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2.5 py-0.5 rounded bg-amber-600 text-white font-mono text-xs font-bold">GOLDEN RULE #5</span>
+                <span class="font-mono text-xs text-zinc-500">SLIDE 38</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">5. Prevent errors.</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                Do not rely on users being careful. <span class="hl-blue font-semibold">Anticipate motor slips via spacing and constraints.</span> <span class="hl-pink font-semibold">Mitigate cognitive mistakes by graying out invalid options and demanding confirmation for destructive acts.</span>
+              </p>
+            </div>
+            <div class="mt-3 p-3 rounded-xl bg-slate-900 text-white font-mono text-[11px]">
+              <div class="text-rose-400 font-bold">Confirm Database Deletion</div>
+              <div class="text-slate-300 mt-0.5">Type database name: <span class="px-1.5 py-0.5 bg-slate-800 rounded text-amber-300">Confirm DeleteDB</span></div>
+              <div class="mt-1.5 flex gap-2 justify-end">
+                <span class="px-2 py-0.5 rounded bg-slate-700">Cancel</span>
+                <span class="px-2 py-0.5 rounded bg-rose-600 font-bold">Delete</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Rule 6 (Slide 39) -->
+          <div class="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2.5 py-0.5 rounded bg-amber-600 text-white font-mono text-xs font-bold">GOLDEN RULE #6</span>
+                <span class="font-mono text-xs text-zinc-500">SLIDE 39</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">6. Permit easy reversal of actions.</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-green">Relieves user anxiety and encourages active exploration.</span> When users know they can always return to a previous state, they bypass the paralyzing fear of making a mistake.
+              </p>
+            </div>
+            <div class="mt-3 p-3 rounded-xl bg-white border border-zinc-200 font-mono text-[11px] flex items-center justify-between">
+              <span class="text-emerald-800 font-bold">INITIAL STATE (CLEAN UI)</span>
+              <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-900 font-bold">⇄ UNDO / Trial &amp; Error</span>
+              <span class="text-rose-800 font-bold">ERROR STATE (MESSY UI)</span>
+            </div>
+          </div>
+
+          <!-- Rule 7 (Slide 40) -->
+          <div class="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2.5 py-0.5 rounded bg-amber-600 text-white font-mono text-xs font-bold">GOLDEN RULE #7</span>
+                <span class="font-mono text-xs text-zinc-500">SLIDE 40</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">7. Support internal locus of control.</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-yellow">Users want to be the initiators of actions, not the responders to system demands.</span> Avoid surprising system updates, unprompted mode shifts, or forced navigation.
+              </p>
+            </div>
+            <div class="mt-3 grid grid-cols-2 gap-2 font-mono text-[11px]">
+              <div class="p-2 rounded bg-rose-50 border border-rose-200 text-rose-900 font-bold text-center">
+                ✘ SYSTEM IN CONTROL (PASSIVE)
+              </div>
+              <div class="p-2 rounded bg-emerald-50 border border-emerald-200 text-emerald-900 font-bold text-center">
+                ✔ USER IN CONTROL (AUTONOMOUS)
+              </div>
+            </div>
+          </div>
+
+          <!-- Rule 8 (Slide 41) -->
+          <div class="p-5 rounded-2xl bg-zinc-50 border border-zinc-200 flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-1">
+                <span class="px-2.5 py-0.5 rounded bg-amber-600 text-white font-mono text-xs font-bold">GOLDEN RULE #8</span>
+                <span class="font-mono text-xs text-zinc-500">SLIDE 41</span>
+              </div>
+              <h3 class="text-lg font-extrabold text-zinc-900">8. Reduce short-term memory load.</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-pink font-semibold">Respect the 4-chunk, 20-second limit.</span> Displays must be kept simple. Information from one part of a dialog must remain visible in the next. <span class="hl-green font-bold">Let the computer remember, so the human doesn't have to.</span>
+              </p>
+            </div>
+            <div class="mt-3 p-3 rounded-xl bg-slate-950 text-white font-mono text-[11px]">
+              <div class="text-sky-300 font-bold text-center mb-1.5">WORKING MEMORY TUBE (4 CHUNKS) EXTERNALIZED VIA:</div>
+              <div class="grid grid-cols-3 gap-1.5 text-center text-[10px]">
+                <span class="p-1.5 rounded bg-slate-800 border border-amber-400/50 text-amber-300">1. BREADCRUMBS</span>
+                <span class="p-1.5 rounded bg-slate-800 border border-sky-400/50 text-sky-300">2. PERSISTENT SEARCH TERMS</span>
+                <span class="p-1.5 rounded bg-slate-800 border border-emerald-400/50 text-emerald-300">3. VISIBLE STATE INDICATORS</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 5: PART IV — SYNTHESIS MATRICES, EXPERT CRITIQUE FORMULA & HOSPITAL MEDICATION ORDER EXERCISE (SLIDES 42–49)
+         =================================================================== -->
+    <div id="sec-synthesis" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-zinc-900 border-b-4 border-b-zinc-900">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDES 42–49 • Synthesis Matrices I–III, Expert Critique Formula &amp; Hospital Medication Exercise</span>
+          <span class="font-hand text-xl text-amber-800 font-bold">★ Ultimate Exam Synthesis</span>
+        </div>
+
+        <!-- Slides 42, 43 & 44: Master Synthesis Matrix (Cognition, Action, Understanding) -->
+        <div class="mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-zinc-600 mb-1">SLIDES 42, 43 &amp; 44 • MASTER SYNTHESIS MATRIX I, II &amp; III</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-3">Connecting Psychological Roots → Norman → Nielsen → Shneiderman</h2>
+
+          <div class="overflow-x-auto rounded-xl border-2 border-zinc-900">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                  <th class="py-3.5 px-4">Matrix Domain</th>
+                  <th class="py-3.5 px-4 text-rose-300">Psychological Root</th>
+                  <th class="py-3.5 px-4 text-sky-300">Norman (Theory)</th>
+                  <th class="py-3.5 px-4 text-purple-300">Nielsen (Heuristic)</th>
+                  <th class="py-3.5 px-4 text-amber-300">Shneiderman (Rule)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+                <tr>
+                  <td class="py-3.5 px-4 font-mono text-xs font-bold text-zinc-900 bg-zinc-50">Matrix I: Cognition<br/><span class="text-[10px] text-zinc-500">(Slide 42)</span></td>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900"><span class="hl-pink">Working Memory Limits (7±2 chunks)</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800">Put <strong>‘Knowledge in the World’</strong> (not just in the head)</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Recognition rather than Recall</strong></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Reduce Short-Term Memory Load</strong></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-mono text-xs font-bold text-zinc-900 bg-zinc-50">Matrix II: Action (Errors)<br/><span class="text-[10px] text-zinc-500">(Slide 43)</span></td>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900"><span class="hl-pink">Slips &amp; Mistakes</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Physical &amp; Logical Constraints</strong></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Error Prevention + Easy Reversal</strong></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Prevent Errors + Easy Reversal</strong></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-mono text-xs font-bold text-zinc-900 bg-zinc-50">Matrix II: Action (Feedback)<br/><span class="text-[10px] text-zinc-500">(Slide 43)</span></td>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900"><span class="hl-blue">Gulf of Evaluation</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Immediate Feedback</strong></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Visibility of System Status</strong></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Informative Feedback + Yield Closure</strong></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-mono text-xs font-bold text-zinc-900 bg-zinc-50">Matrix III: Understanding<br/><span class="text-[10px] text-zinc-500">(Slide 44)</span></td>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900"><span class="hl-yellow">Mental Models &amp; Schemas</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Clear System Image &amp; Natural Mappings</strong></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Match System to the Real World + Consistency</strong></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Strive for Consistency + Internal Locus of Control</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Slide 45: How to Critique Like an Expert -->
+        <div class="border-t border-zinc-200 pt-8 mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-purple-800 mb-2">SLIDE 45 • HOW TO CRITIQUE LIKE AN EXPERT</div>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <!-- Left: Confusing Parking Signs Visual -->
+            <div class="lg:col-span-4 p-4 rounded-2xl bg-slate-950 text-white border border-slate-800 text-center font-mono text-xs space-y-2">
+              <div class="p-2 rounded bg-rose-800 border border-white font-bold">
+                NO PARKING<br/>MON–FRI 8AM–10AM<br/>TOW AWAY ZONE
+              </div>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="p-2 rounded bg-emerald-800 border border-white">
+                  <strong>2 HR PARKING</strong><br/>SAT–SUN 10AM–6PM<br/>EXCEPT HOLIDAYS
+                </div>
+                <div class="p-2 rounded bg-amber-600 text-zinc-950 border border-white font-bold">
+                  LOADING ONLY<br/>10AM–4PM<br/>PERMIT A REQ.
+                </div>
+              </div>
+              <div class="text-[11px] text-slate-400">Cognitive overload in everyday signage (Slide 45)</div>
+            </div>
+
+            <!-- Right: 3-Step Expert Critique Formula -->
+            <div class="lg:col-span-8 space-y-3">
+              <div class="p-4 rounded-xl bg-rose-50 border-l-4 border-rose-500">
+                <strong class="font-mono text-xs text-rose-900 uppercase block">1. Identify the Psychological Limit Breached</strong>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-0.5">
+                  (e.g., <em>“This requires recalling state from short-term memory without visual cues.”</em>)
+                </p>
+              </div>
+              <div class="p-4 rounded-xl bg-purple-50 border-l-4 border-purple-500">
+                <strong class="font-mono text-xs text-purple-900 uppercase block">2. Cite the Heuristic</strong>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-0.5">
+                  (e.g., <em>“Violates Nielsen's <span class="hl-purple font-semibold">Recognition rather than Recall</span>.”</em>)
+                </p>
+              </div>
+              <div class="p-4 rounded-xl bg-emerald-50 border-l-4 border-emerald-500">
+                <strong class="font-mono text-xs text-emerald-900 uppercase block">3. Propose the Rule Fix</strong>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-0.5">
+                  (e.g., <em>“Apply Shneiderman's <span class="hl-green font-semibold">Reduce Memory Load</span> by visually highlighting the currently active state.”</em>)
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slides 46, 47 & 48: Class Exercise — Hospital Medication Order Mockup & Engineering Debrief -->
+        <div class="border-t border-zinc-200 pt-8 mb-10">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div>
+              <span class="font-mono text-xs uppercase font-bold text-rose-800">SLIDES 46, 47 &amp; 48 • CLASS EXERCISE &amp; DEBRIEF: HOSPITAL MEDICATION ORDER</span>
+              <h2 class="text-2xl font-extrabold text-zinc-900">Spot the 4 Usability Risks &amp; Compare Engineering Findings</h2>
+            </div>
+            <span class="px-2.5 py-1 rounded bg-rose-100 text-rose-900 font-mono text-xs font-bold">25 min Exercise + 5 min Debrief</span>
+          </div>
+
+          <!-- Slide 46 Task Instructions -->
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6 text-xs">
+            <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+              <strong class="font-mono text-zinc-900 block">1. TASK (Slide 46)</strong>
+              Identify at least four usability risks in the mock interface.
+            </div>
+            <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+              <strong class="font-mono text-zinc-900 block">2. DIAGNOSE (Slide 46)</strong>
+              Cite at least one Norman / Nielsen / Shneiderman principle per risk.
+            </div>
+            <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+              <strong class="font-mono text-zinc-900 block">3. REDESIGN (Slide 46)</strong>
+              Sketch or annotate a safer alternative and justify changes.
+            </div>
+            <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+              <strong class="font-mono text-zinc-900 block">4. REPORT (Slide 46)</strong>
+              Choose one high-risk issue and explain how you would test the solution.
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <!-- Slide 47: Intentionally Flawed Fictional Interface Mockup -->
+            <div class="lg:col-span-5 p-5 rounded-2xl bg-rose-50/50 border-2 border-rose-300 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-xs font-bold text-rose-900 uppercase">SLIDE 47 • FICTIONAL INTERFACE (FLAWED)</span>
+                  <span class="px-2 py-0.5 rounded bg-rose-200 text-rose-950 font-mono text-[10px] font-bold">SPOT THE RISKS</span>
+                </div>
+
+                <!-- Exact Reconstruction of Slide 47 UI -->
+                <div class="p-4 rounded-xl bg-white border-2 border-zinc-300 shadow-inner font-mono text-xs space-y-3 mt-2">
+                  <div class="text-[11px] text-zinc-500 border-b border-zinc-200 pb-1">WARD 2 / PATIENT LIST</div>
+
+                  <div class="p-2 rounded bg-rose-50 border border-rose-300 flex items-center justify-between">
+                    <span>Patient: <strong>A. K.</strong> | ID: <strong>1945?</strong></span>
+                    <span class="px-1.5 py-0.5 rounded bg-rose-600 text-white text-[10px] font-bold">Risk #1</span>
+                  </div>
+
+                  <div class="p-2 rounded bg-zinc-100 border border-zinc-300">
+                    Prescription: <strong>Drug A</strong>
+                  </div>
+
+                  <div class="p-2 rounded bg-rose-50 border border-rose-300 flex items-center justify-between">
+                    <span>Dose: <strong>10</strong> <span class="text-rose-600">(mg? mL? units?)</span></span>
+                    <span class="px-1.5 py-0.5 rounded bg-rose-600 text-white text-[10px] font-bold">Risk #2</span>
+                  </div>
+
+                  <div class="p-2 rounded bg-rose-50 border border-rose-300 flex items-center justify-between">
+                    <span>Route: <strong>IV?</strong> &nbsp; Frequency: <strong>2</strong></span>
+                    <span class="px-1.5 py-0.5 rounded bg-rose-600 text-white text-[10px] font-bold">Risk #2b</span>
+                  </div>
+
+                  <div class="p-2 rounded bg-amber-50 border border-amber-300 flex items-center justify-between text-amber-900">
+                    <span>Order successfully saved <strong>(?)</strong></span>
+                    <span class="px-1.5 py-0.5 rounded bg-amber-600 text-white text-[10px] font-bold">Risk #4</span>
+                  </div>
+
+                  <div class="pt-2 flex items-center justify-between gap-2">
+                    <span class="px-3 py-1.5 rounded bg-zinc-200 text-zinc-700 font-bold">CANCEL</span>
+                    <span class="px-3 py-1.5 rounded bg-zinc-200 text-zinc-700 font-bold">SAVE</span>
+                    <span class="px-1.5 py-0.5 rounded bg-rose-600 text-white text-[10px] font-bold">Risk #3</span>
+                  </div>
+                </div>
+              </div>
+              <p class="text-[11px] font-mono text-zinc-500 mt-3 text-center">
+                “Illustrative fictional mockup. Not a medical order or a production system.” (Slide 47)
+              </p>
+            </div>
+
+            <!-- Slide 48: Debrief — Example Engineering Findings -->
+            <div class="lg:col-span-7 p-5 rounded-2xl bg-emerald-50/60 border-2 border-emerald-300 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-2">
+                  <span class="font-mono text-xs font-bold text-emerald-900 uppercase">SLIDE 48 • DEBRIEF: EXAMPLE ENGINEERING FINDINGS</span>
+                  <span class="font-mono text-xs text-emerald-800 font-bold">Problem → Principle → Redesign</span>
+                </div>
+
+                <div class="space-y-3 mt-3 text-xs sm:text-sm">
+                  <div class="p-3.5 rounded-xl bg-white border border-emerald-200">
+                    <div class="flex items-center justify-between">
+                      <strong class="font-mono text-rose-800">1. AMBIGUOUS PATIENT (<code class="font-mono">A. K. | ID: 1945?</code>)</strong>
+                      <span class="font-mono text-[11px] text-zinc-500">SLIDE 48</span>
+                    </div>
+                    <p class="text-zinc-800 mt-1">
+                      <strong>Principle:</strong> <span class="hl-blue font-semibold">Recognition / error prevention</span> → <strong>Redesign:</strong> <span class="hl-green font-semibold">Clear identity confirmation</span> (full patient name, DOB, verified MRN, and photo/wristband match).
+                    </p>
+                  </div>
+
+                  <div class="p-3.5 rounded-xl bg-white border border-emerald-200">
+                    <div class="flex items-center justify-between">
+                      <strong class="font-mono text-rose-800">2. DOSE WITHOUT UNITS (<code class="font-mono">Dose: 10</code>, <code class="font-mono">Frequency: 2</code>)</strong>
+                      <span class="font-mono text-[11px] text-zinc-500">SLIDE 48</span>
+                    </div>
+                    <p class="text-zinc-800 mt-1">
+                      <strong>Principle:</strong> <span class="hl-blue font-semibold">Constraints / match to real world</span> → <strong>Redesign:</strong> <span class="hl-green font-semibold">Explicit validated units</span> (constrained dropdowns for <code class="font-mono">mg/mL</code>, explicit route <code class="font-mono">IV/PO</code>, and frequency <code class="font-mono">every 12 hours</code>).
+                    </p>
+                  </div>
+
+                  <div class="p-3.5 rounded-xl bg-white border border-emerald-200">
+                    <div class="flex items-center justify-between">
+                      <strong class="font-mono text-rose-800">3. CONFUSING ACTIONS (<code class="font-mono">[CANCEL] [SAVE]</code> identical)</strong>
+                      <span class="font-mono text-[11px] text-zinc-500">SLIDE 48</span>
+                    </div>
+                    <p class="text-zinc-800 mt-1">
+                      <strong>Principle:</strong> <span class="hl-blue font-semibold">Consistency / signifiers</span> → <strong>Redesign:</strong> <span class="hl-green font-semibold">Clear primary and secondary actions</span> (distinct visual hierarchy, spacing, and confirmation step).
+                    </p>
+                  </div>
+
+                  <div class="p-3.5 rounded-xl bg-white border border-emerald-200">
+                    <div class="flex items-center justify-between">
+                      <strong class="font-mono text-rose-800">4. UNCLEAR SAVED STATE (<code class="font-mono">Order successfully saved (?)</code>)</strong>
+                      <span class="font-mono text-[11px] text-zinc-500">SLIDE 48</span>
+                    </div>
+                    <p class="text-zinc-800 mt-1">
+                      <strong>Principle:</strong> <span class="hl-blue font-semibold">Feedback / visibility</span> → <strong>Redesign:</strong> <span class="hl-green font-semibold">Unambiguous success or failure</span> (explicit timestamped state and closure).
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 49: One page to remember -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="p-6 rounded-2xl bg-zinc-900 text-white">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div>
+                <span class="font-mono text-xs text-amber-300 font-bold uppercase">SLIDE 49 • ONE PAGE TO REMEMBER</span>
+                <h2 class="text-xl sm:text-2xl font-extrabold text-white mt-0.5">Good HCI Arguments Connect Human Behavior to Design Evidence</h2>
+              </div>
+              <span class="font-mono text-xs text-zinc-400">HCI WEEK 5 SUMMARY</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs sm:text-sm">
+              <div class="p-4 rounded-xl bg-zinc-800 border border-zinc-700">
+                <strong class="font-mono text-sky-300 block mb-1">1. HUMAN</strong>
+                What can the person perceive, understand, remember and control?
+              </div>
+              <div class="p-4 rounded-xl bg-zinc-800 border border-zinc-700">
+                <strong class="font-mono text-purple-300 block mb-1">2. PRINCIPLE</strong>
+                Which conceptual model, heuristic, or rule explains the issue?
+              </div>
+              <div class="p-4 rounded-xl bg-zinc-800 border border-zinc-700">
+                <strong class="font-mono text-emerald-300 block mb-1">3. DESIGN</strong>
+                What specific change should reduce error or effort?
+              </div>
+              <div class="p-4 rounded-xl bg-zinc-800 border border-zinc-700">
+                <strong class="font-mono text-amber-300 block mb-1">4. VALIDATION</strong>
+                How would we know the redesign helped?
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </div>
+
+  </main>
+</body>
+</html>

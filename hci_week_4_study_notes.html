@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HCI Week 4 — Next-Generation Interfaces: The Trajectory of the Disappearing Computer (Exam Study Notes)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans, JetBrains Mono, Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['"Caveat"', 'cursive'],
+          },
+          colors: {
+            paper: '#FAF8F5',
+            card: '#FFFFFF',
+            ink: '#18181B',
+            muted: '#52525B',
+            borderLight: '#E4E2DD',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Warm Academic Engineering Notebook Paper Background */
+    body {
+      background-color: #F6F4F0;
+      color: #18181B;
+      background-image: 
+        radial-gradient(#D4D0C8 1.15px, transparent 1.15px),
+        linear-gradient(to right, rgba(220, 216, 208, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(220, 216, 208, 0.35) 1px, transparent 1px);
+      background-size: 24px 24px, 96px 96px, 96px 96px;
+    }
+
+    /* Realistic Marker Highlighter Spans */
+    .hl-yellow {
+      background: linear-gradient(104deg, rgba(254, 240, 138, 0) 0.9%, rgba(254, 240, 138, 0.95) 2.4%, rgba(254, 240, 138, 0.65) 5.8%, rgba(254, 240, 138, 0.88) 93%, rgba(254, 240, 138, 0.7) 96%, rgba(254, 240, 138, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-green {
+      background: linear-gradient(104deg, rgba(187, 247, 208, 0) 0.9%, rgba(187, 247, 208, 0.95) 2.4%, rgba(187, 247, 208, 0.65) 5.8%, rgba(187, 247, 208, 0.88) 93%, rgba(187, 247, 208, 0.7) 96%, rgba(187, 247, 208, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-blue {
+      background: linear-gradient(104deg, rgba(186, 230, 253, 0) 0.9%, rgba(186, 230, 253, 0.92) 2.4%, rgba(186, 230, 253, 0.65) 5.8%, rgba(186, 230, 253, 0.88) 93%, rgba(186, 230, 253, 0.7) 96%, rgba(186, 230, 253, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-pink {
+      background: linear-gradient(104deg, rgba(254, 205, 211, 0) 0.9%, rgba(254, 205, 211, 0.92) 2.4%, rgba(254, 205, 211, 0.65) 5.8%, rgba(254, 205, 211, 0.88) 93%, rgba(254, 205, 211, 0.7) 96%, rgba(254, 205, 211, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-purple {
+      background: linear-gradient(104deg, rgba(233, 213, 255, 0) 0.9%, rgba(233, 213, 255, 0.92) 2.4%, rgba(233, 213, 255, 0.65) 5.8%, rgba(233, 213, 255, 0.88) 93%, rgba(233, 213, 255, 0.7) 96%, rgba(233, 213, 255, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    /* Notebook Sheet Card */
+    .note-sheet {
+      background-color: #FFFFFF;
+      border: 1px solid #E4E2DD;
+      box-shadow: 0 4px 20px -4px rgba(24, 24, 27, 0.06), 0 2px 6px -1px rgba(24, 24, 27, 0.03);
+      position: relative;
+    }
+
+    /* Sticky Note Callout */
+    .sticky-callout {
+      background-color: #FEF9C3;
+      border: 1px solid #FDE047;
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Scrollbar Utility */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+
+  <!-- Modular Collapsible Navigation Engine -->
+  <script src="nav.js" defer></script>
+</head>
+<body class="antialiased selection:bg-yellow-200 selection:text-zinc-900">
+
+  <!-- =====================================================================
+       STICKY QUICK-JUMP NAVIGATION & HIGHLIGHTER LEGEND BAR
+       ===================================================================== -->
+  <header class="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E4E2DD] shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-zinc-900 text-amber-300 font-mono text-xs font-bold">W4</span>
+          <div>
+            <span class="font-extrabold text-sm text-zinc-900 tracking-tight">HCI Week 4: The Trajectory of the Disappearing Computer</span>
+            <span class="hidden md:inline-block text-xs text-zinc-500 ml-1.5 font-mono">• Slides 01–32 Complete (Zero Hidden Content)</span>
+          </div>
+        </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN STUDY NOTEBOOK CONTAINER
+       ===================================================================== -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-12">
+
+    <!-- ===================================================================
+         SECTION 1: TRAJECTORY OF THE DISAPPEARING COMPUTER (SLIDES 01–04)
+         =================================================================== -->
+    <div id="sec-intro" class="scroll-mt-28 space-y-8">
+
+      <!-- SLIDES 01 & 02: TITLE & WEEK 4 LEARNING LENS -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-zinc-900">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 01</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 02</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• Next-Generation Interfaces &amp; Week 4 Learning Lens</span>
+          </div>
+          <span class="font-mono text-xs text-zinc-500">HUMAN-COMPUTER INTERACTION • WEEK 4</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mb-8">
+          <div class="lg:col-span-7 space-y-3">
+            <div class="inline-block px-3 py-1 rounded-md bg-amber-100 border border-amber-300 font-mono text-xs font-bold uppercase tracking-wider text-amber-900">
+              Next-Generation Interfaces
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 leading-tight">
+              The Trajectory of the Disappearing Computer
+            </h1>
+            <p class="text-sm sm:text-base text-zinc-600">
+              Note from <span class="font-mono text-xs">Slide 02</span>: Use this deck as the main Week 4 presentation. The former "Evolution" and "Tangibility" decks become support material only.
+            </p>
+          </div>
+
+          <div class="lg:col-span-5">
+            <div class="sticky-callout rounded-2xl p-5">
+              <span class="font-hand text-2xl text-amber-900 block mb-1">★ Week 4 Main Question (Slide 02):</span>
+              <p class="text-sm sm:text-base text-zinc-900 font-bold leading-snug">
+                “<span class="hl-yellow">How does interaction move from visible screens to ambient, multimodal, and context-aware systems?</span>”
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 02: 3 Pillars of the Learning Lens -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="p-5 rounded-xl bg-zinc-50 border border-zinc-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="w-7 h-7 rounded-lg bg-zinc-900 text-white font-mono text-xs font-bold flex items-center justify-center">1</span>
+              <span class="font-mono text-[11px] text-zinc-500">SLIDE 02</span>
+            </div>
+            <h2 class="font-extrabold text-zinc-900 text-base">From desktop to ubiquitous computing</h2>
+            <p class="text-xs sm:text-sm text-zinc-700 mt-1.5">
+              The computer moves from <span class="hl-blue font-semibold">a destination to part of the environment.</span>
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-zinc-50 border border-zinc-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="w-7 h-7 rounded-lg bg-zinc-900 text-white font-mono text-xs font-bold flex items-center justify-center">2</span>
+              <span class="font-mono text-[11px] text-zinc-500">SLIDE 02</span>
+            </div>
+            <h2 class="font-extrabold text-zinc-900 text-base">From explicit to implicit input</h2>
+            <p class="text-xs sm:text-sm text-zinc-700 mt-1.5">
+              Interaction shifts from <span class="hl-yellow font-semibold">commands to sensing, context, and inference.</span>
+            </p>
+          </div>
+
+          <div class="p-5 rounded-xl bg-zinc-50 border border-zinc-200">
+            <div class="flex items-center justify-between mb-2">
+              <span class="w-7 h-7 rounded-lg bg-zinc-900 text-white font-mono text-xs font-bold flex items-center justify-center">3</span>
+              <span class="font-mono text-[11px] text-zinc-500">SLIDE 02</span>
+            </div>
+            <h2 class="font-extrabold text-zinc-900 text-base">From screen design to experience design</h2>
+            <p class="text-xs sm:text-sm text-zinc-700 mt-1.5">
+              <span class="hl-green font-semibold">The interface may disappear, but HCI principles become more important.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDES 03 & 04: THE DESKTOP IS NO LONGER THE DESTINATION & THE 4-STAGE CONTINUUM -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 03</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 04</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• Evolution of Computing Scale &amp; Continuum of the Disappearing Screen</span>
+          </div>
+        </div>
+
+        <!-- Slide 03: The Desktop is No Longer the Destination -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-sky-800 mb-1">SLIDE 03 • THE DESKTOP IS NO LONGER THE DESTINATION</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-4">From Room-Sized Machines to Invisible Environments</h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+            <div class="p-4 rounded-xl bg-slate-900 text-white border border-slate-700">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs text-slate-400">ERA 1</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-amber-300 font-mono text-[11px] font-bold">Room-sized</span>
+              </div>
+              <h3 class="font-extrabold text-base text-white">Batch / Mainframe</h3>
+              <p class="text-xs text-slate-300 mt-1.5">Indirect interaction via punched cards.</p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900 text-white border border-slate-700">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs text-slate-400">ERA 2</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-sky-300 font-mono text-[11px] font-bold">Desk-sized</span>
+              </div>
+              <h3 class="font-extrabold text-base text-white">CLI / GUI Desktop</h3>
+              <p class="text-xs text-slate-300 mt-1.5">Demands undivided attention and system-specific language (<strong>WIMP</strong>).</p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-900 text-white border border-slate-700">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs text-slate-400">ERA 3</span>
+                <span class="px-2 py-0.5 rounded bg-slate-800 text-purple-300 font-mono text-[11px] font-bold">Pocket-sized</span>
+              </div>
+              <h3 class="font-extrabold text-base text-white">Mobile / Touch</h3>
+              <p class="text-xs text-slate-300 mt-1.5">Direct and portable, <span class="text-rose-300 font-semibold">but bounded by glass.</span></p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-emerald-950 text-white border-2 border-emerald-400">
+              <div class="flex items-center justify-between mb-2">
+                <span class="font-mono text-xs text-emerald-300">ERA 4</span>
+                <span class="px-2 py-0.5 rounded bg-emerald-800 text-emerald-200 font-mono text-[11px] font-bold">Invisible</span>
+              </div>
+              <h3 class="font-extrabold text-base text-emerald-300">Ubiquitous</h3>
+              <p class="text-xs text-emerald-100 mt-1.5"><span class="underline decoration-emerald-400 font-semibold">Woven seamlessly into the physical environment.</span></p>
+            </div>
+          </div>
+
+          <!-- Slide 03 Quote Banner -->
+          <div class="p-4 rounded-xl bg-amber-50 border-2 border-amber-300 text-center">
+            <p class="text-sm sm:text-base font-extrabold text-zinc-900">
+              “<span class="hl-purple">We spent 40 years bringing humans into the computer's world. The next era brings the computer into ours.</span>” <span class="font-mono text-xs text-zinc-500">(Slide 03)</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Slide 04: The Continuum of the Disappearing Screen -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="font-mono text-xs uppercase font-bold text-purple-800 mb-2">SLIDE 04 • THE CONTINUUM OF THE DISAPPEARING SCREEN</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-4 rounded-xl bg-sky-50/70 border border-sky-200">
+              <span class="font-mono text-xs font-bold text-sky-800">STAGE 1</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">1. Touching the Glass</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">Direct manipulation, multitouch, and haptics.</p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-purple-50/70 border border-purple-200">
+              <span class="font-mono text-xs font-bold text-purple-800">STAGE 2</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">2. Talking to the Air</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">Voice UI, NLP, and conversational agents.</p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-amber-50/70 border border-amber-200">
+              <span class="font-mono text-xs font-bold text-amber-800">STAGE 3</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">3. Stepping Inside</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">XR, Virtual, Augmented, and Mixed Realities.</p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200">
+              <span class="font-mono text-xs font-bold text-emerald-800">STAGE 4</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">4. The Vanishing Point</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">Ubiquitous computing, implicit input, and ambient tech.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 2: STAGE 1 — TOUCHING THE GLASS & HAPTIC FEEDBACK (SLIDES 05–07)
+         =================================================================== -->
+    <div id="sec-touch" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-sky-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-sky-700 text-white">SLIDES 05–07 • Stage 1: Touching the Glass, Touch Constraints &amp; Haptic Feedback</span>
+        </div>
+
+        <!-- Slide 05: Touching the Glass: Evolving Direct Manipulation -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-sky-800 mb-1">SLIDE 05 • TOUCHING THE GLASS: EVOLVING DIRECT MANIPULATION</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-3">Why Direct Touch Reduces Anxiety &amp; Increases Mastery</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div class="p-4 rounded-xl bg-sky-50/60 border border-sky-200">
+              <h3 class="font-extrabold text-zinc-900 text-sm">1. Absolute Positioning</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-blue font-semibold">1:1 mapping</span> between the physical finger and the digital canvas.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-sky-50/60 border border-sky-200">
+              <h3 class="font-extrabold text-zinc-900 text-sm">2. Eliminating the Intermediary</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-green font-semibold">No mouse, no cursor.</span> The user feels they are directly manipulating the object.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-sky-50/60 border border-sky-200">
+              <h3 class="font-extrabold text-zinc-900 text-sm">3. Dynamic Fingertip Actions</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                Gestures like <span class="hl-yellow font-semibold">swiping, flicking, pinching, and dwelling</span> replace rigid clicks.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-zinc-900 text-white text-xs sm:text-sm text-center">
+            <strong class="text-amber-300">Core Insight (Slide 05):</strong> Touch capitalizes on well-honed physical knowledge (<em>holding, moving, stretching</em>), reducing anxiety and increasing user mastery over the interface.
+          </div>
+        </div>
+
+        <!-- Slide 06: The Constraints of Touch: Occlusion and Discoverability -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-rose-700 mb-2">SLIDE 06 • THE CONSTRAINTS OF TOUCH: OCCLUSION AND DISCOVERABILITY</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Left: Physical Constraint: Occlusion -->
+            <div class="p-5 rounded-2xl bg-rose-50/60 border-2 border-rose-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-mono text-xs font-bold text-rose-800 uppercase">Physical Constraint</span>
+                  <span class="px-2 py-0.5 rounded bg-rose-200 text-rose-900 font-mono text-[11px] font-bold">SLIDE 06</span>
+                </div>
+                <h3 class="text-lg font-extrabold text-zinc-900">1. Occlusion</h3>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                  <span class="hl-pink font-bold">Thumb physically hides data while touching.</span> The user's own hand and finger block the exact target and surrounding UI feedback.
+                </p>
+              </div>
+              <div class="mt-4 p-3 rounded-xl bg-slate-950 text-white">
+                <svg viewBox="0 0 280 95" class="w-full h-auto" aria-label="Occlusion Diagram">
+                  <rect x="75" y="8" width="130" height="80" rx="10" fill="#0F172A" stroke="#38BDF8" stroke-width="2"/>
+                  <rect x="85" y="18" width="110" height="22" rx="3" fill="#1E293B"/>
+                  <circle cx="140" cy="58" r="22" fill="#F43F5E" fill-opacity="0.35" stroke="#F43F5E" stroke-width="2"/>
+                  <rect x="122" y="46" width="36" height="42" rx="16" fill="#334155" stroke="#E2E8F0" stroke-width="2"/>
+                  <text x="140" y="70" text-anchor="middle" class="font-mono text-[8px] fill-rose-300 font-bold">THUMB</text>
+                  <text x="212" y="45" class="font-mono text-[9px] fill-rose-300">Hides data</text>
+                  <text x="212" y="57" class="font-mono text-[9px] fill-rose-300">under finger</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- Right: Cognitive Constraint: The Discoverability Paradox -->
+            <div class="p-5 rounded-2xl bg-amber-50/60 border-2 border-amber-200 flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-mono text-xs font-bold text-amber-900 uppercase">Cognitive Constraint</span>
+                  <span class="px-2 py-0.5 rounded bg-amber-200 text-amber-950 font-mono text-[11px] font-bold">SLIDE 06</span>
+                </div>
+                <h3 class="text-lg font-extrabold text-zinc-900">2. The Discoverability Paradox</h3>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                  Gestures (like a <strong>three-finger swipe</strong>) feel natural once learned, <span class="hl-pink font-bold">but possess zero visual signifiers to tell a novice user they exist.</span>
+                </p>
+              </div>
+              <div class="mt-4 p-3 rounded-xl bg-slate-950 text-white">
+                <svg viewBox="0 0 280 95" class="w-full h-auto" aria-label="Discoverability Paradox Diagram">
+                  <rect x="55" y="8" width="170" height="80" rx="10" fill="#0F172A" stroke="#F59E0B" stroke-width="2"/>
+                  <path d="M 90 55 Q 140 25 190 45" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-dasharray="4,3"/>
+                  <circle cx="115" cy="45" r="7" fill="#F59E0B"/>
+                  <circle cx="140" cy="38" r="7" fill="#F59E0B"/>
+                  <circle cx="165" cy="42" r="7" fill="#F59E0B"/>
+                  <text x="140" y="75" text-anchor="middle" class="font-mono text-[9px] fill-amber-300 font-bold">3-Finger Swipe = 0 Visual Signifiers</text>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 07: Feeling the Digital: The Role of Haptic Feedback -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="font-mono text-xs uppercase font-bold text-sky-800 mb-1">SLIDE 07 • FEELING THE DIGITAL: THE ROLE OF HAPTIC FEEDBACK</div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900 mb-4">Smartwatch Hardware Actuation &amp; Haptic Duality</h3>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch mb-4">
+            <!-- Left: 5 Hardware Components inside Smartwatch -->
+            <div class="lg:col-span-6 p-5 rounded-2xl bg-slate-950 text-white border border-slate-800 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs text-sky-400 uppercase font-bold">SLIDE 07 • SMARTWATCH HAPTIC ANATOMY (5 COMPONENTS)</span>
+                <ul class="mt-3 space-y-2 text-xs sm:text-sm text-slate-200">
+                  <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-sky-400"></span><strong>1. Digital Crown Encoder:</strong> Captures physical rotation input.</li>
+                  <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-sky-400"></span><strong>2. Micro-actuator Array:</strong> Distributed tactile actuators under display.</li>
+                  <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-sky-400"></span><strong>3. Pressure Sensor Layer:</strong> Detects force applied to glass screen.</li>
+                  <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-sky-400"></span><strong>4. Localized Vibration Wave Actuators:</strong> Generates crisp localized pulses.</li>
+                  <li class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-sky-400"></span><strong>5. Taptic Engine Component:</strong> Linear resonant actuator creating physical click feel.</li>
+                </ul>
+              </div>
+            </div>
+
+            <!-- Right: 3-Step Actuation Loop + Cutaneous vs Kinesthetic -->
+            <div class="lg:col-span-6 flex flex-col justify-between space-y-4">
+              <div class="p-4 rounded-xl bg-sky-50 border border-sky-200">
+                <span class="font-mono text-xs font-bold text-sky-900 uppercase block mb-2">SLIDE 07 • 3-STEP HAPTIC ACTUATION PIPELINE</span>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs">
+                  <div class="p-2.5 rounded bg-white border border-sky-200">
+                    <strong class="block text-zinc-900">1. User Action</strong>
+                    Turning digital crown
+                  </div>
+                  <div class="p-2.5 rounded bg-white border border-sky-200">
+                    <strong class="block text-sky-900">2. System Actuation</strong>
+                    Triggers localized micro-vibration
+                  </div>
+                  <div class="p-2.5 rounded bg-white border border-emerald-300">
+                    <strong class="block text-emerald-900">3. Sensory Perception</strong>
+                    Brain registers a physical click
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                <div class="p-3.5 rounded-xl bg-zinc-50 border border-zinc-200">
+                  <strong class="text-zinc-900 block">Cutaneous Haptics:</strong>
+                  <span class="hl-yellow">Tactile sensations on the skin (buzzes and taps).</span>
+                </div>
+                <div class="p-3.5 rounded-xl bg-zinc-50 border border-zinc-200">
+                  <strong class="text-zinc-900 block">Kinesthetic Haptics:</strong>
+                  <span class="hl-blue">Perception of physical resistance and structural movement.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-xl bg-emerald-900 text-white text-xs sm:text-sm font-bold text-center">
+            ✔ Design Rule (Slide 07): <span class="text-emerald-200">Haptics must confirm actions without requiring visual attention, bridging the gap left by disappearing physical buttons.</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 3: STAGE 2 — TALKING TO THE AIR & GESTURES IN SPACE (SLIDES 08–11)
+         =================================================================== -->
+    <div id="sec-voice" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-purple-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-purple-700 text-white">SLIDES 08–11 • Stage 2: Natural Language, VUI Evolution &amp; Mid-Air Gestures</span>
+        </div>
+
+        <!-- Slide 08: Talking to the Air: The Leap to Natural Language -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-purple-800 mb-1">SLIDE 08 • TALKING TO THE AIR: THE LEAP TO NATURAL LANGUAGE</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-2">From Raw Speech Waveform to NLU Intent Extraction</h2>
+          <p class="text-sm text-zinc-700 mb-4">
+            Speech is the most natural human communication channel, <span class="hl-pink font-semibold">but historically the hardest for machines to parse due to inherent ambiguity, co-articulation, and contextual nuance.</span>
+          </p>
+
+          <!-- 3-Stage NLU Pipeline from Slide 08 -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-slate-950 text-white border border-slate-800 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs text-sky-400 font-bold uppercase">1. Raw Speech Input</span>
+                <p class="text-xs text-slate-300 mt-1">Continuous acoustic signal:</p>
+                <p class="text-sm font-bold text-amber-300 mt-2 italic">“The boy hit the dog with the stick”</p>
+              </div>
+              <div class="mt-3 font-mono text-xs text-sky-400 tracking-widest text-center">▁▂▄▆█▄▂▁▃▅▇▄▂▁</div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-950 text-white border border-slate-800 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs text-amber-400 font-bold uppercase">2. Syntactic Parsing &amp; Ambiguity</span>
+                <p class="text-xs text-slate-300 mt-1">Prepositional phrase (<code class="font-mono text-amber-300">PP: "with the stick"</code>) attachment ambiguity:</p>
+              </div>
+              <div class="mt-2 p-2.5 rounded bg-slate-900 font-mono text-[11px] text-slate-200">
+                <div>S → NP (<span class="text-sky-300">The boy</span>) + VP</div>
+                <div>VP → V (<span class="text-amber-300">hit</span>) + NP (<span class="text-emerald-300">the dog</span>) + PP (<span class="text-rose-300">with the stick</span>)</div>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-slate-950 text-white border border-emerald-500/50">
+              <span class="font-mono text-xs text-emerald-400 font-bold uppercase">3. Natural Language Understanding (NLU)</span>
+              <pre class="mt-2 p-2.5 rounded bg-slate-900 font-mono text-[11px] text-emerald-300 overflow-x-auto">{
+  "intent": "Action",
+  "object": "dog",
+  "instrument": "stick",
+  "agent": "boy",
+  "confidence": 0.95
+}</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 09: Interface Evolution: Command vs. Conversation -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-purple-800 mb-2">SLIDE 09 • INTERFACE EVOLUTION: COMMAND VS. CONVERSATION</div>
+          <div class="overflow-x-auto rounded-xl border-2 border-zinc-900">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                  <th class="py-3.5 px-4">Dimension</th>
+                  <th class="py-3.5 px-4 text-rose-300">Command UI (Legacy VUI)</th>
+                  <th class="py-3.5 px-4 text-emerald-300">Conversational AI (Modern)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Burden</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-pink">User must memorize exact rigid syntax.</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-green font-semibold">System infers and extracts user intent.</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">System Stance</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><strong>Reactive</strong> (waits for commands).</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-blue font-semibold">Mixed-initiative</span> (proactively asks clarifying questions).</td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Error Handling</td>
+                  <td class="py-3.5 px-4 text-zinc-800">Fails completely on deviation (<em>“I did not understand”</em>).</td>
+                  <td class="py-3.5 px-4 text-zinc-800">Tolerates interruptions and <span class="hl-green font-semibold">allows “barge-in” to correct course.</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Flow</td>
+                  <td class="py-3.5 px-4 text-zinc-800">Linear, step-by-step vocal menus.</td>
+                  <td class="py-3.5 px-4 text-zinc-800">Dynamic, context-aware turn-taking.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Slide 10 & Slide 11 Side-by-Side: The Invisible UI Problem & Gestures in Space -->
+        <div class="border-t border-zinc-200 pt-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Slide 10: The Invisible UI Problem: "What can I say?" -->
+          <div class="p-5 rounded-2xl bg-amber-50/60 border-2 border-amber-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-amber-900 uppercase">SLIDE 10 • THE INVISIBLE UI PROBLEM</span>
+              <h3 class="text-xl font-extrabold text-zinc-900 mt-0.5">“What can I say?”</h3>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-2">
+                Unlike a GUI menu (where <code class="font-mono">Play Music</code>, <code class="font-mono">Set Alarm</code>, <code class="font-mono">Settings</code> are visibly listed), <span class="hl-pink font-bold">a pure Voice UI has no visual affordances or signifiers. It suffers from a severe discoverability crisis.</span>
+              </p>
+
+              <div class="mt-4 space-y-2 text-xs sm:text-sm">
+                <div class="font-mono text-xs font-bold uppercase text-emerald-900">3 Design Solutions (Slide 10):</div>
+                <div class="p-2.5 rounded-lg bg-white border border-amber-300"><strong>1. Conversational onboarding prompts.</strong></div>
+                <div class="p-2.5 rounded-lg bg-white border border-amber-300"><strong>2. Contextual suggestions</strong> (<em>“You can also ask me to...”</em>).</div>
+                <div class="p-2.5 rounded-lg bg-white border border-amber-300"><strong>3. Multimodal integration</strong> (pairing voice with a peripheral screen).</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 11: Gestures in Space: Interaction Without Surfaces -->
+          <div class="p-5 rounded-2xl bg-sky-50/60 border-2 border-sky-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-sky-900 uppercase">SLIDE 11 • GESTURES IN SPACE</span>
+              <h3 class="text-xl font-extrabold text-zinc-900 mt-0.5">Interaction Without Surfaces</h3>
+              <div class="mt-3 space-y-2.5 text-xs sm:text-sm text-zinc-800">
+                <div class="p-3 rounded-lg bg-white border border-sky-200">
+                  <strong class="text-sky-900 block">1. The Technology (MotionInput):</strong>
+                  Systems like <span class="hl-blue font-semibold">MotionInput</span> track hands, head, or full-body movements using standard cameras and ML algorithms, converting them into digital commands.
+                </div>
+                <div class="p-3 rounded-lg bg-white border border-emerald-200">
+                  <strong class="text-emerald-900 block">2. The ‘Why’:</strong>
+                  Essential for <span class="hl-green font-semibold">hands-busy, sterile (medical), or messy environments</span> where physical touch is impossible or dangerous.
+                </div>
+                <div class="p-3 rounded-lg bg-white border border-rose-200">
+                  <strong class="text-rose-900 block">3. The Challenge (Midas Touch Problem):</strong>
+                  <span class="hl-pink font-semibold">Delineating a deliberate pointing gesture from an unconscious hand wave during conversation.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 4: STAGE 3 — STEPPING INSIDE: XR, VR & AR (SLIDES 12–14)
+         =================================================================== -->
+    <div id="sec-xr" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-amber-500">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-600 text-white">SLIDES 12–14 • Stage 3: Stepping Inside — The Reality-Virtuality Spectrum (XR, VR, AR)</span>
+        </div>
+
+        <!-- Slide 12: The Reality-Virtuality Spectrum -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-amber-800 mb-1">SLIDE 12 • STEPPING INSIDE: THE REALITY-VIRTUALITY SPECTRUM</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-2">XR Is a Gradient, Not a Single Technology</h2>
+          <p class="text-sm text-zinc-700 mb-4">
+            <span class="hl-yellow font-bold">XR is not one technology; it is a gradient determining how much digital context replaces physical reality.</span>
+          </p>
+
+          <!-- Custom SVG Spectrum Diagram (Slide 12) -->
+          <div class="p-5 rounded-2xl bg-slate-950 text-white border border-slate-800">
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+              <div class="p-3.5 rounded-xl bg-amber-950/60 border border-amber-500/40 text-center">
+                <span class="font-mono text-[10px] text-amber-300 uppercase">0% Digital Replacement</span>
+                <h3 class="font-extrabold text-sm text-white mt-1">Physical Reality</h3>
+                <p class="text-[11px] text-slate-300 mt-1">Unmediated physical room &amp; objects</p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-center">
+                <span class="font-mono text-[10px] text-emerald-300 uppercase">Digital Overlay</span>
+                <h3 class="font-extrabold text-sm text-emerald-300 mt-1">Augmented Reality (AR)</h3>
+                <p class="text-[11px] text-slate-300 mt-1">Digital data anchored onto real world</p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-sky-950/60 border border-sky-500/40 text-center">
+                <span class="font-mono text-[10px] text-sky-300 uppercase">Interactive Fusion</span>
+                <h3 class="font-extrabold text-sm text-sky-300 mt-1">Mixed Reality (MR)</h3>
+                <p class="text-[11px] text-slate-300 mt-1">Virtual objects interact with physical room</p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-purple-950/60 border border-purple-500/40 text-center">
+                <span class="font-mono text-[10px] text-purple-300 uppercase">100% Synthetic</span>
+                <h3 class="font-extrabold text-sm text-purple-300 mt-1">Virtual Reality (VR)</h3>
+                <p class="text-[11px] text-slate-300 mt-1">Complete replacement of physical environment</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 13 & Slide 14 Side-by-Side: Virtual Reality vs. Augmented Reality -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Slide 13: Virtual Reality: The Pursuit of Presence -->
+          <div class="p-5 rounded-2xl bg-purple-50/60 border-2 border-purple-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-purple-900 uppercase">SLIDE 13 • VIRTUAL REALITY (VR)</span>
+              <h3 class="text-xl font-extrabold text-zinc-900 mt-0.5">The Pursuit of Presence</h3>
+              <div class="mt-3 space-y-3 text-xs sm:text-sm text-zinc-800">
+                <div class="p-3 rounded-xl bg-white border border-purple-200">
+                  <strong class="text-purple-900 block">1. The Goal — Presence:</strong>
+                  <span class="hl-yellow font-semibold">The psychological state where the brain accepts a synthetic environment as real</span>, causing physical reactions to virtual stimuli.
+                </div>
+                <div class="p-3 rounded-xl bg-white border border-amber-200">
+                  <strong class="text-amber-900 block">2. The Constraint — Locomotion:</strong>
+                  How to move infinitely in the digital world while remaining physically stationary (e.g., standing in a small bedroom while walking through a cathedral).
+                </div>
+                <div class="p-3 rounded-xl bg-white border border-rose-200">
+                  <strong class="text-rose-900 block">3. The Risk — Motion Sickness:</strong>
+                  <span class="hl-pink font-bold">The sensory disconnect between the visual system (moving) and the vestibular system (stationary).</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 14: Augmented Reality: The World as a Canvas -->
+          <div class="p-5 rounded-2xl bg-emerald-50/60 border-2 border-emerald-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-emerald-900 uppercase">SLIDE 14 • AUGMENTED REALITY (AR)</span>
+              <h3 class="text-xl font-extrabold text-zinc-900 mt-0.5">The World as a Canvas</h3>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-2">
+                <span class="hl-green font-bold">AR requires perfect spatial mapping.</span> It relies on the system understanding <strong>depth, planes, and physical objects</strong> to anchor digital context seamlessly into reality.
+              </p>
+
+              <!-- SVG Engine Maintenance Overlay from Slide 14 -->
+              <div class="mt-4 p-4 rounded-xl bg-slate-950 text-white border border-slate-800">
+                <div class="font-mono text-[11px] text-emerald-400 uppercase font-bold mb-2">SLIDE 14 AR ENGINE OVERLAY EXAMPLE</div>
+                <svg viewBox="0 0 320 110" class="w-full h-auto" aria-label="AR Engine Maintenance Spatial Overlay">
+                  <!-- Engine Block Wireframe -->
+                  <rect x="60" y="22" width="160" height="72" rx="8" fill="#1E293B" stroke="#475569" stroke-width="2"/>
+                  <circle cx="95" cy="45" r="7" fill="#0F172A" stroke="#38BDF8" stroke-width="2"/>
+                  <circle cx="140" cy="45" r="7" fill="#0F172A" stroke="#F59E0B" stroke-width="2.5"/>
+                  <circle cx="185" cy="45" r="7" fill="#0F172A" stroke="#38BDF8" stroke-width="2"/>
+                  <!-- Spatial Callout 1: Torque -->
+                  <rect x="8" y="8" width="96" height="22" rx="4" fill="#065F46" stroke="#34D399" stroke-width="1.5"/>
+                  <text x="56" y="22" text-anchor="middle" class="font-mono text-[9.5px] fill-emerald-200 font-bold">Torque: 45 Nm</text>
+                  <line x1="104" y1="19" x2="135" y2="40" stroke="#34D399" stroke-width="1.5"/>
+                  <!-- Spatial Callout 2: Step 2 -->
+                  <rect x="135" y="70" width="177" height="32" rx="4" fill="#0C4A6E" stroke="#38BDF8" stroke-width="1.5"/>
+                  <text x="223" y="84" text-anchor="middle" class="font-mono text-[9px] fill-sky-200 font-bold">Step 2: Remove Intake</text>
+                  <text x="223" y="96" text-anchor="middle" class="font-mono text-[9px] fill-sky-200 font-bold">Manifold Bolts</text>
+                  <line x1="140" y1="53" x2="155" y2="70" stroke="#38BDF8" stroke-width="1.5"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 5: STAGE 4 — THE VANISHING POINT: UBICOMP, IMPLICIT INPUT, CALM TECH, MULTIMODAL & NUI MYTH (SLIDES 15–19)
+         =================================================================== -->
+    <div id="sec-ubicomp" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-emerald-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-700 text-white">SLIDES 15–19 • Stage 4: Ubiquitous Computing, Implicit Input, Calm Tech &amp; The NUI Myth</span>
+        </div>
+
+        <!-- Slide 15: The Vanishing Point: Ubiquitous Computing -->
+        <div class="mb-8 p-6 rounded-2xl bg-slate-950 text-white border border-slate-800">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="font-mono text-xs text-emerald-400 uppercase font-bold">SLIDE 15 • THE VANISHING POINT: UBIQUITOUS COMPUTING</span>
+            <span class="font-mono text-xs text-amber-300">Mark Weiser's Vision</span>
+          </div>
+          <blockquote class="text-lg sm:text-2xl font-extrabold text-white leading-snug my-3 border-l-4 border-emerald-400 pl-4">
+            “The most profound technologies are those that disappear. They weave themselves into the fabric of everyday life until they are indistinguishable from it.”
+            <footer class="text-xs sm:text-sm font-mono text-emerald-300 mt-1">— Mark Weiser (Slide 15)</footer>
+          </blockquote>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4 pt-4 border-t border-slate-800 text-xs font-mono">
+            <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-sky-300">1. Embedded smart thermostat</div>
+            <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-amber-300">2. Ambient light sensor</div>
+            <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-purple-300">3. Hidden invisible speaker system</div>
+            <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-700 text-emerald-300">4. Hidden embedded RFID tag</div>
+          </div>
+        </div>
+
+        <!-- Slide 16: The Paradigm Shift: From Explicit to Implicit Input -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-emerald-800 mb-1">SLIDE 16 • THE PARADIGM SHIFT: FROM EXPLICIT TO IMPLICIT INPUT</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-2">High Intention vs. Low Intention (Context-Aware)</h2>
+          <p class="text-sm text-zinc-700 mb-4">
+            <span class="hl-yellow font-semibold">In UbiComp, the computer infers intent from natural human physiology and routine, rather than waiting for a direct command.</span>
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Explicit Input -->
+            <div class="p-5 rounded-xl bg-zinc-50 border-2 border-zinc-200">
+              <span class="font-mono text-xs font-bold text-zinc-700 uppercase">PATH A • HIGH INTENTION (EXPLICIT INPUT)</span>
+              <div class="flex flex-wrap items-center gap-2 my-3 font-mono text-xs font-bold">
+                <span class="px-2.5 py-1.5 rounded bg-white border border-zinc-300">User picks up remote</span>
+                <span>→</span>
+                <span class="px-2.5 py-1.5 rounded bg-white border border-zinc-300">Presses button</span>
+                <span>→</span>
+                <span class="px-2.5 py-1.5 rounded bg-zinc-900 text-white">TV turns on</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-800">
+                <strong>Design Focus:</strong> Relies heavily on <span class="hl-blue font-semibold">affordances and visible feedback.</span>
+              </p>
+            </div>
+
+            <!-- Implicit Input -->
+            <div class="p-5 rounded-xl bg-emerald-50/70 border-2 border-emerald-300">
+              <span class="font-mono text-xs font-bold text-emerald-900 uppercase">PATH B • LOW INTENTION (IMPLICIT INPUT / CONTEXT-AWARE)</span>
+              <div class="flex flex-wrap items-center gap-2 my-3 font-mono text-xs font-bold">
+                <span class="px-2.5 py-1.5 rounded bg-white border border-emerald-300">Walks into room</span>
+                <span>→</span>
+                <span class="px-2.5 py-1.5 rounded bg-white border border-emerald-300">Wearable reads ID &amp; heart rate</span>
+                <span>→</span>
+                <span class="px-2.5 py-1.5 rounded bg-emerald-700 text-white">Lights, temp &amp; music adjust</span>
+              </div>
+              <p class="text-xs sm:text-sm text-zinc-800">
+                <strong>Design Focus:</strong> Shifts to <span class="hl-green font-bold">proactivity, sensing, and user trust.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 17, Slide 18 & Slide 19 -->
+        <div class="border-t border-zinc-200 pt-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Slide 17: Ambient Computing and Calm Technology -->
+          <div class="p-5 rounded-2xl bg-sky-50/60 border border-sky-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-sky-900 uppercase">SLIDE 17 • CALM TECHNOLOGY</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-1">Ambient Computing &amp; The Glowing Umbrella</h3>
+              <ul class="mt-3 space-y-2 text-xs sm:text-sm text-zinc-800">
+                <li>• <strong>Peripheral Awareness:</strong> Information moves to the periphery of attention (not a noisy smartphone push notification).</li>
+                <li>• <strong>Ecologically Natural:</strong> <span class="hl-blue font-semibold">The umbrella quietly glowing blue signals “it will rain today.”</span> Digested instinctively when leaving the house without pulling out a screen.</li>
+                <li>• <strong>The Design Goal:</strong> <span class="hl-green font-bold">Drastically decrease cognitive load while increasing environmental intelligence.</span></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 18: The Multimodal Multiplier ("Put-That-There") -->
+          <div class="p-5 rounded-2xl bg-purple-50/60 border border-purple-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-purple-900 uppercase">SLIDE 18 • MULTIMODAL MULTIPLIER</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-1">MIT Media Room “Put-That-There”</h3>
+              <div class="mt-3 space-y-2 text-xs">
+                <div class="p-2.5 rounded bg-white border border-purple-200">
+                  <strong>Action 1 (Voice):</strong> User says, <em>“Move that...”</em> (Concise, but ambiguous on its own).
+                </div>
+                <div class="p-2.5 rounded bg-white border border-purple-200">
+                  <strong>Action 2 (Gesture):</strong> Points at a specific digital blue square on the wall (Resolves vocal ambiguity immediately).
+                </div>
+                <div class="p-2.5 rounded bg-white border border-purple-200">
+                  <strong>Action 3 (Voice + Gesture):</strong> Says, <em>“...there,”</em> while pointing to a new location.
+                </div>
+              </div>
+              <p class="text-xs text-zinc-800 mt-2.5">
+                <span class="hl-yellow font-semibold">Multimodal interfaces cover each other's weaknesses</span>, enabling flexible, highly efficient interaction.
+              </p>
+            </div>
+          </div>
+
+          <!-- Slide 19: The NUI Myth: Natural Does Not Mean Effortless -->
+          <div class="p-5 rounded-2xl bg-rose-50/60 border border-rose-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-rose-900 uppercase">SLIDE 19 • THE NUI MYTH</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-1">Natural ≠ Effortless</h3>
+              <blockquote class="p-2.5 rounded bg-white border-l-4 border-rose-500 text-xs font-bold text-zinc-900 my-2">
+                Don Norman: “A user interface isn't ‘natural’ just because it lacks a keyboard.”
+              </blockquote>
+              <ul class="space-y-1.5 text-xs sm:text-sm text-zinc-800">
+                <li>• Swiping glass or talking to a plastic cylinder are <span class="hl-pink font-semibold">heavily learned behaviors, not innate biological traits.</span></li>
+                <li>• “Natural User Interfaces” still require <strong>rigid constraints, clear feedback, and intentional onboarding.</strong></li>
+                <li>• <strong>Conclusion:</strong> <span class="hl-yellow font-bold">Do not conflate “invisible controls” with “easy to use.”</span></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 6: MASTER DIAGNOSTIC TABLE, CONTEXT MATCHING, ETHICS & ISO 9241-210 (SLIDES 20–26)
+         =================================================================== -->
+    <div id="sec-matrix" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-zinc-900">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDES 20–26 • Interaction Style Diagnostic Table, Ethics &amp; ISO 9241-210 UCD Process</span>
+          <span class="font-hand text-xl text-amber-700 font-bold">★ High-Yield Exam Matrix</span>
+        </div>
+
+        <!-- Slide 20: The Interaction Style Diagnostic Table -->
+        <div class="mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-zinc-500 mb-1">SLIDE 20 • THE INTERACTION STYLE DIAGNOSTIC TABLE</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-3">Comparing the 4 Next-Generation Interaction Paradigms</h2>
+
+          <div class="overflow-x-auto rounded-xl border-2 border-zinc-900">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                  <th class="py-3.5 px-4">Dimension</th>
+                  <th class="py-3.5 px-4 text-sky-300">Direct Manipulation / Touch</th>
+                  <th class="py-3.5 px-4 text-purple-300">Voice UI</th>
+                  <th class="py-3.5 px-4 text-amber-300">Immersive XR</th>
+                  <th class="py-3.5 px-4 text-emerald-300">Ambient / UbiComp</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Ideal Context</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-green">Walk-up-and-use novice</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-blue">Hands-busy, eyes-busy</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-yellow">Spatial reasoning, simulation</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-green">Routine, background tasks</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Primary Constraint</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-pink">Screen size, occlusion</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-pink">Discoverability, background noise</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-pink">Locomotion, physical fatigue</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-pink">Privacy, false-positives</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Cognitive Load</td>
+                  <td class="py-3.5 px-4 font-bold text-emerald-800">Low</td>
+                  <td class="py-3.5 px-4 font-bold text-amber-800">Medium (Recall heavy)</td>
+                  <td class="py-3.5 px-4 font-bold text-rose-800">High (Sensory overload)</td>
+                  <td class="py-3.5 px-4 font-bold text-emerald-800">Zero to Low</td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Dominant Feedback</td>
+                  <td class="py-3.5 px-4 text-zinc-800 font-semibold">Visual / Haptic</td>
+                  <td class="py-3.5 px-4 text-zinc-800 font-semibold">Auditory</td>
+                  <td class="py-3.5 px-4 text-zinc-800 font-semibold">Immersive 3D Spatial</td>
+                  <td class="py-3.5 px-4 text-zinc-800 font-semibold">Environmental shifts</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Slide 21: Matching Interface Style to Context -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-sky-800 mb-3">SLIDE 21 • MATCHING INTERFACE STYLE TO CONTEXT (3 APPLIED SCENARIOS)</div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-sky-800">SCENARIO 1 • SURGERY ROOM</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">Voice + Touchless Gesture</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <strong>Why:</strong> <span class="hl-green">Sterile environment, hands are physically occupied</span> and cannot touch a screen.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-amber-800">SCENARIO 2 • PUBLIC TRANSIT KIOSK</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">Direct Manipulation / Touch</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <strong>Why:</strong> <span class="hl-yellow">High noise environment, walk-up-and-use novice users</span>, privacy absolutely required for payment.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-purple-800">SCENARIO 3 • 3D ENGINEERING LAB</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">Mixed Reality (MR)</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <strong>Why:</strong> <span class="hl-blue">High need for 3D spatial data visualization</span> and collaborative physical interaction.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 22 & Slide 23 Side-by-Side: The Ethics of the Invisible Interface & ISO 9241-210 -->
+        <div class="border-t border-zinc-200 pt-8 mb-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <!-- Slide 22: Ethics -->
+          <div class="lg:col-span-6 p-5 rounded-2xl bg-rose-50/60 border-2 border-rose-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-rose-900 uppercase">SLIDE 22 • THE ETHICS OF THE INVISIBLE INTERFACE</span>
+              <h3 class="text-xl font-extrabold text-zinc-900 mt-1">When Sensing Becomes Surveillance</h3>
+              <div class="mt-3 space-y-2.5 text-xs sm:text-sm text-zinc-800">
+                <div class="p-3 rounded-xl bg-white border border-rose-200">
+                  <strong class="text-rose-900 block">1. The Loss of Consent:</strong>
+                  As interfaces disappear into the woodwork, so does the user's ability to <span class="hl-pink font-semibold">explicitly consent to interaction.</span>
+                </div>
+                <div class="p-3 rounded-xl bg-white border border-rose-200">
+                  <strong class="text-rose-900 block">2. Privacy by Default:</strong>
+                  How do you effectively <em>‘opt out’</em> of a room that is always listening and sensing?
+                </div>
+                <div class="p-3 rounded-xl bg-white border border-rose-200">
+                  <strong class="text-rose-900 block">3. The Designer's Burden:</strong>
+                  The exact same psychological insights used to remove friction can be weaponized into <span class="hl-pink font-bold">Dark Patterns and unauthorized biometric tracking.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 23: ISO 9241-210 User-Centered Design Cycle -->
+          <div class="lg:col-span-6 p-5 rounded-2xl bg-sky-50/60 border-2 border-sky-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-sky-900 uppercase">SLIDE 23 • THE TECHNOLOGY CHANGES; THE PROCESS REMAINS</span>
+              <h3 class="text-xl font-extrabold text-zinc-900 mt-1">ISO 9241-210 User-Centered Design</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                Whether it is a CLI in 1980 or an Ambient AI in 2024, the fundamental HCI process of <span class="hl-green font-bold">iterative, human-centered evaluation remains exactly the same.</span>
+              </p>
+
+              <!-- 4-Step Cycle Visual -->
+              <div class="grid grid-cols-2 gap-2.5 my-4 text-xs font-mono">
+                <div class="p-3 rounded-xl bg-white border-2 border-sky-300 text-zinc-900">
+                  <strong class="text-sky-800 block">1. Understand Context</strong>
+                  Who are the users, what is their task &amp; environment?
+                </div>
+                <div class="p-3 rounded-xl bg-white border-2 border-sky-300 text-zinc-900">
+                  <strong class="text-sky-800 block">2. Specify Requirements</strong>
+                  Define user needs &amp; physiological constraints.
+                </div>
+                <div class="p-3 rounded-xl bg-white border-2 border-sky-300 text-zinc-900">
+                  <strong class="text-sky-800 block">4. Evaluate Against Req.</strong>
+                  Test with real humans &amp; iterate.
+                </div>
+                <div class="p-3 rounded-xl bg-white border-2 border-sky-300 text-zinc-900">
+                  <strong class="text-sky-800 block">3. Design Solutions</strong>
+                  Build prototypes matching context &amp; modalities.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slides 24, 25 & 26: In-Class Activity, Refined Week 4 Flow & Final Quote -->
+        <div class="border-t border-zinc-200 pt-8 space-y-5">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Slide 24: In-Class Activity -->
+            <div class="p-5 rounded-xl bg-amber-50/70 border border-amber-300">
+              <span class="font-mono text-xs font-bold text-amber-900 uppercase">SLIDE 24 • IN-CLASS ACTIVITY: STERILE OPERATION</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                <strong>Scenario:</strong> A hospital team needs to control a device during a sterile operation. Hands may be occupied, the room is noisy, and mistakes can be dangerous.
+              </p>
+              <ol class="mt-2 space-y-1 text-xs text-zinc-800 list-decimal list-inside font-medium">
+                <li>Which style fits best: touch, voice, gesture, XR, or ambient? (<strong>Gesture + Haptic/Visual confirmation</strong>; noisy room hurts pure voice!)</li>
+                <li>What is the biggest usability risk? (Accidental activation / Midas Touch or noise misrecognition)</li>
+                <li>Which feedback channel would you add: visual, audio, haptic, or multimodal? (<strong>Multimodal:</strong> visual + haptic/auditory tone)</li>
+                <li>How would you prevent accidental activation? (Explicit clutch gesture / dwell confirmation for destructive actions)</li>
+              </ol>
+              <p class="text-[11px] font-mono text-amber-950 mt-2 font-bold">
+                Chain: context of use → constraints → feedback → error prevention → user-centered evaluation.
+              </p>
+            </div>
+
+            <!-- Slide 25: Refined Week 4 Flow -->
+            <div class="p-5 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-zinc-700 uppercase">SLIDE 25 • REFINED WEEK 4 FLOW RECAP</span>
+              <div class="grid grid-cols-2 gap-2.5 mt-2 text-xs">
+                <div class="p-2.5 rounded bg-white border border-zinc-200">
+                  <strong class="block text-zinc-900">Part 1: Why interfaces disappear</strong>
+                  Desktop → mobile → ubiquitous computing
+                </div>
+                <div class="p-2.5 rounded bg-white border border-zinc-200">
+                  <strong class="block text-zinc-900">Part 2: New interaction forms</strong>
+                  Touch, gesture, haptics, voice, XR, ambient
+                </div>
+                <div class="p-2.5 rounded bg-white border border-zinc-200">
+                  <strong class="block text-zinc-900">Part 3: Design risks</strong>
+                  Discoverability, occlusion, ambiguity, overload, privacy
+                </div>
+                <div class="p-2.5 rounded bg-white border border-zinc-200">
+                  <strong class="block text-zinc-900">Part 4: HCI method stays same</strong>
+                  Understand context → specify reqs → design → evaluate
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 26 Quote -->
+          <div class="p-5 rounded-2xl bg-zinc-900 text-white text-center">
+            <span class="font-mono text-xs text-amber-300 uppercase font-bold block mb-1">SLIDE 26 • DESIGNING FOR THE HUMAN EXPERIENCE</span>
+            <p class="text-base sm:text-lg font-extrabold">
+              “The ultimate goal of Human-Computer Interaction is not to build better screens. It is to build systems that understand human intent so perfectly, <span class="text-emerald-300 underline">the interface simply gets out of the way.</span>”
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 7: VISUAL CRITIQUE & PRINCIPLE PLATES (SLIDES 27–32)
+         =================================================================== -->
+    <div id="sec-plates" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-emerald-600 border-b-4 border-b-zinc-900">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-700 text-white">SLIDES 27–32 • Good vs. Bad UI Critique Plates, Affordance/Mapping/Feedback &amp; Non-Screen Interfaces</span>
+        </div>
+
+        <!-- Slide 27 vs. Slide 28: Good UI Patterns vs. Bad UI Anti-Patterns -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+          <!-- Slide 27: Good UI Design Patterns -->
+          <div class="p-5 rounded-2xl bg-emerald-50/60 border-2 border-emerald-300">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-bold text-emerald-900 uppercase">SLIDE 27 • GOOD EVERYDAY UI PATTERNS</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-200 text-emerald-950 font-mono text-xs font-bold">✔ Clear &amp; Forgiving</span>
+            </div>
+            <div class="space-y-3 text-xs sm:text-sm text-zinc-800">
+              <div class="p-3 rounded-xl bg-white border border-emerald-200">
+                <strong class="text-emerald-900 block">1. Mobile Checkout Form (<code class="font-mono">1 Details → 2 Shipping → 3 Payment</code>):</strong>
+                • <strong>Clear labels:</strong> Each field (<code class="font-mono">Name</code>, <code class="font-mono">Email</code>, <code class="font-mono">Card number</code>) is clearly labeled so users know what to enter.<br/>
+                • <strong>Inline validation:</strong> Errors (<code class="font-mono text-rose-700">Card number must be 16 digits</code>) are shown right where they happen with helpful guidance.<br/>
+                • <strong>Simple flow:</strong> A clean step indicator shows progress through checkout.
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-emerald-200">
+                <strong class="text-emerald-900 block">2. Smart Home Living Room Tablet &amp; Overview Dashboard:</strong>
+                • High-contrast cards with explicit state labels (<code class="font-mono">Lights: On</code>, <code class="font-mono">Thermostat: 72° Heating to 72°</code>, <code class="font-mono">Ceiling Fan: On</code>, <code class="font-mono">Window Shades: Open</code>) and scannable KPI metrics (<code class="font-mono">Total Users 12,480</code>, <code class="font-mono">Success Rate 98%</code>).
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-emerald-200">
+                <strong class="text-emerald-900 block">3. Safe Error Recovery (<code class="font-mono">✓ Item deleted — [Undo]</code>):</strong>
+                • <span class="hl-green font-semibold">Undo gives users a safe way to reverse actions.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 28: Bad UI Anti-Patterns -->
+          <div class="p-5 rounded-2xl bg-rose-50/60 border-2 border-rose-300">
+            <div class="flex items-center justify-between mb-3">
+              <span class="font-mono text-xs font-bold text-rose-900 uppercase">SLIDE 28 • BAD EVERYDAY UI ANTI-PATTERNS</span>
+              <span class="px-2 py-0.5 rounded bg-rose-200 text-rose-950 font-mono text-xs font-bold">✘ High Friction &amp; Risk</span>
+            </div>
+            <div class="space-y-2.5 text-xs sm:text-sm text-zinc-800">
+              <div class="p-3 rounded-xl bg-white border border-rose-200">
+                <strong class="text-rose-900 block">1. Too many options (Cluttered Kiosk):</strong>
+                The kiosk screen is cluttered with dozens of tiny buttons, making it hard to find what you need.
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-rose-200">
+                <strong class="text-rose-900 block">2. Hard to read and use (Low-Contrast Mobile Form):</strong>
+                Low contrast, tiny text and small touch targets make the form difficult to read and complete on a mobile device.
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-rose-200">
+                <strong class="text-rose-900 block">3. Confusing interface (Unlabeled Thermostat Icons):</strong>
+                Important controls use unfamiliar, unlabeled icons (<code class="font-mono">21°</code> with cryptic symbols), making it unclear how to change the settings.
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-rose-200">
+                <strong class="text-rose-900 block">4. Destructive action with no confirmation (<code class="font-mono">[Delete]</code>):</strong>
+                <span class="hl-pink font-semibold">The file is permanently deleted with a single click, with no warning or chance to undo.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 29 & Slide 30: Affordance, Mapping, Feedback & "Interface is not only a screen" -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-amber-800 mb-2">SLIDES 29 &amp; 30 • AFFORDANCE, MAPPING, FEEDBACK &amp; “INTERFACE IS NOT ONLY A SCREEN”</div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-sky-800">SLIDE 29 • 1. AFFORDANCE</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">Door: PUSH Plate vs. PULL Handle</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-yellow">Physical form and labeling suggest the action:</span> a flat plate to push, a handle to pull.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-emerald-800">SLIDE 29 • 2. MAPPING</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">Stove: Knobs → Burners</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-green">Spatial arrangement of knobs matches the arrangement of burners</span>, making the relationship clear.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-amber-800">SLIDE 29 • 3. FEEDBACK</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">Elevator Button 3 + Braille</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-blue">The lit button provides immediate visual feedback</span>, and braille/tactile cues support accessible interaction.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-zinc-900 text-white text-xs sm:text-sm flex flex-wrap items-center justify-between gap-2">
+            <span class="font-mono text-amber-300 font-bold">SLIDE 30 • INTERFACE IS NOT ONLY A SCREEN:</span>
+            <span class="font-mono">1. Door (Push/Pull) &nbsp;•&nbsp; 2. Stove (Knobs/Burners) &nbsp;•&nbsp; 3. Elevator (Buttons 1–5) &nbsp;•&nbsp; 4. Car (Steering/Controls)</span>
+          </div>
+        </div>
+
+        <!-- Slide 31 & Slide 32: Ambient Smart Home Synthesis & High-Stakes Multimodal Overlays -->
+        <div class="border-t border-zinc-200 pt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Slide 31 -->
+          <div class="p-5 rounded-2xl bg-sky-50/60 border border-sky-200">
+            <span class="font-mono text-xs font-bold text-sky-900 uppercase">SLIDE 31 • AMBIENT SMART HOME SYNTHESIS</span>
+            <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">4 Elements of the Disappearing Smart Home</h3>
+            <div class="grid grid-cols-2 gap-2.5 mt-3 text-xs">
+              <div class="p-2.5 rounded bg-white border border-sky-200">
+                <strong class="text-sky-900 block">1. Implicit input</strong>
+                Motion-sensing faucet turns water on when hands approach.
+              </div>
+              <div class="p-2.5 rounded bg-white border border-sky-200">
+                <strong class="text-sky-900 block">2. Sensors</strong>
+                Ceiling presence &amp; environmental sensors monitor the room.
+              </div>
+              <div class="p-2.5 rounded bg-white border border-sky-200">
+                <strong class="text-sky-900 block">3. Context</strong>
+                Detects rainy weather outside and user walking toward door.
+              </div>
+              <div class="p-2.5 rounded bg-white border border-sky-200">
+                <strong class="text-sky-900 block">4. Calm feedback</strong>
+                Wall dial (<code class="font-mono">21°</code>) &amp; glowing blue umbrella in stand.
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 32 -->
+          <div class="p-5 rounded-2xl bg-purple-50/60 border border-purple-200">
+            <span class="font-mono text-xs font-bold text-purple-900 uppercase">SLIDE 32 • HIGH-STAKES MULTIMODAL INTERFACES</span>
+            <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">3 Beyond-the-Desktop Scenarios</h3>
+            <div class="space-y-2 mt-3 text-xs">
+              <div class="p-2.5 rounded bg-white border border-purple-200">
+                <strong class="text-purple-900">1. Hands-free (Sterile Surgery):</strong> Surgeon manipulates 3D heart scan with mid-air gestures (<code class="font-mono">✕</code> zero surface contact).
+              </div>
+              <div class="p-2.5 rounded bg-white border border-purple-200">
+                <strong class="text-purple-900">2. Haptic warning (Driving at <code class="font-mono">72 km/h</code>):</strong> Steering wheel vibration + HUD alert warns driver without stealing visual focus.
+              </div>
+              <div class="p-2.5 rounded bg-white border border-purple-200">
+                <strong class="text-purple-900">3. Spatial overlay (Industrial AR):</strong> Pipe maintenance AR overlay shows <code class="font-mono">Valve: Turn clockwise to close</code> anchored directly onto physical valve.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+</body>
+</html>

@@ -1,0 +1,1531 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HCI Week 6 — UCD, Data Gathering & Requirements Engineering (Annotated Exam Study Notes)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans, JetBrains Mono, Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['"Caveat"', 'cursive'],
+          },
+          colors: {
+            paper: '#FBF9F5',
+            card: '#FFFFFF',
+            ink: '#18181B',
+            muted: '#52525B',
+            borderLight: '#E4E2DD',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Warm Academic Engineering Notebook Paper Background with Ruled Lines & Margin */
+    body {
+      background-color: #FBF9F5;
+      color: #18181B;
+      background-image:
+        linear-gradient(90deg, transparent 38px, rgba(225, 29, 72, 0.16) 38px, rgba(225, 29, 72, 0.16) 40px, transparent 40px),
+        repeating-linear-gradient(0deg, #FBF9F5, #FBF9F5 27px, #ECE8DF 27px, #ECE8DF 28px);
+      background-attachment: local;
+    }
+
+    /* Realistic Marker Highlighter Spans */
+    .hl-yellow {
+      background: linear-gradient(104deg, rgba(254, 240, 138, 0) 0.9%, rgba(254, 240, 138, 0.95) 2.4%, rgba(254, 240, 138, 0.65) 5.8%, rgba(254, 240, 138, 0.88) 93%, rgba(254, 240, 138, 0.7) 96%, rgba(254, 240, 138, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-green {
+      background: linear-gradient(104deg, rgba(187, 247, 208, 0) 0.9%, rgba(187, 247, 208, 0.95) 2.4%, rgba(187, 247, 208, 0.65) 5.8%, rgba(187, 247, 208, 0.88) 93%, rgba(187, 247, 208, 0.7) 96%, rgba(187, 247, 208, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-blue {
+      background: linear-gradient(104deg, rgba(186, 230, 253, 0) 0.9%, rgba(186, 230, 253, 0.92) 2.4%, rgba(186, 230, 253, 0.65) 5.8%, rgba(186, 230, 253, 0.88) 93%, rgba(186, 230, 253, 0.7) 96%, rgba(186, 230, 253, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-pink {
+      background: linear-gradient(104deg, rgba(254, 205, 211, 0) 0.9%, rgba(254, 205, 211, 0.92) 2.4%, rgba(254, 205, 211, 0.65) 5.8%, rgba(254, 205, 211, 0.88) 93%, rgba(254, 205, 211, 0.7) 96%, rgba(254, 205, 211, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-purple {
+      background: linear-gradient(104deg, rgba(233, 213, 255, 0) 0.9%, rgba(233, 213, 255, 0.92) 2.4%, rgba(233, 213, 255, 0.65) 5.8%, rgba(233, 213, 255, 0.88) 93%, rgba(233, 213, 255, 0.7) 96%, rgba(233, 213, 255, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-orange {
+      background: linear-gradient(104deg, rgba(254, 215, 170, 0) 0.9%, rgba(254, 215, 170, 0.95) 2.4%, rgba(254, 215, 170, 0.65) 5.8%, rgba(254, 215, 170, 0.88) 93%, rgba(254, 215, 170, 0.7) 96%, rgba(254, 215, 170, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    /* Notebook Sheet Card */
+    .note-sheet {
+      background-color: #FFFFFF;
+      border: 1px solid #E4E2DD;
+      box-shadow: 0 4px 20px -4px rgba(24, 24, 27, 0.06), 0 2px 6px -1px rgba(24, 24, 27, 0.03);
+      position: relative;
+    }
+
+    /* Sticky Note Callout */
+    .sticky-callout {
+      background-color: #FEF9C3;
+      border: 1px solid #FDE047;
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Scrollbar Utility */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+
+  <!-- Modular Collapsible Navigation Engine -->
+  <script src="nav.js" defer></script>
+</head>
+<body class="antialiased selection:bg-yellow-200 selection:text-zinc-900">
+
+  <!-- =====================================================================
+       STICKY QUICK-JUMP NAVIGATION & HIGHLIGHTER LEGEND BAR
+       ===================================================================== -->
+  <header class="sticky top-0 z-50 bg-[#FBF9F5]/95 backdrop-blur-md border-b border-[#E4E2DD] shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-zinc-900 text-amber-300 font-mono text-xs font-bold">W6</span>
+          <div>
+            <span class="font-extrabold text-sm text-zinc-900 tracking-tight">HCI Week 6: UCD, Data Gathering &amp; Requirements Engineering</span>
+            <span class="hidden md:inline-block text-xs text-zinc-500 ml-1.5 font-mono">• Sub-Decks 6.1 (15) + 6.2 (21) + 6.3 (21) = 57 Slides Complete</span>
+          </div>
+        </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN STUDY NOTEBOOK CONTAINER
+       ===================================================================== -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-12">
+
+    <!-- ===================================================================
+         PART 6.1A: DESIGNING FOR THE HUMAN MACHINE — UCD & STAKEHOLDERS (6.1 SLIDES 01–07)
+         =================================================================== -->
+    <div id="sec-6-1-a" class="scroll-mt-28 space-y-8">
+
+      <!-- 6.1 SLIDES 01, 02 & 03: TITLE, PROCUREMENT TRAP & CATASTROPHIC COST OF ASSUMPTION -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-zinc-900">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">6.1 SLIDE 01</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">6.1 SLIDE 02</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">6.1 SLIDE 03</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• Sub-Deck 6.1: The UCD Process &amp; ISO 9241-210</span>
+          </div>
+          <span class="font-mono text-xs text-zinc-500">WEEK 6.1 · SLIDES 01–15</span>
+        </div>
+
+        <!-- 6.1 Slide 01 Header -->
+        <div class="mb-8">
+          <div class="inline-block px-3 py-1 rounded-md bg-amber-100 border border-amber-300 font-mono text-xs font-bold uppercase tracking-wider text-amber-900 mb-2">
+            Sub-Deck 6.1 • The User-Centered Design (UCD) Process &amp; ISO 9241-210
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 leading-tight">
+            Designing for the Human Machine
+          </h1>
+          <div class="mt-3 p-3.5 rounded-xl bg-zinc-900 text-white font-mono text-xs sm:text-sm font-bold flex items-center justify-between">
+            <span>★ The Baseline Reality (6.1 Slide 01): <span class="text-amber-300">“When users struggle, blame the design, not the user.”</span></span>
+            <span class="text-[11px] text-zinc-400">6.1 S01</span>
+          </div>
+        </div>
+
+        <!-- 6.1 Slide 02: The Customer Who Pays vs. The User Who Suffers -->
+        <div class="border-t border-zinc-200 pt-7 mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-rose-700 mb-2">6.1 SLIDE 02 • THE PROCUREMENT TRAP</div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900 mb-3">The Customer Who Pays ≠ The User Who Suffers</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div class="lg:col-span-7 p-4 rounded-2xl bg-slate-950 text-white border border-slate-800">
+              <svg viewBox="0 0 500 135" class="w-full h-auto" aria-label="Customer Who Pays vs User Who Suffers Diagram">
+                <!-- Left Box: Customer -->
+                <rect x="12" y="25" width="135" height="85" rx="8" fill="#0F172A" stroke="#38BDF8" stroke-width="2"/>
+                <text x="79" y="55" text-anchor="middle" class="font-mono text-[11px] fill-sky-300 font-extrabold">THE CUSTOMER</text>
+                <text x="79" y="73" text-anchor="middle" class="font-mono text-[10px] fill-white font-bold">WHO PAYS</text>
+                <text x="79" y="92" text-anchor="middle" class="font-mono text-[8px] fill-slate-400">(Procurement Checklist)</text>
+
+                <!-- Arrow 1 -->
+                <line x1="149" y1="67" x2="182" y2="67" stroke="#38BDF8" stroke-width="2.5"/>
+                <polygon points="182,62 192,67 182,72" fill="#38BDF8"/>
+
+                <!-- Center Box: The Interface -->
+                <rect x="194" y="18" width="112" height="98" rx="8" fill="#1E293B" stroke="#F59E0B" stroke-width="2.5"/>
+                <text x="250" y="64" text-anchor="middle" class="font-mono text-[11px] fill-amber-300 font-extrabold">THE</text>
+                <text x="250" y="80" text-anchor="middle" class="font-mono text-[11px] fill-amber-300 font-extrabold">INTERFACE</text>
+
+                <!-- Arrow 2 -->
+                <line x1="308" y1="67" x2="341" y2="67" stroke="#F43F5E" stroke-width="2.5"/>
+                <polygon points="341,62 351,67 341,72" fill="#F43F5E"/>
+
+                <!-- Right Box: The User -->
+                <rect x="353" y="25" width="135" height="85" rx="8" fill="#450A0A" stroke="#F43F5E" stroke-width="2"/>
+                <text x="420" y="55" text-anchor="middle" class="font-mono text-[11px] fill-rose-300 font-extrabold">THE USER</text>
+                <text x="420" y="73" text-anchor="middle" class="font-mono text-[10px] fill-white font-bold">WHO SUFFERS</text>
+                <text x="420" y="92" text-anchor="middle" class="font-mono text-[8px] fill-rose-200">(Human Worker)</text>
+              </svg>
+            </div>
+
+            <div class="lg:col-span-5 space-y-3 text-xs sm:text-sm text-zinc-800">
+              <p>
+                • <strong>The Recurring Trap (6.1 Slide 02):</strong> <span class="hl-pink font-semibold">Assuming that the person buying the system shares the needs of the person operating it.</span>
+              </p>
+              <p>
+                • <strong>The Result:</strong> Software that <span class="hl-yellow font-semibold">meets every procurement checklist</span> but <span class="hl-pink font-bold">fails completely in the hands of the human worker.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.1 Slide 03: The Catastrophic Cost of Assumption -->
+        <div class="border-t border-zinc-200 pt-7">
+          <div class="font-mono text-xs uppercase font-bold text-sky-800 mb-2">6.1 SLIDE 03 • THE CATASTROPHIC COST OF ASSUMPTION</div>
+          <div class="overflow-x-auto rounded-xl border-2 border-zinc-900">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                  <th class="py-3.5 px-4">Dimension</th>
+                  <th class="py-3.5 px-4 text-rose-300">Assumption-Based Design</th>
+                  <th class="py-3.5 px-4 text-emerald-300">Empirical-Based Design (UCD)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Team Behavior</td>
+                  <td class="py-3.5 px-4 text-zinc-800">The team <span class="hl-pink">argues in a meeting room for hours</span> about what the user wants.</td>
+                  <td class="py-3.5 px-4 text-zinc-800">The team <span class="hl-green font-semibold">builds a prototype and observes a user</span> attempting the task.</td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Decision Driver</td>
+                  <td class="py-3.5 px-4 text-zinc-800">The <span class="hl-pink">loudest voice or the highest-paid person's intuition.</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-green font-semibold">Measured, observable human behavior.</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Success Metric</td>
+                  <td class="py-3.5 px-4 text-zinc-800">Shipping the code on the agreed-upon deadline.</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-yellow font-semibold">The user successfully and efficiently achieves their actual goal.</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-3 p-3 rounded-xl bg-amber-50 border border-amber-300 text-xs sm:text-sm font-bold text-zinc-900 text-center">
+            ★ Key Definition (6.1 Slide 03): <span class="hl-yellow">“UCD is the philosophical shift from guessing in a boardroom to measuring in reality.”</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6.1 SLIDES 04, 05, 06 & 07: FITTS' LAW REALITY, STAKEHOLDER ONION, ICU EXCEPTION & DIVERGENT INCENTIVES -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">6.1 SLIDE 04</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">6.1 SLIDE 05</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">6.1 SLIDE 06</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">6.1 SLIDE 07</span>
+          </div>
+          <span class="font-mono text-xs text-zinc-500">Physical Reality &amp; The Stakeholder Landscape</span>
+        </div>
+
+        <!-- 6.1 Slide 04: Intuition Fights Physical Reality -->
+        <div class="mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-sky-800 mb-1">6.1 SLIDE 04 • INTUITION FIGHTS PHYSICAL REALITY</div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900 mb-4">~9–10 mm Fingertip Patch vs. 2° Fovea &amp; Fitts' Law</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <!-- SVG of Phone with 5 Tightly Packed Buttons + 9-10mm Thumb Circle -->
+            <div class="lg:col-span-5 p-4 rounded-2xl bg-slate-950 text-white border border-slate-800">
+              <svg viewBox="0 0 280 175" class="w-full h-auto" aria-label="9-10mm Fingertip Overlapping NAV Buttons">
+                <!-- Phone Bezel -->
+                <rect x="20" y="10" width="240" height="155" rx="22" fill="#0F172A" stroke="#38BDF8" stroke-width="2"/>
+                <rect x="110" y="20" width="60" height="6" rx="3" fill="#334155"/>
+                <!-- 5 Tightly Packed NAV Buttons -->
+                <rect x="32" y="75" width="40" height="26" rx="3" fill="#1E293B" stroke="#E2E8F0" stroke-width="1.5"/>
+                <text x="52" y="92" text-anchor="middle" class="font-mono text-[9px] fill-white font-bold">NAV 1</text>
+
+                <rect x="76" y="75" width="40" height="26" rx="3" fill="#1E293B" stroke="#E2E8F0" stroke-width="1.5"/>
+                <text x="96" y="92" text-anchor="middle" class="font-mono text-[9px] fill-white font-bold">NAV 2</text>
+
+                <rect x="120" y="75" width="40" height="26" rx="3" fill="#1E293B" stroke="#E2E8F0" stroke-width="1.5"/>
+                <text x="140" y="92" text-anchor="middle" class="font-mono text-[9px] fill-white font-bold">NAV 3</text>
+
+                <rect x="164" y="75" width="40" height="26" rx="3" fill="#1E293B" stroke="#E2E8F0" stroke-width="1.5"/>
+                <text x="184" y="92" text-anchor="middle" class="font-mono text-[9px] fill-white font-bold">NAV 4</text>
+
+                <rect x="208" y="75" width="40" height="26" rx="3" fill="#1E293B" stroke="#E2E8F0" stroke-width="1.5"/>
+                <text x="228" y="92" text-anchor="middle" class="font-mono text-[9px] fill-white font-bold">NAV 5</text>
+
+                <!-- Giant Orange Fingertip Contact Circle (~9-10 mm) -->
+                <circle cx="162" cy="85" r="72" fill="#EA580C" fill-opacity="0.65" stroke="#FB923C" stroke-width="2"/>
+                <line x1="90" y1="62" x2="234" y2="62" stroke="#FFFFFF" stroke-width="1.5"/>
+                <text x="162" y="56" text-anchor="middle" class="font-mono text-[11px] fill-white font-extrabold">~9-10 mm</text>
+              </svg>
+            </div>
+
+            <div class="lg:col-span-7 space-y-3 text-xs sm:text-sm">
+              <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200">
+                <strong class="font-mono text-rose-900 block">1. The Designer's Intuition:</strong>
+                <em>“These tightly packed buttons look sleek and save screen space.”</em>
+              </div>
+              <div class="p-3.5 rounded-xl bg-sky-50 border border-sky-200">
+                <strong class="font-mono text-sky-900 block">2. The Human Reality:</strong>
+                Human vision is sharp <span class="hl-blue font-semibold">only in the fovea (roughly 2 degrees)</span>, and physical fingers lack pixel-perfect precision (<code class="font-mono">~9–10 mm</code> contact patch).
+              </div>
+              <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200">
+                <strong class="font-mono text-amber-900 block">3. The Law of Movement (Fitts' Law Preview):</strong>
+                <span class="hl-yellow font-semibold">Time to target grows with distance and shrinks with target width.</span> Tiny, close buttons are inherently slow and error-prone, regardless of how elegant they look in the design file.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.1 Slide 05 & 6.1 Slide 06: The Stakeholder Onion & The Hospital ICU Non-Linear Exception -->
+        <div class="border-t border-zinc-200 pt-8 mb-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <!-- 6.1 Slide 05: The Stakeholder Onion -->
+            <div class="lg:col-span-7 p-5 rounded-2xl bg-zinc-50 border-2 border-zinc-200 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs font-bold text-sky-900 uppercase">6.1 SLIDE 05 • MAPPING THE HUMAN LANDSCAPE</span>
+                <h3 class="text-xl font-extrabold text-zinc-900 mt-0.5">The Stakeholder Onion (4 Concentric Rings)</h3>
+                <p class="text-xs text-zinc-700 mt-1">
+                  <span class="hl-yellow font-semibold">Stakeholders are everyone affected by the success or failure of the system.</span> The design team's goal is to navigate their conflicting needs.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-4 text-xs">
+                  <div class="p-3 rounded-xl bg-orange-50 border border-orange-300">
+                    <strong class="font-mono text-orange-950 block">1. Primary Stakeholders (Core)</strong>
+                    <span class="hl-orange font-semibold">Hands directly on the interface</span> (e.g., Data entry clerks).
+                  </div>
+                  <div class="p-3 rounded-xl bg-white border border-zinc-300">
+                    <strong class="font-mono text-zinc-900 block">2. Secondary Stakeholders</strong>
+                    Do not use the system directly, but <span class="hl-blue">receive its outputs or provide its inputs</span> (e.g., Managers receiving reports).
+                  </div>
+                  <div class="p-3 rounded-xl bg-slate-100 border border-slate-300">
+                    <strong class="font-mono text-slate-900 block">3. Tertiary Stakeholders</strong>
+                    <span class="hl-purple">Affected by the success or failure</span> of the system (e.g., Competitors, shareholders, patients).
+                  </div>
+                  <div class="p-3 rounded-xl bg-sky-50 border border-sky-300">
+                    <strong class="font-mono text-sky-950 block">4. Facilitating Stakeholders (Outer)</strong>
+                    Those who <span class="hl-green">design, develop, and maintain</span> the system.
+                  </div>
+                </div>
+              </div>
+
+              <!-- Concentric Onion SVG -->
+              <div class="mt-4 p-3 rounded-xl bg-slate-950 text-white">
+                <svg viewBox="0 0 420 130" class="w-full h-auto" aria-label="The Stakeholder Onion Diagram">
+                  <!-- Outer Dashed Circle: Facilitating -->
+                  <ellipse cx="120" cy="65" rx="105" ry="58" fill="none" stroke="#94A3B8" stroke-width="1.5" stroke-dasharray="4,4"/>
+                  <!-- Ring 3: Tertiary -->
+                  <ellipse cx="120" cy="65" rx="84" ry="46" fill="#475569"/>
+                  <!-- Ring 2: Secondary -->
+                  <ellipse cx="120" cy="65" rx="62" ry="34" fill="#F8FAFC"/>
+                  <!-- Ring 1: Primary -->
+                  <ellipse cx="120" cy="65" rx="40" ry="22" fill="#EA580C"/>
+                  <text x="120" y="68" text-anchor="middle" class="font-mono text-[8.5px] fill-white font-extrabold">Primary</text>
+
+                  <!-- Labels on Right -->
+                  <text x="242" y="28" class="font-mono text-[9.5px] fill-orange-400 font-bold">● Inner: Primary (Hands on UI)</text>
+                  <text x="242" y="52" class="font-mono text-[9.5px] fill-white font-bold">○ Middle: Secondary (Inputs/Outputs)</text>
+                  <text x="242" y="76" class="font-mono text-[9.5px] fill-slate-300 font-bold">● Outer Ring: Tertiary (Affected)</text>
+                  <text x="242" y="100" class="font-mono text-[9.5px] fill-sky-300 font-bold">◌ Dashed Orbit: Facilitating (Builders)</text>
+                </svg>
+              </div>
+            </div>
+
+            <!-- 6.1 Slide 06: The Hierarchy of Needs is Not Always Linear -->
+            <div class="lg:col-span-5 p-5 rounded-2xl bg-rose-50/70 border-2 border-rose-200 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs font-bold text-rose-900 uppercase">6.1 SLIDE 06 • CRITICAL EXAM EXCEPTION</span>
+                <h3 class="text-xl font-extrabold text-zinc-900 mt-0.5">The Hierarchy of Needs is Not Always Linear</h3>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-2">
+                  • <strong>General Rule:</strong> Design priority diminishes as you move outward from the primary user.
+                </p>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-2">
+                  • <strong>The Exception (Hospital Life Support Machine):</strong>
+                </p>
+                <ul class="mt-2 space-y-1.5 text-xs text-zinc-800">
+                  <li>— <strong>Primary Stakeholder (Medical Staff):</strong> Operates the control panel interface.</li>
+                  <li>— <strong>Tertiary Stakeholder (The Patient in Bed):</strong> <span class="hl-pink font-bold">Holds the ultimate risk.</span></li>
+                </ul>
+              </div>
+
+              <div class="mt-4 p-3.5 rounded-xl bg-rose-950 text-white text-xs sm:text-sm font-semibold">
+                ★ Exam Takeaway (6.1 Slide 06): <span class="text-amber-300">The patient's (tertiary stakeholder's) need for absolute system reliability supersedes the primary user's need for a sleek interface.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.1 Slide 07: Divergent Incentives: The Stakeholder Diagnostic -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="font-mono text-xs uppercase font-bold text-zinc-700 mb-2">6.1 SLIDE 07 • DIVERGENT INCENTIVES: THE STAKEHOLDER DIAGNOSTIC</div>
+          <div class="overflow-x-auto rounded-xl border-2 border-zinc-900">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                  <th class="py-3.5 px-4">Dimension</th>
+                  <th class="py-3.5 px-4 text-amber-300">Purchaser</th>
+                  <th class="py-3.5 px-4 text-sky-300">End-User</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Primary Goal</td>
+                  <td class="py-3.5 px-4 text-zinc-800">Minimize cost, maximize enterprise integration.</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-green font-semibold">Complete daily tasks with minimal cognitive load.</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Time Horizon</td>
+                  <td class="py-3.5 px-4 text-zinc-800">Long-term ROI and quarterly budgets.</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-blue font-semibold">Immediate, second-by-second interaction.</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Metrics for Success</td>
+                  <td class="py-3.5 px-4 text-zinc-800">Feature completeness, security compliance, SLA uptime.</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-yellow font-semibold">Efficiency, error prevention, personal satisfaction.</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">The UX Danger</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-pink font-semibold">System becomes a bloated checklist of unused features.</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-pink">System solves local problems but fails organizational scale.</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-xs font-mono text-zinc-600 mt-2 text-center">
+            “True design requires navigating this conflict without sacrificing the human at the screen.” (6.1 Slide 07)
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         PART 6.1B: WATERFALL VS. ISO 9241-210 WHIRLPOOL, 4 GEARS & DELAYED DISCOVERY (6.1 SLIDES 08–15)
+         =================================================================== -->
+    <div id="sec-6-1-b" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-sky-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-sky-700 text-white">6.1 SLIDES 08–15 • Waterfall Trap, ISO 9241-210 Whirlpool, 4 Gears, Delayed Discovery &amp; True UCD Venn</span>
+        </div>
+
+        <!-- 6.1 Slide 08 & 6.1 Slide 09: Waterfall vs. ISO 9241-210 Whirlpool -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+          <!-- 6.1 Slide 08: The Linear Trap of Traditional Engineering -->
+          <div class="p-5 rounded-2xl bg-rose-50/60 border-2 border-rose-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-rose-900 uppercase">6.1 SLIDE 08 • THE LINEAR TRAP OF TRADITIONAL ENGINEERING</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">✘ Why the ‘Waterfall’ Model Fails HCI</h3>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-2">
+                The traditional ‘waterfall’ model <span class="hl-pink font-semibold">assumes human needs can be perfectly specified before a single pixel is drawn.</span> It fails because human situations are complex, and designers are not infallible.
+              </p>
+            </div>
+            <div class="mt-4 p-3 rounded-xl bg-slate-950 text-white font-mono text-[10px] space-y-1 relative">
+              <div class="text-rose-400 font-bold">✕ LINEAR WATERFALL PIPELINE:</div>
+              <div>1. Requirements Specification ↘</div>
+              <div class="pl-4">2. Architectural Design ↘</div>
+              <div class="pl-8">3. Detailed Design ↘</div>
+              <div class="pl-12">4. Coding ↘</div>
+              <div class="pl-16">5. Integration ↘</div>
+              <div class="pl-20">6. Maintenance</div>
+            </div>
+          </div>
+
+          <!-- 6.1 Slide 09: The Whirlpool: ISO 9241-210 -->
+          <div class="p-5 rounded-2xl bg-sky-50/60 border-2 border-sky-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-sky-900 uppercase">6.1 SLIDE 09 • THE WHIRLPOOL: ISO 9241-210</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">✔ Evolutionary Cycles Replace Linear Pipelines</h3>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-2">
+                User-Centered Design is formalized in the <span class="hl-purple font-bold">ISO 9241-210 lifecycle.</span> It replaces linear pipelines with evolutionary cycles (<code class="font-mono">REFINEMENT</code> and <code class="font-mono">ITERATION</code>).
+              </p>
+            </div>
+            <div class="mt-4 p-3 rounded-xl bg-slate-950 text-white">
+              <svg viewBox="0 0 360 115" class="w-full h-auto" aria-label="ISO 9241-210 Whirlpool Diagram">
+                <rect x="115" y="6" width="130" height="24" rx="4" fill="#1E293B" stroke="#38BDF8"/>
+                <text x="180" y="22" text-anchor="middle" class="font-mono text-[8.5px] fill-white font-bold">Discovering Requirements</text>
+
+                <rect x="230" y="45" width="120" height="24" rx="4" fill="#1E293B" stroke="#38BDF8"/>
+                <text x="290" y="61" text-anchor="middle" class="font-mono text-[8.5px] fill-white font-bold">Designing Alternatives</text>
+
+                <rect x="125" y="84" width="110" height="24" rx="4" fill="#1E293B" stroke="#38BDF8"/>
+                <text x="180" y="100" text-anchor="middle" class="font-mono text-[8.5px] fill-white font-bold">Prototyping</text>
+
+                <rect x="10" y="45" width="100" height="24" rx="4" fill="#1E293B" stroke="#38BDF8"/>
+                <text x="60" y="61" text-anchor="middle" class="font-mono text-[8.5px] fill-white font-bold">Evaluating</text>
+
+                <!-- Orange Cycle Arrows -->
+                <path d="M 248 18 L 285 43" stroke="#EA580C" stroke-width="2.5"/>
+                <path d="M 285 71 L 238 96" stroke="#EA580C" stroke-width="2.5"/>
+                <path d="M 122 96 L 65 71" stroke="#EA580C" stroke-width="2.5"/>
+                <path d="M 65 43 L 112 18" stroke="#EA580C" stroke-width="2.5"/>
+                <!-- Inner Shortcut Arrow -->
+                <path d="M 228 57 L 115 57" stroke="#FB923C" stroke-width="2" stroke-dasharray="3,2"/>
+                <text x="172" y="49" text-anchor="middle" class="font-mono text-[8px] fill-orange-300 font-bold">REFINEMENT / ITERATION</text>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.1 Slide 10 & 6.1 Slide 11: The Four Gears of the UCD Engine & Empirical Measurement Axis -->
+        <div class="border-t border-zinc-200 pt-8 mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-amber-800 mb-2">6.1 SLIDES 10 &amp; 11 • THE FOUR GEARS OF THE UCD ENGINE &amp; THE CENTRAL AXIS</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-extrabold text-sky-900 block">GEAR 1: CONTEXT OF USE</span>
+              <p class="text-xs text-zinc-700 mt-1">
+                Understand who the users are, their explicit goals, and their physical/social environment.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-extrabold text-amber-900 block">GEAR 2: SPECIFY REQUIREMENTS</span>
+              <p class="text-xs text-zinc-700 mt-1">
+                Translate context into measurable functional, data, environmental, and usability goals.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-extrabold text-purple-900 block">GEAR 3: PRODUCE SOLUTIONS</span>
+              <p class="text-xs text-zinc-700 mt-1">
+                Move from conceptual models to concrete designs (sketches, wireframes, mockups).
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-extrabold text-emerald-900 block">GEAR 4: EVALUATE</span>
+              <p class="text-xs text-zinc-700 mt-1">
+                Test the prototypes against the established requirements using real users.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-950 text-white border border-orange-500/50 flex flex-col md:flex-row items-center justify-between gap-4">
+            <div>
+              <span class="font-mono text-xs text-orange-400 font-bold uppercase">6.1 SLIDE 11 • THE AXIS OF THE ENGINE: EMPIRICAL MEASUREMENT</span>
+              <p class="text-xs sm:text-sm text-slate-200 mt-1">
+                <strong>Two non-negotiable commitments define UCD:</strong> <span class="text-amber-300 font-bold">(1) Early and continual focus on users</span>, and <span class="text-amber-300 font-bold">(2) Empirical Measurement</span> (decisions grounded in observed user behavior—where they click, where they hesitate, what errors they make—not intuition).
+              </p>
+            </div>
+            <div class="shrink-0 px-3.5 py-2 rounded-xl bg-orange-600 text-white font-mono text-xs font-bold text-center">
+              “Stopping at Design<br/>is NOT UCD.” (6.1 S10)
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.1 Slide 12, 13, 14 & 15: Hill-Climbing, Cost of Delayed Discovery & True UCD Venn Diagram -->
+        <div class="border-t border-zinc-200 pt-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <!-- 6.1 Slide 12 & 13: Hill-Climbing & Cost of Delayed Discovery Curve -->
+          <div class="lg:col-span-7 p-5 rounded-2xl bg-zinc-50 border-2 border-zinc-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold text-sky-900 uppercase">6.1 SLIDES 12 &amp; 13 • HILL-CLIMBING &amp; THE COST OF DELAYED DISCOVERY</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">Why We Prototype Before Writing Production Code</h3>
+              <p class="text-xs text-zinc-700 mt-1">
+                • <strong>Hill-Climbing (6.1 Slide 12):</strong> <span class="hl-blue font-semibold">Iteration is not a sign of failure; it is a hill-climbing approach</span> (take a step/prototype → evaluate/test → adjust angle → step again toward the peak of usability).<br/>
+                • <strong>Delayed Discovery (6.1 Slide 13):</strong> <span class="hl-yellow font-semibold">Reactions must arrive while change is still cheap.</span> A paper prototype discards a bad conceptual model in minutes; finding that error after coding costs orders of magnitude more.
+              </p>
+            </div>
+
+            <!-- SVG Graph of Slide 13: The Cost of Delayed Discovery -->
+            <div class="mt-4 p-3.5 rounded-xl bg-slate-950 text-white">
+              <svg viewBox="0 0 420 135" class="w-full h-auto" aria-label="The Cost of Delayed Discovery Graph">
+                <!-- Axes -->
+                <line x1="45" y1="12" x2="45" y2="105" stroke="#94A3B8" stroke-width="1.5"/>
+                <line x1="45" y1="105" x2="405" y2="105" stroke="#94A3B8" stroke-width="1.5"/>
+                <text x="18" y="60" text-anchor="middle" transform="rotate(-90 18 60)" class="font-mono text-[8.5px] fill-slate-300 font-bold">Cost to Fix Error</text>
+
+                <!-- Flat Orange Line (Concept -> Sketches -> Paper Prototypes -> Code) -->
+                <polyline points="55,96 135,96 225,95 305,93" fill="none" stroke="#EA580C" stroke-width="4"/>
+                <!-- Steep White Spike (Code -> Deployed Software) -->
+                <polyline points="305,93 385,16" fill="none" stroke="#FFFFFF" stroke-width="4"/>
+
+                <!-- X-Axis Labels -->
+                <text x="60" y="120" text-anchor="middle" class="font-mono text-[8px] fill-slate-300">Concept</text>
+                <text x="135" y="120" text-anchor="middle" class="font-mono text-[8px] fill-slate-300">Sketches</text>
+                <text x="225" y="120" text-anchor="middle" class="font-mono text-[8px] fill-amber-300 font-bold">Paper Prototypes</text>
+                <text x="305" y="120" text-anchor="middle" class="font-mono text-[8px] fill-rose-300 font-bold">Code</text>
+                <text x="375" y="120" text-anchor="middle" class="font-mono text-[8px] fill-rose-400 font-extrabold">Deployed</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- 6.1 Slide 14 & 15: The Breakthrough Insight Venn Diagram -->
+          <div class="lg:col-span-5 p-5 rounded-2xl bg-slate-950 text-white border border-slate-800 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs text-amber-400 font-bold uppercase">6.1 SLIDES 14 &amp; 15 • THE BREAKTHROUGH INSIGHT</span>
+              <h3 class="text-lg font-extrabold text-white mt-0.5">3 Elements Required for True UCD</h3>
+
+              <svg viewBox="0 0 280 155" class="w-full h-auto my-2" aria-label="True UCD 3-Circle Venn Diagram">
+                <circle cx="140" cy="52" r="42" fill="#EA580C" fill-opacity="0.25" stroke="#FB923C" stroke-width="2"/>
+                <circle cx="105" cy="102" r="42" fill="#EA580C" fill-opacity="0.25" stroke="#FB923C" stroke-width="2"/>
+                <circle cx="175" cy="102" r="42" fill="#EA580C" fill-opacity="0.25" stroke="#FB923C" stroke-width="2"/>
+                <text x="140" y="34" text-anchor="middle" class="font-mono text-[8px] fill-white font-bold">Iterative Lifecycle</text>
+                <text x="140" y="44" text-anchor="middle" class="font-mono text-[7px] fill-orange-300">(The Engine)</text>
+
+                <text x="72" y="112" text-anchor="middle" class="font-mono text-[8px] fill-white font-bold">Empirical</text>
+                <text x="72" y="122" text-anchor="middle" class="font-mono text-[7px] fill-orange-300">(The Axis)</text>
+
+                <text x="208" y="112" text-anchor="middle" class="font-mono text-[8px] fill-white font-bold">Stakeholders</text>
+                <text x="208" y="122" text-anchor="middle" class="font-mono text-[7px] fill-orange-300">(The Landscape)</text>
+
+                <text x="140" y="84" text-anchor="middle" class="font-mono text-[8.5px] fill-amber-300 font-extrabold">TRUE UCD</text>
+              </svg>
+
+              <ul class="space-y-1.5 text-xs text-slate-200">
+                <li>1. <span class="text-rose-300 font-semibold">Iteration without empirical measurement</span> is just guessing twice.</li>
+                <li>2. <span class="text-rose-300 font-semibold">Stakeholder mapping without iteration</span> means you only please the purchaser.</li>
+                <li>3. <span class="text-emerald-300 font-bold">True UCD requires all three operating simultaneously.</span></li>
+              </ul>
+            </div>
+            <div class="mt-3 pt-2 border-t border-slate-800 text-[11px] font-mono text-amber-300 text-center">
+              6.1 Slide 15: Build, measure, learn, and loop.
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         PART 6.2A: DATA GATHERING IN HCI — SAY VS. DO GAP, INTERVIEWS & QUESTIONNAIRES (6.2 SLIDES 01–09)
+         =================================================================== -->
+    <div id="sec-6-2-a" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-amber-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-700 text-white">6.2 SLIDES 01–09 • Sub-Deck 6.2: Data Gathering in HCI (Say vs. Do Gap, Interviews &amp; Questionnaires)</span>
+          <span class="font-mono text-xs text-zinc-500">WEEK 6.2 · SLIDES 01–21</span>
+        </div>
+
+        <!-- 6.2 Slides 01, 02 & 03: The Say vs. Do Gap & 3 Primary Methods -->
+        <div class="mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-amber-800 mb-1">6.2 SLIDES 01, 02 &amp; 03 • THE CENTRAL DILEMMA OF USER RESEARCH</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-3">The Say vs. Do Gap &amp; The Three Primary Methods</h2>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center mb-6">
+            <!-- SVG of Staircase vs. Elevator Footprints (6.2 Slide 02) -->
+            <div class="lg:col-span-6 p-4 rounded-2xl bg-amber-50/70 border-2 border-amber-200">
+              <svg viewBox="0 0 420 145" class="w-full h-auto" aria-label="The Say vs Do Gap Staircase vs Elevator Diagram">
+                <!-- Divider -->
+                <line x1="205" y1="10" x2="205" y2="135" stroke="#78350F" stroke-width="2"/>
+                <!-- Left: What Users SAY (Stairs) -->
+                <rect x="18" y="14" width="145" height="36" rx="6" fill="#FFFFFF" stroke="#0284C7" stroke-width="2"/>
+                <text x="90" y="30" text-anchor="middle" class="font-mono text-[9.5px] fill-sky-900 font-bold">“I always take the</text>
+                <text x="90" y="42" text-anchor="middle" class="font-mono text-[9.5px] fill-sky-900 font-bold">stairs for my health.”</text>
+                <polyline points="20,125 60,125 60,100 100,100 100,75 140,75 140,50 190,50" fill="none" stroke="#0284C7" stroke-width="4"/>
+                <text x="105" y="136" text-anchor="middle" class="font-mono text-[9px] fill-sky-900 font-bold">WHAT USERS SAY</text>
+
+                <!-- Right: What Users DO (Elevator + Footprints) -->
+                <rect x="275" y="18" width="95" height="92" rx="4" fill="#9A3412" stroke="#431407" stroke-width="2"/>
+                <rect x="292" y="28" width="61" height="82" fill="#FFFFFF"/>
+                <!-- Footprints leading to Elevator -->
+                <ellipse cx="225" cy="122" rx="7" ry="3.5" fill="#B45309"/>
+                <ellipse cx="245" cy="126" rx="7" ry="3.5" fill="#B45309"/>
+                <ellipse cx="268" cy="120" rx="7" ry="3.5" fill="#B45309"/>
+                <ellipse cx="292" cy="124" rx="7" ry="3.5" fill="#B45309"/>
+                <ellipse cx="315" cy="116" rx="7" ry="3.5" fill="#B45309"/>
+                <text x="315" y="138" text-anchor="middle" class="font-mono text-[9px] fill-rose-900 font-extrabold">WHAT USERS ACTUALLY DO (ELEVATOR)</text>
+              </svg>
+            </div>
+
+            <!-- Explanation of Twinkling Lights Study (6.2 Slide 02) -->
+            <div class="lg:col-span-6 space-y-3 text-xs sm:text-sm text-zinc-800">
+              <p>
+                • <span class="hl-pink font-bold">Human beings are notoriously unreliable narrators of their own experiences.</span>
+              </p>
+              <p>
+                • <strong>The Twinkling Staircase Study (6.2 Slide 02):</strong> Users reported that twinkling lights embedded in a staircase to encourage exercise significantly changed their behavior. <span class="hl-yellow font-semibold">The logged data, however, proved they did not.</span>
+              </p>
+              <p>
+                • If we simply ask people what they do, they often give answers that show them in the best light, or simply misremember. <span class="hl-green font-bold">Data gathering is the systematic process of discovering the ground truth.</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- 6.2 Slide 03: Three Primary Methods -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-sky-50 border border-sky-200">
+              <span class="font-mono text-xs font-bold text-sky-900 uppercase">1. INTERVIEWS (6.2 S03)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                Deep qualitative insights. <span class="hl-blue font-bold">Probing the ‘Why.’</span>
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-purple-50 border border-purple-200">
+              <span class="font-mono text-xs font-bold text-purple-900 uppercase">2. QUESTIONNAIRES (6.2 S03)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                Scaling research. <span class="hl-purple font-bold">Measuring attitudes across populations.</span>
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-amber-50 border border-amber-200">
+              <span class="font-mono text-xs font-bold text-amber-900 uppercase">3. OBSERVATION (6.2 S03)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                Capturing ground truth. <span class="hl-yellow font-bold">Watching the ‘How’ and ‘What.’</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.2 Slides 04, 05 & 06: The Interview Spectrum, 4-Step Semi-Structured Anatomy & Leading Questions -->
+        <div class="border-t border-zinc-200 pt-8 mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-sky-800 mb-2">6.2 SLIDES 04, 05 &amp; 06 • INTERVIEWS: SPECTRUM, 4-STEP ANATOMY &amp; QUESTION ART</div>
+
+          <!-- 6.2 Slide 04: The Interview Spectrum -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-zinc-800 uppercase">UNSTRUCTURED (Exploratory)</span>
+              <p class="text-xs text-zinc-700 mt-1">
+                A conversation with a purpose. Open-ended questions. <strong>High discovery, low consistency. Hard to analyze.</strong>
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-sky-50 border-2 border-sky-400 shadow-sm">
+              <span class="font-mono text-xs font-extrabold text-sky-900 uppercase">★ SEMI-STRUCTURED (The Workhorse)</span>
+              <p class="text-xs text-zinc-800 mt-1">
+                <span class="hl-blue font-semibold">Pre-planned themes combined with organic probes.</span> Balances structure with flexibility.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-zinc-800 uppercase">STRUCTURED (Standardized)</span>
+              <p class="text-xs text-zinc-700 mt-1">
+                Fixed questions in a strict order. Closed questions. <strong>Easy to compare, but leaves no room for unexpected discoveries.</strong>
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <!-- 6.2 Slide 05: 4-Step Semi-Structured Interview Flowchart -->
+            <div class="lg:col-span-6 p-5 rounded-2xl bg-sky-50/50 border border-sky-200">
+              <span class="font-mono text-xs font-bold text-sky-900 uppercase">6.2 SLIDE 05 • ANATOMY OF THE SEMI-STRUCTURED INTERVIEW</span>
+              <div class="space-y-2.5 mt-3 text-xs">
+                <div class="p-2.5 rounded-lg bg-white border border-sky-200">
+                  <strong>Step 1: The Introduction</strong> — Establishing rapport, confirming consent, outlining purpose.
+                </div>
+                <div class="p-2.5 rounded-lg bg-white border border-sky-200">
+                  <strong>Step 2: The Warm-up</strong> — Simple, demographic, non-threatening questions to build confidence.
+                </div>
+                <div class="p-3 rounded-lg bg-sky-900 text-white font-semibold">
+                  <strong>Step 3: The Main Session (Core)</strong> — Core thematic questions mapped to research goals.
+                </div>
+                <div class="p-2.5 rounded-lg bg-white border border-sky-200">
+                  <strong>Step 4: The Cool-down &amp; Wrap-up</strong> — Summarizing, offering the participant the final word.
+                </div>
+              </div>
+            </div>
+
+            <!-- 6.2 Slide 06: Leading Questions vs. Neutral Probes & Silence -->
+            <div class="lg:col-span-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="p-4 rounded-2xl bg-rose-50 border-2 border-rose-300 flex flex-col justify-between">
+                <div>
+                  <span class="font-mono text-xs font-bold text-rose-900 uppercase">6.2 S06 • THE PITFALL</span>
+                  <h4 class="font-extrabold text-sm text-rose-950 mt-0.5">Leading Questions</h4>
+                  <div class="my-3 p-2.5 rounded-lg bg-rose-900 text-white font-mono text-xs text-center">
+                    “Don't you find this interface confusing?”
+                  </div>
+                </div>
+                <p class="text-xs text-zinc-800">
+                  <span class="hl-pink">Pre-empts the answer and biases the participant.</span> They may agree simply to please the investigator.
+                </p>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-emerald-50 border-2 border-emerald-300 flex flex-col justify-between">
+                <div>
+                  <span class="font-mono text-xs font-bold text-emerald-900 uppercase">6.2 S06 • BEST PRACTICE</span>
+                  <h4 class="font-extrabold text-sm text-emerald-950 mt-0.5">Neutral Probes &amp; Silence</h4>
+                  <div class="my-3 p-2.5 rounded-lg bg-emerald-900 text-white font-mono text-xs text-center">
+                    “Tell me more about the site layout...”
+                  </div>
+                </div>
+                <p class="text-xs text-zinc-800">
+                  <span class="hl-green font-semibold">The hardest skill for a researcher is staying quiet.</span> Silence forces the participant to fill the void with their own authentic reasoning.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.2 Slides 07, 08 & 09: Questionnaires, Likert Scales & Bad Instrument Design -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="font-mono text-xs uppercase font-bold text-purple-800 mb-2">6.2 SLIDES 07, 08 &amp; 09 • QUESTIONNAIRES, LIKERT SCALES &amp; CONTAMINATED SURVEY ERRORS</div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-6">
+            <!-- 6.2 Slide 07 & 08: Questionnaires & Likert Scale -->
+            <div class="lg:col-span-6 p-5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-3 text-xs sm:text-sm">
+              <span class="font-mono text-xs font-bold text-purple-900 uppercase">6.2 SLIDES 07 &amp; 08 • QUESTIONNAIRES &amp; LIKERT SCALES</span>
+              <p class="text-zinc-800">
+                • Shifts from <em>“Why does this happen?”</em> to <strong>“How many people feel this way?”</strong><br/>
+                • <strong>Advantage:</strong> Reaches a wide, representative sample cheaply &amp; asynchronously; quantifiable data.<br/>
+                • <strong>Vulnerability:</strong> Low response rates, <span class="hl-pink">sampling bias</span>, and relies on self-reported ‘Say’ data.
+              </p>
+              <div class="p-3 rounded-xl bg-white border border-zinc-300 space-y-2 text-xs">
+                <div>
+                  <strong class="font-mono text-sky-900">1. Odd-Number Scale (5-Point with Neutral):</strong>
+                  <span class="hl-blue font-semibold">The Odd-Number Safety Net</span> — allows users to sit on the fence (<code class="font-mono">Undecided/Neutral</code>).
+                </div>
+                <div>
+                  <strong class="font-mono text-amber-900">2. Even-Number Scale (4-Point without Neutral):</strong>
+                  <span class="hl-yellow font-semibold">The Even-Number Forced Choice</span> — removes the neutral option, forcing a positive or negative lean.
+                </div>
+              </div>
+            </div>
+
+            <!-- 6.2 Slide 09: 3 Contaminated Data Instrument Errors -->
+            <div class="lg:col-span-6 p-5 rounded-2xl bg-rose-50/60 border-2 border-rose-200 space-y-2.5 text-xs">
+              <span class="font-mono text-xs font-bold text-rose-900 uppercase">6.2 SLIDE 09 • BAD INSTRUMENT DESIGN YIELDS CONTAMINATED DATA</span>
+
+              <div class="p-3 rounded-xl bg-white border border-rose-200">
+                <div class="font-mono font-bold text-rose-800">Q1: “Is this app fast and easy to use?”</div>
+                <p class="text-zinc-800 mt-0.5">
+                  ✘ <strong>Error: <span class="hl-pink">The Double-Barreled Question.</span></strong> What if it is fast but hard to use? <strong>Fix:</strong> Split into two questions.
+                </p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-white border border-rose-200">
+                <div class="font-mono font-bold text-rose-800">Q2: “Age: 20–30, 30–40, 40–50.”</div>
+                <p class="text-zinc-800 mt-0.5">
+                  ✘ <strong>Error: <span class="hl-pink">Overlapping Ranges.</span></strong> Where does a 30-year-old click? <strong>Fix:</strong> Make ranges mutually exclusive.
+                </p>
+              </div>
+
+              <div class="p-3 rounded-xl bg-white border border-rose-200">
+                <div class="font-mono font-bold text-rose-800">Q3: “How often: Frequently, Sometimes, Rarely.”</div>
+                <p class="text-zinc-800 mt-0.5">
+                  ✘ <strong>Error: <span class="hl-pink">Ambiguous Scales.</span></strong> Subjective. <strong>Fix:</strong> Use concrete metrics (<code class="font-mono">Daily, Weekly, Monthly</code>).
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         PART 6.2B: OBSERVATION, CONTEXTUAL INQUIRY, ETHICS, PILOT STUDIES & TRIANGULATION (6.2 SLIDES 10–21)
+         =================================================================== -->
+    <div id="sec-6-2-b" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-emerald-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-700 text-white">6.2 SLIDES 10–21 • Observation, Contextual Inquiry, Indirect Logging, Ethics, Pilot Studies &amp; Triangulation</span>
+        </div>
+
+        <!-- 6.2 Slides 10 & 11: Observation Matrix (The Lab vs. The Wild) -->
+        <div class="mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-emerald-800 mb-1">6.2 SLIDES 10 &amp; 11 • OBSERVATION: DECODING WHAT PEOPLE ACTUALLY DO</div>
+          <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900 mb-3">Controlled Precision (The Lab) vs. Ecological Validity (The Wild)</h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="p-5 rounded-2xl bg-sky-50/60 border-2 border-sky-200">
+              <span class="font-mono text-xs font-bold text-sky-900 uppercase">THE LAB • CONTROLLED USABILITY LAB (6.2 S11)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-2">
+                • <strong>Advantage:</strong> <span class="hl-green font-semibold">High precision.</span> Eliminates distractions. Perfect for measuring specific task times, error rates, and micro-interactions.<br/>
+                • <strong>Vulnerability:</strong> <span class="hl-pink font-semibold">Artificial.</span> Users behave differently when they know they are being watched in a sterile room.
+              </p>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-amber-50/60 border-2 border-amber-200">
+              <span class="font-mono text-xs font-bold text-amber-900 uppercase">THE WILD • NATURAL SETTINGS / FIELD STUDIES (6.2 S11)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-2">
+                • <strong>Advantage:</strong> <span class="hl-green font-semibold">High ecological validity.</span> Reveals true context, interruptions, and actual physical workarounds (e.g., <span class="hl-yellow">sticky notes on a monitor</span>).<br/>
+                • <strong>Vulnerability:</strong> <span class="hl-pink font-semibold">High noise.</span> Researcher has no control over external variables or interruptions.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.2 Slides 12, 13 & 14: Contextual Inquiry (Master & Apprentice) & Indirect Observation -->
+        <div class="border-t border-zinc-200 pt-8 mb-10">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <!-- 6.2 Slides 12 & 13: Contextual Inquiry -->
+            <div class="lg:col-span-7 p-5 rounded-2xl bg-amber-50/50 border-2 border-amber-200 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs font-bold text-amber-900 uppercase">6.2 SLIDES 12 &amp; 13 • CONTEXTUAL INQUIRY: MASTER &amp; APPRENTICE</span>
+                <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">“The User is the Master; the Researcher is the Apprentice”</h3>
+                <p class="text-xs text-zinc-800 mt-1">
+                  • <strong>Traditional Interview:</strong> Investigator vs. User across a desk barrier → <em>Power resides with the investigator.</em><br/>
+                  • <strong>Contextual Inquiry:</strong> Researcher sits beside user at their real workstation → <span class="hl-yellow font-bold">Power resides with the user.</span>
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 mt-3 text-xs">
+                  <div class="p-2.5 rounded-lg bg-white border border-amber-200">
+                    <strong>1. Overview &amp; Context:</strong> Build rapport and establish scope of the apprenticeship.
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-white border border-amber-200">
+                    <strong>2. The Transition:</strong> Explicitly shift dynamic: <em>“I'm going to watch you work now. Please think aloud.”</em>
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-amber-950 text-white">
+                    <strong>3. Observation &amp; Interviewing (Core):</strong> User performs actual tasks; researcher observes, interrupts to clarify intent, and tests interpretations in real-time.
+                  </div>
+                  <div class="p-2.5 rounded-lg bg-white border border-amber-200">
+                    <strong>4. Wrap-up &amp; Summary:</strong> Researcher summarizes understanding so user can correct misinterpretations.
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6.2 Slide 14: Indirect Observation -->
+            <div class="lg:col-span-5 p-5 rounded-2xl bg-slate-950 text-white border border-slate-800 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs text-amber-400 font-bold uppercase">6.2 SLIDE 14 • INDIRECT OBSERVATION</span>
+                <h3 class="text-lg font-extrabold text-white mt-0.5">The Invisible, Continuous Investigator</h3>
+                <ul class="mt-3 space-y-2 text-xs text-slate-200">
+                  <li>• <strong>System Logging:</strong> Tracking clicks, navigation paths, and time-on-task.</li>
+                  <li>• <strong>Web Analytics:</strong> Heatmaps, scroll depth, and drop-off funnels.</li>
+                  <li>• <strong>Physical Tracking:</strong> Sensors monitoring crowd flow and physical bottlenecks.</li>
+                </ul>
+              </div>
+              <div class="mt-4 p-3 rounded-xl bg-rose-950 border border-rose-500/50 text-xs font-bold text-rose-200 text-center">
+                ⚠ The Catch (6.2 Slide 14): “This tells us exactly WHAT is happening, but never WHY.”
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.2 Slides 15, 16, 17 & 18: Ethics, Data Custody Pipeline, GDPR/Train Test & Pilot Studies -->
+        <div class="border-t border-zinc-200 pt-8 mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-emerald-800 mb-2">6.2 SLIDES 15, 16, 17 &amp; 18 • RESEARCH ETHICS, DATA CUSTODY PIPELINE, GDPR &amp; PILOT STUDIES</div>
+
+          <!-- 6.2 Slide 16: The Data Custody Pipeline -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div class="p-4 rounded-xl bg-emerald-50 border-2 border-emerald-200">
+              <span class="font-mono text-xs font-extrabold text-emerald-900 block">1. INFORMED CONSENT (6.2 S16)</span>
+              <p class="text-xs text-zinc-800 mt-1">
+                Participants must know exactly what they are doing, how data is used, and their <span class="hl-green font-semibold">absolute right to withdraw at any time.</span>
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-emerald-50 border-2 border-emerald-200">
+              <span class="font-mono text-xs font-extrabold text-emerald-900 block">2. ANONYMIZATION (6.2 S16)</span>
+              <p class="text-xs text-zinc-800 mt-1">
+                <span class="hl-green font-semibold">Stripping personally identifiable information (PII).</span> Replacing names with codes before analysis begins.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-emerald-50 border-2 border-emerald-200">
+              <span class="font-mono text-xs font-extrabold text-emerald-900 block">3. SECURE STORAGE (6.2 S16)</span>
+              <p class="text-xs text-zinc-800 mt-1">
+                Encrypted drives, separated physical records, and restricted access.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-zinc-900 text-white text-xs sm:text-sm font-bold text-center mb-6">
+            ★ The Golden Rule of HCI Evaluation (6.2 Slide 16): <span class="text-emerald-300">“We are testing the design, not you.”</span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200 text-xs sm:text-sm">
+              <strong class="font-mono text-emerald-900 block uppercase">6.2 SLIDE 17 • GDPR &amp; THE ‘LAPTOP ON THE TRAIN’ TEST</strong>
+              <p class="text-zinc-800 mt-1">
+                • <strong>GDPR Legal Framework:</strong> Mandates strict <span class="hl-purple font-semibold">data minimization, informed consent, and user control.</span><br/>
+                • <strong>The Train Test:</strong> If you leave your research laptop on public transit—is the data encrypted? Are participant faces blurred? Are consent forms stored separately from raw data?
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-sky-50 border border-sky-200 text-xs sm:text-sm">
+              <strong class="font-mono text-sky-900 block uppercase">6.2 SLIDE 18 • THE NECESSITY OF PILOT STUDIES</strong>
+              <p class="text-zinc-800 mt-1">
+                <span class="hl-yellow font-bold">“Never run a full study without testing the test.”</span> A small trial run (often with peers) to check: (1) Ambiguous questionnaire instructions? (2) Does camera angle capture hands? (3) Does script take 60 min instead of 30? Fix the instrument before burning through your participant pool.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.2 Slides 19, 20 & 21: Methodological Triangulation & The Master Methods Matrix -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <span class="font-mono text-xs uppercase font-bold text-zinc-700">6.2 SLIDES 19, 20 &amp; 21 • METHODOLOGICAL TRIANGULATION &amp; THE METHODS MATRIX</span>
+            <span class="font-hand text-xl text-emerald-800 font-bold">★ Ground Truth = Aligning ‘Say’ + ‘Do’</span>
+          </div>
+
+          <!-- Triangulation Banner (6.2 Slide 19) -->
+          <div class="p-4 rounded-xl bg-amber-50 border border-amber-300 mb-5 text-xs sm:text-sm text-zinc-900 flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <strong>Methodological Triangulation (6.2 Slide 19):</strong> Combining <strong>Interviews</strong> (<em>The “Why”</em>) + <strong>Surveys</strong> (<em>The “How Many”</em>) + <strong>Observation</strong> (<em>The “What” / actual behavior</em>) → <span class="hl-yellow font-bold">Ground Truth.</span>
+            </div>
+          </div>
+
+          <!-- 6.2 Slide 20: The Methods Matrix Table -->
+          <div class="overflow-x-auto rounded-xl border-2 border-zinc-900">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                  <th class="py-3.5 px-4">Method (6.2 Slide 20)</th>
+                  <th class="py-3.5 px-4">Data Type</th>
+                  <th class="py-3.5 px-4">Scale / Reach</th>
+                  <th class="py-3.5 px-4">Depth of Insight</th>
+                  <th class="py-3.5 px-4 text-rose-300">Bias Vulnerability</th>
+                  <th class="py-3.5 px-4 text-amber-300">Measures</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Interviews</td>
+                  <td class="py-3.5 px-4">Qualitative</td>
+                  <td class="py-3.5 px-4">Low</td>
+                  <td class="py-3.5 px-4"><span class="hl-green font-semibold">Deep</span></td>
+                  <td class="py-3.5 px-4"><span class="hl-pink">Interviewer Bias</span></td>
+                  <td class="py-3.5 px-4 font-mono font-bold text-sky-800">‘Say’</td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Questionnaires</td>
+                  <td class="py-3.5 px-4">Quantitative</td>
+                  <td class="py-3.5 px-4"><span class="hl-green font-semibold">High</span></td>
+                  <td class="py-3.5 px-4">Shallow</td>
+                  <td class="py-3.5 px-4"><span class="hl-pink">Sampling Bias</span></td>
+                  <td class="py-3.5 px-4 font-mono font-bold text-sky-800">‘Say’</td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Lab Observation</td>
+                  <td class="py-3.5 px-4">Quant / Qual</td>
+                  <td class="py-3.5 px-4">Low</td>
+                  <td class="py-3.5 px-4"><span class="hl-blue font-semibold">High Precision</span></td>
+                  <td class="py-3.5 px-4"><span class="hl-pink">Artificiality Bias</span></td>
+                  <td class="py-3.5 px-4 font-mono font-bold text-emerald-800">‘Do’</td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Field Observation</td>
+                  <td class="py-3.5 px-4">Qualitative</td>
+                  <td class="py-3.5 px-4">Low</td>
+                  <td class="py-3.5 px-4"><span class="hl-green font-semibold">Contextual Depth</span></td>
+                  <td class="py-3.5 px-4"><span class="hl-pink">Observer Effect</span></td>
+                  <td class="py-3.5 px-4 font-mono font-bold text-emerald-800">‘Do’</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         PART 6.3A: THE SENSE-MAKING PHASE — REQUIREMENTS, USABILITY/UX GOALS & PERSONAS (6.3 SLIDES 01–12)
+         =================================================================== -->
+    <div id="sec-6-3-a" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-purple-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-purple-700 text-white">6.3 SLIDES 01–12 • Sub-Deck 6.3: The Sense-Making Phase (Requirements, Usability vs. UX Goals &amp; Personas)</span>
+          <span class="font-mono text-xs text-zinc-500">WEEK 6.3 · SLIDES 01–21</span>
+        </div>
+
+        <!-- 6.3 Slides 01, 02, 03 & 04: The Translation Bridge & Architectural Guardrails -->
+        <div class="mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-purple-800 mb-1">6.3 SLIDES 01, 02, 03 &amp; 04 • THE TRANSLATION GAP &amp; ARCHITECTURAL GUARDRAILS</div>
+          <h2 class="text-2xl font-extrabold text-zinc-900 mb-2">Crossing from Raw User Data to System Architecture</h2>
+          <p class="text-xs sm:text-sm text-zinc-800 mb-4">
+            • <strong>The Translation Gap (6.3 Slide 02):</strong> <span class="hl-pink font-semibold">Skipping the sense-making phase leads to products that engineers love to build, but nobody wants to use.</span>
+          </p>
+
+          <!-- 6.3 Slide 03: The 3 Pillars of the Translation Bridge -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+            <div class="p-4 rounded-xl bg-sky-50 border border-sky-200">
+              <span class="font-mono text-xs font-bold text-sky-900 uppercase">PILLAR 1: THE GUARDRAILS (6.3 S03)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                <strong>Requirements &amp; Goals.</strong> Defining what the system must do and how well it must perform.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-purple-50 border border-purple-200">
+              <span class="font-mono text-xs font-bold text-purple-900 uppercase">PILLAR 2: THE PROTAGONISTS (6.3 S03)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                <strong>Personas.</strong> Synthesizing data into evidence-based human archetypes.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-amber-50 border border-amber-200">
+              <span class="font-mono text-xs font-bold text-amber-900 uppercase">PILLAR 3: THE ACTION (6.3 S03)</span>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                <strong>Interaction Models.</strong> Animating personas through Scenarios, Use Cases, Task Analysis, and User Stories.
+              </p>
+            </div>
+          </div>
+
+          <!-- 6.3 Slide 04: Bad vs. Good Requirement -->
+          <div class="p-5 rounded-2xl bg-zinc-50 border-2 border-zinc-200">
+            <div class="text-xs sm:text-sm text-zinc-800 mb-3">
+              <strong>Requirement Definition (6.3 Slide 04):</strong> <span class="hl-yellow font-semibold">A statement of what the product must do and how it must perform, before any implementation details are drawn.</span>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+              <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-300">
+                <strong class="font-mono text-rose-900 block">✘ BAD REQUIREMENT (Implementation-Locked):</strong>
+                <p class="mt-1 italic text-zinc-800">“The system needs a blue fingerprint scanner button on the home screen.”</p>
+              </div>
+              <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-300">
+                <strong class="font-mono text-emerald-900 block">✔ GOOD REQUIREMENT (Intent-Focused):</strong>
+                <p class="mt-1 italic text-zinc-800">“The system must allow returning users to authenticate their identity securely in under 3 seconds.”</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.3 Slides 05 & 06: The Four Pillars of Requirements & Unpacking the Environment -->
+        <div class="border-t border-zinc-200 pt-8 mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-sky-800 mb-2">6.3 SLIDES 05 &amp; 06 • THE 4 PILLARS OF REQUIREMENTS &amp; UNPACKING THE ENVIRONMENT</div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+            <div class="p-4 rounded-xl bg-white border-2 border-zinc-200">
+              <span class="font-mono text-xs font-extrabold text-sky-900 block">1. FUNCTIONAL (6.3 S05)</span>
+              <p class="text-xs text-zinc-700 mt-1">
+                <strong>What it does.</strong> (e.g., A robotic assembly arm must identify, manipulate, and weld metal accurately).
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-white border-2 border-zinc-200">
+              <span class="font-mono text-xs font-extrabold text-amber-900 block">2. DATA (6.3 S05)</span>
+              <p class="text-xs text-zinc-700 mt-1">
+                <strong>What it handles.</strong> Type, volatility, size, persistence, and accuracy (e.g., live stock-market feeds vs. persistent banking records).
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-white border-2 border-zinc-200">
+              <span class="font-mono text-xs font-extrabold text-emerald-900 block">3. ENVIRONMENTAL (6.3 S05)</span>
+              <p class="text-xs text-zinc-700 mt-1">
+                <strong>Where it lives.</strong> The physical, social, organizational, and technical context of use.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-white border-2 border-zinc-200">
+              <span class="font-mono text-xs font-extrabold text-purple-900 block">4. USER (6.3 S05)</span>
+              <p class="text-xs text-zinc-700 mt-1">
+                <strong>Who uses it.</strong> Novice vs. expert, frequency of use, cognitive and physical abilities.
+              </p>
+            </div>
+          </div>
+
+          <!-- 6.3 Slide 06: 4 Environmental Context Rings -->
+          <div class="p-5 rounded-2xl bg-slate-950 text-white border border-slate-800">
+            <div class="font-mono text-xs text-sky-400 font-bold uppercase mb-3">6.3 SLIDE 06 • UNPACKING THE ENVIRONMENT (4 RINGS OF CONTEXT OF USE)</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-700">
+                <strong class="text-amber-300 font-mono block">1. Physical Environment</strong>
+                Lighting, noise, movement (e.g., thick protective gloves? glaring sunlight?).
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-700">
+                <strong class="text-sky-300 font-mono block">2. Social Environment</strong>
+                Collaboration &amp; privacy (synchronous vs. asynchronous sharing? crowded public train?).
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-700">
+                <strong class="text-emerald-300 font-mono block">3. Organizational Env.</strong>
+                Infrastructure &amp; support (training protocols? company data policies?).
+              </div>
+              <div class="p-3 rounded-xl bg-slate-900 border border-slate-700">
+                <strong class="text-purple-300 font-mono block">4. Technical Environment</strong>
+                Ecosystem &amp; constraints (bandwidth limits, cross-platform compatibility, legacy hardware).
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.3 Slides 07, 08 & 09: 6 Usability Gauges, UX Goals & The Usability vs. UX Matrix -->
+        <div class="border-t border-zinc-200 pt-8 mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-amber-800 mb-2">6.3 SLIDES 07, 08 &amp; 09 • OBJECTIVE USABILITY GOALS VS. SUBJECTIVE UX GOALS</div>
+
+          <!-- 6.3 Slide 07: 6 Usability Goals -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6 text-xs">
+            <div class="p-3 rounded-xl bg-sky-50 border border-sky-200">
+              <strong class="font-mono text-sky-950 block">1. Effectiveness</strong>
+              Task success rates &amp; accuracy.<br/>
+              <span class="inline-block mt-1 px-1.5 py-0.5 rounded bg-yellow-200 font-bold text-zinc-900">Does it work?</span>
+            </div>
+            <div class="p-3 rounded-xl bg-sky-50 border border-sky-200">
+              <strong class="font-mono text-sky-950 block">2. Efficiency</strong>
+              Time on task &amp; resources expended.<br/>
+              <span class="inline-block mt-1 px-1.5 py-0.5 rounded bg-yellow-200 font-bold text-zinc-900">Is it fast?</span>
+            </div>
+            <div class="p-3 rounded-xl bg-sky-50 border border-sky-200">
+              <strong class="font-mono text-sky-950 block">3. Safety</strong>
+              Error prevention &amp; recovery.<br/>
+              <span class="inline-block mt-1 px-1.5 py-0.5 rounded bg-yellow-200 font-bold text-zinc-900">Protected?</span>
+            </div>
+            <div class="p-3 rounded-xl bg-sky-50 border border-sky-200">
+              <strong class="font-mono text-sky-950 block">4. Utility</strong>
+              Feature coverage.<br/>
+              <span class="inline-block mt-1 px-1.5 py-0.5 rounded bg-yellow-200 font-bold text-zinc-900">Right tools?</span>
+            </div>
+            <div class="p-3 rounded-xl bg-sky-50 border border-sky-200">
+              <strong class="font-mono text-sky-950 block">5. Learnability</strong>
+              Time required for novices to achieve competence.
+            </div>
+            <div class="p-3 rounded-xl bg-sky-50 border border-sky-200">
+              <strong class="font-mono text-sky-950 block">6. Memorability</strong>
+              Retention of skills over time for intermittent users.
+            </div>
+          </div>
+
+          <!-- 6.3 Slide 08 & 09: UX Goals + 2x2 Matrix -->
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <div class="lg:col-span-5 p-5 rounded-2xl bg-amber-50/70 border-2 border-amber-200 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs font-bold text-amber-900 uppercase">6.3 SLIDE 08 • SUBJECTIVE EMOTION: UX GOALS</span>
+                <p class="text-xs text-zinc-800 mt-2">
+                  • <strong>Negative:</strong> <span class="hl-pink">Boring, Frustrating, Annoying, Cutesy, Gimmicky, Creepy, Invasive, Patronizing.</span><br/>
+                  • <strong>Positive:</strong> <span class="hl-green">Satisfying, Enjoyable, Engaging, Empathetic, Exciting, Helpful, Motivating, Enhancing Sociability, Emotionally Fulfilling, Experiencing Flow.</span>
+                </p>
+              </div>
+              <div class="mt-4 p-3.5 rounded-xl bg-zinc-900 text-white font-hand text-xl text-center">
+                “Usability asks: <span class="text-sky-300">Can they use it?</span><br/>UX asks: <span class="text-amber-300">Do they want to?</span>”
+              </div>
+            </div>
+
+            <!-- 6.3 Slide 09: The Usability vs. UX 2x2 Matrix -->
+            <div class="lg:col-span-7 p-5 rounded-2xl bg-slate-950 text-white border border-slate-800">
+              <span class="font-mono text-xs text-amber-400 font-bold uppercase block mb-2">6.3 SLIDE 09 • THE USABILITY VS. UX 2×2 MATRIX</span>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                <div class="p-3.5 rounded-xl bg-slate-900 border border-sky-400/50">
+                  <strong class="font-mono text-sky-300 block">HIGH USABILITY / LOW UX: The ATM Machine</strong>
+                  <p class="text-slate-300 mt-1">
+                    Highly efficient, perfectly safe, zero learning curve. But entirely devoid of joy, engagement, or emotional fulfillment.
+                  </p>
+                </div>
+                <div class="p-3.5 rounded-xl bg-amber-400 text-zinc-950 font-bold flex flex-col justify-center text-center">
+                  <span class="font-mono text-[10px] uppercase">HIGH USABILITY / HIGH UX</span>
+                  <span class="font-hand text-2xl mt-0.5">★ The Holy Grail of Interaction Design</span>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-900/50 border border-slate-800 text-slate-500 flex items-center justify-center font-mono text-[11px]">
+                  [Low Usability / Low UX: System Failure]
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-900 border border-purple-400/50">
+                  <strong class="font-mono text-purple-300 block">LOW USABILITY / HIGH UX: Hardcore Video Game</strong>
+                  <p class="text-slate-300 mt-1">
+                    Steep learning curve, intentionally inefficient, high error rate (dying in-game). Yet incredibly engaging, motivating, and immersive (Flow state).
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.3 Slides 10, 11 & 12: The Elastic User, Persona Distillation Funnel & Alex Chen Persona Card -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="font-mono text-xs uppercase font-bold text-purple-800 mb-2">6.3 SLIDES 10, 11 &amp; 12 • THE ELASTIC USER, PERSONA DISTILLATION &amp; ANATOMY OF A PERSONA</div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <!-- 6.3 Slide 10 & 11: Elastic User + Distillation Funnel -->
+            <div class="lg:col-span-5 space-y-4">
+              <div class="p-4 rounded-2xl bg-rose-50 border-2 border-rose-200 text-xs sm:text-sm">
+                <span class="font-mono text-xs font-bold text-rose-900 uppercase">6.3 SLIDE 10 • THE ELASTIC USER</span>
+                <p class="text-zinc-800 mt-1">
+                  • <strong>The Fallacy:</strong> <em>“If we make it generic enough, everyone will use it.”</em><br/>
+                  • <strong>The Reality:</strong> Designing for “everyone” means designing for no one. It creates <span class="hl-pink font-bold">The Elastic User</span>—an imaginary entity stretched to justify pre-made decisions.<br/>
+                  • <strong>Rule:</strong> <span class="hl-yellow font-bold">“If your user is ‘everyone,’ your product is a compromise.”</span>
+                </p>
+              </div>
+
+              <div class="p-4 rounded-2xl bg-purple-50 border-2 border-purple-200 text-xs sm:text-sm">
+                <span class="font-mono text-xs font-bold text-purple-900 uppercase">6.3 SLIDE 11 • THE DISTILLATION FUNNEL</span>
+                <ol class="mt-1.5 space-y-1 text-zinc-800">
+                  <li><strong>Step 1: Discover Patterns</strong> — Find behavioral trends in qualitative data.</li>
+                  <li><strong>Step 2: Synthesize Characteristics</strong> — Group common goals, contexts, and pain points.</li>
+                  <li><strong>Step 3: Forge the Archetype</strong> — Create a fictional but deeply accurate representative character.</li>
+                </ol>
+                <div class="mt-2.5 p-2.5 rounded-lg bg-purple-950 text-purple-100 text-xs font-semibold">
+                  ★ Rule of Thumb (6.3 S11): 3–5 personas per product, with <strong>one primary persona</strong> whose needs win when trade-offs conflict.
+                </div>
+              </div>
+            </div>
+
+            <!-- 6.3 Slide 12: Reconstructed Alex Chen Persona Profile Card -->
+            <div class="lg:col-span-7 p-5 rounded-2xl bg-slate-950 text-white border-2 border-slate-800 flex flex-col justify-between">
+              <div>
+                <div class="flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3 mb-3">
+                  <div>
+                    <span class="font-mono text-[11px] text-sky-400 font-bold uppercase">6.3 SLIDE 12 • PERSONA PROFILE CARD</span>
+                    <h3 class="text-lg font-extrabold text-white">Name: Alex Chen (Age: 32 • Senior Project Lead • Seattle, WA Remote)</h3>
+                  </div>
+                  <span class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[10px]">Keep bio brief (empathy only)</span>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs mb-3">
+                  <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                    <strong class="text-sky-300 font-mono block mb-1">CONTEXT (Where are they?)</strong>
+                    • <strong>Hardware:</strong> High-spec laptop, dual 4K displays<br/>
+                    • <strong>Location:</strong> Shared workspace, frequent interruptions<br/>
+                    • <strong>Social:</strong> High collaboration, fast response expectations
+                  </div>
+                  <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                    <strong class="text-purple-300 font-mono block mb-1">SKILLS MATRIX (What do they know?)</strong>
+                    • <strong>Domain Expertise:</strong> Expert (High)<br/>
+                    • <strong>Software Knowledge:</strong> Intermediate
+                  </div>
+                </div>
+
+                <div class="p-3.5 rounded-xl bg-amber-500/10 border-2 border-amber-400 text-xs">
+                  <strong class="text-amber-300 font-mono block uppercase mb-1">★ THE ABSOLUTE CORE: GOALS &amp; FRUSTRATIONS (6.3 SLIDE 12)</strong>
+                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                      <strong class="text-emerald-300 block">Goals:</strong>
+                      • Achieve efficient workflow automation<br/>
+                      • Minimize time on manual data entry<br/>
+                      • Lead cross-functional projects
+                    </div>
+                    <div>
+                      <strong class="text-rose-300 block">Frustrations:</strong>
+                      • Existing tools are fragmented &amp; slow<br/>
+                      • Lack of real-time data visibility<br/>
+                      • Constant context switching reduces focus
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         PART 6.3B: DYNAMIC INTERACTION MODELS — SCENARIOS, HTA, USE CASES, USER STORIES & TRACEABILITY (6.3 SLIDES 13–21)
+         =================================================================== -->
+    <div id="sec-6-3-b" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-zinc-900 border-b-4 border-b-zinc-900">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">6.3 SLIDES 13–21 • Scenarios, HTA, Use Cases, User Stories, Artifact Spectrum &amp; Traceability Thread</span>
+          <span class="font-hand text-xl text-amber-800 font-bold">★ Complete Interaction Modeling Suite</span>
+        </div>
+
+        <!-- 6.3 Slides 13, 14 & 15: The Narrative Shift, Scenarios & Hierarchical Task Analysis (HTA) -->
+        <div class="mb-10">
+          <div class="p-3.5 rounded-xl bg-zinc-900 text-white font-mono text-xs sm:text-sm font-bold text-center mb-6">
+            6.3 Slide 13 • The Narrative Shift: <span class="text-sky-300">“A persona is a character. A requirement is the set design. Now, we need a plot.”</span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <!-- 6.3 Slide 14: Scenarios: Context & Narrative -->
+            <div class="lg:col-span-6 p-5 rounded-2xl bg-sky-50/60 border-2 border-sky-200 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs font-bold text-sky-900 uppercase">6.3 SLIDE 14 • SCENARIOS: CONTEXT &amp; NARRATIVE</span>
+                <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">Informal, Context-Heavy Narrative</h3>
+                <p class="text-xs text-zinc-800 mt-1">
+                  <span class="hl-blue font-semibold">Communicates the “ideal state” and explores the problem space without committing to UI details.</span> Focuses on daily life, triggers, emotional states, and external interruptions.
+                </p>
+
+                <div class="mt-3 p-3 rounded-xl bg-white border border-sky-200 text-xs space-y-1.5">
+                  <div class="font-mono font-bold text-sky-950">Scenario Example: The Grocery Delivery</div>
+                  <div>• <strong>Stage/Trigger:</strong> Late afternoon, tired → <strong>Action:</strong> Checks app, orders essentials → <strong>Emotional State:</strong> Relieved, stressed about time → <strong>Environment:</strong> Home, cooking dinner, kids in background.</div>
+                  <div class="pt-1 text-zinc-600 font-mono text-[11px]">
+                    Filmstrip: [1. Notification arrives] → [2. Driver hands off groceries] → [3. Unpacks items, feeling organized]
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6.3 Slide 15: Hierarchical Task Analysis (HTA) -->
+            <div class="lg:col-span-6 p-5 rounded-2xl bg-amber-50/60 border-2 border-amber-300 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs font-bold text-amber-900 uppercase">6.3 SLIDE 15 • HIERARCHICAL TASK ANALYSIS (HTA)</span>
+                <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">Decomposing Goals into Subtasks &amp; Logical Plans</h3>
+                <p class="text-xs text-zinc-800 mt-1">
+                  Decomposing a high-level goal into subtasks, operations, and logical plans (e.g., <code class="font-mono">‘do 1-2-3; do 4 only if condition X is met’</code>).
+                </p>
+
+                <!-- HTA Tree Diagram SVG -->
+                <div class="my-3 p-3 rounded-xl bg-slate-950 text-white">
+                  <svg viewBox="0 0 380 85" class="w-full h-auto" aria-label="HTA ATM Get Cash Tree Diagram">
+                    <rect x="135" y="4" width="110" height="22" rx="4" fill="#1E293B" stroke="#F59E0B" stroke-width="1.5"/>
+                    <text x="190" y="18" text-anchor="middle" class="font-mono text-[9px] fill-amber-300 font-bold">Goal: Get Cash</text>
+
+                    <line x1="190" y1="26" x2="190" y2="40" stroke="#94A3B8" stroke-width="1.5"/>
+                    <line x1="38" y1="40" x2="342" y2="40" stroke="#94A3B8" stroke-width="1.5"/>
+
+                    <rect x="6" y="48" width="64" height="26" rx="3" fill="#0F172A" stroke="#64748B"/>
+                    <text x="38" y="64" text-anchor="middle" class="font-mono text-[7.5px] fill-white">1. Insert Card</text>
+
+                    <rect x="78" y="48" width="64" height="26" rx="3" fill="#0F172A" stroke="#64748B"/>
+                    <text x="110" y="64" text-anchor="middle" class="font-mono text-[7.5px] fill-white">2. Enter PIN</text>
+
+                    <rect x="150" y="48" width="76" height="26" rx="3" fill="#0F172A" stroke="#64748B"/>
+                    <text x="188" y="64" text-anchor="middle" class="font-mono text-[7.5px] fill-white">3. Select Amt</text>
+
+                    <rect x="234" y="48" width="68" height="26" rx="3" fill="#064E3B" stroke="#34D399" stroke-width="1.5"/>
+                    <text x="268" y="64" text-anchor="middle" class="font-mono text-[7.5px] fill-emerald-300 font-bold">4. Take Card</text>
+
+                    <rect x="310" y="48" width="64" height="26" rx="3" fill="#0F172A" stroke="#64748B"/>
+                    <text x="342" y="64" text-anchor="middle" class="font-mono text-[7.5px] fill-white">5. Take Cash</text>
+                  </svg>
+                </div>
+              </div>
+
+              <div class="p-3 rounded-xl bg-amber-950 text-amber-100 text-xs">
+                ★ <strong>The Design Insight (6.3 Slide 15):</strong> HTA identified the <strong>post-completion error</strong> (users taking cash and leaving their card behind). <strong>Solution:</strong> Force <code class="font-mono text-emerald-300">Step 4 (Take Card)</code> <em>before</em> <code class="font-mono">Step 5 (Take Cash)</code>.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.3 Slides 16, 17 & 18: Use Cases, Specific vs. Essential Use Cases & Agile User Stories -->
+        <div class="border-t border-zinc-200 pt-8 mb-10">
+          <div class="font-mono text-xs uppercase font-bold text-purple-800 mb-2">6.3 SLIDES 16, 17 &amp; 18 • USE CASES (MAIN VS. ERROR FLOWS, SPECIFIC VS. ESSENTIAL) &amp; USER STORIES</div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <!-- 6.3 Slide 16: Use Cases Structure & Logic -->
+            <div class="lg:col-span-5 p-5 rounded-2xl bg-zinc-50 border-2 border-zinc-200 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-xs font-bold text-emerald-900 uppercase">6.3 SLIDE 16 • USE CASES: STRUCTURE &amp; LOGIC</span>
+                <p class="text-xs text-zinc-800 mt-1">
+                  Formal, step-by-step documentation of an interaction between an <strong>Actor</strong> and the <strong>System</strong>:
+                </p>
+                <ul class="mt-2 space-y-1.5 text-xs text-zinc-800">
+                  <li>• <strong>Actor &amp; Preconditions:</strong> Who initiates, and what must be true before starting?</li>
+                  <li>• <strong>Main Success Flow:</strong> <span class="hl-green font-semibold">The “Happy Path”</span> when everything goes right.</li>
+                  <li>• <strong>Alternative / Error Flows:</strong> <span class="hl-pink font-semibold">The edge cases</span> (Conditions Not Met → Exit/Retry; Wrong Input → Prompt Correction; Network Drop → System Error → Exit).</li>
+                </ul>
+              </div>
+              <div class="mt-3 p-2.5 rounded-lg bg-slate-900 text-white font-mono text-[10px] text-center">
+                Actor Initiates → Verify Preconditions → Main Flow → Process → Confirm Success
+              </div>
+            </div>
+
+            <!-- 6.3 Slide 17 & 18: Specific vs. Essential Use Cases + User Stories -->
+            <div class="lg:col-span-7 space-y-4">
+              <!-- 6.3 Slide 17 -->
+              <div class="p-4 rounded-2xl bg-white border-2 border-zinc-200">
+                <span class="font-mono text-xs font-bold text-zinc-700 uppercase block mb-2">6.3 SLIDE 17 • SPECIFIC VS. ESSENTIAL USE CASES</span>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+                  <div class="p-3 rounded-xl bg-rose-50 border border-rose-200">
+                    <strong class="font-mono text-rose-900 block">Specific Use Case:</strong>
+                    <em>“User taps the biometric scanner icon. System scans fingerprint.”</em><br/>
+                    <span class="text-rose-800 font-semibold">Problem:</span> Locks design into mobile biometrics immediately. What if they use a desktop?
+                  </div>
+                  <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+                    <strong class="font-mono text-emerald-900 block">Essential Use Case:</strong>
+                    <em>“User provides proof of identity. System verifies authentication.”</em><br/>
+                    <span class="text-emerald-800 font-semibold">Benefit:</span> Focuses purely on user intent &amp; system responsibility.
+                  </div>
+                </div>
+              </div>
+
+              <!-- 6.3 Slide 18: Agile User Stories -->
+              <div class="p-4 rounded-2xl bg-purple-50/70 border-2 border-purple-200 text-xs sm:text-sm">
+                <div class="flex items-center justify-between mb-1">
+                  <span class="font-mono text-xs font-bold text-purple-900 uppercase">6.3 SLIDE 18 • USER STORIES: THE AGILE UNIT</span>
+                  <span class="font-mono text-[11px] text-purple-800">Smallest unit of requirements for sprints</span>
+                </div>
+                <div class="p-3 rounded-xl bg-white border border-purple-300 font-mono text-xs font-bold text-zinc-900 my-2">
+                  As a <span class="text-purple-700">[role/persona]</span>... I want to <span class="text-sky-700">[specific goal]</span>... so that <span class="text-emerald-700">[underlying benefit/value]</span>.
+                </div>
+                <p class="text-xs text-zinc-800">
+                  • <strong>Example (6.3 S18):</strong> <em>“As a frequent traveler, I want to filter flights by carbon emissions so that I can reduce my environmental footprint.”</em><br/>
+                  • <strong>Takeaway:</strong> <span class="hl-yellow font-semibold">Centers the developer's task entirely on human value, not just functional code.</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6.3 Slides 19, 20 & 21: The Artifact Spectrum, The Traceability Thread & ISO 9241-210 Loop -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="font-mono text-xs uppercase font-bold text-zinc-700 mb-2">6.3 SLIDES 19, 20 &amp; 21 • THE ARTIFACT SPECTRUM, TRACEABILITY THREAD &amp; ITERATIVE LOOP</div>
+
+          <!-- 6.3 Slide 19: The Artifact Spectrum Table -->
+          <div class="overflow-x-auto rounded-xl border-2 border-zinc-900 mb-6">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                  <th class="py-3.5 px-4">Artifact (6.3 Slide 19)</th>
+                  <th class="py-3.5 px-4 text-sky-300">Formality</th>
+                  <th class="py-3.5 px-4 text-amber-300">Primary Audience</th>
+                  <th class="py-3.5 px-4 text-emerald-300">Structural Focus</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Scenario</td>
+                  <td class="py-3.5 px-4">Informal / Narrative</td>
+                  <td class="py-3.5 px-4">Designers &amp; Stakeholders</td>
+                  <td class="py-3.5 px-4"><span class="hl-blue">Context, Emotion, Environment</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">HTA</td>
+                  <td class="py-3.5 px-4">Structured Diagram</td>
+                  <td class="py-3.5 px-4">UX Architects</td>
+                  <td class="py-3.5 px-4"><span class="hl-yellow">Task decomposition, Plans, Error prediction</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">Use Case</td>
+                  <td class="py-3.5 px-4">Formal / Step-by-Step</td>
+                  <td class="py-3.5 px-4">Systems Engineers</td>
+                  <td class="py-3.5 px-4"><span class="hl-green">Logic, Success flows, Error handling</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900 bg-zinc-50">User Story</td>
+                  <td class="py-3.5 px-4">Atomic / Standardized</td>
+                  <td class="py-3.5 px-4">Agile Developers</td>
+                  <td class="py-3.5 px-4"><span class="hl-purple">Role, Goal, Business Value</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 6.3 Slide 20: The Traceability Thread & 6.3 Slide 21: ISO 9241-210 Summary -->
+          <div class="p-6 rounded-2xl bg-zinc-900 text-white">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <span class="font-mono text-xs text-amber-300 font-bold uppercase">6.3 SLIDES 20 &amp; 21 • THE TRACEABILITY THREAD &amp; ISO 9241-210 LOOP</span>
+              <span class="font-mono text-xs text-zinc-400">“Every line of code written should trace directly back to a human requirement.”</span>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-5 gap-2.5 text-xs font-mono mb-4">
+              <div class="p-3 rounded-xl bg-zinc-800 border border-sky-400/50">
+                <strong class="text-sky-300 block">1. Requirement</strong>
+                (System must handle rapid checkout)
+              </div>
+              <div class="p-3 rounded-xl bg-zinc-800 border border-purple-400/50">
+                <strong class="text-purple-300 block">2. Persona</strong>
+                (Busy commuter who hates lines)
+              </div>
+              <div class="p-3 rounded-xl bg-zinc-800 border border-amber-400/50">
+                <strong class="text-amber-300 block">3. Scenario</strong>
+                (Running late for train, needs coffee fast)
+              </div>
+              <div class="p-3 rounded-xl bg-zinc-800 border border-emerald-400/50">
+                <strong class="text-emerald-300 block">4. Use Case</strong>
+                (System flow for 1-click mobile pre-order)
+              </div>
+              <div class="p-3 rounded-xl bg-zinc-800 border border-rose-400/50">
+                <strong class="text-rose-300 block">5. User Story</strong>
+                (“As a commuter, I want to save my default payment...”)
+              </div>
+            </div>
+
+            <div class="pt-3 border-t border-zinc-800 text-xs sm:text-sm text-center text-zinc-300">
+              ★ <strong>6.3 Slide 21 Final Rule:</strong> <span class="text-amber-300 font-bold">“Documentation is not a chore you finish; it is a hypothesis you test. The blueprints evolve as the building goes up.”</span> (1. Understand Context → 2. Specify Requirements → 3. Produce Design Solutions → 4. Evaluate Against Requirements).
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+</body>
+</html>

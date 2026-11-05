@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COM481: Human-Computer Interaction — Course Portal & Study Notes Hub</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Plus Jakarta Sans, JetBrains Mono, Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['"Caveat"', 'cursive'],
+          },
+          colors: {
+            paper: '#FAF8F5',
+            card: '#FFFFFF',
+            ink: '#18181B',
+            muted: '#52525B',
+            borderLight: '#E4E2DD',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Warm Engineering Study Notebook Dot/Grid Paper Aesthetic */
+    body {
+      background-color: #F6F4F0;
+      color: #18181B;
+      background-image: 
+        radial-gradient(#D4D0C8 1.15px, transparent 1.15px),
+        linear-gradient(to right, rgba(220, 216, 208, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(220, 216, 208, 0.35) 1px, transparent 1px);
+      background-size: 24px 24px, 96px 96px, 96px 96px;
+    }
+
+    /* Realistic Marker Highlighter Effects */
+    .hl-yellow {
+      background: linear-gradient(104deg, rgba(254, 240, 138, 0) 0.9%, rgba(254, 240, 138, 0.95) 2.4%, rgba(254, 240, 138, 0.65) 5.8%, rgba(254, 240, 138, 0.88) 93%, rgba(254, 240, 138, 0.7) 96%, rgba(254, 240, 138, 0) 98%);
+      padding: 0.06em 0.32em; margin: 0 -0.12em; border-radius: 0.25em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    }
+    .hl-green {
+      background: linear-gradient(104deg, rgba(187, 247, 208, 0) 0.9%, rgba(187, 247, 208, 0.95) 2.4%, rgba(187, 247, 208, 0.65) 5.8%, rgba(187, 247, 208, 0.88) 93%, rgba(187, 247, 208, 0.7) 96%, rgba(187, 247, 208, 0) 98%);
+      padding: 0.06em 0.32em; margin: 0 -0.12em; border-radius: 0.25em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    }
+    .hl-blue {
+      background: linear-gradient(104deg, rgba(186, 230, 253, 0) 0.9%, rgba(186, 230, 253, 0.92) 2.4%, rgba(186, 230, 253, 0.65) 5.8%, rgba(186, 230, 253, 0.88) 93%, rgba(186, 230, 253, 0.7) 96%, rgba(186, 230, 253, 0) 98%);
+      padding: 0.06em 0.32em; margin: 0 -0.12em; border-radius: 0.25em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    }
+    .hl-pink {
+      background: linear-gradient(104deg, rgba(254, 205, 211, 0) 0.9%, rgba(254, 205, 211, 0.92) 2.4%, rgba(254, 205, 211, 0.65) 5.8%, rgba(254, 205, 211, 0.88) 93%, rgba(254, 205, 211, 0.7) 96%, rgba(254, 205, 211, 0) 98%);
+      padding: 0.06em 0.32em; margin: 0 -0.12em; border-radius: 0.25em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    }
+    .hl-purple {
+      background: linear-gradient(104deg, rgba(233, 213, 255, 0) 0.9%, rgba(233, 213, 255, 0.92) 2.4%, rgba(233, 213, 255, 0.65) 5.8%, rgba(233, 213, 255, 0.88) 93%, rgba(233, 213, 255, 0.7) 96%, rgba(233, 213, 255, 0) 98%);
+      padding: 0.06em 0.32em; margin: 0 -0.12em; border-radius: 0.25em; box-decoration-break: clone; -webkit-box-decoration-break: clone;
+    }
+
+    /* Notebook Sheet Card */
+    .note-sheet {
+      background-color: #FFFFFF;
+      border: 1px solid #E4E2DD;
+      box-shadow: 0 4px 20px -4px rgba(24, 24, 27, 0.06), 0 2px 6px -1px rgba(24, 24, 27, 0.03);
+      position: relative;
+    }
+
+    /* Sticky Note Callout */
+    .sticky-callout {
+      background-color: #FEF9C3;
+      border: 1px solid #FDE047;
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.06);
+    }
+  </style>
+
+  <!-- Modular Collapsible Navigation Engine -->
+  <script src="nav.js" defer></script>
+</head>
+<body class="antialiased selection:bg-yellow-200 selection:text-zinc-900">
+
+  <!-- Main Container -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 space-y-12">
+
+    <!-- HERO / COURSE CHARTER BANNER -->
+    <header class="note-sheet rounded-3xl p-6 sm:p-10 border-t-4 border-t-zinc-900">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6 pb-4 border-b border-[#E4E2DD]">
+        <div class="flex items-center gap-3">
+          <span class="w-10 h-10 rounded-xl bg-zinc-900 text-amber-300 font-mono text-sm font-extrabold flex items-center justify-center shadow-md">
+            HCI
+          </span>
+          <div>
+            <span class="font-mono text-xs font-bold text-zinc-500 uppercase tracking-widest block">İstanbul Aydın University • Department of Computer Engineering</span>
+            <span class="text-xs font-mono text-zinc-400">COM481 • Fall 2026 • 3.0 Credits / 4.0 ECTS</span>
+          </div>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-100 text-amber-900 border border-amber-300">
+            Exam Prep Hub
+          </span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-100 text-emerald-900 border border-emerald-300">
+            6 Modules Active
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
+        <div class="lg:col-span-2 space-y-4">
+          <div class="inline-block px-3 py-1 rounded-md bg-zinc-100 border border-zinc-200 font-mono text-xs font-bold uppercase tracking-wider text-zinc-700">
+            Official Course Study Guide &amp; Architecture Portal
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 leading-tight">
+            Human–Computer Interaction
+          </h1>
+          <p class="text-sm sm:text-base text-zinc-600 leading-relaxed max-w-2xl">
+            A comprehensive, publication-quality repository of annotated lecture study notes, empirical interaction models, and usability engineering frameworks for <span class="hl-yellow font-bold">COM481</span> based on the lectures by <span class="font-bold text-zinc-900">Dr. Damla Sivrioğlu Aslan</span>.
+          </p>
+
+          <!-- Core Mantra Card -->
+          <div class="sticky-callout rounded-2xl p-4 sm:p-5 max-w-xl">
+            <span class="font-hand text-2xl text-amber-900 block mb-0.5">The Universal HCI Mantra:</span>
+            <p class="text-sm sm:text-base font-extrabold text-zinc-900 leading-snug">
+              “<span class="hl-yellow">The user is not the problem; the interaction is.</span> When users make errors, diagnose the design signal that invited it.”
+            </p>
+            <div class="mt-2 text-xs font-mono text-zinc-600 text-right">— Don Norman, DOET Ch. 1</div>
+          </div>
+        </div>
+
+        <!-- Instructor & Course Quick Info Card -->
+        <div class="p-5 rounded-2xl bg-[#FAF8F5] border border-[#E4E2DD] space-y-3 font-mono text-xs">
+          <div class="text-[10px] uppercase font-bold text-zinc-400 tracking-wider">Course Metadata</div>
+          <div>
+            <span class="text-zinc-500 block">Instructor:</span>
+            <span class="font-bold text-zinc-900 text-sm font-sans">Dr. Öğr. Üyesi Damla Aslan</span>
+          </div>
+          <div>
+            <span class="text-zinc-500 block">Core Literature:</span>
+            <span class="font-bold text-zinc-800">Norman (DOET) • Rogers et al. • Nielsen • Shneiderman</span>
+          </div>
+          <div>
+            <span class="text-zinc-500 block">Assessment Breakdown:</span>
+            <span class="text-zinc-700">Midterm: 30% • Final Exam: 30% • Design Project: 30% • Reviews: 10%</span>
+          </div>
+          <div class="pt-2 border-t border-[#E4E2DD]">
+            <a href="https://github.com" target="_blank" class="inline-flex items-center gap-1.5 text-xs text-zinc-700 hover:text-zinc-900 font-semibold transition">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+              <span>GitHub Pages Deployment</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- LIVE SEARCH & QUICK FILTER -->
+    <section class="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-[#E4E2DD] shadow-sm">
+      <div class="flex items-center gap-3 w-full sm:w-auto">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-zinc-400 shrink-0"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input 
+          id="hci-search-input" 
+          type="text" 
+          placeholder="Filter modules by topic (e.g., Fitts, Gestalt, Norman, UCD, Recall)..." 
+          class="w-full sm:w-80 text-sm font-sans text-zinc-900 placeholder:text-zinc-400 focus:outline-none bg-transparent"
+        />
+      </div>
+      <div class="flex items-center gap-1.5 overflow-x-auto w-full sm:w-auto text-xs font-mono">
+        <span class="text-zinc-400 mr-1 hidden md:inline">Quick Tags:</span>
+        <button onclick="filterByTag('all')" class="px-2.5 py-1 rounded-md bg-zinc-900 text-white font-semibold">All</button>
+        <button onclick="filterByTag('cognition')" class="px-2.5 py-1 rounded-md bg-zinc-100 hover:bg-zinc-200 text-zinc-700 transition">Cognition</button>
+        <button onclick="filterByTag('input')" class="px-2.5 py-1 rounded-md bg-zinc-100 hover:bg-zinc-200 text-zinc-700 transition">Input/Output</button>
+        <button onclick="filterByTag('principles')" class="px-2.5 py-1 rounded-md bg-zinc-100 hover:bg-zinc-200 text-zinc-700 transition">Principles</button>
+        <button onclick="filterByTag('ucd')" class="px-2.5 py-1 rounded-md bg-zinc-100 hover:bg-zinc-200 text-zinc-700 transition">UCD</button>
+      </div>
+    </section>
+
+    <!-- SEMESTER ROADMAP GRID (WEEKLY LESSON CARDS) -->
+    <section class="space-y-6">
+      <div class="flex items-center justify-between">
+        <div>
+          <h2 class="text-2xl font-extrabold tracking-tight text-zinc-900">Course Study Guides &amp; Weekly Notes</h2>
+          <p class="text-xs font-mono text-zinc-500 mt-0.5">Click any module to open full annotated lecture notes with 100% linear zero-click visibility.</p>
+        </div>
+        <span class="hidden sm:inline-block font-mono text-xs text-zinc-400">14-Week Curriculum</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="hci-cards-grid">
+
+        <!-- WEEK 1 -->
+        <article class="hci-card note-sheet rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition group border-t-4 border-t-sky-500" data-tags="foundations cognition intro history">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="w-8 h-8 rounded-lg bg-sky-100 text-sky-900 font-mono text-xs font-extrabold flex items-center justify-center">W01</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-zinc-100 text-zinc-600">13 Slides</span>
+            </div>
+            <h3 class="text-lg font-bold text-zinc-900 group-hover:text-sky-700 transition">
+              Introduction to HCI &amp; History
+            </h3>
+            <p class="text-xs text-zinc-600 line-clamp-3">
+              The core HCI triad (<span class="hl-blue">Usability, Usefulness, UX</span>), multidisciplinary scope, 5 interaction eras, and the pivotal cognitive shift from Recall to Recognition.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Usability Triad</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Recall vs Recognition</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Norman DOET Ch.1</span>
+            </div>
+          </div>
+          <div class="pt-5 mt-4 border-t border-[#E4E2DD]">
+            <a href="hci_week_1_study_notes.html" class="w-full inline-flex items-center justify-between px-4 py-2 rounded-xl bg-zinc-900 text-white text-xs font-semibold hover:bg-zinc-800 transition">
+              <span>Open Study Notes</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- WEEK 2 -->
+        <article class="hci-card note-sheet rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition group border-t-4 border-t-amber-500" data-tags="cognition perception memory error">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="w-8 h-8 rounded-lg bg-amber-100 text-amber-900 font-mono text-xs font-extrabold flex items-center justify-center">W02</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-zinc-100 text-zinc-600">60 Slides</span>
+            </div>
+            <h3 class="text-lg font-bold text-zinc-900 group-hover:text-amber-700 transition">
+              The Human: Perception &amp; Cognition
+            </h3>
+            <p class="text-xs text-zinc-600 line-clamp-3">
+              Perception as constructed reality, <span class="hl-yellow">2° Foveal vs. 99% Peripheral</span> vision, Gestalt principles, Cowan's <span class="hl-blue">4±1 chunk</span> memory limit, and Slips vs. Mistakes error diagnostics.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Gestalt (6 Laws)</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">4±1 Chunks</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Slips vs Mistakes</span>
+            </div>
+          </div>
+          <div class="pt-5 mt-4 border-t border-[#E4E2DD]">
+            <a href="hci_week_2_study_notes.html" class="w-full inline-flex items-center justify-between px-4 py-2 rounded-xl bg-zinc-900 text-white text-xs font-semibold hover:bg-zinc-800 transition">
+              <span>Open Study Notes</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- WEEK 3 -->
+        <article class="hci-card note-sheet rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition group border-t-4 border-t-emerald-500" data-tags="input hardware fitts time output">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-900 font-mono text-xs font-extrabold flex items-center justify-center">W03</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-zinc-100 text-zinc-600">94 Slides</span>
+            </div>
+            <h3 class="text-lg font-bold text-zinc-900 group-hover:text-emerald-700 transition">
+              The Computer: I/O, Fitts's Law &amp; Time
+            </h3>
+            <p class="text-xs text-zinc-600 line-clamp-3">
+              Input as a translator, path dependence (QWERTY vs Dvorak), <span class="hl-yellow">Fitts's Law &amp; Edge Effect</span>, Buxton's 3-State Model (why hover matters), and the 100ms causality limit.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Fitts: T = a + b log(2D/W)</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Buxton 3-State</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">100ms Causality</span>
+            </div>
+          </div>
+          <div class="pt-5 mt-4 border-t border-[#E4E2DD]">
+            <a href="hci_week_3_study_notes.html" class="w-full inline-flex items-center justify-between px-4 py-2 rounded-xl bg-zinc-900 text-white text-xs font-semibold hover:bg-zinc-800 transition">
+              <span>Open Study Notes</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- WEEK 4 -->
+        <article class="hci-card note-sheet rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition group border-t-4 border-t-purple-500" data-tags="next-gen voice xr ubicomp touch">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="w-8 h-8 rounded-lg bg-purple-100 text-purple-900 font-mono text-xs font-extrabold flex items-center justify-center">W04</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-zinc-100 text-zinc-600">32 Slides</span>
+            </div>
+            <h3 class="text-lg font-bold text-zinc-900 group-hover:text-purple-700 transition">
+              Next-Gen Interfaces: Beyond the Desktop
+            </h3>
+            <p class="text-xs text-zinc-600 line-clamp-3">
+              The 4-stage continuum of the disappearing screen, <span class="hl-pink">Norman's NUI Myth</span>, Conversational AI vs Command UI, Milgram's XR continuum, and Mark Weiser's Calm Ubiquitous Computing.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Milgram Continuum</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Calm Tech</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Explicit vs Implicit</span>
+            </div>
+          </div>
+          <div class="pt-5 mt-4 border-t border-[#E4E2DD]">
+            <a href="hci_week_4_study_notes.html" class="w-full inline-flex items-center justify-between px-4 py-2 rounded-xl bg-zinc-900 text-white text-xs font-semibold hover:bg-zinc-800 transition">
+              <span>Open Study Notes</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- WEEK 5 -->
+        <article class="hci-card note-sheet rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition group border-t-4 border-t-rose-500" data-tags="principles norman nielsen heuristics shneiderman">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="w-8 h-8 rounded-lg bg-rose-100 text-rose-900 font-mono text-xs font-extrabold flex items-center justify-center">W05</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-zinc-100 text-zinc-600">49 Slides</span>
+            </div>
+            <h3 class="text-lg font-bold text-zinc-900 group-hover:text-rose-700 transition">
+              Design Principles &amp; Usability Heuristics
+            </h3>
+            <p class="text-xs text-zinc-600 line-clamp-3">
+              Engineering argument chain, <span class="hl-yellow">Affordances vs Signifiers</span>, 4 constraints, Jakob Nielsen's <span class="hl-blue">10 Usability Heuristics</span>, Shneiderman's 8 Golden Rules, and the ICU Hospital case critique.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Nielsen 10 Rules</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Affordance vs Signifier</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Shneiderman 8</span>
+            </div>
+          </div>
+          <div class="pt-5 mt-4 border-t border-[#E4E2DD]">
+            <a href="hci_week_5_study_notes.html" class="w-full inline-flex items-center justify-between px-4 py-2 rounded-xl bg-zinc-900 text-white text-xs font-semibold hover:bg-zinc-800 transition">
+              <span>Open Study Notes</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- WEEK 6 -->
+        <article class="hci-card note-sheet rounded-2xl p-6 flex flex-col justify-between hover:shadow-lg transition group border-t-4 border-t-indigo-500" data-tags="ucd requirements personas hta methods">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="w-8 h-8 rounded-lg bg-indigo-100 text-indigo-900 font-mono text-xs font-extrabold flex items-center justify-center">W06</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-zinc-100 text-zinc-600">49 Slides</span>
+            </div>
+            <h3 class="text-lg font-bold text-zinc-900 group-hover:text-indigo-700 transition">
+              UCD, Requirements &amp; Personas
+            </h3>
+            <p class="text-xs text-zinc-600 line-clamp-3">
+              Stakeholder taxonomy, ISO 9241-210 iteration cycle, Say vs Do gap, Cooper's <span class="hl-blue">Goal-Directed Personas</span>, Hierarchical Task Analysis (HTA), and Requirements Traceability.
+            </p>
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">ISO 9241-210</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">HTA Task Analysis</span>
+              <span class="px-2 py-0.5 rounded bg-zinc-100 text-zinc-600 text-[10px] font-mono">Cooper Personas</span>
+            </div>
+          </div>
+          <div class="pt-5 mt-4 border-t border-[#E4E2DD]">
+            <a href="hci_week_6_study_notes.html" class="w-full inline-flex items-center justify-between px-4 py-2 rounded-xl bg-zinc-900 text-white text-xs font-semibold hover:bg-zinc-800 transition">
+              <span>Open Study Notes</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- WEEKS 7-14 (PLANNED / MIDTERM ARC) -->
+        <article class="hci-card note-sheet rounded-2xl p-6 flex flex-col justify-between opacity-70 border-dashed border-2 border-zinc-300" data-tags="prototyping wireframes midterm evaluation">
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <span class="w-8 h-8 rounded-lg bg-zinc-200 text-zinc-700 font-mono text-xs font-extrabold flex items-center justify-center">W07–14</span>
+              <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-amber-100 text-amber-800">Second Half Arc</span>
+            </div>
+            <h3 class="text-base font-bold text-zinc-800">
+              Prototyping, Usability Lab &amp; Emerging AI
+            </h3>
+            <p class="text-xs text-zinc-500">
+              Low-Fi Sketching, Wireframing (W7), Midterm Review (W8), High-Fi Figma (W9), Heuristic Reviews (W10), Usability Lab &amp; SUS (W11), WCAG 2.1 (W12), Emerging AI &amp; Spatial (W13), Final Usability Projects (W14).
+            </p>
+          </div>
+          <div class="pt-4 border-t border-[#E4E2DD]">
+            <button onclick="alert('Weeks 7 through 14 study guides will be released during the second half of the semester!')" class="w-full py-2 rounded-xl bg-zinc-100 text-zinc-500 text-xs font-semibold hover:bg-zinc-200 transition">
+              Planned for Semester Arc
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- HIGH-YIELD FORMULA & CORE LAW CHEAT-SHEET -->
+    <section class="note-sheet rounded-2xl p-6 sm:p-8 space-y-6">
+      <div class="flex items-center justify-between border-b border-[#E4E2DD] pb-3">
+        <div>
+          <h2 class="text-xl font-extrabold tracking-tight text-zinc-900">★ High-Yield HCI Laws &amp; Exam Formulas</h2>
+          <p class="text-xs font-mono text-zinc-500">Core mathematical formulas and psychological thresholds repeatedly tested on COM481 exams.</p>
+        </div>
+        <span class="font-hand text-xl text-amber-800 font-bold hidden sm:inline">Must Know!</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <!-- Fitts's Law -->
+        <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E4E2DD] space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-zinc-900">Fitts's Law (Movement Time)</span>
+            <span class="font-mono text-[10px] text-zinc-400">Week 3</span>
+          </div>
+          <div class="font-mono text-xs font-bold text-emerald-800 bg-emerald-50 p-2 rounded border border-emerald-200">
+            T = a + b · log₂( 2D / W )
+          </div>
+          <p class="text-[11.5px] text-zinc-600">
+            <span class="hl-yellow font-bold">Fast targets are big and close.</span> Screen edges act as infinite width targets (<span class="font-mono">W = ∞</span>), dropping Index of Difficulty to zero!
+          </p>
+        </div>
+
+        <!-- Working Memory Limit -->
+        <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E4E2DD] space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-zinc-900">Working Memory Capacity</span>
+            <span class="font-mono text-[10px] text-zinc-400">Week 2</span>
+          </div>
+          <div class="font-mono text-xs font-bold text-sky-800 bg-sky-50 p-2 rounded border border-sky-200">
+            Cowan: 4 ± 1 Chunks (20–30s)
+          </div>
+          <p class="text-[11.5px] text-zinc-600">
+            Miller's 7±2 applies to digits; for complex UI tasks, memory holds only <span class="hl-blue font-bold">4±1 chunks</span>. Always externalize state on screen!
+          </p>
+        </div>
+
+        <!-- 100ms Causality -->
+        <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E4E2DD] space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-zinc-900">Psychological Time Thresholds</span>
+            <span class="font-mono text-[10px] text-zinc-400">Week 3</span>
+          </div>
+          <div class="font-mono text-xs font-bold text-rose-800 bg-rose-50 p-2 rounded border border-rose-200">
+            0.1s (Causality) • 1.0s • 10.0s
+          </div>
+          <p class="text-[11.5px] text-zinc-600">
+            Delay &gt; 100ms breaks feeling of direct causality. <span class="hl-pink font-bold">"When the interface stays silent, users act twice."</span>
+          </p>
+        </div>
+
+        <!-- Norman Triad -->
+        <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E4E2DD] space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-zinc-900">Norman's Triad of Models</span>
+            <span class="font-mono text-[10px] text-zinc-400">Week 2 &amp; 5</span>
+          </div>
+          <div class="font-mono text-xs font-bold text-amber-800 bg-amber-50 p-2 rounded border border-amber-200">
+            Design Model → System Image → User Model
+          </div>
+          <p class="text-[11.5px] text-zinc-600">
+            Designer cannot talk to user directly. If the <span class="hl-yellow font-bold">System Image</span> is flawed or ambiguous, user's mental model will be broken.
+          </p>
+        </div>
+
+        <!-- Nielsen Curve -->
+        <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E4E2DD] space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-zinc-900">Heuristic Evaluator Curve</span>
+            <span class="font-mono text-[10px] text-zinc-400">Week 5</span>
+          </div>
+          <div class="font-mono text-xs font-bold text-purple-800 bg-purple-50 p-2 rounded border border-purple-200">
+            3 to 5 Evaluators = 75%–85% Usability Bugs
+          </div>
+          <p class="text-[11.5px] text-zinc-600">
+            Single evaluator finds only ~35%. 5 evaluators provide optimal cost-benefit before diminishing returns set in.
+          </p>
+        </div>
+
+        <!-- UCD Cycle -->
+        <div class="p-4 rounded-xl bg-[#FAF8F5] border border-[#E4E2DD] space-y-2">
+          <div class="flex items-center justify-between">
+            <span class="font-bold text-xs text-zinc-900">ISO 9241-210 UCD Cycle</span>
+            <span class="font-mono text-[10px] text-zinc-400">Week 6</span>
+          </div>
+          <div class="font-mono text-xs font-bold text-indigo-800 bg-indigo-50 p-2 rounded border border-indigo-200">
+            Context → Reqs → Design → Evaluate
+          </div>
+          <p class="text-[11.5px] text-zinc-600">
+            Iteration is not a failure of planning; it is the fundamental mechanism of User-Centered Design.
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="mt-20 border-t border-[#E4E2DD] bg-[#FAF8F5] py-10 text-center font-mono text-xs text-zinc-500">
+    <div class="max-w-6xl mx-auto px-4 space-y-2">
+      <div class="font-bold text-zinc-700">COM481: HUMAN-COMPUTER INTERACTION • COURSE REPOSITORY</div>
+      <div>Instructor: Dr. Damla Sivrioğlu Aslan • İstanbul Aydın University (IAU)</div>
+      <div class="text-[11px] text-zinc-400">Styled with Tailwind CSS • Ingests modular nav.js • 100% Linear Full Visibility Standard</div>
+    </div>
+  </footer>
+
+  <!-- Instant Search Script -->
+  <script>
+    const searchInput = document.getElementById('hci-search-input');
+    const cards = document.querySelectorAll('.hci-card');
+
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase().trim();
+        cards.forEach((card) => {
+          const text = card.textContent.toLowerCase();
+          const tags = card.getAttribute('data-tags') || '';
+          if (text.includes(query) || tags.includes(query)) {
+            card.style.display = 'flex';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    }
+
+    function filterByTag(tag) {
+      if (searchInput) searchInput.value = '';
+      cards.forEach((card) => {
+        if (tag === 'all') {
+          card.style.display = 'flex';
+        } else {
+          const tags = card.getAttribute('data-tags') || '';
+          card.style.display = tags.includes(tag) ? 'flex' : 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

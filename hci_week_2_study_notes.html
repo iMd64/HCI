@@ -1,0 +1,1779 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HCI Week 2 — The Human: Perception, Memory & Cognition (Exam Study Notes)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans, JetBrains Mono, Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['"Caveat"', 'cursive'],
+          },
+          colors: {
+            paper: '#FAF8F5',
+            card: '#FFFFFF',
+            ink: '#18181B',
+            muted: '#52525B',
+            borderLight: '#E4E2DD',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Warm Engineering Study Notebook Dot/Grid Paper Aesthetic */
+    body {
+      background-color: #F6F4F0;
+      color: #18181B;
+      background-image: 
+        radial-gradient(#D4D0C8 1.15px, transparent 1.15px),
+        linear-gradient(to right, rgba(220, 216, 208, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(220, 216, 208, 0.35) 1px, transparent 1px);
+      background-size: 24px 24px, 96px 96px, 96px 96px;
+    }
+
+    /* Realistic Marker Highlighter Effects */
+    .hl-yellow {
+      background: linear-gradient(104deg, rgba(254, 240, 138, 0) 0.9%, rgba(254, 240, 138, 0.95) 2.4%, rgba(254, 240, 138, 0.65) 5.8%, rgba(254, 240, 138, 0.88) 93%, rgba(254, 240, 138, 0.7) 96%, rgba(254, 240, 138, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-green {
+      background: linear-gradient(104deg, rgba(187, 247, 208, 0) 0.9%, rgba(187, 247, 208, 0.95) 2.4%, rgba(187, 247, 208, 0.65) 5.8%, rgba(187, 247, 208, 0.88) 93%, rgba(187, 247, 208, 0.7) 96%, rgba(187, 247, 208, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-blue {
+      background: linear-gradient(104deg, rgba(186, 230, 253, 0) 0.9%, rgba(186, 230, 253, 0.92) 2.4%, rgba(186, 230, 253, 0.65) 5.8%, rgba(186, 230, 253, 0.88) 93%, rgba(186, 230, 253, 0.7) 96%, rgba(186, 230, 253, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-pink {
+      background: linear-gradient(104deg, rgba(254, 205, 211, 0) 0.9%, rgba(254, 205, 211, 0.92) 2.4%, rgba(254, 205, 211, 0.65) 5.8%, rgba(254, 205, 211, 0.88) 93%, rgba(254, 205, 211, 0.7) 96%, rgba(254, 205, 211, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-purple {
+      background: linear-gradient(104deg, rgba(233, 213, 255, 0) 0.9%, rgba(233, 213, 255, 0.92) 2.4%, rgba(233, 213, 255, 0.65) 5.8%, rgba(233, 213, 255, 0.88) 93%, rgba(233, 213, 255, 0.7) 96%, rgba(233, 213, 255, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    /* Notebook Sheet Card */
+    .note-sheet {
+      background-color: #FFFFFF;
+      border: 1px solid #E4E2DD;
+      box-shadow: 0 4px 20px -4px rgba(24, 24, 27, 0.06), 0 2px 6px -1px rgba(24, 24, 27, 0.03);
+      position: relative;
+    }
+
+    /* Sticky Note Callout */
+    .sticky-callout {
+      background-color: #FEF9C3;
+      border: 1px solid #FDE047;
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Scrollbar Utility */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+
+  <!-- Modular Collapsible Navigation Engine -->
+  <script src="nav.js" defer></script>
+</head>
+<body class="antialiased selection:bg-yellow-200 selection:text-zinc-900">
+
+  <!-- =====================================================================
+       STICKY QUICK-JUMP NAVIGATION & HIGHLIGHTER LEGEND BAR
+       ===================================================================== -->
+  <header class="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E4E2DD] shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-zinc-900 text-amber-300 font-mono text-xs font-bold">W2</span>
+          <div>
+            <span class="font-extrabold text-sm text-zinc-900 tracking-tight">HCI Week 2: The Human — Exam Study Notes</span>
+            <span class="hidden md:inline-block text-xs text-zinc-500 ml-1.5 font-mono">• Slides 01–60 Complete (Zero Hidden Content)</span>
+          </div>
+        </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN STUDY NOTEBOOK CONTAINER
+       ===================================================================== -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-12">
+
+    <!-- ===================================================================
+         SECTION 0: OVERVIEW, LEARNING OBJECTIVES & BIG IDEA (SLIDES 01–05)
+         =================================================================== -->
+    <div id="sec-intro" class="scroll-mt-28 space-y-8">
+
+      <!-- SLIDE 01: COVER & CORE PREMISE -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-zinc-900">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">
+            <span>SLIDE 01</span>
+            <span class="text-zinc-400">•</span>
+            <span>Lecture Title &amp; Core Premise</span>
+          </span>
+          <span class="font-mono text-xs text-zinc-500">İstanbul Aydın University • AI &amp; Data Engineering • Dr. Damla Sivrioğlu Aslan</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div class="lg:col-span-7 space-y-3">
+            <div class="inline-block px-3 py-1 rounded-md bg-amber-100 border border-amber-300 font-mono text-xs font-bold uppercase tracking-wider text-amber-900">
+              Human-Computer Interaction • Week 2
+            </div>
+            <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 leading-tight">
+              The Human: Perception, Memory &amp; Cognition
+            </h1>
+            <p class="text-base sm:text-lg text-zinc-700 font-medium pt-1">
+              A 3-hour lecture on <span class="hl-yellow font-bold">why interfaces must be designed for human limits—not ideal machines.</span>
+            </p>
+          </div>
+
+          <div class="lg:col-span-5">
+            <div class="sticky-callout rounded-2xl p-5 sm:p-6">
+              <span class="font-hand text-2xl text-amber-900 block mb-1">★ Exam Core Theme:</span>
+              <p class="text-sm text-zinc-800 leading-relaxed font-medium">
+                Every UI rule in this lecture exists because <span class="hl-pink font-bold">human vision, attention, memory, and reasoning are constrained</span>. We design for real human biology, not ideal computers.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 02 & SLIDE 03: 3-HOUR LECTURE FLOW & LEARNING OBJECTIVES -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 02</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 03</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• 3-Hour Lecture Flow &amp; Learning Objectives</span>
+          </div>
+          <span class="font-mono text-xs text-zinc-500">Dr. Damla Sivrioğlu Aslan</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Left Column: Slide 02 (3-Hour Lecture Flow) -->
+          <div>
+            <div class="font-mono text-xs uppercase font-bold text-blue-700 mb-1">SLIDE 02 • 3-HOUR LECTURE FLOW</div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900 mb-4">What we will build today</h2>
+            <div class="space-y-3">
+              <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+                <span class="font-mono text-xs font-bold text-blue-700">1. PERCEPTION</span>
+                <p class="text-sm text-zinc-800 mt-1">
+                  <span class="hl-blue">Vision is selective, contextual and biased.</span> UI design must <span class="hl-green">create visual structure</span> instead of assuming users see everything.
+                </p>
+              </div>
+              <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+                <span class="font-mono text-xs font-bold text-purple-700">2. ATTENTION &amp; MEMORY</span>
+                <p class="text-sm text-zinc-800 mt-1">
+                  <span class="hl-pink">Users scan, satisfice and forget.</span> UI design should <span class="hl-green">reduce cognitive load and support recognition rather than recall.</span>
+                </p>
+              </div>
+              <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+                <span class="font-mono text-xs font-bold text-amber-700">3. MENTAL MODELS &amp; ERROR</span>
+                <p class="text-sm text-zinc-800 mt-1">
+                  Users act through <span class="hl-purple">internal models</span>. Errors are <span class="hl-yellow">predictable signals that the interface failed to communicate clearly enough.</span>
+                </p>
+              </div>
+              <div class="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200">
+                <span class="font-mono text-xs font-bold text-emerald-800">PRACTICE</span>
+                <p class="text-sm text-zinc-800 mt-1">
+                  Three short activities turn the psychology into HCI critique: <strong>perception audit</strong>, <strong>memory-load redesign</strong> and <strong>slip/mistake diagnosis</strong>.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Slide 03 (Learning Objectives) -->
+          <div>
+            <div class="font-mono text-xs uppercase font-bold text-emerald-700 mb-1">SLIDE 03 • LEARNING OBJECTIVES</div>
+            <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900 mb-4">By the end of Week 2, students should be able to...</h2>
+            <div class="space-y-3">
+              <div class="p-4 rounded-xl bg-white border-2 border-zinc-200 flex gap-3.5 items-start">
+                <span class="w-7 h-7 rounded-lg bg-zinc-900 text-white font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">01</span>
+                <div>
+                  <h3 class="font-bold text-zinc-900 text-sm">Explain human visual limits</h3>
+                  <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                    Describe <span class="hl-yellow">foveal/peripheral vision, pre-attentive processing, color limits</span> and how they affect UI design.
+                  </p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-white border-2 border-zinc-200 flex gap-3.5 items-start">
+                <span class="w-7 h-7 rounded-lg bg-zinc-900 text-white font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">02</span>
+                <div>
+                  <h3 class="font-bold text-zinc-900 text-sm">Apply Gestalt principles</h3>
+                  <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                    Use <span class="hl-blue">proximity, similarity, closure, continuity and figure/ground</span> to explain why layouts feel organized or confusing.
+                  </p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-white border-2 border-zinc-200 flex gap-3.5 items-start">
+                <span class="w-7 h-7 rounded-lg bg-zinc-900 text-white font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">03</span>
+                <div>
+                  <h3 class="font-bold text-zinc-900 text-sm">Design around attention and memory</h3>
+                  <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                    Distinguish <span class="hl-purple">sensory, working and long-term memory</span>; justify <span class="hl-green">chunking, visible state and recognition-based interfaces</span>.
+                  </p>
+                </div>
+              </div>
+
+              <div class="p-4 rounded-xl bg-white border-2 border-zinc-200 flex gap-3.5 items-start">
+                <span class="w-7 h-7 rounded-lg bg-zinc-900 text-white font-mono text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">04</span>
+                <div>
+                  <h3 class="font-bold text-zinc-900 text-sm">Diagnose mental-model errors</h3>
+                  <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                    Classify <span class="hl-pink">slips vs. mistakes</span> and propose design responses that make errors easier to <span class="hl-green">prevent, detect and reverse</span>.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 04 & SLIDE 05: BIG IDEA & HOW WE THINK USERS WORK VS ACTUALLY WORK -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 04</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 05</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• Big Idea &amp; User Myth vs. Reality</span>
+          </div>
+          <span class="font-mono text-xs text-zinc-500">Human Limitation → Design Response</span>
+        </div>
+
+        <!-- Slide 04: BIG IDEA -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-amber-700 mb-1">SLIDE 04 • BIG IDEA</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-4">
+            Human limitation <span class="text-amber-600 font-mono">→</span> design response
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-5 rounded-xl bg-amber-50/70 border border-amber-200">
+              <h3 class="font-bold text-zinc-900 text-base">HCI is not “making screens pretty”.</h3>
+              <p class="text-sm text-zinc-700 mt-2">
+                It is the discipline of <span class="hl-yellow">shaping technology so that real people can perceive, understand and act with less unnecessary effort.</span>
+              </p>
+            </div>
+
+            <div class="p-5 rounded-xl bg-sky-50/70 border border-sky-200">
+              <h3 class="font-bold text-zinc-900 text-base">Every guideline has a psychological reason.</h3>
+              <p class="text-sm text-zinc-700 mt-2">
+                <span class="hl-green">Visual hierarchy, feedback, chunking, undo, labels and grouping</span> are not decoration; they <span class="hl-blue">compensate for predictable human constraints.</span>
+              </p>
+            </div>
+
+            <div class="p-5 rounded-xl bg-zinc-900 text-white flex flex-col justify-center">
+              <span class="font-mono text-xs uppercase text-amber-300 font-bold mb-1">The question for every screen:</span>
+              <p class="text-base font-bold leading-snug">
+                “What does the user need to <span class="underline decoration-amber-400 underline-offset-4">see, remember, understand and recover from</span> right now?”
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 05: How we think users work vs. How users actually work -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="font-mono text-xs uppercase font-bold text-rose-700 mb-2">SLIDE 05 • MYTH VS. BIOLOGICAL REALITY</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Left: How we think users work (Server Rack Myth) -->
+            <div class="p-5 rounded-2xl bg-slate-900 text-slate-100 border-2 border-slate-700">
+              <div class="flex items-center justify-between mb-3">
+                <span class="font-mono text-xs uppercase px-2.5 py-1 rounded bg-slate-800 text-sky-300 border border-slate-700">Ideal Machine Myth</span>
+                <span class="font-mono text-xs text-slate-400">🖥️ Server Rack Model</span>
+              </div>
+              <h3 class="text-xl font-extrabold text-white mb-3">How we think users work</h3>
+              <ul class="space-y-2.5 text-sm text-slate-200">
+                <li class="flex items-center gap-2.5"><span class="text-sky-400 font-mono">■</span> <span>Infinite perfect storage</span></li>
+                <li class="flex items-center gap-2.5"><span class="text-sky-400 font-mono">■</span> <span>Objective perception</span></li>
+                <li class="flex items-center gap-2.5"><span class="text-sky-400 font-mono">■</span> <span>Reads every word</span></li>
+                <li class="flex items-center gap-2.5"><span class="text-sky-400 font-mono">■</span> <span>Processes sequentially</span></li>
+              </ul>
+            </div>
+
+            <!-- Right: How users actually work (Real Human Brain) -->
+            <div class="p-5 rounded-2xl bg-amber-50/90 border-2 border-amber-300">
+              <div class="flex items-center justify-between mb-3">
+                <span class="font-mono text-xs uppercase px-2.5 py-1 rounded bg-amber-200 text-amber-950 font-bold">Human Reality</span>
+                <span class="font-mono text-xs text-amber-900">🧠 Biological Brain</span>
+              </div>
+              <h3 class="text-xl font-extrabold text-zinc-900 mb-3">How users actually work</h3>
+              <ul class="space-y-2.5 text-sm text-zinc-800 font-medium">
+                <li class="flex items-center gap-2.5"><span class="text-amber-700 font-bold">●</span> <span><span class="hl-yellow">Highly filtered sense-makers</span></span></li>
+                <li class="flex items-center gap-2.5"><span class="text-amber-700 font-bold">●</span> <span><span class="hl-pink">Cognitively constrained</span></span></li>
+                <li class="flex items-center gap-2.5"><span class="text-amber-700 font-bold">●</span> <span><span class="hl-pink">Blind to unexpected changes</span></span></li>
+                <li class="flex items-center gap-2.5"><span class="text-amber-700 font-bold">●</span> <span><span class="hl-blue">Runs on mental battery saver</span></span></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="mt-5 p-4 rounded-xl bg-emerald-50 border-2 border-emerald-300 text-center">
+            <p class="text-base sm:text-lg font-extrabold text-zinc-900">
+              “<span class="hl-green">Bad design is rarely the user's fault. It is a failure to design for human cognitive limits.</span>”
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 1A: PART 1 — PERCEPTION AS CONSTRUCTED REALITY (SLIDES 06–11)
+         =================================================================== -->
+    <div id="sec-perception" class="scroll-mt-28 space-y-8">
+
+      <!-- SLIDE 06 & SLIDE 07: PART 1 INTRO & THE ILLUSION OF SIGHT -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-blue-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-blue-600 text-white">SLIDE 06</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-blue-600 text-white">SLIDE 07</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• PART 1: Perception as Constructed Reality (≈45 min + 10 min activity)</span>
+          </div>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">PART 1: Perception as constructed reality</h2>
+        <p class="text-zinc-700 text-base sm:text-lg mt-1 font-medium">
+          <span class="hl-yellow">Users do not receive pixels neutrally; they interpret signals through context, goals and visual constraints.</span>
+        </p>
+
+        <!-- 4 Core Takeaways of Part 1 (Slide 06) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 my-6">
+          <div class="p-4 rounded-xl bg-blue-50/60 border border-blue-200 flex items-start gap-3">
+            <span class="font-mono font-bold text-blue-700 text-sm">01</span>
+            <p class="text-sm text-zinc-800 font-medium">Vision is <span class="hl-blue">sharp only in a small central region.</span></p>
+          </div>
+          <div class="p-4 rounded-xl bg-blue-50/60 border border-blue-200 flex items-start gap-3">
+            <span class="font-mono font-bold text-blue-700 text-sm">02</span>
+            <p class="text-sm text-zinc-800 font-medium"><span class="hl-yellow">Context and goals</span> shape what users perceive.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-blue-50/60 border border-blue-200 flex items-start gap-3">
+            <span class="font-mono font-bold text-blue-700 text-sm">03</span>
+            <p class="text-sm text-zinc-800 font-medium"><span class="hl-purple">Gestalt principles</span> organize scattered visual elements into structure.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-blue-50/60 border border-blue-200 flex items-start gap-3">
+            <span class="font-mono font-bold text-blue-700 text-sm">04</span>
+            <p class="text-sm text-zinc-800 font-medium"><span class="hl-pink">Color, motion and size</span> can guide attention—but can also mislead.</p>
+          </div>
+        </div>
+
+        <!-- Slide 07: The Illusion of Sight -->
+        <div class="p-5 rounded-xl bg-zinc-900 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <span class="font-mono text-xs uppercase text-sky-400 font-bold">SLIDE 07 • THE ILLUSION OF SIGHT</span>
+            <h3 class="text-lg sm:text-xl font-bold mt-0.5">Why our eyes are flawed, our brains lie to us, and how great UI design bridges the gap.</h3>
+          </div>
+          <div class="flex items-center gap-2 shrink-0 font-mono text-xs">
+            <span class="px-3 py-1.5 rounded bg-zinc-800 border border-zinc-700 text-zinc-300">The Expectation: Camera</span>
+            <span class="text-amber-400">≠</span>
+            <span class="px-3 py-1.5 rounded bg-amber-500/20 border border-amber-400/50 text-amber-200">The Reality: Filtered Signal</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 08: THE 3 PERCEPTUAL FILTERS (RAW INPUT -> PERCEIVED REALITY) -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 08 • Perceptual Filtering Pipeline</span>
+          <span class="font-mono text-xs text-zinc-500">Raw Input → 3 Filters → Perceived Reality</span>
+        </div>
+
+        <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900 mb-4">How Raw Input Becomes Perceived Reality (3 Filters)</h2>
+
+        <!-- Custom Visual Pipeline Diagram (Exact recreation of Slide 08) -->
+        <div class="p-5 sm:p-6 rounded-2xl bg-slate-950 text-white border border-slate-800">
+          <div class="grid grid-cols-1 lg:grid-cols-5 gap-4 items-stretch">
+            <!-- Raw Input -->
+            <div class="p-4 rounded-xl bg-slate-900 border border-amber-500/40 flex flex-col items-center justify-center text-center">
+              <svg viewBox="0 0 80 40" class="w-16 h-10 mb-2" aria-hidden="true">
+                <path d="M 5 20 L 18 20 L 24 6 L 32 34 L 40 10 L 48 30 L 54 16 L 60 20 L 75 20" fill="none" stroke="#FBBF24" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              <span class="font-mono text-xs uppercase font-bold text-amber-300">Raw Input</span>
+              <span class="text-[11px] text-slate-400 mt-1">Unfiltered light &amp; pixels</span>
+            </div>
+
+            <!-- Filter 1: The Past -->
+            <div class="p-4 rounded-xl bg-sky-950/60 border-2 border-sky-400/50 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-[11px] uppercase text-sky-300 font-bold">Filter 1: The Past</span>
+                <h3 class="text-base font-extrabold text-white mt-0.5">(Experience)</h3>
+              </div>
+              <p class="text-xs text-slate-200 mt-3 leading-relaxed">
+                Your perceptual system is <span class="text-amber-300 font-semibold">primed by what you just saw.</span>
+              </p>
+            </div>
+
+            <!-- Filter 2: The Present -->
+            <div class="p-4 rounded-xl bg-indigo-950/60 border-2 border-indigo-400/50 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-[11px] uppercase text-indigo-300 font-bold">Filter 2: The Present</span>
+                <h3 class="text-base font-extrabold text-white mt-0.5">(Context)</h3>
+              </div>
+              <p class="text-xs text-slate-200 mt-3 leading-relaxed">
+                <span class="text-amber-300 font-semibold">Surrounding elements distort</span> current interpretation.
+              </p>
+            </div>
+
+            <!-- Filter 3: The Future -->
+            <div class="p-4 rounded-xl bg-purple-950/60 border-2 border-purple-400/50 flex flex-col justify-between">
+              <div>
+                <span class="font-mono text-[11px] uppercase text-purple-300 font-bold">Filter 3: The Future</span>
+                <h3 class="text-base font-extrabold text-white mt-0.5">(Goals)</h3>
+              </div>
+              <p class="text-xs text-slate-200 mt-3 leading-relaxed">
+                You <span class="text-amber-300 font-semibold">actively filter out anything unrelated</span> to your immediate task.
+              </p>
+            </div>
+
+            <!-- Perceived Reality -->
+            <div class="p-4 rounded-xl bg-slate-900 border border-emerald-500/40 flex flex-col items-center justify-center text-center">
+              <svg viewBox="0 0 60 60" class="w-12 h-12 mb-2" aria-hidden="true">
+                <polygon points="30,5 52,18 52,42 30,55 8,42 8,18" fill="none" stroke="#34D399" stroke-width="2"/>
+                <line x1="30" y1="5" x2="30" y2="55" stroke="#FBBF24" stroke-width="1" stroke-dasharray="2,2"/>
+                <line x1="8" y1="18" x2="52" y2="42" stroke="#FBBF24" stroke-width="1" stroke-dasharray="2,2"/>
+                <line x1="52" y1="18" x2="8" y2="42" stroke="#FBBF24" stroke-width="1" stroke-dasharray="2,2"/>
+              </svg>
+              <span class="font-mono text-xs uppercase font-bold text-emerald-300">Perceived Reality</span>
+              <span class="text-[11px] text-slate-400 mt-1">Constructed model</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDES 09, 10 & 11: CONTEXT OVERRIDES HARDWARE ("THE CAT") & INATTENTIONAL BLINDNESS -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 09</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 10</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 11</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• Top-Down Context &amp; Inattentional Blindness</span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Left: Slides 09 & 10 (Context Overrides Hardware - THE CAT) -->
+          <div class="flex flex-col justify-between">
+            <div>
+              <div class="font-mono text-xs uppercase font-bold text-sky-700 mb-1">SLIDES 09 &amp; 10 • CONTEXT OVERRIDES HARDWARE</div>
+              <h3 class="text-xl font-extrabold text-zinc-900">Top-down processing overrides bottom-up vision</h3>
+              <ul class="mt-2 space-y-1.5 text-sm text-zinc-700">
+                <li>• <span class="hl-blue">Our brains use context to interpret ambiguous letters.</span> (Slide 09)</li>
+                <li>• <span class="hl-yellow">Our brains read sentences before letters.</span> (Slide 10)</li>
+              </ul>
+            </div>
+
+            <!-- SVG Recreation of "THE CAT" (H=A) Illusion from Slides 09 & 10 -->
+            <div class="mt-4 p-5 rounded-2xl bg-slate-950 text-white border border-slate-800 text-center">
+              <p class="font-mono text-xs text-sky-300 uppercase tracking-wider mb-3">Identical Middle Glyph: H = A</p>
+              <svg viewBox="0 0 360 120" class="w-full max-w-[330px] mx-auto h-auto" aria-label="THE CAT illusion where H and A have the exact same shape">
+                <!-- Word 1: THE -->
+                <rect x="10" y="12" width="145" height="68" rx="8" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+                <!-- T -->
+                <path d="M 28 26 L 56 26 M 42 26 L 42 66" stroke="#38BDF8" stroke-width="5" stroke-linecap="round"/>
+                <!-- Ambiguous H/A glyph -->
+                <path d="M 72 66 L 78 26 M 98 66 L 92 26 M 74 48 L 96 48" stroke="#FBBF24" stroke-width="5" stroke-linecap="round"/>
+                <!-- E -->
+                <path d="M 114 26 L 138 26 M 114 46 L 134 46 M 114 66 L 138 66 M 114 26 L 114 66" stroke="#38BDF8" stroke-width="5" stroke-linecap="round"/>
+
+                <!-- Equals Sign -->
+                <text x="180" y="54" text-anchor="middle" class="font-mono font-extrabold text-[24px] fill-amber-400">=</text>
+
+                <!-- Word 2: CAT (CHT) -->
+                <rect x="205" y="12" width="145" height="68" rx="8" fill="#0F172A" stroke="#38BDF8" stroke-width="1.5"/>
+                <!-- C -->
+                <path d="M 248 30 C 222 22, 222 70, 248 62" fill="none" stroke="#38BDF8" stroke-width="5" stroke-linecap="round"/>
+                <!-- Identical Ambiguous H/A glyph -->
+                <path d="M 267 66 L 273 26 M 293 66 L 287 26 M 269 48 L 291 48" stroke="#FBBF24" stroke-width="5" stroke-linecap="round"/>
+                <!-- T -->
+                <path d="M 308 26 L 336 26 M 322 26 L 322 66" stroke="#38BDF8" stroke-width="5" stroke-linecap="round"/>
+
+                <!-- Labels underneath -->
+                <rect x="35" y="90" width="95" height="22" rx="4" fill="#1E293B" stroke="#F59E0B" stroke-width="1.2"/>
+                <text x="82" y="105" text-anchor="middle" class="font-mono font-bold text-[11px] fill-amber-300">Read as 'H'</text>
+
+                <rect x="230" y="90" width="95" height="22" rx="4" fill="#1E293B" stroke="#F59E0B" stroke-width="1.2"/>
+                <text x="277" y="105" text-anchor="middle" class="font-mono font-bold text-[11px] fill-amber-300">Read as 'A'</text>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Right: Slide 11 (Inattentional Blindness) -->
+          <div class="flex flex-col justify-between">
+            <div>
+              <div class="font-mono text-xs uppercase font-bold text-rose-700 mb-1">SLIDE 11 • INATTENTIONAL BLINDNESS</div>
+              <h3 class="text-xl font-extrabold text-zinc-900">Inattentional Blindness</h3>
+              <p class="mt-2 text-sm text-zinc-700">
+                When navigating software, <span class="hl-yellow">users scan superficially for goal-related items.</span> Unrelated items aren't just ignored—<span class="hl-pink font-semibold">they never register in the conscious mind.</span>
+              </p>
+            </div>
+
+            <!-- Visual Mockup of Slide 11 Dashboard Tunnel Vision -->
+            <div class="mt-4 p-4 rounded-2xl bg-slate-950 text-white border border-slate-800 space-y-3">
+              <!-- Top Red Banner that users miss -->
+              <div class="px-3 py-1.5 rounded bg-red-950/90 border border-red-500 text-red-200 font-mono text-xs flex items-center justify-between">
+                <span>⚠ Server Error: Data Disconnected</span>
+                <span class="text-[10px] uppercase bg-red-600 text-white px-1.5 py-0.5 rounded font-bold">Missed by User!</span>
+              </div>
+
+              <!-- Two Mini Panels: The Task vs The Reality -->
+              <div class="grid grid-cols-2 gap-3">
+                <div class="p-3 rounded-xl bg-slate-900 border border-slate-700 text-center">
+                  <span class="font-mono text-[10px] uppercase text-sky-300 block mb-1">The Task</span>
+                  <div class="p-2 rounded bg-amber-500/10 border border-amber-400 text-amber-300 font-bold text-xs">
+                    Q3 Revenue: <span class="text-base block text-white">$4.2M</span>
+                  </div>
+                  <p class="text-[11px] text-sky-200 mt-2 font-mono">“Find the total revenue for Q3.”</p>
+                </div>
+
+                <div class="p-3 rounded-xl bg-black border border-slate-800 text-center flex flex-col justify-center relative overflow-hidden">
+                  <span class="font-mono text-[10px] uppercase text-zinc-500 block mb-1">The Reality (Tunnel Vision)</span>
+                  <div class="p-2 rounded bg-amber-500/20 border-2 border-amber-400 text-white font-extrabold text-xs shadow-lg">
+                    Q3 Revenue: <span class="text-base block text-amber-300">$4.2M</span>
+                  </div>
+                  <p class="text-[10px] text-zinc-500 mt-2">Everything else on screen is invisible</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 1B: GESTALT PRINCIPLES OF PERCEPTION (SLIDES 12–16)
+         =================================================================== -->
+    <div id="sec-gestalt" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-purple-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-purple-700 text-white">SLIDES 12–16</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• Gestalt: The Brain's Pattern Machine &amp; UI Grouping Principles</span>
+          </div>
+        </div>
+
+        <!-- Slide 12: Gestalt Overview -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-purple-700 mb-1">SLIDE 12 • GESTALT: THE BRAIN'S PATTERN MACHINE</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">Human vision is holistic</h2>
+          <p class="text-zinc-700 text-sm sm:text-base mt-1">
+            <span class="hl-yellow">We automatically impose structure on visual input, perceiving whole figures rather than disconnected lines.</span> Every UI layout either exploits this biology or fights it.
+          </p>
+
+          <div class="mt-4 p-4 rounded-xl bg-zinc-900 text-white flex flex-col sm:flex-row items-center justify-around gap-3 text-center font-mono text-xs">
+            <div class="px-4 py-2 rounded-lg bg-zinc-800 border border-zinc-700">
+              <span class="text-sky-300 block font-bold">Raw Hardware Input</span>
+              <span class="text-zinc-400">Disconnected Pixels</span>
+            </div>
+            <span class="text-amber-400 text-lg font-bold">→ [ Gestalt.exe ] →</span>
+            <div class="px-4 py-2 rounded-lg bg-purple-950 border border-purple-400">
+              <span class="text-purple-200 block font-bold">Software Patch</span>
+              <span class="text-white">Unified Objects</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 13: Design Failure Autopsy (Proximity & Similarity) -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-purple-700 mb-2">SLIDE 13 • DESIGN FAILURE AUTOPSY: PROXIMITY &amp; SIMILARITY</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+            <!-- Failure: Ambiguous Spacing -->
+            <div class="p-5 rounded-xl bg-rose-50/50 border-2 border-rose-200">
+              <span class="font-mono text-xs uppercase font-bold text-rose-700 block mb-3">✘ Failure: Ambiguous Spacing</span>
+              <div class="bg-white p-4 rounded-lg border border-rose-200 space-y-3 text-xs font-medium text-zinc-700">
+                <div>First Name</div>
+                <div class="h-6 rounded border border-zinc-300 bg-zinc-50"></div>
+                <div>Last Name</div>
+                <div class="h-6 rounded border border-zinc-300 bg-zinc-50"></div>
+                <div>Email</div>
+                <div class="h-6 rounded border border-zinc-300 bg-zinc-50"></div>
+                <p class="text-[11px] text-rose-700 pt-1">Equal vertical spacing makes it unclear which label belongs to which input box.</p>
+              </div>
+            </div>
+
+            <!-- Cure: Gestalt Applied -->
+            <div class="p-5 rounded-xl bg-emerald-50/50 border-2 border-emerald-200">
+              <span class="font-mono text-xs uppercase font-bold text-emerald-700 block mb-3">✔ Cure: Gestalt Applied (Proximity + Similarity)</span>
+              <div class="bg-white p-4 rounded-lg border border-emerald-200 space-y-3 text-xs">
+                <div class="grid grid-cols-2 gap-2">
+                  <div>
+                    <span class="font-bold text-zinc-900 block mb-0.5">First Name</span>
+                    <div class="h-6 rounded border border-blue-400 bg-blue-50/30"></div>
+                  </div>
+                  <div>
+                    <span class="font-bold text-zinc-900 block mb-0.5">Last Name</span>
+                    <div class="h-6 rounded border border-blue-400 bg-blue-50/30"></div>
+                  </div>
+                </div>
+                <div class="pt-1 border-t border-zinc-100">
+                  <span class="font-bold text-zinc-900 block mb-0.5">Email / Phone Number <span class="text-[10px] text-zinc-400 font-normal">(Optional number)</span></span>
+                  <div class="h-6 rounded border border-zinc-300 bg-zinc-50"></div>
+                </div>
+                <p class="text-[11px] text-emerald-800">Labels sit close to their own field; related fields share containers &amp; visual style.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Definitions of all 6 Gestalt Principles across Slides 13, 14, 15 -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+            <!-- 1. Proximity (Slide 13) -->
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-[11px] font-bold text-purple-700">SLIDE 13 • GESTALT 01</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">Proximity</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-yellow">Distance dictates relationship. The single most powerful layout principle.</span>
+              </p>
+            </div>
+
+            <!-- 2. Similarity (Slide 13) -->
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-[11px] font-bold text-purple-700">SLIDE 13 • GESTALT 02</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">Similarity</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-blue">Shared visual traits (color, shape, size) forge instant cognitive groupings.</span>
+              </p>
+            </div>
+
+            <!-- 3. Closure (Slide 14) -->
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-[11px] font-bold text-purple-700">SLIDE 14 • GESTALT 03</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">Closure</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-yellow">We automatically close open figures to perceive whole objects.</span> (Basis of <strong>layered UI and card stacks</strong>, e.g., striped IBM logo, Photo Album stack).
+              </p>
+            </div>
+
+            <!-- 4. Continuity (Slide 14) -->
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-[11px] font-bold text-purple-700">SLIDE 14 • GESTALT 04</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">Continuity</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-blue">We perceive continuous flow rather than disconnected segments.</span> (Basis of <strong>scrollbars and sliders</strong> along a perceived continuous path).
+              </p>
+            </div>
+
+            <!-- 5. Figure/Ground (Slide 15) -->
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-[11px] font-bold text-purple-700">SLIDE 15 • GESTALT 05</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">Figure/Ground</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-green">Separating the focus from the noise.</span> The biological basis of the <strong>modal overlay</strong> (e.g., bright "Important Notice" dialog over dimmed backdrop).
+              </p>
+            </div>
+
+            <!-- 6. Common Fate (Slide 15) -->
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-[11px] font-bold text-purple-700">SLIDE 15 • GESTALT 06</span>
+              <h3 class="font-extrabold text-zinc-900 text-base mt-0.5">Common Fate</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-purple">Elements that move together are instantly perceived as grouped.</span> (e.g., dragging multiple selected files into a folder).
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 16: The Invisible Skeleton of UI -->
+        <div class="p-5 rounded-xl bg-purple-50 border-2 border-purple-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase text-purple-800">SLIDE 16 • THE INVISIBLE SKELETON OF UI</span>
+            <p class="text-sm sm:text-base font-bold text-zinc-900 mt-0.5">
+              Good design feels “intuitive” because its <span class="hl-green">visual structure perfectly maps to the brain's automatic grouping algorithms.</span> <span class="hl-pink">Unintended relationships cause cognitive friction.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 1C: FOVEAL VS. PERIPHERAL VISION, PRE-ATTENTIVE & COLOR (SLIDES 17–26)
+         =================================================================== -->
+    <div id="sec-vision" class="scroll-mt-28 space-y-8">
+
+      <!-- SLIDES 17–22: FOVEAL VS PERIPHERAL VISION MASTER BREAKDOWN -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-sky-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-sky-700 text-white">SLIDES 17–22 • Two Systems, One Eye: Foveal vs. Peripheral Vision</span>
+          <span class="font-mono text-xs text-zinc-500">2-Degree Peephole</span>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-2">Two Systems, One Eye: Foveal vs. Peripheral Vision</h2>
+        <p class="text-sm sm:text-base text-zinc-600 mb-6">
+          Users do not see the whole screen with equal clarity. Detailed perception is concentrated around the current fixation point.
+        </p>
+
+        <!-- Slide 17 Summary Table -->
+        <div class="mb-8 overflow-x-auto rounded-xl border border-zinc-200">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                <th class="py-3 px-4">Dimension (Slide 17)</th>
+                <th class="py-3 px-4 text-sky-300">Foveal Vision (Sharp Center)</th>
+                <th class="py-3 px-4 text-amber-300">Peripheral Vision (Wide Awareness)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-200 text-sm bg-white">
+              <tr>
+                <td class="py-3 px-4 font-mono text-xs font-bold text-zinc-500 uppercase">1. Visual Field (Slide 17 &amp; 18)</td>
+                <td class="py-3 px-4 font-semibold text-zinc-900"><span class="hl-yellow">1% of visual field (2 degrees)</span> — Tiny central window around fixation</td>
+                <td class="py-3 px-4 font-semibold text-zinc-900"><span class="hl-blue">99% of visual field</span> — Broad monitoring area outside fixation</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-mono text-xs font-bold text-zinc-500 uppercase">2. Photoreceptors &amp; Wiring (Slide 17 &amp; 19)</td>
+                <td class="py-3 px-4 text-zinc-800"><span class="hl-yellow">Cones (1:1 neural mapping)</span> — Low convergence for precise signals; less pooling makes individual signals clearer</td>
+                <td class="py-3 px-4 text-zinc-800"><span class="hl-blue">Rods (compressed data)</span> — Higher convergence &amp; signal pooling improves sensitivity, reduces spatial precision</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-mono text-xs font-bold text-zinc-500 uppercase">3. Resolution, Color &amp; Speed (Slide 17 &amp; 20)</td>
+                <td class="py-3 px-4 text-zinc-800"><span class="hl-yellow">High-res, full color, slow</span> — Answers <em>“what exactly is it?”</em> Requires direct gaze</td>
+                <td class="py-3 px-4 text-zinc-800"><span class="hl-blue">Low-res, grayscale, fast</span> — Answers <em>“did something change?”</em> Fast motion/change detection</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-mono text-xs font-bold text-zinc-500 uppercase">4. Primary UI Role (Slide 17 &amp; 21)</td>
+                <td class="py-3 px-4 text-zinc-800"><span class="hl-green">Inspection &amp; Reading</span> (Used <em>after</em> the eye lands on target): text, precise values, forms, icon meaning</td>
+                <td class="py-3 px-4 text-zinc-800"><span class="hl-green">Motion detection &amp; Guiding the fovea</span> (Used <em>before</em> the eye lands): alerts, motion cues, state changes</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Detailed Breakdown Cards for Slides 18, 19, 20, 21 & 22 -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <!-- Slide 18 -->
+          <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-xs font-bold text-sky-700">SLIDE 18 • 1) VISUAL FIELD</span>
+            <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+              • <strong>Foveal UI meaning:</strong> Use it for text, precise values, and detailed decisions.<br/>
+              • <strong>Peripheral UI meaning:</strong> Use it for simple cues that guide attention.
+            </p>
+            <p class="mt-2 text-xs font-bold text-zinc-900 bg-white p-2 rounded border border-zinc-200">
+              💬 Say: “<span class="hl-yellow">Peripheral vision notices that something happened; foveal vision understands what it is.</span>”
+            </p>
+          </div>
+
+          <!-- Slide 19 -->
+          <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-xs font-bold text-sky-700">SLIDE 19 • 2) PHOTORECEPTORS &amp; NEURAL WIRING</span>
+            <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+              • <strong>Cone-Rich Center UI meaning:</strong> Small labels and exact symbols require fixation.<br/>
+              • <strong>Rod-Rich Periphery UI meaning:</strong> Peripheral cues should be large, simple, and salient.
+            </p>
+            <p class="mt-2 text-xs font-bold text-zinc-900 bg-white p-2 rounded border border-zinc-200">
+              💬 Say: “<span class="hl-blue">The center is optimized for precision; the periphery is optimized for sensitivity and awareness.</span>”
+            </p>
+          </div>
+
+          <!-- Slide 20 -->
+          <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-xs font-bold text-sky-700">SLIDE 20 • 3) RESOLUTION, COLOR, AND SPEED</span>
+            <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+              • <strong>High-Res Inspection UI meaning:</strong> Use for instructions, labels, forms, numbers, and icon meaning.<br/>
+              • <strong>Fast Event Detection UI meaning:</strong> Use for alerts, motion cues, state changes, and notifications.
+            </p>
+            <p class="mt-2 text-xs font-bold text-zinc-900 bg-white p-2 rounded border border-zinc-200">
+              💬 Say: “<span class="hl-pink">Do not put detailed messages only in the periphery; use the periphery to pull attention to the detail.</span>”
+            </p>
+          </div>
+
+          <!-- Slide 21 -->
+          <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-xs font-bold text-sky-700">SLIDE 21 • 4) UI ROLE: INSPECTION VS. GUIDING FOVEA</span>
+            <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+              • <strong>Inspection UI meaning:</strong> Make critical content readable and close to the user's task focus.<br/>
+              • <strong>Gaze Guidance UI meaning:</strong> Use motion sparingly; <span class="hl-pink">unnecessary animation steals attention.</span>
+            </p>
+            <p class="mt-2 text-xs font-bold text-zinc-900 bg-white p-2 rounded border border-zinc-200">
+              📏 Design rule: “<span class="hl-green">Peripheral signals should attract attention; foveal content should carry the detailed meaning.</span>”
+            </p>
+          </div>
+        </div>
+
+        <!-- Slide 22: The 2-Degree Peephole -->
+        <div class="p-5 rounded-xl bg-amber-50 border-2 border-amber-300 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <span class="font-mono text-xs uppercase font-bold text-amber-900">SLIDE 22 • THE 2-DEGREE PEEPHOLE</span>
+            <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">Your sharp vision is only the size of your thumbnail at arm's length.</h3>
+            <p class="text-sm text-zinc-800 mt-1">
+              <span class="hl-yellow font-semibold">Users do not read interfaces; they scan them</span>, moving this tiny spotlight from anchor to anchor.
+            </p>
+          </div>
+          <div class="shrink-0 px-4 py-2.5 rounded-xl bg-zinc-900 text-amber-300 font-mono text-xs font-bold text-center">
+            👍 Thumbnail at<br/>Arm's Length = 2°
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDES 23, 24, 25 & 26: PRE-ATTENTIVE PROCESSING, 8% COLOR DEFICIT, REDUNDANT CODING & ACTIVITY 1 -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 23</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 24</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 25</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 26</span>
+          </div>
+          <span class="font-mono text-xs text-zinc-500">Pre-Attentive Pop, Color Blindness &amp; Activity 1</span>
+        </div>
+
+        <!-- Slide 23: Pre-Attentive Processing -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-blue-700 mb-1">SLIDE 23 • PRE-ATTENTIVE PROCESSING</div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900">Pre-Attentive Processing</h3>
+          <p class="text-sm sm:text-base text-zinc-700 mt-1 mb-4">
+            Visual search is painfully slow (linear) unless the target 'pops' in the periphery. <span class="hl-yellow font-semibold">Pre-attentive triggers—color, size, motion, orientation—are processed in milliseconds before conscious attention.</span>
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-zinc-900 text-zinc-400 font-mono text-xs border border-zinc-800">
+              <span class="text-zinc-200 font-bold block mb-2">Slow: Linear Foveal Scan (Find 'T')</span>
+              <div class="leading-relaxed tracking-widest bg-zinc-950 p-3 rounded border border-zinc-800 select-none">
+                XVVMNNWWHKFKFNHKKF<br/>
+                XVVMNNNWTKLWNDHKKF<br/>
+                XVVMNWKHK<span class="text-zinc-400">T</span>FFENHKKF<br/>
+                XVVKHWKKKEGWVWWKKF
+              </div>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-900 text-zinc-500 font-mono text-xs border border-zinc-800">
+              <span class="text-emerald-400 font-bold block mb-2">Instant: Pre-Attentive Pop (Milliseconds)</span>
+              <div class="leading-relaxed tracking-widest bg-zinc-950 p-3 rounded border border-zinc-800 select-none">
+                XVVMNNWWHKFKFNHKKF<br/>
+                XVVMNNNWTKLWNDHKKF<br/>
+                XVVMNWKHK<span class="text-rose-500 font-extrabold text-sm bg-rose-500/20 px-1 rounded">T</span>FFENHKKF<br/>
+                XVVKHWKKKEGWVWWKKF
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slides 24 & 25: The 8% Missing Data & Redundant Coding -->
+        <div class="border-t border-zinc-200 pt-8 mb-8 grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Slide 24 -->
+          <div class="p-5 rounded-xl bg-rose-50/60 border border-rose-200">
+            <span class="font-mono text-xs uppercase font-bold text-rose-800">SLIDE 24 • THE 8% MISSING DATA</span>
+            <h3 class="text-lg font-extrabold text-zinc-900 mt-1">Color Perception Deficit (Deuteranopia)</h3>
+            <p class="text-sm text-zinc-800 mt-2">
+              <span class="hl-pink font-bold">8% of men and ~0.5% of women</span> have a color perception deficit. The most common deficiency (<strong>Red/Green</strong>) turns standard 'Success/Error' UI colors into <span class="hl-pink">identical shades of gray/brown.</span>
+            </p>
+            <div class="mt-4 flex items-center gap-4 text-xs font-mono">
+              <div class="flex items-center gap-1.5">
+                <span class="w-4 h-4 rounded-full bg-emerald-500 inline-block"></span>
+                <span class="w-4 h-4 rounded-full bg-red-500 inline-block"></span>
+                <span class="text-zinc-700">Normal Vision</span>
+              </div>
+              <span>→</span>
+              <div class="flex items-center gap-1.5">
+                <span class="w-4 h-4 rounded-full bg-[#8C7D46] inline-block"></span>
+                <span class="w-4 h-4 rounded-full bg-[#7E703F] inline-block"></span>
+                <span class="text-zinc-700">8% Deuteranopia Filter</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 25 -->
+          <div class="p-5 rounded-xl bg-emerald-50/60 border border-emerald-200">
+            <span class="font-mono text-xs uppercase font-bold text-emerald-800">SLIDE 25 • THE CURE: REDUNDANT CODING</span>
+            <h3 class="text-lg font-extrabold text-zinc-900 mt-1">Rule: Never use color as the only carrier of meaning.</h3>
+            <p class="text-sm text-zinc-800 mt-2">
+              <span class="hl-green font-semibold">Always pair color with a secondary pre-attentive trait: shape, icons, labels, or patterns.</span> Distinct shapes and icons make the status instantly understandable, even without color.
+            </p>
+            <div class="mt-4 flex items-center gap-3 text-xs font-mono">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-600 text-white font-bold">● ✓ Success (Circle + Check)</span>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-rose-600 text-white font-bold">▲ ✕ Error (Triangle + X)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 26: Activity 1 -->
+        <div class="p-5 rounded-2xl bg-zinc-100 border-2 border-zinc-300">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="font-mono text-xs font-bold uppercase px-2.5 py-0.5 rounded bg-zinc-900 text-white">SLIDE 26 • ACTIVITY 1</span>
+            <span class="font-mono text-xs text-zinc-600">Output: One short redesign recommendation using perception vocabulary.</span>
+          </div>
+          <h3 class="text-lg font-extrabold text-zinc-900">Perception audit: what will the user actually see?</h3>
+          <p class="text-xs sm:text-sm text-zinc-600 mb-4">Look at a real screen or app homepage. Your job is not to judge aesthetics; your job is to diagnose perception.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
+            <div class="p-3 rounded-lg bg-white border border-zinc-200"><strong>1.</strong> Find one example of useful or harmful <strong>Gestalt grouping</strong>.</div>
+            <div class="p-3 rounded-lg bg-white border border-zinc-200"><strong>2.</strong> Identify the primary <strong>visual hierarchy</strong>: what attracts attention first, second and third?</div>
+            <div class="p-3 rounded-lg bg-white border border-zinc-200"><strong>3.</strong> Check whether <strong>color alone</strong> carries critical meaning.</div>
+            <div class="p-3 rounded-lg bg-white border border-zinc-200"><strong>4.</strong> Propose one <strong>redesign</strong> that would make the screen easier to scan.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 2A: PART 2 — ATTENTION, SATISFICING & CHANGE BLINDNESS (SLIDES 27–31)
+         =================================================================== -->
+    <div id="sec-attention" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-amber-500">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-600 text-white">SLIDES 27–31 • PART 2: Attention &amp; Memory Under Pressure</span>
+          <span class="font-mono text-xs text-zinc-500">≈45 min + 10 min activity</span>
+        </div>
+
+        <!-- Slide 27: Part 2 Intro -->
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">PART 2: Attention &amp; memory under pressure</h2>
+        <p class="text-zinc-700 text-base sm:text-lg mt-1 font-medium">
+          <span class="hl-green">Interfaces succeed when they reduce what users must notice, hold in mind and retrieve from scratch.</span>
+        </p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-6 text-xs sm:text-sm font-semibold">
+          <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-zinc-900">1. Attention is scarce and goal-directed.</div>
+          <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-zinc-900">2. Users often scan and satisfice rather than read everything.</div>
+          <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-zinc-900">3. Working memory is small and fragile.</div>
+          <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-zinc-900">4. Recognition is easier than recall.</div>
+        </div>
+
+        <!-- Slide 28: The Scarcity of Attention: The Cognitive Sieve (Funnel Diagram) -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-amber-800 mb-2">SLIDE 28 • THE SCARCITY OF ATTENTION: THE COGNITIVE SIEVE</div>
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center bg-slate-950 text-white p-6 rounded-2xl border border-slate-800">
+            <!-- Funnel SVG -->
+            <div class="lg:col-span-5 flex flex-col items-center">
+              <svg viewBox="0 0 260 220" class="w-full max-w-[250px] h-auto" aria-label="Cognitive Sieve Funnel Diagram">
+                <!-- Top Input -->
+                <text x="130" y="18" text-anchor="middle" class="font-mono font-bold text-[11px] fill-amber-300">100% of Environmental Data</text>
+                <!-- Funnel Cone -->
+                <polygon points="20,28 240,28 152,180 108,180" fill="rgba(245, 158, 11, 0.18)" stroke="#F59E0B" stroke-width="2"/>
+                <!-- Sieve 1: Habituation -->
+                <line x1="46" y1="68" x2="214" y2="68" stroke="#38BDF8" stroke-width="3" stroke-dasharray="6,4"/>
+                <!-- Sieve 2: Attentional Blink -->
+                <line x1="74" y1="112" x2="186" y2="112" stroke="#A855F7" stroke-width="3" stroke-dasharray="6,4"/>
+                <!-- Sieve 3: Goal-Bias -->
+                <line x1="98" y1="152" x2="162" y2="152" stroke="#F43F5E" stroke-width="3" stroke-dasharray="6,4"/>
+                <!-- Output droplet -->
+                <circle cx="130" cy="198" r="8" fill="#FDE047"/>
+                <text x="130" y="216" text-anchor="middle" class="font-mono font-bold text-[11px] fill-emerald-300">Conscious Awareness</text>
+              </svg>
+            </div>
+
+            <!-- 3 Sieve Filters Explanation -->
+            <div class="lg:col-span-7 space-y-3">
+              <div class="p-3.5 rounded-xl bg-slate-900 border-l-4 border-l-sky-400 border border-slate-800">
+                <h4 class="font-bold text-sky-300 text-sm">1. Habituation Filter</h4>
+                <p class="text-xs sm:text-sm text-slate-200 mt-0.5">
+                  We <span class="text-amber-300 font-semibold">reflexively dismiss what we see constantly</span> (e.g., repeating error messages).
+                </p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-slate-900 border-l-4 border-l-purple-400 border border-slate-800">
+                <h4 class="font-bold text-purple-300 text-sm">2. Attentional Blink Filter</h4>
+                <p class="text-xs sm:text-sm text-slate-200 mt-0.5">
+                  For <span class="text-amber-300 font-mono font-bold">0.15–0.45 seconds</span> after spotting something important, we are <span class="text-rose-300 font-semibold">temporarily blind to new stimuli.</span>
+                </p>
+              </div>
+
+              <div class="p-3.5 rounded-xl bg-slate-900 border-l-4 border-l-rose-400 border border-slate-800">
+                <h4 class="font-bold text-rose-300 text-sm">3. Goal-Bias Filter</h4>
+                <p class="text-xs sm:text-sm text-slate-200 mt-0.5">
+                  <span class="text-amber-300 font-semibold">Blocks data irrelevant</span> to the current task.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slides 29, 30 & 31: Catch-All Drawer, Satisficing & Information Scent, Change Blindness -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Slide 29 -->
+          <div class="p-5 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-xs font-bold text-amber-800">SLIDE 29 • GOAL-DRIVEN PERCEPTION</span>
+            <h3 class="text-base font-extrabold text-zinc-900 mt-1">We Only See Our Goals (The Catch-All Drawer Experiment)</h3>
+            <p class="text-xs sm:text-sm text-zinc-700 mt-2">
+              Adults are highly goal-driven; <span class="hl-yellow">perception is severely filtered by the task at hand.</span> In an interface, users only see what helps them achieve their immediate goal (like spotting only the wrench in a cluttered tool drawer).
+            </p>
+          </div>
+
+          <!-- Slide 30 -->
+          <div class="p-5 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-xs font-bold text-amber-800">SLIDE 30 • SATISFICING &amp; SCENT</span>
+            <h3 class="text-base font-extrabold text-zinc-900 mt-1">Users Don't Read. They Satisfice.</h3>
+            <p class="text-xs sm:text-sm text-zinc-700 mt-2">
+              • <strong>SATISFICING:</strong> <span class="hl-yellow">Clicking the first plausible option rather than evaluating all choices.</span><br/>
+              • <strong>INFORMATION SCENT:</strong> <span class="hl-blue">The literal, keyword-matching hunt.</span> Everything else (like a <code class="text-rose-600">$100 Prize</code> banner while hunting <code class="text-zinc-900">Departments → Scholarships → Postgraduate</code>) is invisible.
+            </p>
+          </div>
+
+          <!-- Slide 31 -->
+          <div class="p-5 rounded-xl bg-rose-50/60 border border-rose-200">
+            <span class="font-mono text-xs font-bold text-rose-800">SLIDE 31 • CHANGE BLINDNESS</span>
+            <h3 class="text-base font-extrabold text-zinc-900 mt-1">The Danger of the Shadows: Change Blindness</h3>
+            <p class="text-xs sm:text-sm text-zinc-700 mt-2">
+              <span class="hl-pink font-semibold">Never assume a user saw a change just because it happened on screen.</span> (e.g., changing Flight Booking <code class="text-zinc-900">Cabin Class</code> while the corner price silently jumps from <code class="text-zinc-900">$300</code> to <code class="text-rose-700 font-bold">$800</code>).<br/>
+              ✔ <span class="hl-green font-semibold">Critical updates must happen within the locus of attention.</span>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 2B: HUMAN MEMORY ARCHITECTURE & CHUNKING (SLIDES 32–36)
+         =================================================================== -->
+    <div id="sec-memory" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDES 32–36 • Memory Architecture, 4±1 Searchlights, Chunking &amp; Externalized Mind</span>
+        </div>
+
+        <!-- Slide 32: The Memory Myth -->
+        <div class="mb-8 p-5 rounded-xl bg-zinc-900 text-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div>
+            <span class="font-mono text-xs uppercase text-rose-400 font-bold">SLIDE 32 • THE MEMORY MYTH</span>
+            <h2 class="text-xl sm:text-2xl font-extrabold mt-0.5">Memory is not a digital store (Not RAM or accumulators)</h2>
+            <p class="text-sm text-zinc-300 mt-1">
+              Memory formation is a <span class="text-amber-300 font-semibold">physical change in neural patterns distributed across the brain, heavily reliant on context.</span>
+            </p>
+          </div>
+          <div class="shrink-0 px-4 py-2 rounded-lg bg-rose-950/80 border border-rose-500/50 font-mono text-xs text-rose-200 line-through">
+            Short-Term RAM → Long-Term Disk
+          </div>
+        </div>
+
+        <!-- Slide 33: The Architecture of Human Memory (3-Column Table) -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-zinc-500 mb-2">SLIDE 33 • THE ARCHITECTURE OF HUMAN MEMORY (EXAM TABLE)</div>
+          <div class="overflow-x-auto rounded-xl border border-zinc-200">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                  <th class="py-3.5 px-4">Attribute</th>
+                  <th class="py-3.5 px-4 text-sky-300">1. Sensory Memory</th>
+                  <th class="py-3.5 px-4 text-amber-300">2. Working Memory (The Searchlights)</th>
+                  <th class="py-3.5 px-4 text-purple-300">3. Long-Term Memory (The Warehouse)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-sm bg-white">
+                <tr>
+                  <td class="py-3 px-4 font-mono text-xs font-bold text-zinc-500 uppercase">Duration</td>
+                  <td class="py-3 px-4 font-bold text-zinc-900"><span class="hl-blue">&lt; 1 second.</span></td>
+                  <td class="py-3 px-4 font-bold text-zinc-900"><span class="hl-yellow">20–30 seconds.</span></td>
+                  <td class="py-3 px-4 font-bold text-zinc-900"><span class="hl-purple">Lifetime.</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-mono text-xs font-bold text-zinc-500 uppercase">Capacity</td>
+                  <td class="py-3 px-4 text-zinc-800">High, but volatile.</td>
+                  <td class="py-3 px-4 text-zinc-800"><span class="hl-pink font-semibold">Extremely limited (approx. 4 chunks).</span></td>
+                  <td class="py-3 px-4 text-zinc-800">Practically infinite.</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-mono text-xs font-bold text-zinc-500 uppercase">Mechanism</td>
+                  <td class="py-3 px-4 text-zinc-800">Echoes of physical stimuli.</td>
+                  <td class="py-3 px-4 text-zinc-800">The current, conscious focus of attention.</td>
+                  <td class="py-3 px-4 text-zinc-800">Neural pattern activation; heavily context-dependent.</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 font-mono text-xs font-bold text-zinc-500 uppercase">UI Implication</td>
+                  <td class="py-3 px-4 text-zinc-800"><span class="hl-green">Used for pre-attentive processing.</span></td>
+                  <td class="py-3 px-4 text-zinc-800"><span class="hl-green font-semibold">Interfaces must show state. Do not require users to remember items.</span></td>
+                  <td class="py-3 px-4 text-zinc-800"><span class="hl-green font-semibold">Retrieval is unreliable. Rely on Recognition over Recall.</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Slides 34, 35 & 36: Evolving Capacity (4±1), Chunking & Externalized Mind -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <!-- Slide 34 -->
+          <div class="p-5 rounded-xl bg-amber-50/70 border border-amber-300">
+            <span class="font-mono text-xs font-bold text-amber-900">SLIDE 34 • WORKING MEMORY CAPACITY</span>
+            <h3 class="text-base font-extrabold text-zinc-900 mt-1">The Evolving Capacity of the Searchlights</h3>
+            <ul class="text-xs sm:text-sm text-zinc-800 mt-2 space-y-2">
+              <li>• <strong>1956:</strong> George Miller proposes the Magical Number <span class="font-mono font-bold">7 ± 2</span>.</li>
+              <li>• <strong>Today:</strong> Modern research reveals that without rehearsal, working memory capacity is actually <span class="hl-pink font-mono font-extrabold">4 ± 1 features or chunks</span>.</li>
+              <li>• Working memory is even more constrained than early HCI pioneers believed.</li>
+            </ul>
+          </div>
+
+          <!-- Slide 35 -->
+          <div class="p-5 rounded-xl bg-sky-50/70 border border-sky-300">
+            <span class="font-mono text-xs font-bold text-sky-900">SLIDE 35 • THE POWER OF CHUNKING</span>
+            <h3 class="text-base font-extrabold text-zinc-900 mt-1">Beating the Limits: Chunking</h3>
+            <div class="my-2 p-2.5 rounded bg-white border border-sky-200 font-mono text-xs space-y-1">
+              <div><span class="text-rose-600 font-bold">Before:</span> 265397620853</div>
+              <div><span class="text-emerald-700 font-bold">After:</span> (265) 397-6208 53</div>
+              <div><span class="text-emerald-700 font-bold">Acronyms:</span> FBI CIA IRS UFO</div>
+            </div>
+            <p class="text-xs sm:text-sm text-zinc-800">
+              We don't increase the number of searchlights; <span class="hl-green">we increase the amount of information each light can illuminate by linking items through shared features and context.</span>
+            </p>
+          </div>
+
+          <!-- Slide 36 -->
+          <div class="p-5 rounded-xl bg-emerald-50/70 border border-emerald-300">
+            <span class="font-mono text-xs font-bold text-emerald-900">SLIDE 36 • THE EXTERNALIZED MIND</span>
+            <h3 class="text-base font-extrabold text-zinc-900 mt-1">Interface as an External Hard Drive</h3>
+            <p class="text-xs sm:text-sm text-zinc-800 mt-1.5">
+              We do not rely on internal working memory; we mark up our environment. <span class="hl-green font-semibold">The interface acts as an external hard drive for the brain:</span>
+            </p>
+            <div class="mt-2 space-y-1 font-mono text-[11px] bg-white p-2 rounded border border-emerald-200 text-zinc-700">
+              <div>• Home &gt; Registration &gt; Step 3 of 25</div>
+              <div>• Cart: $45.99 (2 items) | Menu &gt; Profile &gt; Settings</div>
+            </div>
+            <p class="text-[11px] text-rose-800 font-medium mt-2">
+              ⚠ Don't split a registration into 25 pages without context; users will lose track of where they are.
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 2C: RECOGNITION VS. RECALL & UI EXAMPLES (SLIDES 37–44)
+         =================================================================== -->
+    <div id="sec-rec-recall" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-emerald-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-700 text-white">SLIDES 37–44 • The Golden Rule: Recognition &gt; Recall</span>
+          <span class="font-mono text-xs text-zinc-500">HCI/Usability Heuristic</span>
+        </div>
+
+        <!-- Slides 37 & 38: Golden Rule & Core Comparison -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-emerald-800 mb-1">SLIDES 37 &amp; 38 • THE GOLDEN RULE OF INTERFACE DESIGN</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-4">
+            Recognition &gt; Recall <span class="text-sm font-mono font-normal text-zinc-500 ml-2">(Make objects, actions, and options visible)</span>
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Recall -->
+            <div class="p-5 rounded-xl bg-rose-50/60 border-2 border-rose-200">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-lg font-extrabold text-rose-950">Recall</h3>
+                <span class="px-2.5 py-0.5 rounded bg-rose-200 text-rose-900 font-mono text-xs font-bold">High Load</span>
+              </div>
+              <p class="text-sm text-zinc-800 mb-3">
+                <span class="hl-pink">Pulling a fact from the dark warehouse with no clues. High cognitive load, failure-prone.</span>
+              </p>
+              <ul class="text-xs sm:text-sm text-zinc-700 space-y-1.5">
+                <li>• User must retrieve information from memory</li>
+                <li>• Higher cognitive load; slower and more error-prone</li>
+                <li>• <strong>Example:</strong> remembering a keyboard shortcut or command</li>
+              </ul>
+            </div>
+
+            <!-- Recognition -->
+            <div class="p-5 rounded-xl bg-emerald-50/60 border-2 border-emerald-200">
+              <div class="flex items-center justify-between mb-2">
+                <h3 class="text-lg font-extrabold text-emerald-950">Recognition</h3>
+                <span class="px-2.5 py-0.5 rounded bg-emerald-200 text-emerald-900 font-mono text-xs font-bold">Low Load</span>
+              </div>
+              <p class="text-sm text-zinc-800 mb-3">
+                <span class="hl-green">Seeing an item and instantly matching it to a stored neural pattern. Fast, effortless, reliable.</span>
+              </p>
+              <ul class="text-xs sm:text-sm text-zinc-700 space-y-1.5">
+                <li>• User sees cues and identifies the right option</li>
+                <li>• Lower cognitive load; faster and more reliable</li>
+                <li>• <strong>Example:</strong> choosing from a visible menu or toolbar</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slides 39, 40, 41, 42, 43: Concrete UI Examples Breakdown -->
+        <div class="space-y-6 mb-8">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Slide 39: Example 1: Save Action -->
+            <div class="p-5 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-emerald-800">SLIDE 39 • EXAMPLE 1: SAVE ACTION</span>
+              <h3 class="text-base font-extrabold text-zinc-900 mt-1">Save Action: Shortcut vs. Visible Toolbar</h3>
+              <div class="mt-2 space-y-2 text-xs sm:text-sm text-zinc-700">
+                <p>• <strong>Recall-based (<code class="text-rose-700">Ctrl+S? Where is Save?</code>):</strong> User must remember shortcut/command; easy to forget for novices; higher mental effort.</p>
+                <p>• <strong>Recognition-based (Visible Toolbar <code class="text-emerald-800">New | Open | Save | Print | Undo</code>):</strong> User sees Save option immediately; guided by visible cues; faster for occasional and new users.</p>
+                <p class="font-bold text-zinc-900 pt-1">✔ <span class="hl-green">Visible controls reduce memory burden and improve usability.</span></p>
+              </div>
+            </div>
+
+            <!-- Slide 40: Example 2: Login and Forms -->
+            <div class="p-5 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-emerald-800">SLIDE 40 • EXAMPLE 2: LOGIN AND FORMS</span>
+              <h3 class="text-base font-extrabold text-zinc-900 mt-1">Suggestions &amp; Autofill Support Recognition</h3>
+              <div class="mt-2 space-y-2 text-xs sm:text-sm text-zinc-700">
+                <p>• <strong>Recall (<code class="text-rose-700">Email: jo|</code>):</strong> User must recall exact information; more typing and more errors; slower completion.</p>
+                <p>• <strong>Recognition (Dropdown <code class="text-emerald-800">john.doe@example.com</code>):</strong> User recognizes the correct option from a list; less typing and fewer errors; faster completion.</p>
+                <p class="font-bold text-zinc-900 pt-1">✔ <span class="hl-green">Autofill, suggestions, and history turn recall into recognition.</span></p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 41: More UI Examples (4 Cards) -->
+          <div class="p-5 rounded-xl bg-white border border-zinc-200">
+            <span class="font-mono text-xs font-bold text-emerald-800 block mb-2">SLIDE 41 • MORE UI EXAMPLES OF RECOGNITION IN EVERYDAY INTERFACES</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
+              <div class="p-3 rounded-lg bg-zinc-50 border border-zinc-200">
+                <strong class="block text-zinc-900">1. Recent Files</strong>
+                Showing recent files is easier than asking users to remember exact file paths.
+              </div>
+              <div class="p-3 rounded-lg bg-zinc-50 border border-zinc-200">
+                <strong class="block text-zinc-900">2. Menu Navigation</strong>
+                Visible menus support recognition better than memorizing command names.
+              </div>
+              <div class="p-3 rounded-lg bg-zinc-50 border border-zinc-200">
+                <strong class="block text-zinc-900">3. Icons + Labels</strong>
+                An icon with a text label is easier to recognize than a hidden gesture.
+              </div>
+              <div class="p-3 rounded-lg bg-zinc-50 border border-zinc-200">
+                <strong class="block text-zinc-900">4. Search Suggestions</strong>
+                Autocomplete helps users recognize the intended term before finishing the query.
+              </div>
+            </div>
+            <p class="text-xs sm:text-sm font-bold text-zinc-900 mt-3 text-center">
+              “<span class="hl-yellow">Good interfaces remind users instead of testing their memory.</span>”
+            </p>
+          </div>
+
+          <!-- Slide 42 & Slide 43: CLI vs GUI & Designing for Recognition -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <!-- Slide 42 -->
+            <div class="p-5 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-emerald-800">SLIDE 42 • THE PARADIGM SHIFT: CLI VS. GUI</span>
+              <div class="grid grid-cols-2 gap-3 mt-2 text-xs">
+                <div class="p-3 rounded-lg bg-zinc-900 text-zinc-100">
+                  <strong class="text-rose-300 block">CLI (Recall)</strong>
+                  <code class="text-[11px] text-amber-200 block my-1">&gt; rm -rf /old/folder</code>
+                  • High cognitive load<br/>• High error rate<br/>• Steep learning curve
+                </div>
+                <div class="p-3 rounded-lg bg-white border border-zinc-300 text-zinc-800">
+                  <strong class="text-emerald-700 block">GUI (Recognition)</strong>
+                  <span class="text-[11px] font-mono bg-zinc-100 px-1.5 py-0.5 rounded block my-1">Delete | Move | Trash 🗑️</span>
+                  • Low cognitive load<br/>• Low error rate<br/>• Shallow learning curve
+                </div>
+              </div>
+            </div>
+
+            <!-- Slide 43 -->
+            <div class="p-5 rounded-xl bg-zinc-50 border border-zinc-200">
+              <span class="font-mono text-xs font-bold text-emerald-800">SLIDE 43 • DESIGNING FOR RECOGNITION (3 TOOLS)</span>
+              <ul class="mt-2 space-y-2 text-xs sm:text-sm text-zinc-700">
+                <li>• <strong>Thumbnails:</strong> <span class="hl-blue">Visual recognition is insensitive to size.</span> Tiny previews trigger instant recognition.</li>
+                <li>• <strong>Metaphorical Icons:</strong> Using pictures to convey function (⚙️, 🔍, ☁️). <span class="hl-yellow">Bypasses language processing directly to feature recognition.</span></li>
+                <li>• <strong>Visual Context Cues:</strong> Color-coding or persistent avatars so users recognize exactly where they are (<code class="text-emerald-700">Dashboard</code>, <code class="text-blue-700">Projects</code>).</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 44: Activity 2 -->
+        <div class="p-5 rounded-2xl bg-zinc-100 border-2 border-zinc-300">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="font-mono text-xs font-bold uppercase px-2.5 py-0.5 rounded bg-zinc-900 text-white">SLIDE 44 • ACTIVITY 2</span>
+            <span class="font-mono text-xs text-zinc-600">Output: A revised flow that minimizes working-memory burden.</span>
+          </div>
+          <h3 class="text-lg font-extrabold text-zinc-900">Reduce memory load in a multi-step task</h3>
+          <p class="text-xs sm:text-sm text-zinc-600 mb-4">Imagine a student must register for a course, select a section, confirm prerequisites and submit payment.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
+            <div class="p-3 rounded-lg bg-white border border-zinc-200"><strong>1.</strong> List everything the student would have to <strong>remember across steps</strong>.</div>
+            <div class="p-3 rounded-lg bg-white border border-zinc-200"><strong>2.</strong> Mark which items should be <strong>externalized on screen</strong>.</div>
+            <div class="p-3 rounded-lg bg-white border border-zinc-200"><strong>3.</strong> Replace one recall-heavy action with <strong>recognition-based UI</strong>.</div>
+            <div class="p-3 rounded-lg bg-white border border-zinc-200"><strong>4.</strong> Add one <strong>feedback/state indicator</strong> that prevents uncertainty.</div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 3A: PART 3 — MENTAL MODELS & SYSTEM IMAGE (SLIDES 45–50)
+         =================================================================== -->
+    <div id="sec-models" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-indigo-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-700 text-white">SLIDES 45–50 • PART 3: Mental Models &amp; The System Image</span>
+          <span class="font-mono text-xs text-zinc-500">≈40 min + 10 min activity</span>
+        </div>
+
+        <!-- Slide 45 & 46: Part 3 Intro -->
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">PART 3: Mental models &amp; human error</h2>
+        <p class="text-zinc-700 text-base sm:text-lg mt-1 font-medium">
+          <span class="hl-yellow">The product interface is the only bridge between designer intent and user understanding.</span> (Slide 46: <em>The Anatomy of an Interaction — And How to Save It</em>).
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 my-6 text-xs sm:text-sm font-semibold">
+          <div class="p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-200">1. Users act on the model they have, not the model designers intended.</div>
+          <div class="p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-200">2. The system image shapes the user's mental model.</div>
+          <div class="p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-200">3. Slips and mistakes need different design responses.</div>
+          <div class="p-3.5 rounded-xl bg-indigo-50/70 border border-indigo-200">4. A robust interface expects human fallibility.</div>
+        </div>
+
+        <!-- Slide 47: A Fundamental Mismatch of Operating Systems -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-indigo-700 mb-3">SLIDE 47 • A FUNDAMENTAL MISMATCH OF OPERATING SYSTEMS</div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="p-5 rounded-xl bg-amber-50/80 border-2 border-amber-300">
+              <h3 class="text-lg font-extrabold text-zinc-900 mb-2">The Human Mind</h3>
+              <ul class="space-y-2 text-sm text-zinc-800">
+                <li>• <span class="hl-yellow">Associative and heuristic-driven.</span></li>
+                <li>• <span class="hl-pink">Relies on partial models and superstition.</span></li>
+                <li>• <span class="hl-blue">Opportunistic and highly distractible.</span></li>
+                <li>• <span class="hl-green">Forgives ambiguity.</span></li>
+              </ul>
+            </div>
+            <div class="p-5 rounded-xl bg-slate-900 text-white border-2 border-slate-700">
+              <h3 class="text-lg font-extrabold text-sky-300 mb-2">Machine Logic</h3>
+              <ul class="space-y-2 text-sm text-slate-200">
+                <li>■ Rigid and state-driven.</li>
+                <li>■ Literal and precise.</li>
+                <li>■ Requires uninterrupted sequential input.</li>
+                <li>■ Demands absolute clarity.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 48 & Slide 49: Designer/User Bridge & Norman's System Image Triangle -->
+        <div class="border-t border-zinc-200 pt-8 mb-8 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <!-- Left: Slide 48 & 49 Explanation -->
+          <div class="lg:col-span-6 space-y-4">
+            <div>
+              <span class="font-mono text-xs uppercase font-bold text-indigo-700">SLIDE 48 • THE SOLE BRIDGE</span>
+              <h3 class="text-lg font-extrabold text-zinc-900">Designers and users never actually communicate.</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                We cannot explain our intentions directly or sit next to the user. <span class="hl-yellow">The sole bridge between the designer's intent and the user's understanding is the product itself.</span>
+              </p>
+            </div>
+
+            <div class="pt-2 border-t border-zinc-200">
+              <span class="font-mono text-xs uppercase font-bold text-indigo-700">SLIDE 49 • NORMAN'S SYSTEM IMAGE TRIANGLE</span>
+              <h3 class="text-lg font-extrabold text-zinc-900">The System Image bears the entire burden of communication.</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-purple font-semibold">The user forms their mental model exclusively from interpreting the System Image.</span> If the System Image is incoherent or contradictory, <span class="hl-pink font-semibold">the user's mental model will be wrong.</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Right: Custom SVG of Slide 49 Inverted Triangle -->
+          <div class="lg:col-span-6 p-5 rounded-2xl bg-slate-950 text-white border border-slate-800">
+            <svg viewBox="0 0 380 230" class="w-full h-auto" aria-label="Conceptual Model, Mental Model, and The System Image Triangle">
+              <!-- Triangle Lines -->
+              <line x1="75" y1="55" x2="305" y2="55" stroke="#475569" stroke-width="2" stroke-dasharray="5,5"/>
+              <line x1="75" y1="55" x2="185" y2="175" stroke="#38BDF8" stroke-width="2.5"/>
+              <line x1="305" y1="55" x2="195" y2="175" stroke="#F59E0B" stroke-width="2.5"/>
+
+              <!-- Node 1: Conceptual Model -->
+              <circle cx="75" cy="55" r="8" fill="#38BDF8"/>
+              <text x="75" y="24" text-anchor="middle" class="font-sans font-extrabold text-[12px] fill-sky-300">Conceptual Model</text>
+              <text x="75" y="38" text-anchor="middle" class="font-sans text-[9.5px] fill-slate-300">(Designer's pristine, intended architecture)</text>
+
+              <!-- Node 2: Mental Model -->
+              <circle cx="305" cy="55" r="8" fill="#F59E0B"/>
+              <text x="305" y="24" text-anchor="middle" class="font-sans font-extrabold text-[12px] fill-amber-300">Mental Model</text>
+              <text x="305" y="38" text-anchor="middle" class="font-sans text-[9.5px] fill-slate-300">(User's messy, associative internal explanation)</text>
+
+              <!-- Bottom Vertex: The System Image -->
+              <circle cx="190" cy="180" r="10" fill="#FFFFFF" stroke="#38BDF8" stroke-width="3"/>
+              <text x="190" y="205" text-anchor="middle" class="font-sans font-extrabold text-[13px] fill-white">The System Image</text>
+              <text x="190" y="220" text-anchor="middle" class="font-sans text-[10px] fill-emerald-300">(Physical device, interface, and manuals — the only tangible proof)</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Slide 50: Thermostat False Mental Model Case Study -->
+        <div class="p-5 rounded-2xl bg-zinc-50 border-2 border-zinc-200">
+          <div class="font-mono text-xs uppercase font-bold text-indigo-700 mb-1">SLIDE 50 • THERMOSTAT CASE STUDY</div>
+          <h3 class="text-lg sm:text-xl font-extrabold text-zinc-900 mb-3">Users act on their models, even when they are entirely false.</h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-3">
+            <div class="p-4 rounded-xl bg-rose-50 border border-rose-200">
+              <span class="font-mono text-xs font-bold text-rose-800 uppercase">✘ The False Mental Model (Valve Myth)</span>
+              <p class="text-sm font-bold text-zinc-900 mt-1">“Turn it up higher to heat the room faster!”</p>
+            </div>
+            <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+              <span class="font-mono text-xs font-bold text-emerald-800 uppercase">✔ The True Conceptual Model (Thermostat Switch)</span>
+              <p class="text-sm font-bold text-zinc-900 mt-1">“On/Off. Room reaches set limit, system cuts power.”</p>
+            </div>
+          </div>
+          <p class="text-xs sm:text-sm text-zinc-700">
+            When the interface's conceptual model does not match the user's mental model, friction occurs. <span class="hl-green font-semibold">Good design either matches the user's existing model or clearly educates them on the new one.</span>
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 3B: HUMAN ERROR — SLIPS VS. MISTAKES & SAFETY NETS (SLIDES 51–56)
+         =================================================================== -->
+    <div id="sec-errors" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-rose-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-rose-700 text-white">SLIDES 51–56 • Diagnostics of Failure: Slips vs. Mistakes &amp; Safety Nets</span>
+          <span class="font-mono text-xs text-zinc-500">High-Yield Exam Topic</span>
+        </div>
+
+        <!-- Slide 51: Design Stance: Do not stop at "user error" -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-rose-700 mb-1">SLIDE 51 • DESIGN STANCE</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-4">Do not stop at “user error”</h2>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <h3 class="font-bold text-zinc-900 text-sm">Users are fallible in predictable ways.</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                They misread labels, forget modes, click adjacent controls, follow plausible but wrong models and miss unexpected updates.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <h3 class="font-bold text-zinc-900 text-sm">Repeated errors are diagnostic data.</h3>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-yellow">When several users make the same error, the interface is probably communicating the wrong model</span> or failing to support the right action.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-200">
+              <h3 class="font-bold text-emerald-950 text-sm">Design goal</h3>
+              <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                <span class="hl-green font-semibold">Make the right action visible, the risky action harder, the system state legible and recovery possible.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 52: Error Classification Matrix: Slips vs. Mistakes -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-rose-700 mb-2">SLIDE 52 • ERROR CLASSIFICATION MATRIX: SLIPS VS. MISTAKES (MEMORIZE FOR EXAM!)</div>
+          <div class="overflow-x-auto rounded-xl border-2 border-zinc-900">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                  <th class="py-3.5 px-4">Diagnostic Dimension</th>
+                  <th class="py-3.5 px-4 text-sky-300">Slip (Execution Failure)</th>
+                  <th class="py-3.5 px-4 text-amber-300">Mistake (Planning / Model Failure)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200 text-sm bg-white">
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900">Intention / Goal</td>
+                  <td class="py-3.5 px-4 font-bold text-emerald-700"><span class="hl-green">Right</span></td>
+                  <td class="py-3.5 px-4 font-bold text-rose-700"><span class="hl-pink">Wrong</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900">Action Performed</td>
+                  <td class="py-3.5 px-4 font-bold text-rose-700"><span class="hl-pink">Wrong</span></td>
+                  <td class="py-3.5 px-4 font-bold text-amber-900"><span class="hl-yellow">Right (according to wrong plan)</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900">User Expertise</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-blue font-semibold">Often High / Experts</span> (operating on autopilot)</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-purple font-semibold">Often Low / Novices</span></td>
+                </tr>
+                <tr>
+                  <td class="py-3.5 px-4 font-bold text-zinc-900">Cognitive Stage</td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-blue font-semibold">Subconscious / Execution</span></td>
+                  <td class="py-3.5 px-4 text-zinc-800"><span class="hl-purple font-semibold">Conscious / Planning &amp; Evaluation</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Slide 53 & Slide 54: Anatomy of a Slip vs. Anatomy of a Mistake -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <!-- Slide 53: Anatomy of a Slip -->
+          <div class="p-5 rounded-2xl bg-sky-50/70 border-2 border-sky-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold uppercase text-sky-800">SLIDE 53 • ANATOMY OF A SLIP</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">Right plan, derailed execution</h3>
+              <ol class="mt-3 space-y-1.5 text-xs sm:text-sm text-zinc-800 font-medium">
+                <li><strong>1. Goal &amp; Plan established:</strong> Holding milk carton &amp; coffee cup.</li>
+                <li><strong>2. Routine execution begins:</strong> Pouring milk into coffee cup.</li>
+                <li><strong>3. Attention lapses → Wrong action performed:</strong> Putting the hot coffee cup into the refrigerator! ☕➡️🧊</li>
+              </ol>
+            </div>
+            <p class="mt-4 text-xs sm:text-sm text-zinc-800 bg-white p-3 rounded-xl border border-sky-200">
+              The goal was correct. The plan was correct. But a subconscious lapse in attention caused the wrong action to be performed. <span class="hl-blue font-bold">Slips happen precisely because experts operate on autopilot.</span>
+            </p>
+          </div>
+
+          <!-- Slide 54: Anatomy of a Mistake -->
+          <div class="p-5 rounded-2xl bg-amber-50/70 border-2 border-amber-200 flex flex-col justify-between">
+            <div>
+              <span class="font-mono text-xs font-bold uppercase text-amber-900">SLIDE 54 • ANATOMY OF A MISTAKE</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">Flawed premise, perfect execution</h3>
+              <div class="mt-3 p-3 rounded-xl bg-white border border-amber-200 flex items-center gap-3">
+                <span class="text-2xl">🔍</span>
+                <p class="text-xs sm:text-sm text-zinc-800">
+                  <strong>Goal: <code class="text-rose-700">FIND WORD</code></strong> — The user clicks the magnifying glass icon because they want to “Find” a word on the page. But the designer intended the icon to mean <strong>“Zoom In.”</strong>
+                </p>
+              </div>
+            </div>
+            <p class="mt-4 text-xs sm:text-sm text-zinc-800 bg-white p-3 rounded-xl border border-amber-200">
+              The execution was flawless. The user did exactly what they intended. <span class="hl-pink font-bold">The failure occurred at the highest level of cognition: the mental model was wrong.</span>
+            </p>
+          </div>
+        </div>
+
+        <!-- Slide 55 & Slide 56: Designing for the Inevitable & Preview for Week 5 Design Responses -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="p-4 rounded-xl bg-zinc-900 text-white mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <span class="font-mono text-xs text-sky-300 uppercase font-bold">SLIDE 55 • DESIGNING FOR THE INEVITABLE</span>
+              <p class="text-sm sm:text-base font-bold mt-0.5">
+                The true test of interaction design is <span class="text-amber-300 underline underline-offset-4">how gracefully the system handles failure</span>. We must build safety nets that anticipate the messy reality of human cognition.
+              </p>
+            </div>
+          </div>
+
+          <div class="font-mono text-xs uppercase font-bold text-zinc-500 mb-3">SLIDE 56 • PREVIEW FOR WEEK 5: DESIGN RESPONSES WE WILL DEEPEN LATER</div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="p-4 rounded-xl bg-sky-50/60 border border-sky-200">
+              <h4 class="font-extrabold text-zinc-900 text-sm">1. For slips: support correct execution</h4>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-green">Spacing, clear target size, safe defaults, constraints, confirmations for destructive actions and undo.</span>
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-amber-50/60 border border-amber-200">
+              <h4 class="font-extrabold text-zinc-900 text-sm">2. For mistakes: repair the model</h4>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-yellow">Use clearer terminology, better conceptual structure, informative feedback and explanations that match the user's task language.</span>
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-purple-50/60 border border-purple-200">
+              <h4 class="font-extrabold text-zinc-900 text-sm">3. For attention failures: move feedback to the locus of attention</h4>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-pink">Do not assume a change was noticed merely because it appeared somewhere on screen.</span>
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-emerald-50/60 border border-emerald-200">
+              <h4 class="font-extrabold text-zinc-900 text-sm">4. For memory limits: externalize state</h4>
+              <p class="text-xs sm:text-sm text-zinc-700 mt-1">
+                <span class="hl-blue">Show what has happened, what is selected, what remains and how to continue.</span>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SECTION 4: MASTER INTEGRATION MATRIX, ACTIVITY 3, KEY TERMS & READINGS (SLIDES 57–60)
+         =================================================================== -->
+    <div id="sec-integration" class="scroll-mt-28 space-y-8">
+
+      <!-- SLIDE 57: MASTER INTEGRATION TABLE -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-zinc-900">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 57 • MASTER INTEGRATION MATRIX</span>
+          <span class="font-hand text-xl text-amber-700 font-bold">★ Ultimate Exam Cheat-Sheet Table</span>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-2">From human constraint to interface decision</h2>
+        <p class="text-sm text-zinc-600 mb-6">Complete synthesis of Week 2 connecting every human characteristic to its practical meaning and UI design response.</p>
+
+        <div class="overflow-x-auto rounded-xl border-2 border-zinc-900">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                <th class="py-3.5 px-4">Human characteristic</th>
+                <th class="py-3.5 px-4">What it means in use</th>
+                <th class="py-3.5 px-4 text-emerald-300">Design response</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+              <tr class="hover:bg-zinc-50">
+                <td class="py-3 px-4 font-bold text-zinc-900">1. Limited foveal vision</td>
+                <td class="py-3 px-4 text-zinc-700">Users scan instead of seeing everything equally.</td>
+                <td class="py-3 px-4 font-medium text-zinc-900"><span class="hl-green">Create a strong visual hierarchy; put key actions where attention already is.</span></td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="py-3 px-4 font-bold text-zinc-900">2. Gestalt grouping</td>
+                <td class="py-3 px-4 text-zinc-700">Users infer relationships from spacing, similarity and alignment.</td>
+                <td class="py-3 px-4 font-medium text-zinc-900"><span class="hl-blue">Group related controls; separate unrelated items; use continuity intentionally.</span></td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="py-3 px-4 font-bold text-zinc-900">3. Color differences</td>
+                <td class="py-3 px-4 text-zinc-700">Some users cannot distinguish color-coded states.</td>
+                <td class="py-3 px-4 font-medium text-zinc-900"><span class="hl-green">Use redundant cues: color + text + icon + shape/pattern.</span></td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="py-3 px-4 font-bold text-zinc-900">4. Goal-directed attention</td>
+                <td class="py-3 px-4 text-zinc-700">Users miss unexpected changes outside their task focus.</td>
+                <td class="py-3 px-4 font-medium text-zinc-900"><span class="hl-yellow">Place critical feedback near the action and make changes explicit.</span></td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="py-3 px-4 font-bold text-zinc-900">5. Working memory limit</td>
+                <td class="py-3 px-4 text-zinc-700">Users cannot reliably hold many items for long.</td>
+                <td class="py-3 px-4 font-medium text-zinc-900"><span class="hl-blue">Chunk information; show state; avoid deep menu memory tasks.</span></td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="py-3 px-4 font-bold text-zinc-900">6. Recall is hard</td>
+                <td class="py-3 px-4 text-zinc-700">Users struggle to reproduce commands/options from memory.</td>
+                <td class="py-3 px-4 font-medium text-zinc-900"><span class="hl-green">Prefer visible choices, examples, defaults and recognition-based navigation.</span></td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="py-3 px-4 font-bold text-zinc-900">7. Mental models</td>
+                <td class="py-3 px-4 text-zinc-700">Users act according to their internal explanation of the system.</td>
+                <td class="py-3 px-4 font-medium text-zinc-900"><span class="hl-purple">Create a coherent system image using labels, structure, feedback and behavior.</span></td>
+              </tr>
+              <tr class="hover:bg-zinc-50">
+                <td class="py-3 px-4 font-bold text-zinc-900">8. Slips vs. mistakes</td>
+                <td class="py-3 px-4 text-zinc-700">Execution failure differs from wrong intention/model.</td>
+                <td class="py-3 px-4 font-medium text-zinc-900"><span class="hl-yellow">Use spacing/undo for slips; use explanation/feedback/model repair for mistakes.</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- SLIDE 58, SLIDE 59 & SLIDE 60: ACTIVITY 3, KEY TERMS & READINGS -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-b-4 border-b-zinc-900">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-6">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 58</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 59</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 60</span>
+          </div>
+          <span class="font-mono text-xs text-zinc-500">Activity 3, Key Terms &amp; Readings</span>
+        </div>
+
+        <!-- Slide 58: Activity 3 -->
+        <div class="p-5 rounded-2xl bg-zinc-100 border-2 border-zinc-300 mb-8">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+            <span class="font-mono text-xs font-bold uppercase px-2.5 py-0.5 rounded bg-zinc-900 text-white">SLIDE 58 • ACTIVITY 3</span>
+            <span class="font-mono text-xs text-zinc-600">Output: A four-sentence HCI critique that uses Week 2 concepts correctly.</span>
+          </div>
+          <h3 class="text-lg font-extrabold text-zinc-900">Mini audit: diagnose and redesign</h3>
+          <p class="text-xs sm:text-sm text-zinc-600 mb-4">Choose one interface you used this week. Diagnose it using today's vocabulary—not personal taste.</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
+            <div class="p-3 rounded-lg bg-white border border-zinc-200"><strong>1. Perception issue:</strong> hierarchy, grouping, color or foveal/peripheral placement.</div>
+            <div class="p-3 rounded-lg bg-white border border-zinc-200"><strong>2. Attention/memory issue:</strong> change blindness, overload, recall or hidden state.</div>
+            <div class="p-3 rounded-lg bg-white border border-zinc-200"><strong>3. Mental-model or error issue:</strong> slip risk or mistaken assumption.</div>
+            <div class="p-3 rounded-lg bg-white border border-zinc-200"><strong>4. Redesign:</strong> Write one concrete redesign recommendation.</div>
+          </div>
+        </div>
+
+        <!-- Slide 59: Key Terms Master Vocabulary -->
+        <div class="mb-8">
+          <div class="font-mono text-xs uppercase font-bold text-zinc-500 mb-3">SLIDE 59 • KEY TERMS: VOCABULARY STUDENTS SHOULD LEAVE WITH</div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <!-- Perception Terms -->
+            <div class="p-4 rounded-xl bg-blue-50/50 border border-blue-200">
+              <h4 class="font-bold text-blue-950 text-sm mb-2.5">1. Perception (10 Terms)</h4>
+              <div class="flex flex-wrap gap-1.5 font-mono text-xs">
+                <span class="px-2 py-1 rounded bg-white border border-blue-200 text-blue-900">fovea</span>
+                <span class="px-2 py-1 rounded bg-white border border-blue-200 text-blue-900">peripheral vision</span>
+                <span class="px-2 py-1 rounded bg-white border border-blue-200 text-blue-900">pre-attentive processing</span>
+                <span class="px-2 py-1 rounded bg-white border border-blue-200 text-blue-900">Gestalt</span>
+                <span class="px-2 py-1 rounded bg-white border border-blue-200 text-blue-900">proximity</span>
+                <span class="px-2 py-1 rounded bg-white border border-blue-200 text-blue-900">similarity</span>
+                <span class="px-2 py-1 rounded bg-white border border-blue-200 text-blue-900">closure</span>
+                <span class="px-2 py-1 rounded bg-white border border-blue-200 text-blue-900">continuity</span>
+                <span class="px-2 py-1 rounded bg-white border border-blue-200 text-blue-900">figure/ground</span>
+                <span class="px-2 py-1 rounded bg-white border border-blue-200 text-blue-900">redundant coding</span>
+              </div>
+            </div>
+
+            <!-- Attention & Memory Terms -->
+            <div class="p-4 rounded-xl bg-amber-50/50 border border-amber-200">
+              <h4 class="font-bold text-amber-950 text-sm mb-2.5">2. Attention &amp; Memory (8 Terms)</h4>
+              <div class="flex flex-wrap gap-1.5 font-mono text-xs">
+                <span class="px-2 py-1 rounded bg-white border border-amber-200 text-amber-900">selective attention</span>
+                <span class="px-2 py-1 rounded bg-white border border-amber-200 text-amber-900">inattentional blindness</span>
+                <span class="px-2 py-1 rounded bg-white border border-amber-200 text-amber-900">change blindness</span>
+                <span class="px-2 py-1 rounded bg-white border border-amber-200 text-amber-900">satisficing</span>
+                <span class="px-2 py-1 rounded bg-white border border-amber-200 text-amber-900">sensory memory</span>
+                <span class="px-2 py-1 rounded bg-white border border-amber-200 text-amber-900">working memory</span>
+                <span class="px-2 py-1 rounded bg-white border border-amber-200 text-amber-900">chunking</span>
+                <span class="px-2 py-1 rounded bg-white border border-amber-200 text-amber-900">recognition vs. recall</span>
+              </div>
+            </div>
+
+            <!-- Mental Models & Error Terms -->
+            <div class="p-4 rounded-xl bg-purple-50/50 border border-purple-200">
+              <h4 class="font-bold text-purple-950 text-sm mb-2.5">3. Mental Models &amp; Error (8 Terms)</h4>
+              <div class="flex flex-wrap gap-1.5 font-mono text-xs">
+                <span class="px-2 py-1 rounded bg-white border border-purple-200 text-purple-900">conceptual model</span>
+                <span class="px-2 py-1 rounded bg-white border border-purple-200 text-purple-900">system image</span>
+                <span class="px-2 py-1 rounded bg-white border border-purple-200 text-purple-900">mental model</span>
+                <span class="px-2 py-1 rounded bg-white border border-purple-200 text-purple-900">slip</span>
+                <span class="px-2 py-1 rounded bg-white border border-purple-200 text-purple-900">mistake</span>
+                <span class="px-2 py-1 rounded bg-white border border-purple-200 text-purple-900">feedback</span>
+                <span class="px-2 py-1 rounded bg-white border border-purple-200 text-purple-900">visible state</span>
+                <span class="px-2 py-1 rounded bg-white border border-purple-200 text-purple-900">error recovery</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 60: Readings & Resources + Next Week -->
+        <div class="border-t border-zinc-200 pt-8">
+          <div class="font-mono text-xs uppercase font-bold text-zinc-500 mb-3">SLIDE 60 • READINGS &amp; RESOURCES (USE THESE TO STUDY WEEK 2)</div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6 text-xs sm:text-sm">
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <h4 class="font-bold text-zinc-900 mb-1">Core readings</h4>
+              <p class="text-zinc-700">
+                • <strong>Rogers, Sharp &amp; Preece (2023)</strong>, <em>Interaction Design</em>, Ch. 4 Cognitive Aspects<br/>
+                • <strong>Johnson</strong>, <em>Designing with the Mind in Mind</em>, Ch. 1–7.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <h4 class="font-bold text-zinc-900 mb-1">Complementary readings</h4>
+              <p class="text-zinc-700">
+                • <strong>Dix et al.</strong>, <em>Human-Computer Interaction</em>, Ch. 1 The Human<br/>
+                • <strong>Norman</strong>, <em>The Design of Everyday Things</em>, Ch. 3 and Ch. 5.
+              </p>
+            </div>
+            <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+              <h4 class="font-bold text-zinc-900 mb-1">Videos for class or homework</h4>
+              <p class="text-zinc-700">
+                • <strong>Simons &amp; Chabris</strong> Selective Attention Test<br/>
+                • <strong>NN/g videos</strong> on recognition vs. recall and memory in user interfaces<br/>
+                • <strong>Georgia Tech HCI</strong> Human Abilities.
+              </p>
+            </div>
+          </div>
+
+          <!-- Next Week Preview -->
+          <div class="p-5 rounded-xl bg-zinc-900 text-white flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="px-2.5 py-1 rounded bg-amber-400 text-zinc-950 font-mono text-xs uppercase font-extrabold">Next Week (Week 3)</span>
+              <span class="text-lg font-extrabold">The Computer</span>
+            </div>
+            <span class="font-mono text-xs sm:text-sm text-zinc-300">input devices, output channels, pointing, text entry, haptics and multimodal interaction.</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+  </main>
+</body>
+</html>

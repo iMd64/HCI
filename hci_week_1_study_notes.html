@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HCI Week 1 — Introduction to HCI (Annotated Exam Study Notes)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans, JetBrains Mono, Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['"Caveat"', 'cursive'],
+          },
+          colors: {
+            paper: '#FDFBF7',
+            card: '#FFFFFF',
+            ink: '#1E293B',
+            muted: '#475569',
+            borderLight: '#E4E2DD',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Warm Academic Engineering Notebook Paper Background with Ruled Lines & Margin */
+    body {
+      background-color: #FDFBF7;
+      color: #1E293B;
+      background-image:
+        linear-gradient(90deg, transparent 38px, rgba(225, 29, 72, 0.16) 38px, rgba(225, 29, 72, 0.16) 40px, transparent 40px),
+        repeating-linear-gradient(0deg, #FDFBF7, #FDFBF7 27px, #ECE8DF 27px, #ECE8DF 28px);
+      background-attachment: local;
+    }
+
+    /* Realistic Marker Highlighter Spans */
+    .hl-yellow {
+      background: linear-gradient(104deg, rgba(254, 240, 138, 0) 0.9%, rgba(254, 240, 138, 0.95) 2.4%, rgba(254, 240, 138, 0.65) 5.8%, rgba(254, 240, 138, 0.88) 93%, rgba(254, 240, 138, 0.7) 96%, rgba(254, 240, 138, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-green {
+      background: linear-gradient(104deg, rgba(187, 247, 208, 0) 0.9%, rgba(187, 247, 208, 0.95) 2.4%, rgba(187, 247, 208, 0.65) 5.8%, rgba(187, 247, 208, 0.88) 93%, rgba(187, 247, 208, 0.7) 96%, rgba(187, 247, 208, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-blue {
+      background: linear-gradient(104deg, rgba(191, 219, 254, 0) 0.9%, rgba(191, 219, 254, 0.92) 2.4%, rgba(191, 219, 254, 0.65) 5.8%, rgba(191, 219, 254, 0.88) 93%, rgba(191, 219, 254, 0.7) 96%, rgba(191, 219, 254, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-pink {
+      background: linear-gradient(104deg, rgba(254, 205, 211, 0) 0.9%, rgba(254, 205, 211, 0.92) 2.4%, rgba(254, 205, 211, 0.65) 5.8%, rgba(254, 205, 211, 0.88) 93%, rgba(254, 205, 211, 0.7) 96%, rgba(254, 205, 211, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-purple {
+      background: linear-gradient(104deg, rgba(233, 213, 255, 0) 0.9%, rgba(233, 213, 255, 0.92) 2.4%, rgba(233, 213, 255, 0.65) 5.8%, rgba(233, 213, 255, 0.88) 93%, rgba(233, 213, 255, 0.7) 96%, rgba(233, 213, 255, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    /* Notebook Sheet Card */
+    .note-sheet {
+      background-color: #FFFFFF;
+      border: 1px solid #E4E2DD;
+      box-shadow: 0 4px 20px -4px rgba(24, 24, 27, 0.06), 0 2px 6px -1px rgba(24, 24, 27, 0.03);
+      position: relative;
+    }
+
+    /* Sticky Note Callout */
+    .sticky-callout {
+      background-color: #FEF9C3;
+      border: 1px solid #FDE047;
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Scrollbar Utility */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+
+  <!-- Modular Collapsible Navigation Engine -->
+  <script src="nav.js" defer></script>
+</head>
+<body class="antialiased selection:bg-yellow-200 selection:text-zinc-900">
+
+  <!-- =====================================================================
+       STICKY QUICK-JUMP NAVIGATION & HIGHLIGHTER LEGEND BAR
+       ===================================================================== -->
+  <header class="sticky top-0 z-50 bg-[#FDFBF7]/95 backdrop-blur-md border-b border-[#E4E2DD] shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+          <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-zinc-900 text-amber-300 font-mono text-xs font-bold">W1</span>
+          <div>
+            <span class="font-extrabold text-sm text-zinc-900 tracking-tight">HCI Week 1: Introduction to HCI</span>
+            <span class="hidden md:inline-block text-xs text-zinc-500 ml-1.5 font-mono">• Slides 01–13 Complete Exam Notes</span>
+          </div>
+        </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN STUDY NOTEBOOK CONTAINER
+       ===================================================================== -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-10">
+
+    <!-- ===================================================================
+         SLIDE 01 & SLIDE 02: INTRODUCTION, CORE QUESTION & 4 OUTCOMES
+         =================================================================== -->
+    <div id="slide-01-02" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-zinc-900">
+        <!-- Slide 01 Badge & Metadata -->
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 01</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 02</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• Source: Week 1 notes &amp; Syllabus</span>
+          </div>
+          <span class="font-mono text-xs text-zinc-500">Human-Computer Interaction · Week 1</span>
+        </div>
+
+        <!-- Slide 01 Title & Subtopics -->
+        <div class="mb-8">
+          <div class="inline-flex flex-wrap items-center gap-2 px-3 py-1 rounded-md bg-amber-100 border border-amber-300 font-mono text-xs font-bold uppercase tracking-wider text-amber-900 mb-3">
+            <span>Week 1 Introduction to HCI</span>
+            <span>•</span>
+            <span>History</span>
+            <span>•</span>
+            <span>Disciplines</span>
+            <span>•</span>
+            <span>Why usability matters</span>
+          </div>
+          <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 leading-tight">
+            Human-Computer Interaction
+          </h1>
+
+          <!-- Today's Core Question Callout Box (Slide 01) -->
+          <div class="mt-5 p-5 rounded-2xl bg-zinc-900 text-white border-2 border-amber-400 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <span class="font-mono text-xs uppercase tracking-widest text-amber-300 block mb-1">SLIDE 01 • TODAY'S CORE QUESTION</span>
+              <p class="text-xl sm:text-2xl font-extrabold text-white">
+                “How do we design technology that <span class="underline decoration-amber-400 decoration-2 underline-offset-4 text-amber-300">fits people</span>?”
+              </p>
+            </div>
+            <span class="font-hand text-2xl text-amber-300 shrink-0">★ Exam Core Question</span>
+          </div>
+        </div>
+
+        <!-- Slide 02: What You Should Be Able to Do After Week 1 -->
+        <div class="border-t border-zinc-200 pt-7">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+            <div>
+              <span class="font-mono text-xs font-bold text-sky-800 uppercase">SLIDE 02 • LEARNING OUTCOMES</span>
+              <h2 class="text-xl sm:text-2xl font-extrabold text-zinc-900">What you should be able to do after Week 1</h2>
+              <p class="text-xs text-zinc-600 font-mono">Four outcomes from the syllabus and lecture notes (Source: Week 1 notes)</p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+            <!-- Outcome 1 -->
+            <div class="p-4 rounded-xl bg-amber-50/70 border-2 border-amber-200 flex flex-col justify-between">
+              <div>
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-amber-900 text-white font-mono text-xs font-bold mb-2">1</span>
+                <h3 class="font-extrabold text-base text-zinc-900">Define HCI</h3>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                  Explain <span class="hl-yellow font-semibold">usability, usefulness, and user experience</span>.
+                </p>
+              </div>
+              <span class="font-mono text-[10px] text-amber-900 mt-3 pt-2 border-t border-amber-200/80">→ Covered in Slides 03–04</span>
+            </div>
+
+            <!-- Outcome 2 -->
+            <div class="p-4 rounded-xl bg-sky-50/70 border-2 border-sky-200 flex flex-col justify-between">
+              <div>
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-sky-900 text-white font-mono text-xs font-bold mb-2">2</span>
+                <h3 class="font-extrabold text-base text-zinc-900">Trace the history</h3>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-1 font-mono">
+                  <span class="hl-blue font-semibold">Batch → CLI → GUI → mobile → ubiquitous/AI</span>
+                </p>
+              </div>
+              <span class="font-mono text-[10px] text-sky-900 mt-3 pt-2 border-t border-sky-200/80">→ Covered in Slides 06–08</span>
+            </div>
+
+            <!-- Outcome 3 -->
+            <div class="p-4 rounded-xl bg-purple-50/70 border-2 border-purple-200 flex flex-col justify-between">
+              <div>
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-purple-900 text-white font-mono text-xs font-bold mb-2">3</span>
+                <h3 class="font-extrabold text-base text-zinc-900">Map the disciplines</h3>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                  <span class="hl-purple font-semibold">CS, psychology, design, ergonomics, sociology, anthropology</span>
+                </p>
+              </div>
+              <span class="font-mono text-[10px] text-purple-900 mt-3 pt-2 border-t border-purple-200/80">→ Covered in Slide 05</span>
+            </div>
+
+            <!-- Outcome 4 -->
+            <div class="p-4 rounded-xl bg-emerald-50/70 border-2 border-emerald-200 flex flex-col justify-between">
+              <div>
+                <span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-emerald-900 text-white font-mono text-xs font-bold mb-2">4</span>
+                <h3 class="font-extrabold text-base text-zinc-900">Critique design</h3>
+                <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+                  <span class="hl-green font-semibold">Recognize good and bad everyday interfaces</span>
+                </p>
+              </div>
+              <span class="font-mono text-[10px] text-emerald-900 mt-3 pt-2 border-t border-emerald-200/80">→ Covered in Slides 09–11</span>
+            </div>
+          </div>
+
+          <!-- In-class lens banner from Slide 02 -->
+          <div class="sticky-callout rounded-xl p-4 flex flex-wrap items-center justify-between gap-3">
+            <div class="text-sm sm:text-base font-bold text-zinc-900">
+              <span class="font-mono text-xs uppercase bg-zinc-900 text-amber-300 px-2 py-0.5 rounded mr-2">SLIDE 02 IN-CLASS LENS</span>
+              <span class="hl-purple">“Blame the design, not the user.”</span>
+            </div>
+            <span class="font-mono text-xs text-zinc-600">Source: Week 1 notes</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SLIDE 03: WHAT IS HCI?
+         =================================================================== -->
+    <section id="slide-03" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 03</span>
+          <span class="text-xs font-mono font-semibold text-zinc-600">• Source: Rogers et al. Ch. 1</span>
+        </div>
+        <span class="font-hand text-xl text-sky-800 font-bold">Core Definition &amp; 3 Pillars</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">What is HCI?</h2>
+      <p class="text-sm sm:text-base text-zinc-700 mt-1 mb-6">
+        A discipline for <span class="hl-yellow font-bold">designing, evaluating, and implementing interactive systems</span>
+      </p>
+
+      <!-- Custom SVG Chevron Pipeline (Replicating Slide 03 Visual) -->
+      <div class="p-4 sm:p-5 rounded-2xl bg-zinc-50 border border-zinc-200 mb-6">
+        <div class="font-mono text-[11px] uppercase text-zinc-500 font-bold mb-2">SLIDE 03 DIAGRAM • THE 4-ELEMENT HCI CHAIN</div>
+        <svg viewBox="0 0 800 110" class="w-full h-auto" aria-label="Human to Computer to Interaction to Real use context chevron diagram">
+          <!-- Chevron 1: Human -->
+          <polygon points="10,12 175,12 205,55 175,98 10,98 40,55" fill="#E0F2FE" stroke="#7DD3FC" stroke-width="2"/>
+          <text x="108" y="61" text-anchor="middle" class="font-sans text-[18px] fill-blue-700 font-extrabold">Human</text>
+
+          <!-- Chevron 2: Computer -->
+          <polygon points="200,12 365,12 395,55 365,98 200,98 230,55" fill="#EDE9FE" stroke="#C4B5FD" stroke-width="2"/>
+          <text x="298" y="61" text-anchor="middle" class="font-sans text-[18px] fill-purple-700 font-extrabold">Computer</text>
+
+          <!-- Chevron 3: Interaction -->
+          <polygon points="390,12 555,12 585,55 555,98 390,98 420,55" fill="#FEF3C7" stroke="#FCD34D" stroke-width="2"/>
+          <text x="488" y="61" text-anchor="middle" class="font-sans text-[18px] fill-amber-700 font-extrabold">Interaction</text>
+
+          <!-- Chevron 4: Real use context -->
+          <polygon points="580,12 760,12 790,55 760,98 580,98 610,55" fill="#DCFCE7" stroke="#86EFAC" stroke-width="2"/>
+          <text x="688" y="61" text-anchor="middle" class="font-sans text-[17px] fill-emerald-800 font-extrabold">Real use context</text>
+        </svg>
+      </div>
+
+      <!-- Core Principle Highlight -->
+      <div class="p-4 rounded-xl bg-amber-50 border-l-4 border-amber-500 text-sm sm:text-base text-zinc-900 font-semibold mb-6">
+        ★ Core Principle (Slide 03): <span class="hl-yellow">“HCI asks how to make technology fit people, instead of forcing people to fit technology.”</span>
+      </div>
+
+      <!-- 3 Core Activities of HCI (Design, Evaluation, Implementation) -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div class="p-4 rounded-xl bg-white border-2 border-sky-200">
+          <span class="font-mono text-xs font-bold uppercase text-sky-800">1. DESIGN</span>
+          <p class="text-sm font-bold text-zinc-900 mt-1">
+            <span class="hl-blue">create possible interfaces</span>
+          </p>
+        </div>
+        <div class="p-4 rounded-xl bg-white border-2 border-amber-200">
+          <span class="font-mono text-xs font-bold uppercase text-amber-800">2. EVALUATION</span>
+          <p class="text-sm font-bold text-zinc-900 mt-1">
+            <span class="hl-yellow">test whether people can use them</span>
+          </p>
+        </div>
+        <div class="p-4 rounded-xl bg-white border-2 border-emerald-200">
+          <span class="font-mono text-xs font-bold uppercase text-emerald-800">3. IMPLEMENTATION</span>
+          <p class="text-sm font-bold text-zinc-900 mt-1">
+            <span class="hl-green">build interactive systems for human use</span>
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SLIDE 04: THREE QUESTIONS EVERY INTERFACE ANSWERS
+         =================================================================== -->
+    <section id="slide-04" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-purple-600">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-purple-700 text-white">SLIDE 04</span>
+          <span class="text-xs font-mono font-semibold text-zinc-600">• Source: Rogers et al. Ch. 1</span>
+        </div>
+        <span class="font-mono text-xs text-purple-800 font-bold">The recurring vocabulary for the whole course</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-6">Three questions every interface answers</h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center mb-6">
+        <!-- Left: Custom SVG Venn Diagram of Can? / Need? / Feel? -->
+        <div class="lg:col-span-5 p-4 rounded-2xl bg-slate-950 text-white border border-slate-800">
+          <svg viewBox="0 0 320 265" class="w-full h-auto" aria-label="Three overlapping circles: Can? Usability, Need? Usefulness, Feel? User Experience">
+            <!-- Circle 1: Can? (Usability) -->
+            <circle cx="115" cy="98" r="68" fill="#3B82F6" fill-opacity="0.45" stroke="#60A5FA" stroke-width="2.5"/>
+            <text x="88" y="72" text-anchor="middle" class="font-sans text-[16px] fill-white font-extrabold">Can?</text>
+            <text x="88" y="90" text-anchor="middle" class="font-mono text-[10px] fill-sky-200 font-bold">Usability</text>
+
+            <!-- Circle 2: Need? (Usefulness) -->
+            <circle cx="205" cy="98" r="68" fill="#10B981" fill-opacity="0.45" stroke="#34D399" stroke-width="2.5"/>
+            <text x="232" y="72" text-anchor="middle" class="font-sans text-[16px] fill-white font-extrabold">Need?</text>
+            <text x="232" y="90" text-anchor="middle" class="font-mono text-[10px] fill-emerald-200 font-bold">Usefulness</text>
+
+            <!-- Circle 3: Feel? (User Experience) -->
+            <circle cx="160" cy="172" r="68" fill="#8B5CF6" fill-opacity="0.55" stroke="#A78BFA" stroke-width="2.5"/>
+            <text x="160" y="198" text-anchor="middle" class="font-sans text-[16px] fill-white font-extrabold">Feel?</text>
+            <text x="160" y="216" text-anchor="middle" class="font-mono text-[10px] fill-purple-200 font-bold">User Experience</text>
+
+            <!-- Center Overlap Badge -->
+            <circle cx="160" cy="122" r="24" fill="#FACC15" stroke="#FFFFFF" stroke-width="2"/>
+            <text x="160" y="120" text-anchor="middle" class="font-mono text-[8.5px] fill-zinc-950 font-extrabold">GOOD</text>
+            <text x="160" y="130" text-anchor="middle" class="font-mono text-[8.5px] fill-zinc-950 font-extrabold">HCI</text>
+
+            <text x="160" y="255" text-anchor="middle" class="font-mono text-[10px] fill-amber-300 font-bold">“Good HCI lives where all three overlap.”</text>
+          </svg>
+        </div>
+
+        <!-- Right: 3 Vocabulary Cards -->
+        <div class="lg:col-span-7 space-y-3.5">
+          <!-- Can? -> Usability -->
+          <div class="p-4 rounded-xl bg-sky-50 border-2 border-sky-200">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full bg-sky-700 text-white font-mono text-xs font-bold">Question 1: Can?</span>
+              <span class="font-mono text-xs font-bold text-sky-900">USABILITY</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-zinc-900 mt-1.5">Usability</h3>
+            <p class="text-xs sm:text-sm text-zinc-800 mt-0.5">
+              <span class="hl-yellow font-semibold">Can people use it effectively, efficiently, and with satisfaction?</span>
+            </p>
+          </div>
+
+          <!-- Need? -> Usefulness -->
+          <div class="p-4 rounded-xl bg-emerald-50 border-2 border-emerald-200">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full bg-emerald-700 text-white font-mono text-xs font-bold">Question 2: Need?</span>
+              <span class="font-mono text-xs font-bold text-emerald-900">USEFULNESS</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-zinc-900 mt-1.5">Usefulness</h3>
+            <p class="text-xs sm:text-sm text-zinc-800 mt-0.5">
+              <span class="hl-green font-semibold">Does it solve a real need or support a meaningful goal?</span>
+            </p>
+          </div>
+
+          <!-- Feel? -> User Experience -->
+          <div class="p-4 rounded-xl bg-purple-50 border-2 border-purple-200">
+            <div class="flex items-center justify-between">
+              <span class="px-2.5 py-0.5 rounded-full bg-purple-700 text-white font-mono text-xs font-bold">Question 3: Feel?</span>
+              <span class="font-mono text-xs font-bold text-purple-900">USER EXPERIENCE (UX)</span>
+            </div>
+            <h3 class="text-lg font-extrabold text-zinc-900 mt-1.5">User Experience</h3>
+            <p class="text-xs sm:text-sm text-zinc-800 mt-0.5">
+              <span class="hl-purple font-semibold">How does it feel: trustworthy, frustrating, engaging?</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-zinc-900 text-white text-center font-mono text-xs sm:text-sm font-bold">
+        ★ Slide 04 Synthesis Rule: <span class="text-amber-300">“Good HCI lives where all three overlap.”</span>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SLIDE 05: HCI IS INTERDISCIPLINARY BY NECESSITY
+         =================================================================== -->
+    <section id="slide-05" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 05</span>
+          <span class="text-xs font-mono font-semibold text-zinc-600">• Source: Syllabus / Week 1 notes</span>
+        </div>
+        <span class="font-hand text-xl text-amber-800 font-bold">6 Contributing Disciplines</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">HCI is interdisciplinary by necessity</h2>
+      <p class="text-sm sm:text-base text-zinc-700 mt-1 mb-6">
+        <span class="hl-yellow font-semibold">No single field can explain “people using technology” alone</span>
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center mb-6">
+        <!-- Left: 6 Disciplines Structured List (Matching Slide 05 Color Bars) -->
+        <div class="lg:col-span-6 space-y-2.5">
+          <div class="p-3.5 rounded-xl bg-white border border-zinc-200 flex items-center justify-between gap-4 border-l-8 border-l-blue-600">
+            <span class="font-extrabold text-sm sm:text-base text-zinc-900">Computer Science</span>
+            <span class="font-mono text-xs sm:text-sm text-zinc-700"><span class="hl-blue font-semibold">interactive systems</span></span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-white border border-zinc-200 flex items-center justify-between gap-4 border-l-8 border-l-purple-600">
+            <span class="font-extrabold text-sm sm:text-base text-zinc-900">Cognitive Psychology</span>
+            <span class="font-mono text-xs sm:text-sm text-zinc-700"><span class="hl-purple font-semibold">perception, memory, decisions</span></span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-white border border-zinc-200 flex items-center justify-between gap-4 border-l-8 border-l-orange-500">
+            <span class="font-extrabold text-sm sm:text-base text-zinc-900">Design</span>
+            <span class="font-mono text-xs sm:text-sm text-zinc-700"><span class="hl-yellow font-semibold">visual &amp; interaction craft</span></span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-white border border-zinc-200 flex items-center justify-between gap-4 border-l-8 border-l-emerald-600">
+            <span class="font-extrabold text-sm sm:text-base text-zinc-900">Ergonomics</span>
+            <span class="font-mono text-xs sm:text-sm text-zinc-700"><span class="hl-green font-semibold">physical fit</span></span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-white border border-zinc-200 flex items-center justify-between gap-4 border-l-8 border-l-rose-600">
+            <span class="font-extrabold text-sm sm:text-base text-zinc-900">Sociology</span>
+            <span class="font-mono text-xs sm:text-sm text-zinc-700"><span class="hl-pink font-semibold">social context</span></span>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-white border border-zinc-200 flex items-center justify-between gap-4 border-l-8 border-l-teal-500">
+            <span class="font-extrabold text-sm sm:text-base text-zinc-900">Anthropology</span>
+            <span class="font-mono text-xs sm:text-sm text-zinc-700"><span class="hl-green font-semibold">real-world practices</span></span>
+          </div>
+        </div>
+
+        <!-- Right: Custom SVG Convergence Hub Diagram (Replicating Slide 05 Illustration) -->
+        <div class="lg:col-span-6 p-4 rounded-2xl bg-zinc-50 border border-zinc-200">
+          <svg viewBox="0 0 420 265" class="w-full h-auto" aria-label="Six disciplines converging on a person using a laptop">
+            <!-- Connecting Streams to Center -->
+            <path d="M 75 55 Q 140 90 190 150" fill="none" stroke="#2563EB" stroke-width="4" stroke-opacity="0.5"/>
+            <path d="M 155 40 Q 180 95 205 150" fill="none" stroke="#9333EA" stroke-width="4" stroke-opacity="0.5"/>
+            <path d="M 265 40 Q 240 95 215 150" fill="none" stroke="#F97316" stroke-width="4" stroke-opacity="0.5"/>
+            <path d="M 345 55 Q 280 90 230 150" fill="none" stroke="#16A34A" stroke-width="4" stroke-opacity="0.5"/>
+            <path d="M 65 165 Q 130 175 185 175" fill="none" stroke="#E11D48" stroke-width="4" stroke-opacity="0.5"/>
+            <path d="M 355 165 Q 290 175 235 175" fill="none" stroke="#0D9488" stroke-width="4" stroke-opacity="0.5"/>
+
+            <!-- 6 Discipline Nodes -->
+            <circle cx="65" cy="55" r="32" fill="#DBEAFE" stroke="#2563EB" stroke-width="2"/>
+            <text x="65" y="53" text-anchor="middle" class="font-mono text-[8.5px] fill-blue-900 font-bold">Computer</text>
+            <text x="65" y="64" text-anchor="middle" class="font-mono text-[8.5px] fill-blue-900 font-bold">Science</text>
+
+            <circle cx="155" cy="38" r="32" fill="#F3E8FF" stroke="#9333EA" stroke-width="2"/>
+            <text x="155" y="36" text-anchor="middle" class="font-mono text-[8.5px] fill-purple-900 font-bold">Cognitive</text>
+            <text x="155" y="47" text-anchor="middle" class="font-mono text-[8.5px] fill-purple-900 font-bold">Psych</text>
+
+            <circle cx="265" cy="38" r="32" fill="#FFEDD5" stroke="#F97316" stroke-width="2"/>
+            <text x="265" y="42" text-anchor="middle" class="font-mono text-[9px] fill-orange-900 font-bold">Design</text>
+
+            <circle cx="355" cy="55" r="32" fill="#DCFCE7" stroke="#16A34A" stroke-width="2"/>
+            <text x="355" y="58" text-anchor="middle" class="font-mono text-[8.5px] fill-emerald-900 font-bold">Ergonomics</text>
+
+            <circle cx="60" cy="165" r="32" fill="#FFE4E6" stroke="#E11D48" stroke-width="2"/>
+            <text x="60" y="168" text-anchor="middle" class="font-mono text-[8.5px] fill-rose-900 font-bold">Sociology</text>
+
+            <circle cx="360" cy="165" r="32" fill="#CCFBF1" stroke="#0D9488" stroke-width="2"/>
+            <text x="360" y="168" text-anchor="middle" class="font-mono text-[8px] fill-teal-900 font-bold">Anthropology</text>
+
+            <!-- Central User + Laptop -->
+            <circle cx="210" cy="150" r="22" fill="#1E293B"/>
+            <rect x="160" y="180" width="100" height="58" rx="6" fill="#334155" stroke="#0F172A" stroke-width="2"/>
+            <circle cx="210" cy="209" r="7" fill="#94A3B8"/>
+            <rect x="140" y="238" width="140" height="8" rx="3" fill="#0F172A"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Slide 05 Bottom Callout -->
+      <div class="p-4 rounded-xl bg-purple-50 border border-purple-300 text-center text-sm sm:text-base font-bold text-zinc-900">
+        ★ Key Insight (Slide 05): <span class="hl-purple">“The interface is both a technical artifact and a human situation.”</span>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SLIDE 06 & SLIDE 07: BRIEF HISTORY OF INTERACTION & USER'S BURDEN
+         =================================================================== -->
+    <div id="slide-06-07" class="scroll-mt-28 space-y-8">
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-sky-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-sky-700 text-white">SLIDE 06</span>
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-sky-700 text-white">SLIDE 07</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• Historical Evolution &amp; Cognitive Burden Shift</span>
+          </div>
+          <span class="font-mono text-xs text-zinc-500">1950s–60s → Today</span>
+        </div>
+
+        <!-- Slide 06: 5-Era Timeline -->
+        <div class="mb-8">
+          <div class="font-mono text-xs font-bold uppercase text-sky-800 mb-1">SLIDE 06 • A BRIEF HISTORY OF INTERACTION</div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-4">The 5 Eras of Human-Computer Interaction</h2>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+            <!-- Era 1: 1950s-60s Batch -->
+            <div class="p-4 rounded-xl bg-zinc-100 border-2 border-zinc-300">
+              <span class="font-mono text-xs font-bold text-zinc-600">1950s–60s</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">Batch</h3>
+              <p class="text-xs text-zinc-800 mt-1.5">
+                <span class="hl-pink">punched cards; output hours later</span>
+              </p>
+            </div>
+
+            <!-- Era 2: 1970s CLI -->
+            <div class="p-4 rounded-xl bg-slate-100 border-2 border-slate-300">
+              <span class="font-mono text-xs font-bold text-slate-600">1970s</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">CLI</h3>
+              <p class="text-xs text-zinc-800 mt-1.5">
+                <span class="hl-blue">immediate response; typed commands</span>
+              </p>
+            </div>
+
+            <!-- Era 3: 1980s GUI -->
+            <div class="p-4 rounded-xl bg-sky-50 border-2 border-sky-300">
+              <span class="font-mono text-xs font-bold text-sky-800">1980s</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">GUI</h3>
+              <p class="text-xs text-zinc-800 mt-1.5">
+                <span class="hl-green">windows, icons, menus, pointer</span>
+              </p>
+            </div>
+
+            <!-- Era 4: 2007+ Mobile -->
+            <div class="p-4 rounded-xl bg-indigo-50 border-2 border-indigo-300">
+              <span class="font-mono text-xs font-bold text-indigo-800">2007+</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">Mobile</h3>
+              <p class="text-xs text-zinc-800 mt-1.5">
+                <span class="hl-blue">multi-touch becomes mainstream</span>
+              </p>
+            </div>
+
+            <!-- Era 5: Today Ubiquitous -->
+            <div class="p-4 rounded-xl bg-purple-50 border-2 border-purple-300">
+              <span class="font-mono text-xs font-bold text-purple-800">Today</span>
+              <h3 class="text-lg font-extrabold text-zinc-900 mt-0.5">Ubiquitous</h3>
+              <p class="text-xs text-zinc-800 mt-1.5">
+                <span class="hl-purple">voice, wearables, cars, AI</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 07: Each Era Changed the User's Burden -->
+        <div class="border-t border-zinc-200 pt-8 mb-8">
+          <div class="font-mono text-xs font-bold uppercase text-amber-800 mb-1">SLIDE 07 • EACH ERA CHANGED THE USER'S BURDEN</div>
+          <h3 class="text-xl sm:text-2xl font-extrabold text-zinc-900 mb-1">What became easier and what remained difficult?</h3>
+
+          <!-- 4 Era Cards Replicating Slide 07 Boxes -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+            <!-- Batch -->
+            <div class="rounded-xl border-2 border-slate-400 overflow-hidden bg-white flex flex-col justify-between">
+              <div class="bg-slate-600 text-white text-center py-2 font-extrabold text-sm">Batch</div>
+              <div class="p-4 text-center space-y-3">
+                <p class="font-extrabold text-base text-zinc-900">Submit job<br/>wait hours</p>
+                <hr class="border-zinc-300"/>
+                <p class="text-xs font-mono text-zinc-700"><span class="hl-pink font-semibold">No dialogue</span></p>
+              </div>
+            </div>
+
+            <!-- CLI -->
+            <div class="rounded-xl border-2 border-blue-500 overflow-hidden bg-white flex flex-col justify-between">
+              <div class="bg-blue-600 text-white text-center py-2 font-extrabold text-sm">CLI</div>
+              <div class="p-4 text-center space-y-3">
+                <p class="font-extrabold text-base text-zinc-900">Type commands<br/>get response</p>
+                <hr class="border-zinc-300"/>
+                <p class="text-xs font-mono text-zinc-700"><span class="hl-pink font-semibold">High recall load</span></p>
+              </div>
+            </div>
+
+            <!-- GUI / WIMP -->
+            <div class="rounded-xl border-2 border-emerald-500 overflow-hidden bg-white flex flex-col justify-between">
+              <div class="bg-emerald-600 text-white text-center py-2 font-extrabold text-sm">GUI / WIMP</div>
+              <div class="p-4 text-center space-y-3">
+                <p class="font-extrabold text-base text-zinc-900">See objects<br/>point &amp; choose</p>
+                <hr class="border-zinc-300"/>
+                <p class="text-xs font-mono text-zinc-700"><span class="hl-green font-semibold">Recognition supports novices</span></p>
+              </div>
+            </div>
+
+            <!-- Mobile / AI -->
+            <div class="rounded-xl border-2 border-purple-500 overflow-hidden bg-white flex flex-col justify-between">
+              <div class="bg-purple-600 text-white text-center py-2 font-extrabold text-sm">Mobile / AI</div>
+              <div class="p-4 text-center space-y-3">
+                <p class="font-extrabold text-base text-zinc-900">Touch, speak, wear<br/>ask systems</p>
+                <hr class="border-zinc-300"/>
+                <p class="text-xs font-mono text-zinc-700"><span class="hl-yellow font-semibold">Context, trust, and attention</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Master Combined Table (Slide 06 + Slide 07) -->
+        <div class="overflow-x-auto rounded-xl border-2 border-zinc-900 mb-5">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+                <th class="py-3 px-4">Era &amp; Period (Slide 06)</th>
+                <th class="py-3 px-4 text-sky-300">Interaction Paradigm (Slide 06)</th>
+                <th class="py-3 px-4 text-emerald-300">User Action (Slide 07)</th>
+                <th class="py-3 px-4 text-amber-300">User's Burden / Shift (Slide 07)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+              <tr>
+                <td class="py-3 px-4 font-bold text-zinc-900 bg-zinc-50">1950s–60s: Batch</td>
+                <td class="py-3 px-4">Punched cards; output hours later</td>
+                <td class="py-3 px-4">Submit job, wait hours</td>
+                <td class="py-3 px-4"><span class="hl-pink font-semibold">No dialogue</span></td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-zinc-900 bg-zinc-50">1970s: CLI</td>
+                <td class="py-3 px-4">Immediate response; typed commands</td>
+                <td class="py-3 px-4">Type commands, get response</td>
+                <td class="py-3 px-4"><span class="hl-pink font-semibold">High recall load</span></td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-zinc-900 bg-zinc-50">1980s: GUI / WIMP</td>
+                <td class="py-3 px-4">Windows, icons, menus, pointer</td>
+                <td class="py-3 px-4">See objects, point &amp; choose</td>
+                <td class="py-3 px-4"><span class="hl-green font-semibold">Recognition supports novices</span></td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-bold text-zinc-900 bg-zinc-50">2007+ &amp; Today: Mobile / Ubiquitous / AI</td>
+                <td class="py-3 px-4">Multi-touch mainstream; voice, wearables, cars, AI</td>
+                <td class="py-3 px-4">Touch, speak, wear, ask systems</td>
+                <td class="py-3 px-4"><span class="hl-yellow font-semibold">Context, trust, and attention</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-300 text-center text-sm sm:text-base font-bold text-zinc-900">
+          ★ Key Takeaway (Slide 07): <span class="hl-yellow">“Design progress often means shifting work from human memory to visible, understandable system behavior.”</span>
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SLIDE 08: THE PIVOTAL COGNITIVE SHIFT: RECALL → RECOGNITION
+         =================================================================== -->
+    <section id="slide-08" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 08</span>
+          <span class="text-xs font-mono font-semibold text-zinc-600">• Source: Rogers / Nielsen heuristic preview</span>
+        </div>
+        <span class="font-hand text-xl text-sky-800 font-bold">“Recognition rather than recall”</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">The pivotal cognitive shift: <span class="font-mono text-rose-700">recall</span> → <span class="font-mono text-emerald-700">recognition</span></h2>
+      <p class="text-xs sm:text-sm text-zinc-600 font-mono mt-1 mb-6">
+        A preview of memory limits and Nielsen's heuristic “recognition rather than recall”
+      </p>
+
+      <!-- Side-by-Side CLI vs. GUI Mockup (Replicating Slide 08) -->
+      <div class="grid grid-cols-1 lg:grid-cols-11 gap-4 items-center mb-6">
+        <!-- Left: CLI (Remember the Command) -->
+        <div class="lg:col-span-5 p-5 rounded-2xl bg-slate-950 text-white border-2 border-rose-400 shadow-sm">
+          <div class="flex items-center justify-between border-b border-slate-800 pb-2.5 mb-3">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+            </div>
+            <span class="font-mono text-[11px] text-rose-300 font-bold">RECALL (High Memory Load)</span>
+          </div>
+          <div class="font-mono text-xs sm:text-sm space-y-2 text-emerald-300 bg-slate-900 p-3.5 rounded-xl border border-slate-800">
+            <div><span class="text-slate-500">$</span> delete report_final.docx</div>
+            <div><span class="text-slate-500">$</span> rm -rf /old/folder</div>
+            <div><span class="text-slate-500">$</span> grep -R "HCI" notes/</div>
+          </div>
+          <div class="mt-4 text-center font-extrabold text-sm text-rose-200">
+            CLI: remember the command
+          </div>
+        </div>
+
+        <!-- Center Arrow -->
+        <div class="lg:col-span-1 flex justify-center">
+          <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-sky-100 text-sky-800 font-mono font-extrabold text-lg">→</span>
+        </div>
+
+        <!-- Right: GUI (Recognize Visible Options) -->
+        <div class="lg:col-span-5 p-5 rounded-2xl bg-white border-2 border-emerald-400 shadow-sm">
+          <div class="flex items-center justify-between border-b border-zinc-200 pb-2.5 mb-3 text-xs font-sans text-zinc-600">
+            <div class="flex items-center gap-4 font-semibold">
+              <span class="text-zinc-900">File</span>
+              <span>Edit</span>
+              <span>View</span>
+              <span>Help</span>
+            </div>
+            <span class="font-mono text-[11px] text-emerald-800 font-bold">RECOGNITION</span>
+          </div>
+
+          <div class="space-y-2 text-xs sm:text-sm font-medium">
+            <div class="p-2.5 rounded-lg bg-sky-50 border border-sky-300 text-zinc-900 font-bold">
+              Move to Trash
+            </div>
+            <div class="p-2.5 rounded-lg bg-zinc-50 border border-zinc-200 text-zinc-800">
+              Rename
+            </div>
+            <div class="p-2.5 rounded-lg bg-zinc-50 border border-zinc-200 text-zinc-800">
+              Share...
+            </div>
+          </div>
+
+          <div class="mt-4 text-center font-extrabold text-sm text-emerald-900">
+            GUI: recognize visible options
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-center text-sm sm:text-base font-bold text-zinc-900">
+        ★ Core Cognitive Rule (Slide 08): <span class="hl-green">“Recognition is usually cognitively cheaper than recall.”</span>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SLIDE 09: WHY USABILITY MATTERS
+         =================================================================== -->
+    <section id="slide-09" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-rose-600">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-rose-700 text-white">SLIDE 09</span>
+          <span class="text-xs font-mono font-semibold text-zinc-600">• Source: Week 1 notes + Norman Ch. 1</span>
+        </div>
+        <span class="font-mono text-xs text-rose-800 font-bold">Real-World Costs of Poor Interaction Design</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">Why usability matters</h2>
+      <p class="text-sm sm:text-base text-zinc-700 mt-1 mb-6">
+        <span class="hl-pink font-semibold">Poor interaction design has real costs</span>
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center mb-6">
+        <!-- Left: 3 Real-World Domain Examples & Barrier Quote -->
+        <div class="lg:col-span-6 space-y-3">
+          <div class="p-3.5 rounded-xl bg-rose-50/70 border border-rose-200 text-xs sm:text-sm text-zinc-900">
+            • <strong>Civic / Voting:</strong> <span class="hl-pink font-semibold">Confusing ballots can affect real outcomes</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-rose-50/70 border border-rose-200 text-xs sm:text-sm text-zinc-900">
+            • <strong>Healthcare:</strong> <span class="hl-pink font-semibold">Medical device interfaces can contribute to dosage errors</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-rose-50/70 border border-rose-200 text-xs sm:text-sm text-zinc-900">
+            • <strong>Critical Systems:</strong> <span class="hl-pink font-semibold">Control-room design can influence incident response</span>
+          </div>
+          <div class="p-4 rounded-xl bg-emerald-50 border-2 border-emerald-300 text-xs sm:text-sm text-zinc-900 font-bold">
+            ✔ Positive Design Goal (Slide 09): <span class="hl-green">“A well-designed product lowers the barrier between intention and action.”</span>
+          </div>
+        </div>
+
+        <!-- Right: 4 Cost Circles (Time, Money, Trust, Safety) from Slide 09 -->
+        <div class="lg:col-span-6 grid grid-cols-2 gap-4">
+          <!-- Time -->
+          <div class="p-5 rounded-2xl bg-blue-600 text-white text-center shadow-sm flex flex-col justify-center items-center min-h-[130px]">
+            <span class="text-lg font-extrabold">Time</span>
+            <p class="text-xs text-blue-100 mt-1">slow workflows, repeated errors</p>
+          </div>
+
+          <!-- Money -->
+          <div class="p-5 rounded-2xl bg-orange-500 text-white text-center shadow-sm flex flex-col justify-center items-center min-h-[130px]">
+            <span class="text-lg font-extrabold">Money</span>
+            <p class="text-xs text-orange-100 mt-1">abandoned products, support calls</p>
+          </div>
+
+          <!-- Trust -->
+          <div class="p-5 rounded-2xl bg-purple-600 text-white text-center shadow-sm flex flex-col justify-center items-center min-h-[130px]">
+            <span class="text-lg font-extrabold">Trust</span>
+            <p class="text-xs text-purple-100 mt-1">user confidence eroded by confusing behavior</p>
+          </div>
+
+          <!-- Safety -->
+          <div class="p-5 rounded-2xl bg-red-600 text-white text-center shadow-sm flex flex-col justify-center items-center min-h-[130px]">
+            <span class="text-lg font-extrabold">Safety</span>
+            <p class="text-xs text-red-100 mt-1">medical, industrial, transport risk</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl bg-zinc-900 text-white text-center font-mono text-xs sm:text-sm font-bold">
+        ★ Slide 09 Bottom Line: <span class="text-amber-300">“Usability matters because it shapes outcomes, not just opinions.”</span>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SLIDE 10 & SLIDE 11: BLAME THE DESIGN NOT THE USER & 5-MINUTE CRITIQUE
+         =================================================================== -->
+    <div id="slide-10-11" class="scroll-mt-28 space-y-8">
+      <!-- SLIDE 10 -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-amber-500">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 10</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• Source: Norman, DOET Ch. 1</span>
+          </div>
+          <span class="font-hand text-xl text-amber-800 font-bold">Norman's Everyday Things</span>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">Blame the design, not the user</h2>
+        <p class="text-sm sm:text-base text-zinc-700 mt-1 mb-6">
+          Norman's lesson: <span class="hl-yellow font-semibold">users act on the signals the design gives them</span>
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch mb-6">
+          <!-- Left: Custom SVG Diagrams of Norman Door & Stove Controls (Slide 10) -->
+          <div class="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Diagram 1: Norman Door -->
+            <div class="p-4 rounded-2xl bg-zinc-50 border-2 border-zinc-200 flex flex-col justify-between">
+              <div class="font-mono text-[11px] font-bold text-rose-800 uppercase mb-2">1. CONFUSING DOOR SIGNALS</div>
+              <svg viewBox="0 0 220 150" class="w-full h-auto" aria-label="Door handle suggesting pull even when sign says push">
+                <!-- Door Frame -->
+                <rect x="25" y="10" width="80" height="130" fill="#E2E8F0" stroke="#475569" stroke-width="2"/>
+                <rect x="115" y="10" width="80" height="130" fill="#E2E8F0" stroke="#475569" stroke-width="2"/>
+                <!-- Vertical Grab Handles (Suggest Pull!) -->
+                <rect x="90" y="35" width="8" height="80" rx="3" fill="#64748B" stroke="#1E293B" stroke-width="1.5"/>
+                <rect x="122" y="35" width="8" height="80" rx="3" fill="#64748B" stroke="#1E293B" stroke-width="1.5"/>
+                <!-- Contradictory Push Sign -->
+                <rect x="42" y="48" width="40" height="32" rx="3" fill="#FEF2F2" stroke="#DC2626" stroke-width="1.5"/>
+                <text x="62" y="68" text-anchor="middle" class="font-mono text-[9px] fill-red-700 font-extrabold">PUSH!</text>
+              </svg>
+              <p class="text-xs text-zinc-800 mt-2">
+                <span class="hl-pink font-semibold">Door handles can suggest “pull” even when the door requires “push.”</span>
+              </p>
+            </div>
+
+            <!-- Diagram 2: Stove Burner Mapping -->
+            <div class="p-4 rounded-2xl bg-zinc-50 border-2 border-zinc-200 flex flex-col justify-between">
+              <div class="font-mono text-[11px] font-bold text-rose-800 uppercase mb-2">2. STOVE KNOB MAPPING</div>
+              <svg viewBox="0 0 220 150" class="w-full h-auto" aria-label="2x2 stove burners vs 1x4 linear row of knobs">
+                <!-- Stove Top (2x2 Burners) -->
+                <rect x="25" y="10" width="170" height="82" rx="6" fill="#1E293B"/>
+                <circle cx="70" cy="33" r="14" fill="none" stroke="#94A3B8" stroke-width="2"/>
+                <circle cx="150" cy="33" r="14" fill="none" stroke="#EF4444" stroke-width="2.5"/>
+                <circle cx="70" cy="69" r="14" fill="none" stroke="#94A3B8" stroke-width="2"/>
+                <circle cx="150" cy="69" r="14" fill="none" stroke="#94A3B8" stroke-width="2"/>
+
+                <!-- Front Panel (4 Linear Knobs with tiny 00/00 icons) -->
+                <rect x="25" y="96" width="170" height="44" rx="4" fill="#CBD5E1" stroke="#64748B" stroke-width="1.5"/>
+                <circle cx="52" cy="122" r="10" fill="#F8FAFC" stroke="#334155" stroke-width="2"/>
+                <line x1="52" y1="112" x2="52" y2="122" stroke="#334155" stroke-width="2"/>
+                <circle cx="91" cy="122" r="10" fill="#F8FAFC" stroke="#334155" stroke-width="2"/>
+                <line x1="91" y1="112" x2="91" y2="122" stroke="#334155" stroke-width="2"/>
+                <circle cx="130" cy="122" r="10" fill="#F8FAFC" stroke="#334155" stroke-width="2"/>
+                <line x1="130" y1="112" x2="130" y2="122" stroke="#334155" stroke-width="2"/>
+                <circle cx="169" cy="122" r="10" fill="#F8FAFC" stroke="#334155" stroke-width="2"/>
+                <line x1="169" y1="112" x2="169" y2="122" stroke="#334155" stroke-width="2"/>
+                <text x="110" y="108" text-anchor="middle" class="font-mono text-[8px] fill-red-700 font-bold">Which knob controls which burner?</text>
+              </svg>
+              <p class="text-xs text-zinc-800 mt-2">
+                <span class="hl-pink font-semibold">Stove controls can fail when knob layout does not map naturally to burners.</span>
+              </p>
+            </div>
+          </div>
+
+          <!-- Right: Diagnostic Rule + Class Mantra -->
+          <div class="lg:col-span-5 flex flex-col justify-between space-y-4">
+            <div class="p-4 rounded-xl bg-amber-50 border border-amber-300 text-xs sm:text-sm text-zinc-900">
+              <strong class="font-mono text-amber-900 uppercase block mb-1">Diagnostic Principle (Slide 10):</strong>
+              <span class="hl-yellow font-semibold">“When people repeatedly make the same ‘mistake,’ look for a design signal that invites it.”</span>
+            </div>
+
+            <div class="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-xs sm:text-sm text-zinc-900">
+              <strong class="font-mono text-emerald-900 uppercase block mb-1">Good Design Rule (Slide 10):</strong>
+              <span class="hl-green font-semibold">“Good design makes the correct action visible, natural, and easy to recover from.”</span>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-zinc-900 text-white border-2 border-purple-400">
+              <span class="font-mono text-[11px] uppercase text-purple-300 font-bold block">SLIDE 10 • CLASS MANTRA</span>
+              <p class="text-lg sm:text-xl font-extrabold text-white mt-1">
+                “The user is not the problem; <span class="text-amber-300">the interaction is.</span>”
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SLIDE 11: IN-CLASS ACTIVITY: 5-MINUTE DESIGN CRITIQUE -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 11 • In-Class Activity: 5-Minute Design Critique</span>
+          <span class="font-mono text-xs text-zinc-600">Turn everyday frustration into HCI evidence</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-5">
+          <div class="p-4 rounded-xl bg-zinc-50 border-2 border-zinc-200">
+            <span class="font-mono text-xs font-extrabold text-sky-800">STEP 1 • CHOOSE</span>
+            <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+              a confusing app, kiosk, door, form, remote, or appliance
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-zinc-50 border-2 border-zinc-200">
+            <span class="font-mono text-xs font-extrabold text-amber-800">STEP 2 • OBSERVE</span>
+            <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+              <span class="hl-yellow">what the design seems to invite users to do</span>
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-zinc-50 border-2 border-zinc-200">
+            <span class="font-mono text-xs font-extrabold text-rose-800">STEP 3 • DIAGNOSE</span>
+            <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+              which goal fails: <span class="hl-pink font-semibold">usability, usefulness, or UX</span>
+            </p>
+          </div>
+          <div class="p-4 rounded-xl bg-zinc-50 border-2 border-zinc-200">
+            <span class="font-mono text-xs font-extrabold text-emerald-800">STEP 4 • REDESIGN</span>
+            <p class="text-xs sm:text-sm text-zinc-800 mt-1">
+              <span class="hl-green font-semibold">one small change that would reduce the error</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-xs sm:text-sm text-zinc-900 font-medium text-center">
+          📸 <strong>Before next class (Slide 11):</strong> Take one photo of a bad everyday design and be ready to explain why it fails.
+        </div>
+      </section>
+    </div>
+
+    <!-- ===================================================================
+         SLIDE 12 & SLIDE 13: 12-WEEK COURSE ARC & SUMMARY + PREPARATION
+         =================================================================== -->
+    <div id="slide-12-13" class="scroll-mt-28 space-y-8">
+      <!-- SLIDE 12: THE 12-WEEK ARC OF THE COURSE -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">SLIDE 12</span>
+            <span class="text-xs font-mono font-semibold text-zinc-600">• Source: Syllabus</span>
+          </div>
+          <span class="font-mono text-xs text-sky-800 font-bold">Understand humans → design interactions → evaluate responsibly</span>
+        </div>
+
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-4">The 12-week arc of the course</h2>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-5 text-xs">
+          <div class="p-3 rounded-xl bg-zinc-900 text-white border-2 border-amber-400 font-bold">
+            <span class="font-mono text-amber-300 block">Week 1 ★</span>
+            Intro to HCI
+          </div>
+          <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-zinc-500 block">Week 2</span>
+            <strong>The Human</strong>
+          </div>
+          <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-zinc-500 block">Week 3</span>
+            <strong>Input/Output</strong>
+          </div>
+          <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-zinc-500 block">Week 4</span>
+            <strong>Styles</strong>
+          </div>
+          <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-zinc-500 block">Week 5</span>
+            <strong>Principles</strong>
+          </div>
+          <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-zinc-500 block">Week 6</span>
+            <strong>UCD &amp; Req.</strong>
+          </div>
+          <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-zinc-500 block">Week 7</span>
+            <strong>Personas &amp; Tasks</strong>
+          </div>
+          <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-zinc-500 block">Week 8</span>
+            <strong>Prototyping</strong>
+          </div>
+          <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-zinc-500 block">Week 9</span>
+            <strong>Usability Testing</strong>
+          </div>
+          <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-zinc-500 block">Week 10</span>
+            <strong>Models &amp; Analytics</strong>
+          </div>
+          <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-zinc-500 block">Week 11</span>
+            <strong>Accessibility &amp; Ethics</strong>
+          </div>
+          <div class="p-3 rounded-xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-zinc-500 block">Week 12</span>
+            <strong>Emerging Interfaces</strong>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-sky-50 border border-sky-200 text-xs sm:text-sm text-zinc-900 font-semibold text-center">
+          ★ Slide 12 Takeaway: <span class="hl-blue">“Week 1 establishes the lens: human abilities, technology capabilities, and real contexts must be designed together.”</span>
+        </div>
+      </section>
+
+      <!-- SLIDE 13: SUMMARY + PREPARATION FOR NEXT WEEK -->
+      <section class="note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-emerald-600 border-b-4 border-b-zinc-900">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-700 text-white">SLIDE 13 • Summary + Preparation for Next Week</span>
+          <span class="font-hand text-xl text-emerald-800 font-bold">★ Final Exam Review Checklist</span>
+        </div>
+
+        <!-- 3 Core Summary Bullets -->
+        <div class="space-y-3 mb-6">
+          <div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-sm sm:text-base font-bold text-zinc-900">
+            1. <span class="hl-yellow">HCI makes technology fit people: usability, usefulness, and UX.</span>
+          </div>
+          <div class="p-4 rounded-xl bg-sky-50 border border-sky-200 text-sm sm:text-base font-bold text-zinc-900">
+            2. <span class="hl-blue">Interaction evolved from batch processing to ubiquitous, mobile, voice, and AI systems.</span>
+          </div>
+          <div class="p-4 rounded-xl bg-purple-50 border border-purple-200 text-sm sm:text-base font-bold text-zinc-900">
+            3. <span class="hl-purple">When users struggle, diagnose the design signal—not the person.</span>
+          </div>
+        </div>
+
+        <!-- Readings & Videos / Enrichment -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6 text-xs sm:text-sm">
+          <div class="p-5 rounded-2xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-xs font-bold uppercase text-zinc-700 block mb-2">📚 READINGS (SLIDE 13)</span>
+            <ul class="space-y-2 text-zinc-800">
+              <li>• <strong>Rogers, Sharp &amp; Preece</strong> — <em>Interaction Design</em>, Ch. 1</li>
+              <li>• <strong>Norman</strong> — <em>The Design of Everyday Things</em>, Ch. 1</li>
+              <li>• <strong>Optional:</strong> Dix et al., <em>HCI</em>, introductory sections</li>
+            </ul>
+          </div>
+
+          <div class="p-5 rounded-2xl bg-zinc-50 border border-zinc-200">
+            <span class="font-mono text-xs font-bold uppercase text-zinc-700 block mb-2">🎬 VIDEOS / ENRICHMENT (SLIDE 13)</span>
+            <ul class="space-y-2 text-zinc-800">
+              <li>• <strong>Crash Course CS #22–26:</strong> I/O, screens, CLI, GUI</li>
+              <li>• <strong>Georgia Tech HCI:</strong> Introduction to HCI</li>
+              <li>• <strong>NN/g:</strong> short usability method videos</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl bg-zinc-900 text-white font-mono text-xs sm:text-sm font-bold text-center">
+          ⏭ Next week (Slide 13): <span class="text-amber-300">The Human — perception, memory, cognition</span>
+        </div>
+      </section>
+    </div>
+
+  </main>
+</body>
+</html>
