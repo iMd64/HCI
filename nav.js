@@ -42,13 +42,14 @@
     { num: 'W4', title: 'Week 4: Next-Gen & Disappearing Screen', file: 'hci_week_4_study_notes.html', slides: '32 Slides' },
     { num: 'W5', title: 'Week 5: Interaction Principles & Heuristics', file: 'hci_week_5_study_notes.html', slides: '49 Slides' },
     { num: 'W6', title: 'Week 6: UCD, Requirements & Personas', file: 'hci_week_6_study_notes.html', slides: '49 Slides' },
+    { num: 'MID', title: 'Midterm Prep: Hospital Kiosk Guide', file: 'hci_midterm_homework_study_guide.html', slides: '100 Pts Master Guide' },
     { num: 'W7', title: 'Week 7: Prototyping & Wireframing', file: '#', slides: 'Upcoming', planned: true },
-    { num: 'W8', title: 'Week 8: Midterm Exam & Kiosk Guide', file: 'hci_midterm_homework_study_guide.html', slides: '100 Pts Master Guide' },
-    { num: 'W9', title: 'Week 9: High-Fi Prototypes & Design Systems', file: '#', slides: 'Upcoming', planned: true },
-    { num: 'W10', title: 'Week 10: Heuristic Evaluation & Walkthroughs', file: '#', slides: 'Upcoming', planned: true },
-    { num: 'W11', title: 'Week 11: Usability Testing & Metrics (SUS)', file: '#', slides: 'Upcoming', planned: true },
-    { num: 'W12', title: 'Week 12: Universal Design & Accessibility (WCAG)', file: '#', slides: 'Upcoming', planned: true },
-    { num: 'W13', title: 'Week 13: Emerging Interfaces & Spatial AI', file: '#', slides: 'Upcoming', planned: true },
+    { num: 'W8', title: 'Week 8: High-Fi Prototypes & Design Systems', file: '#', slides: 'Upcoming', planned: true },
+    { num: 'W9', title: 'Week 9: Heuristic Evaluation & Walkthroughs', file: '#', slides: 'Upcoming', planned: true },
+    { num: 'W10', title: 'Week 10: Usability Testing & Metrics (SUS)', file: '#', slides: 'Upcoming', planned: true },
+    { num: 'W11', title: 'Week 11: Universal Design & Accessibility (WCAG)', file: '#', slides: 'Upcoming', planned: true },
+    { num: 'W12', title: 'Week 12: Emerging Interfaces & Spatial AI', file: '#', slides: 'Upcoming', planned: true },
+    { num: 'W13', title: 'Week 13: Groupware & Social Computing', file: '#', slides: 'Upcoming', planned: true },
     { num: 'W14', title: 'Week 14: Final Projects & Case Studies', file: '#', slides: 'Presentations', planned: true }
   ];
 
@@ -966,15 +967,23 @@
 
   WEEKS.forEach((w) => {
     const isCurrent = currentPage.toLowerCase() === w.file.toLowerCase();
+    const isMid = w.num === 'MID';
+    let badgeClass = '';
+    if (isCurrent) {
+      badgeClass = isMid ? 'bg-rose-600 text-white shadow-sm' : 'bg-amber-300 text-zinc-900';
+    } else {
+      badgeClass = isMid ? 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border border-rose-300 dark:border-rose-800' : 'bg-zinc-200 text-zinc-700';
+    }
 
     navItemsHtml += `
       <div class="hci-week-group">
-        <a href="${w.file}" class="hci-nav-item ${isCurrent ? 'active' : ''} ${w.planned ? 'opacity-60 cursor-not-allowed' : ''}" title="${w.title}" ${w.planned ? 'onclick="event.preventDefault(); alert(\'Week ' + w.num + ' module is planned for release in the second half of the semester!\')"' : ''}>
-          <span class="hci-badge w-6 h-6 rounded font-mono text-[11px] font-bold flex items-center justify-center shrink-0 ${isCurrent ? 'bg-amber-300 text-zinc-900' : 'bg-zinc-200 text-zinc-700'}">
+        <a href="${w.file}" class="hci-nav-item ${isCurrent ? 'active' : ''} ${w.planned ? 'opacity-60 cursor-not-allowed' : ''} ${isMid && !isCurrent ? 'border-l-2 border-l-rose-500 bg-rose-50/40 dark:bg-rose-950/20' : ''}" title="${w.title}" ${w.planned ? 'onclick="event.preventDefault(); alert(\'Week ' + w.num + ' module is planned for release in the second half of the semester!\')"' : ''}>
+          <span class="hci-badge min-w-[26px] px-1 h-6 rounded font-mono text-[10px] font-bold flex items-center justify-center shrink-0 ${badgeClass}">
             ${w.num}
           </span>
-          <span class="truncate flex-1">${w.title}</span>
+          <span class="truncate flex-1 ${isMid ? 'font-bold text-rose-950 dark:text-rose-200' : ''}">${w.title}</span>
           ${w.planned ? '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-zinc-100 text-zinc-400">Soon</span>' : ''}
+          ${isMid && !isCurrent ? '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-200 font-bold">Prep</span>' : ''}
         </a>
         ${isCurrent ? '<div id="hci-inpage-toc" class="space-y-0.5 my-1.5 border-l-2 border-zinc-200 ml-3.5 pl-1"></div>' : ''}
       </div>

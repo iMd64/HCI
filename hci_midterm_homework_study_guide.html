@@ -266,7 +266,7 @@
           </div>
           <div class="p-3.5 rounded-xl bg-slate-900 border border-emerald-400/60">
             <span class="font-mono text-xs font-extrabold text-emerald-300 block mb-1">PART (b) • HCI REASONING &amp; PRINCIPLE</span>
-            Apply the named <strong>HCI concept, psychological limit, or mathematical law</strong> accurately (e.g., Fitts's Law $T = a + b \log_2(2D/W)$, Hick's Law $RT = a + b \log_2(n+1)$, Recognition vs. Recall, Gestalt Proximity).
+            Apply the named <strong>HCI concept, psychological limit, or mathematical law</strong> accurately (e.g., Fitts’s Law <code class="font-mono font-bold text-sky-300 bg-sky-950/70 px-1.5 py-0.5 rounded border border-sky-500/50">T = a + b · log₂(2D / W)</code>, Hick’s Law <code class="font-mono font-bold text-amber-300 bg-amber-950/70 px-1.5 py-0.5 rounded border border-amber-500/50">RT = a + b · log₂(n + 1)</code>, Recognition vs. Recall, Gestalt Proximity).
           </div>
           <div class="p-3.5 rounded-xl bg-slate-900 border border-purple-400/60">
             <span class="font-mono text-xs font-extrabold text-purple-300 block mb-1">PART (c) • USER IMPACT + TESTING NEED</span>
@@ -659,8 +659,8 @@
               On Screen 1, the language options <span class="hl-blue font-semibold">“TR EN AR”</span> in the top-right header are tiny, unbordered text labels packed tightly together. The <span class="hl-blue font-semibold">“GO”</span> button is much smaller than the 12 service buttons. Across Screens 1–3, primary navigation buttons sit at opposite extreme corners: on Screen 1, <span class="hl-blue font-semibold">“NEXT” is at the bottom-left</span> and <span class="hl-blue font-semibold">“BACK” is at the bottom-right</span>, whereas on Screens 2 and 3, <span class="hl-blue font-semibold">“SUBMIT” and “CONFIRM” jump to the bottom-right</span>.
             </div>
             <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
-              <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning ($T = a + b \log_2(2D/W)$ &amp; 9–10mm Touch Baseline):</strong>
-              By <span class="hl-green font-semibold">Fitts’s Law, movement time $T = a + b \log_2(2D/W)$</span> increases with distance ($D$) and decreases with target width ($W$). The labels <code class="font-mono">TR EN AR</code> and <code class="font-mono">Why needed?</code> have a tiny width ($W$) and near-zero spacing, creating a high Index of Difficulty and violating the <span class="hl-yellow font-semibold">9–10 mm minimum touch target baseline</span> (Fat Finger problem). Flipping forward navigation from bottom-left (<code class="font-mono">NEXT</code> on Screen 1) to bottom-right (<code class="font-mono">SUBMIT</code> / <code class="font-mono">CONFIRM</code> on Screens 2–3) forces a large hand travel distance ($D$) across a wide kiosk screen.
+              <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning (Fitts's Law: <code class="font-mono font-bold">T = a + b · log₂(2D / W)</code> &amp; 9–10mm Touch Baseline):</strong>
+              By <span class="hl-green font-semibold">Fitts’s Law, movement time <code class="font-mono font-bold">T = a + b · log₂(2D / W)</code></span> increases with target distance (<code class="font-mono font-bold">D</code>) and decreases with target width (<code class="font-mono font-bold">W</code>). The labels <code class="font-mono">TR EN AR</code> and <code class="font-mono">Why needed?</code> have a tiny width (<code class="font-mono font-bold">W</code>) and near-zero spacing, creating a high Index of Difficulty (<code class="font-mono font-bold">ID = log₂(2D / W)</code>) and violating the <span class="hl-yellow font-semibold">9–10 mm minimum touch target baseline</span> (Fat Finger problem). Flipping forward navigation from bottom-left (<code class="font-mono">NEXT</code> on Screen 1) to bottom-right (<code class="font-mono">SUBMIT</code> / <code class="font-mono">CONFIRM</code> on Screens 2–3) forces a large hand travel distance (<code class="font-mono font-bold">D</code>) across a wide kiosk screen.
             </div>
           </div>
 
@@ -718,8 +718,8 @@
               Screen 1 presents <span class="hl-blue font-semibold">12 identically sized service buttons in a flat 4×3 grid</span> (<code class="font-mono">Appointment</code>, <code class="font-mono">Register</code>, <code class="font-mono">Insurance</code>, <code class="font-mono">Payments</code>, <code class="font-mono">Lab results</code>, <code class="font-mono">Doctor</code>, <code class="font-mono">Reports</code>, <code class="font-mono">Other</code>, <code class="font-mono">Change / Cancel</code>, <code class="font-mono">Information</code>, <code class="font-mono">FAQ</code>, <code class="font-mono">Help?</code>), followed by two competing action buttons (<span class="hl-blue font-semibold">“GO” and “NEXT”</span>).
             </div>
             <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
-              <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning ($RT = a + b \log_2(n + 1)$ &amp; Overlapping Categories):</strong>
-              According to <span class="hl-green font-semibold">Hick’s Law, reaction/decision time rises logarithmically with the number of choices ($RT = a + b \log_2(n+1)$)</span>, and degrades into slow <strong>linear scanning</strong> when choices are ungrouped and semantically ambiguous. Here, patients must disambiguate overlapping pairs (<span class="hl-pink font-semibold">“Appointment” vs. “Doctor”</span>, <span class="hl-pink font-semibold">“Lab results” vs. “Reports”</span>, <span class="hl-pink font-semibold">“Information” vs. “FAQ” vs. “Help?”</span>) and then face a secondary decision bottleneck between pressing <code class="font-mono">GO</code> or <code class="font-mono">NEXT</code>.
+              <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning (Hick's Law: <code class="font-mono font-bold">RT = a + b · log₂(n + 1)</code> &amp; Overlapping Categories):</strong>
+              According to <span class="hl-green font-semibold">Hick’s Law, reaction/decision time rises logarithmically with the number of choices (<code class="font-mono font-bold">RT = a + b · log₂(n + 1)</code>)</span>, and degrades into slow <strong>linear scanning</strong> when choices are ungrouped and semantically ambiguous. Here, patients must disambiguate overlapping pairs (<span class="hl-pink font-semibold">“Appointment” vs. “Doctor”</span>, <span class="hl-pink font-semibold">“Lab results” vs. “Reports”</span>, <span class="hl-pink font-semibold">“Information” vs. “FAQ” vs. “Help?”</span>) and then face a secondary decision bottleneck between pressing <code class="font-mono">GO</code> or <code class="font-mono">NEXT</code>.
             </div>
           </div>
 
@@ -1239,7 +1239,7 @@
                 <span class="hl-green font-semibold">Fitts’s Law, Affordances &amp; Signifiers, Consistency Across Screens (Nielsen H#4 / Shneiderman R#1)</span>
               </td>
               <td class="py-4 px-4 text-zinc-800">
-                Eliminates decision confusion between <code class="font-mono">GO</code> and <code class="font-mono">NEXT</code>. Placing the primary forward action consistently at the <strong>bottom-right across all three screens</strong> (<code class="font-mono">CONTINUE</code> → <code class="font-mono">SUBMIT</code> → <code class="font-mono">CONFIRM</code>) preserves spatial muscle memory and reduces hand travel ($D$). Boxed language buttons increase target width ($W$) and clickability signifiers.
+                Eliminates decision confusion between <code class="font-mono">GO</code> and <code class="font-mono">NEXT</code>. Placing the primary forward action consistently at the <strong>bottom-right across all three screens</strong> (<code class="font-mono">CONTINUE</code> → <code class="font-mono">SUBMIT</code> → <code class="font-mono">CONFIRM</code>) preserves spatial muscle memory and reduces hand travel (<code class="font-mono font-bold">D</code>). Boxed language buttons increase target width (<code class="font-mono font-bold">W</code>) and clickability signifiers.
               </td>
             </tr>
             <tr>
@@ -1383,13 +1383,13 @@
             <tr>
               <td class="py-3 px-3 font-bold text-zinc-900 bg-zinc-50">Q4. Fitts’s Law</td>
               <td class="py-3 px-3">Tiny packed links (<code class="font-mono">TR EN AR</code>), small buttons (<code class="font-mono">GO</code>), primary button flipping from left (S1) to right (S2/S3).</td>
-              <td class="py-3 px-3"><span class="hl-green">$T = a + b \log_2(2D/W)$</span>, <span class="hl-yellow">9–10 mm minimum touch target</span>, Fat Finger problem.</td>
+              <td class="py-3 px-3"><span class="hl-green font-mono font-bold">T = a + b · log₂(2D / W)</span>, <span class="hl-yellow">9–10 mm minimum touch target</span>, Fat Finger problem.</td>
               <td class="py-3 px-3">Physical target size in mm on real hardware, mis-tap error rate, movement time.</td>
             </tr>
             <tr>
               <td class="py-3 px-3 font-bold text-zinc-900 bg-zinc-50">Q5. Hick’s Law</td>
               <td class="py-3 px-3">Large flat grid of ungrouped options (12 buttons), overlapping labels (<code class="font-mono">Doctor</code> vs <code class="font-mono">Appointment</code>), <code class="font-mono">GO</code> vs <code class="font-mono">NEXT</code>.</td>
-              <td class="py-3 px-3"><span class="hl-green">$RT = a + b \log_2(n+1)$</span>; uncategorized options force slow linear scanning &amp; choice paralysis.</td>
+              <td class="py-3 px-3"><span class="hl-green font-mono font-bold">RT = a + b · log₂(n + 1)</span>; uncategorized options force slow linear scanning &amp; choice paralysis.</td>
               <td class="py-3 px-3">Time-to-first-click &amp; category selection accuracy across task scenarios.</td>
             </tr>
             <tr>
