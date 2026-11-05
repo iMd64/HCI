@@ -392,10 +392,21 @@
     html.dark .bg-zinc-200 {
       background-color: #282830 !important;
     }
-    html.dark .bg-\[\#FAF8F5\],
-    html.dark .bg-\[\#FDFBF7\],
-    html.dark .bg-\[\#FBF9F5\] {
+    /* Course Metadata, High-Yield Formulas, Footers & Warm Paper Panels */
+    html.dark [class*="bg-[#FAF8F5]"],
+    html.dark [class*="bg-[#FDFBF7]"],
+    html.dark [class*="bg-[#FBF9F5]"] {
       background-color: #151518 !important;
+      border-color: #2E2E36 !important;
+    }
+
+    /* Nav Sidebar Header, Footer & Theme Switcher Box */
+    html.dark #hci-sidebar > div:first-child,
+    html.dark #hci-sidebar .hci-theme-box,
+    html.dark #hci-sidebar > div:last-child,
+    html.dark #hci-sidebar [class*="bg-[#FAF8F5]"] {
+      background-color: #151518 !important;
+      border-color: #24242A !important;
     }
     html.dark .bg-slate-900 {
       background-color: #141419 !important;
@@ -417,25 +428,40 @@
       border-color: #475569 !important;
     }
 
-    /* Physical Kiosk Hardware & Simulated Touchscreen Legibility Preservation */
+    /* =========================================================================
+       HOSPITAL KIOSK HARDWARE & TOUCHSCREEN IN DARK MODE (Screens 1, 2, 3)
+       ========================================================================= */
     html.dark [class*="bg-[#F7F7F5]"] {
-      background-color: #F7F7F5 !important;
-      color: #18181B !important;
+      background-color: #121217 !important;
+      border-color: #334155 !important;
+      color: #F4F4F5 !important;
     }
-    html.dark [class*="bg-[#F7F7F5]"] .text-zinc-900,
-    html.dark [class*="bg-[#F7F7F5]"] .text-zinc-800,
-    html.dark [class*="bg-[#F7F7F5]"] .text-zinc-700,
-    html.dark [class*="bg-[#F7F7F5]"] .text-\[\#2A3342\],
-    html.dark [class*="bg-[#F7F7F5]"] label,
+    html.dark [class*="bg-[#8CA6C1]"] {
+      background-color: #1E293B !important;
+      border-bottom: 1px solid #334155 !important;
+    }
+    html.dark [class*="bg-[#8CA6C1]"] span,
+    html.dark [class*="bg-[#8CA6C1]"] div {
+      color: #F1F5F9 !important;
+    }
+    html.dark [class*="bg-[#F7F7F5]"] [class*="text-[#2A3342]"],
+    html.dark [class*="bg-[#F7F7F5]"] h3 {
+      color: #F4F4F5 !important;
+    }
     html.dark [class*="bg-[#F7F7F5]"] p,
-    html.dark [class*="bg-[#F7F7F5]"] h3,
-    html.dark [class*="bg-[#F7F7F5]"] div:not([class*="bg-sky-500"]):not([class*="bg-red-600"]):not([class*="bg-amber-300"]),
-    html.dark [class*="bg-[#F7F7F5]"] span:not([class*="bg-"]):not([class*="hl-"]) {
-      color: #18181B !important;
+    html.dark [class*="bg-[#F7F7F5]"] label {
+      color: #E4E4E7 !important;
     }
     html.dark [class*="bg-[#F7F7F5]"] .bg-white {
-      background-color: #FFFFFF !important;
-      color: #18181B !important;
+      background-color: #181820 !important;
+      border-color: #475569 !important;
+      color: #F4F4F5 !important;
+    }
+    html.dark [class*="bg-[#F7F7F5]"] input,
+    html.dark [class*="bg-[#F7F7F5]"] .border-zinc-400,
+    html.dark [class*="bg-[#F7F7F5]"] .border-slate-400 {
+      border-color: #475569 !important;
+      color: #F4F4F5 !important;
     }
     html.dark [class*="bg-[#BACAD2]"],
     html.dark [class*="bg-[#B8BEC6]"],
@@ -443,7 +469,18 @@
     html.dark [class*="bg-[#CED2D6]"],
     html.dark [class*="bg-[#AEB8C4]"],
     html.dark [class*="bg-[#D7DADC]"] {
-      color: #18181B !important;
+      background-color: #242430 !important;
+      border-color: #475569 !important;
+      color: #F4F4F5 !important;
+    }
+    html.dark [class*="bg-[#F7F7F5]"] .bg-slate-300 {
+      background-color: #334155 !important;
+      color: #F1F5F9 !important;
+      border-color: #475569 !important;
+    }
+    html.dark [class*="bg-[#F7F7F5]"] [class*="bg-[#4B6984]"] {
+      background-color: #0284C7 !important;
+      color: #FFFFFF !important;
     }
 
     /* =========================================================================
@@ -485,6 +522,17 @@
     /* Otherwise, map text-zinc-950 to crisp white */
     html.dark :not(.bg-amber-400):not(.bg-amber-500):not(.bg-amber-300).text-zinc-950 {
       color: #F4F4F5 !important;
+    }
+
+        /* Solid High-Contrast Amber Badges (like Ctrl + S in Week 5) */
+    html.dark .bg-amber-500,
+    html.dark [class~="bg-amber-500"],
+    html.dark .bg-slate-900 .bg-amber-500,
+    html.dark .bg-slate-950 .bg-amber-500 {
+      background-color: #F59E0B !important;
+      color: #18181B !important;
+      font-weight: 700 !important;
+      box-shadow: 0 0 6px rgba(245, 158, 11, 0.4) !important;
     }
 
     /* Amber / Yellow / Orange text -> Luminous Gold */
@@ -587,7 +635,8 @@
     }
 
     /* Amber / Yellow / Orange (Definitions, Formulas, Warnings) */
-    html.dark :not(body)[class*="bg-amber-50"],
+    html.dark :not(body)[class~="bg-amber-50"],
+    html.dark :not(body)[class*="bg-amber-50/"],
     html.dark :not(body)[class*="bg-amber-100"],
     html.dark :not(body)[class*="bg-amber-200"],
     html.dark :not(body)[class*="bg-yellow-200"],
@@ -822,9 +871,7 @@
     html.dark #hci-sidebar .border-t {
       border-color: #24242A !important;
     }
-    html.dark #hci-sidebar .bg-\[\#FAF8F5\] {
-      background-color: #151518 !important;
-    }
+
     html.dark .hci-nav-item {
       color: #A1A1AA !important;
     }
@@ -1179,20 +1226,20 @@
     const isMid = w.num === 'PREP' || w.isMidterm;
     let badgeClass = '';
     if (isCurrent) {
-      badgeClass = isMid ? 'bg-rose-600 text-white shadow-sm ring-1 ring-rose-400' : 'bg-amber-300 text-zinc-900';
+      badgeClass = isMid ? 'bg-rose-700 text-white shadow-sm ring-1 ring-rose-500' : 'bg-amber-300 text-zinc-900';
     } else {
-      badgeClass = isMid ? 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border border-rose-300 dark:border-rose-800' : 'bg-zinc-200 text-zinc-700';
+      badgeClass = isMid ? 'bg-rose-700 text-white font-extrabold shadow-sm' : 'bg-zinc-200 text-zinc-700';
     }
 
     navItemsHtml += `
       <div class="hci-week-group">
-        <a href="${w.file}" class="hci-nav-item ${isCurrent ? 'active' : ''} ${w.planned ? 'opacity-60 cursor-not-allowed' : ''} ${isMid && !isCurrent ? 'border-l-2 border-l-rose-500 bg-rose-50/50 dark:bg-rose-950/30' : ''}" title="${w.title}" ${w.planned ? 'onclick="event.preventDefault(); alert(\'Week ' + w.num + ' module is planned for release in the second half of the semester!\')"' : ''}>
+        <a href="${w.file}" class="hci-nav-item ${isCurrent ? 'active' : ''} ${w.planned ? 'opacity-60 cursor-not-allowed' : ''} ${isMid && !isCurrent ? 'border-l-2 border-l-rose-600 bg-rose-50/70 dark:bg-rose-950/30' : ''}" title="${w.title}" ${w.planned ? 'onclick="event.preventDefault(); alert(\'Week ' + w.num + ' module is planned for release in the second half of the semester!\')"' : ''}>
           <span class="hci-badge min-w-[34px] px-1 h-6 rounded font-mono text-[9.5px] font-extrabold flex items-center justify-center shrink-0 ${badgeClass}">
             ${w.num}
           </span>
-          <span class="truncate flex-1 ${isMid ? 'font-bold text-rose-950 dark:text-rose-200' : ''}">${w.title}</span>
+          <span class="truncate flex-1 ${isMid ? 'font-bold text-zinc-900 dark:text-rose-200' : ''}">${w.title}</span>
           ${w.planned ? '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-zinc-100 text-zinc-400">Soon</span>' : ''}
-          ${isMid && !isCurrent ? '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-rose-100 text-rose-700 dark:bg-rose-900/60 dark:text-rose-200 font-bold">Prep</span>' : ''}
+          ${isMid && !isCurrent ? '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-rose-200 text-rose-950 border border-rose-300 dark:bg-rose-900/60 dark:text-rose-200 dark:border-rose-800 font-extrabold">Prep</span>' : ''}
         </a>
         ${isCurrent ? '<div id="hci-inpage-toc" class="space-y-0.5 my-1.5 border-l-2 border-zinc-200 ml-3.5 pl-1"></div>' : ''}
       </div>
