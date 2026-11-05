@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HCI Midterm Exam & Homework Study Guide — Design Detective: Hospital Check-in Kiosk</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans, JetBrains Mono, Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['"Caveat"', 'cursive'],
+          },
+          colors: {
+            paper: '#FDFBF7',
+            card: '#FFFFFF',
+            ink: '#1E293B',
+            muted: '#475569',
+            borderLight: '#E4E2DD',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Warm Academic Engineering Notebook Paper Background with Ruled Lines & Margin */
+    body {
+      background-color: #FDFBF7;
+      color: #1E293B;
+      background-image:
+        linear-gradient(90deg, transparent 38px, rgba(225, 29, 72, 0.16) 38px, rgba(225, 29, 72, 0.16) 40px, transparent 40px),
+        repeating-linear-gradient(0deg, #FDFBF7, #FDFBF7 27px, #ECE8DF 27px, #ECE8DF 28px);
+      background-attachment: local;
+    }
+
+    /* Realistic Marker Highlighter Spans */
+    .hl-yellow {
+      background: linear-gradient(104deg, rgba(254, 240, 138, 0) 0.9%, rgba(254, 240, 138, 0.95) 2.4%, rgba(254, 240, 138, 0.65) 5.8%, rgba(254, 240, 138, 0.88) 93%, rgba(254, 240, 138, 0.7) 96%, rgba(254, 240, 138, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-green {
+      background: linear-gradient(104deg, rgba(187, 247, 208, 0) 0.9%, rgba(187, 247, 208, 0.95) 2.4%, rgba(187, 247, 208, 0.65) 5.8%, rgba(187, 247, 208, 0.88) 93%, rgba(187, 247, 208, 0.7) 96%, rgba(187, 247, 208, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-blue {
+      background: linear-gradient(104deg, rgba(191, 219, 254, 0) 0.9%, rgba(191, 219, 254, 0.92) 2.4%, rgba(191, 219, 254, 0.65) 5.8%, rgba(191, 219, 254, 0.88) 93%, rgba(191, 219, 254, 0.7) 96%, rgba(191, 219, 254, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-pink {
+      background: linear-gradient(104deg, rgba(254, 205, 211, 0) 0.9%, rgba(254, 205, 211, 0.92) 2.4%, rgba(254, 205, 211, 0.65) 5.8%, rgba(254, 205, 211, 0.88) 93%, rgba(254, 205, 211, 0.7) 96%, rgba(254, 205, 211, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-purple {
+      background: linear-gradient(104deg, rgba(233, 213, 255, 0) 0.9%, rgba(233, 213, 255, 0.92) 2.4%, rgba(233, 213, 255, 0.65) 5.8%, rgba(233, 213, 255, 0.88) 93%, rgba(233, 213, 255, 0.7) 96%, rgba(233, 213, 255, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    /* Notebook Sheet Card */
+    .note-sheet {
+      background-color: #FFFFFF;
+      border: 1px solid #E4E2DD;
+      box-shadow: 0 4px 20px -4px rgba(24, 24, 27, 0.06), 0 2px 6px -1px rgba(24, 24, 27, 0.03);
+      position: relative;
+    }
+
+    /* Sticky Note Callout */
+    .sticky-callout {
+      background-color: #FEF9C3;
+      border: 1px solid #FDE047;
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Hand-Drawn Sketch Paper Background for Part 2C */
+    .sketch-paper {
+      background-color: #FFFEF9;
+      background-image: radial-gradient(#CBD5E1 1px, transparent 1px);
+      background-size: 16px 16px;
+      border: 2px solid #1E293B;
+      box-shadow: 6px 6px 0px #1E293B;
+    }
+
+    /* Scrollbar Utility */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+
+
+  </style>
+  <!-- Modular Collapsible Navigation Engine -->
+  <script src="nav.js" defer></script>
+</head>
+<body class="antialiased selection:bg-yellow-200 selection:text-zinc-900">
+
+  <!-- =====================================================================
+       STICKY ULTRA-SLIM STATUS BAR
+       ===================================================================== -->
+  <header class="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E4E2DD] shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+        <span class="inline-flex items-center justify-center px-2.5 h-7 rounded-lg bg-rose-700 text-white font-mono text-xs font-bold tracking-wider">MIDTERM PREP</span>
+        <div>
+          <span class="font-extrabold text-sm text-zinc-900 tracking-tight">HCI Homework &amp; Midterm Exam Master Guide</span>
+          <span class="hidden md:inline-block text-xs text-zinc-500 ml-1.5 font-mono">• Design Detective: Hospital Check-in Kiosk (100 Pts Master Guide)</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN STUDY NOTEBOOK CONTAINER
+       ===================================================================== -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-12">
+
+    <!-- ===================================================================
+         SECTION 01: MIDTERM EXAM BLUEPRINT, SCENARIO & THE 3-PART FORMULA
+         =================================================================== -->
+    <section id="blueprint" data-toc="01. Exam Blueprint &amp; Formula" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-zinc-900">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">HOMEWORK &amp; MIDTERM BLUEPRINT</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-100 text-amber-900 border border-amber-300">100 POINTS TOTAL</span>
+        </div>
+        <span class="font-mono text-xs text-zinc-500">Mohamad Ayesh • B2305.010023 • HCI Section 1</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 leading-tight">
+        Design Detective: Hospital Check-in Kiosk
+      </h1>
+      <p class="text-sm sm:text-base text-zinc-700 mt-2 mb-6">
+        Complete breakdown of the <strong>3-Screen Hospital Kiosk Evaluation &amp; Redesign</strong> assignment and how every question maps directly to <span class="hl-yellow font-semibold">Weeks 1–6 HCI concepts, laws, and heuristics</span> for your upcoming Midterm Exam.
+      </p>
+
+      <!-- Scenario & Context of Use Card + Scoring Overview Table -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 mb-7">
+        <!-- Left: Scenario, Target Users & Static vs. Dynamic Rule -->
+        <div class="lg:col-span-7 p-5 rounded-2xl bg-amber-50/70 border-2 border-amber-200 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase text-amber-900 block mb-1">ASSIGNMENT &amp; MIDTERM SCENARIO (CONTEXT OF USE)</span>
+            <h2 class="text-lg font-extrabold text-zinc-900">Self-Service Hospital Check-in Kiosk in a Busy Lobby</h2>
+            <p class="text-xs sm:text-sm text-zinc-800 mt-1.5 leading-relaxed">
+              You are an HCI evaluator reviewing <strong>THREE connected screens</strong> (<code class="font-mono bg-white px-1.5 py-0.5 rounded border">Screen 1 → Screen 2 → Screen 3</code>: choose a service &amp; enter an ID, enter personal information, then review &amp; confirm) as one continuous patient check-in journey.
+            </p>
+
+            <div class="mt-3 space-y-2 text-xs sm:text-sm text-zinc-800">
+              <div class="p-2.5 rounded-lg bg-white border border-amber-200">
+                <strong>👥 Target Users (Who uses it):</strong> <span class="hl-yellow font-semibold">First-time visitors, older adults</span> (presbyopia / reduced contrast sensitivity, hand tremors), <span class="hl-yellow font-semibold">people with limited digital experience</span>, and <span class="hl-pink font-semibold">patients under time pressure / medical stress</span>.
+              </div>
+              <div class="p-2.5 rounded-lg bg-white border border-amber-200">
+                <strong>🏥 Environment (Where it lives):</strong> Busy hospital lobby with <span class="hl-pink font-semibold">ambient noise, overhead lighting glare, standing posture, and public privacy exposure</span>.
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-zinc-900 text-white text-xs sm:text-sm">
+            <span class="font-mono text-[11px] uppercase text-amber-300 font-bold block mb-0.5">⚠️ CRITICAL EXAM RULE: STATIC IMAGE vs. USABILITY TEST</span>
+            No actual user testing has been supplied: <span class="underline decoration-amber-400 font-semibold">never assume missing interactions work correctly</span>. Always distinguish what you can <strong>observe in the static mockup</strong> from dynamic behavior (feedback timing, virtual keyboard pop-up, error messages, physical ergonomics) that <strong>must be verified in a usability test</strong>.
+          </div>
+        </div>
+
+        <!-- Right: Scoring Overview Table (100 Points) -->
+        <div class="lg:col-span-5 overflow-hidden rounded-2xl border-2 border-zinc-900 bg-white flex flex-col justify-between">
+          <div>
+            <div class="bg-zinc-900 text-white px-4 py-3 font-mono text-xs uppercase font-bold flex items-center justify-between">
+              <span>Scoring Rubric Overview</span>
+              <span class="text-amber-300">100 Pts</span>
+            </div>
+            <table class="w-full text-left border-collapse text-xs">
+              <thead>
+                <tr class="bg-zinc-100 text-zinc-700 font-mono border-b border-zinc-200">
+                  <th class="py-2 px-3">Section</th>
+                  <th class="py-2 px-3">Deliverable</th>
+                  <th class="py-2 px-3 text-right">Pts</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-zinc-200">
+                <tr>
+                  <td class="py-2.5 px-3 font-mono font-bold text-zinc-900">Sec 1</td>
+                  <td class="py-2.5 px-3">10 HCI Evaluation Questions × 5 pts (across all 3 screens)</td>
+                  <td class="py-2.5 px-3 font-mono font-bold text-right">50</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-mono font-bold text-rose-700">Part 2A</td>
+                  <td class="py-2.5 px-3">Number &amp; mark 5 problems on the screens (≥1 per screen)</td>
+                  <td class="py-2.5 px-3 font-mono font-bold text-right">10</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-mono font-bold text-sky-700">Part 2B</td>
+                  <td class="py-2.5 px-3">Link the 5 markers to Section 1 questions &amp; principles</td>
+                  <td class="py-2.5 px-3 font-mono font-bold text-right">10</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-mono font-bold text-emerald-700">Part 2C</td>
+                  <td class="py-2.5 px-3">Hand-drawn redesign of 1 key screen (≥3 marked changes)</td>
+                  <td class="py-2.5 px-3 font-mono font-bold text-right">15</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-mono font-bold text-purple-700">Part 2D</td>
+                  <td class="py-2.5 px-3">Justify redesign with at least 3 HCI principles</td>
+                  <td class="py-2.5 px-3 font-mono font-bold text-right">10</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-mono font-bold text-amber-800">Part 2E</td>
+                  <td class="py-2.5 px-3">Compare before/after &amp; identify 1 remaining trade-off</td>
+                  <td class="py-2.5 px-3 font-mono font-bold text-right">5</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bg-zinc-50 px-4 py-2.5 border-t border-zinc-200 font-mono text-[11px] text-zinc-600 text-center">
+            Assess consistency &amp; flow <strong>BETWEEN</strong> screens as well as <strong>WITHIN</strong> each screen.
+          </div>
+        </div>
+      </div>
+
+      <!-- The Mandatory 3-Part Formula for Full Marks on Every Midterm Question -->
+      <div class="p-5 rounded-2xl bg-zinc-900 text-white border-2 border-amber-400">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <span class="font-mono text-xs uppercase tracking-widest text-amber-300 font-bold">★ THE MANDATORY 3-PART ANSWER FORMULA (5 POINTS PER QUESTION)</span>
+          <span class="font-hand text-xl text-amber-300">Memorize this structure for the exam!</span>
+        </div>
+        <p class="text-xs sm:text-sm text-zinc-300 mb-4">
+          Never write generic textbook definitions without referencing the interface! Every single answer in Section 1 (`Q1`–`Q10`) must explicitly contain these 3 building blocks:
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-sky-400/60">
+            <span class="font-mono text-xs font-extrabold text-sky-300 block mb-1">PART (a) • OBSERVED UI ELEMENT</span>
+            Cite the <strong>exact visible control, label, color, or layout location</strong> on <code class="font-mono text-sky-200">Screen 1</code>, <code class="font-mono text-sky-200">Screen 2</code>, or <code class="font-mono text-sky-200">Screen 3</code> (e.g., borderless <code class="font-mono">"TR EN AR"</code> text, 12 identical buttons, missing <code class="font-mono">"*"</code> on labels).
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-emerald-400/60">
+            <span class="font-mono text-xs font-extrabold text-emerald-300 block mb-1">PART (b) • HCI REASONING &amp; PRINCIPLE</span>
+            Apply the named <strong>HCI concept, psychological limit, or mathematical law</strong> accurately (e.g., Fitts's Law $T = a + b \log_2(2D/W)$, Hick's Law $RT = a + b \log_2(n+1)$, Recognition vs. Recall, Gestalt Proximity).
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-900 border border-purple-400/60">
+            <span class="font-mono text-xs font-extrabold text-purple-300 block mb-1">PART (c) • USER IMPACT + TESTING NEED</span>
+            State how this harms <strong>target users</strong> (errors, anxiety, abandonment) AND specify <strong>what must be verified in a real usability test</strong> (since the mockup is static).
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 02: THE 3 REFERENCE KIOSK SCREENS & PART 2A MARKERS (#1–#5)
+         =================================================================== -->
+    <section id="screens-markers" data-toc="02. 3 Kiosk Screens &amp; Markers" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-rose-600">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-rose-700 text-white">REFERENCE DESIGN &amp; PART 2A (10 PTS)</span>
+          <span class="text-xs font-mono font-semibold text-zinc-600">• Three-Screen Patient Journey + 5 Annotated Usability Problems</span>
+        </div>
+        <span class="font-hand text-xl text-rose-800 font-bold">At least 1 marker on each screen!</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">Visual Audit: The 3 Flawed Kiosk Screens &amp; Markers #1–#5</h2>
+      <p class="text-xs sm:text-sm text-zinc-600 mt-1 mb-6">
+        Below are exact visual reconstructions of the three reference screens from the homework assignment, complete with your <strong>Part 2A numbered problem markers (<code class="font-mono text-rose-700 font-bold">#1</code> through <code class="font-mono text-rose-700 font-bold">#5</code>)</strong> pinpointing the intentional design weaknesses.
+      </p>
+
+      <!-- ===============================================================
+           SCREEN 1 MOCKUP + MARKERS #1 & #2
+           =============================================================== -->
+      <div class="mb-8">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <span class="font-mono text-xs font-extrabold uppercase text-zinc-900 bg-zinc-200 px-2.5 py-1 rounded">SCREEN 1 — SERVICE SELECTION (Includes Markers #1 &amp; #2)</span>
+          <span class="font-mono text-xs text-rose-700 font-bold">Missing "STEP 1 / 3" in header!</span>
+        </div>
+
+        <!-- Kiosk Bezel Frame -->
+        <div class="p-3 sm:p-5 rounded-3xl bg-[#3B4049] shadow-lg border-4 border-slate-700">
+          <div class="bg-[#F7F7F5] rounded-xl overflow-hidden border border-slate-300">
+            <!-- Header Bar -->
+            <div class="bg-[#8CA6C1] px-5 py-3.5 flex items-center justify-between">
+              <span class="font-sans font-extrabold text-base sm:text-lg tracking-wide text-[#2A3342]">CITY GENERAL HOSPITAL</span>
+              <div class="flex items-center gap-2">
+                <span class="font-sans text-xs text-[#2A3342] tracking-wider" title="Tiny borderless text with no button signifier">TR &nbsp; EN &nbsp; AR</span>
+                <span class="px-2 py-0.5 rounded bg-amber-300 text-zinc-900 font-mono text-[10px] font-bold">⚠️ Tiny borderless text (Q1, Q4, Q7)</span>
+              </div>
+            </div>
+
+            <!-- Screen 1 Body -->
+            <div class="p-5 sm:p-7 space-y-5">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <h3 class="font-sans font-extrabold text-lg text-[#2A3342]">WELCOME / CHECK-IN</h3>
+                  <p class="text-xs sm:text-sm text-zinc-800">Please choose one of the following services:</p>
+                </div>
+                <!-- Marker #1 Callout Pill -->
+                <div class="px-3 py-1.5 rounded-lg bg-sky-500 text-white font-mono text-xs font-extrabold shadow-sm">
+                  #1: 12 ungrouped choices (Hick’s Law &amp; Gestalt)
+                </div>
+              </div>
+
+              <!-- 4x3 Grid Outlined by Marker #1 Box -->
+              <div class="p-3 rounded-xl border-2 border-sky-500 bg-sky-50/30 relative">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5 text-xs sm:text-sm font-medium text-zinc-900">
+                  <div class="py-3 px-3 rounded-lg bg-[#BACAD2] border border-slate-600">Appointment</div>
+                  <div class="py-3 px-3 rounded-lg bg-[#BACAD2] border border-slate-600">Register</div>
+                  <div class="py-3 px-3 rounded-lg bg-[#BACAD2] border border-slate-600">Insurance</div>
+                  <div class="py-3 px-3 rounded-lg bg-[#BACAD2] border border-slate-600">Payments</div>
+
+                  <div class="py-3 px-3 rounded-lg bg-[#BACAD2] border border-slate-600">Lab results</div>
+                  <div class="py-3 px-3 rounded-lg bg-[#BACAD2] border border-slate-600">Doctor</div>
+                  <div class="py-3 px-3 rounded-lg bg-[#BACAD2] border border-slate-600">Reports</div>
+                  <div class="py-3 px-3 rounded-lg bg-[#BACAD2] border border-slate-600">Other</div>
+
+                  <div class="py-3 px-3 rounded-lg bg-[#BACAD2] border border-slate-600">Change / Cancel</div>
+                  <div class="py-3 px-3 rounded-lg bg-[#BACAD2] border border-slate-600">Information</div>
+                  <div class="py-3 px-3 rounded-lg bg-[#BACAD2] border border-slate-600">FAQ</div>
+                  <div class="py-3 px-3 rounded-lg bg-[#BACAD2] border border-slate-600">Help?</div>
+                </div>
+              </div>
+
+              <!-- Patient ID + GO row -->
+              <div class="flex flex-wrap items-center gap-3 pt-1">
+                <label class="text-xs sm:text-sm font-bold text-zinc-900">Patient ID:</label>
+                <div class="w-56 sm:w-64 h-9 bg-white border border-zinc-400 px-3 flex items-end pb-1.5">
+                  <div class="w-28 border-b border-zinc-300"></div>
+                </div>
+                <div class="p-0.5 rounded border-2 border-red-500">
+                  <div class="px-4 py-1.5 rounded bg-[#D7DADC] border border-zinc-500 text-xs text-zinc-800">GO</div>
+                </div>
+                <span class="text-xs text-zinc-400">* required</span>
+              </div>
+
+              <!-- Faint Legal Notices -->
+              <div class="space-y-1 text-[11px] text-zinc-400">
+                <p>NOTICE: By continuing you agree to processing and verification of data...</p>
+                <p>For details see Terms, Privacy, Consent, Registration Policy, Hospital Rules <span class="font-mono text-[10px] text-rose-600 font-semibold">(← Zero link signifiers! Q7)</span></p>
+              </div>
+
+              <!-- Bottom Navigation Row: NEXT (Left) vs BACK (Right) + Marker #2 -->
+              <div class="pt-2 flex flex-wrap items-center justify-between gap-4">
+                <div class="p-0.5 rounded border-2 border-red-500">
+                  <div class="px-6 py-2.5 rounded-lg bg-[#B8BEC6] border border-zinc-600 text-xs sm:text-sm font-medium text-zinc-900">NEXT</div>
+                </div>
+
+                <!-- Marker #2 Callout Pill -->
+                <div class="px-3 py-1.5 rounded-lg bg-red-600 text-white font-mono text-xs font-extrabold shadow-sm">
+                  #2: Competing “GO” vs “NEXT” buttons &amp; mandatory ID lock
+                </div>
+
+                <div class="px-5 py-2 rounded-lg bg-[#9EB1C2] border border-zinc-600 text-xs font-medium text-zinc-900">BACK</div>
+              </div>
+
+              <p class="text-[11px] text-zinc-400 pt-1">If your operation fails, try again or visit the counter.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===============================================================
+           SCREEN 2 & SCREEN 3 MOCKUPS SIDE BY SIDE + MARKERS #3, #4, #5
+           =============================================================== -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+
+        <!-- SCREEN 2 MOCKUP (Markers #3 & #4) -->
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-1 mb-2">
+            <span class="font-mono text-xs font-extrabold uppercase text-zinc-900 bg-zinc-200 px-2.5 py-1 rounded">SCREEN 2 — PATIENT INFORMATION (Markers #3 &amp; #4)</span>
+            <span class="font-mono text-[11px] text-rose-700 font-bold">No language toggle or keyboard!</span>
+          </div>
+
+          <div class="p-3 sm:p-4 rounded-3xl bg-[#3B4049] shadow-lg border-4 border-slate-700 h-full">
+            <div class="bg-[#F7F7F5] rounded-xl overflow-hidden border border-slate-300">
+              <!-- Header -->
+              <div class="bg-[#8CA6C1] px-4 py-3 flex items-center justify-between">
+                <span class="font-sans font-extrabold text-sm sm:text-base text-[#2A3342]">CITY GENERAL HOSPITAL</span>
+                <span class="font-sans text-xs text-[#2A3342]">STEP 2 / 3</span>
+              </div>
+
+              <!-- Body -->
+              <div class="p-4 sm:p-5 space-y-3.5">
+                <div>
+                  <h3 class="font-sans font-extrabold text-base text-[#2A3342]">PATIENT INFORMATION</h3>
+                  <p class="text-xs text-zinc-800">Enter your personal information below:</p>
+                </div>
+
+                <!-- Form Rows -->
+                <div class="space-y-2.5 text-xs">
+                  <div class="grid grid-cols-12 items-center gap-2">
+                    <label class="col-span-4 font-medium text-zinc-900">Full name</label>
+                    <div class="col-span-8 h-8 bg-white border border-zinc-400"></div>
+                  </div>
+
+                  <div class="grid grid-cols-12 items-center gap-2">
+                    <label class="col-span-4 font-medium text-zinc-900">Date of birth</label>
+                    <div class="col-span-6 h-8 bg-white border border-zinc-400 px-2 flex items-center text-zinc-400">DD/MM/YYYY</div>
+                    <span class="col-span-2 text-[10px] text-zinc-400">Why needed?</span>
+                  </div>
+
+                  <!-- Marker #3 Highlighted Row: Patient ID -->
+                  <div class="p-2 rounded-lg border-2 border-sky-500 bg-sky-50/40 space-y-1.5">
+                    <div class="grid grid-cols-12 items-center gap-2">
+                      <label class="col-span-4 font-bold text-zinc-900">Patient ID</label>
+                      <div class="col-span-8 h-8 bg-white border border-zinc-400"></div>
+                    </div>
+                    <div class="px-2 py-1 rounded bg-sky-500 text-white font-mono text-[10px] font-bold">
+                      #3: Redundant Patient ID re-entry (Memory / Cognitive Load)
+                    </div>
+                  </div>
+
+                  <div class="grid grid-cols-12 items-center gap-2">
+                    <label class="col-span-4 font-medium text-zinc-900">Mobile phone</label>
+                    <div class="col-span-8 h-8 bg-white border border-zinc-400"></div>
+                  </div>
+                </div>
+
+                <!-- Marker #4 Highlighted Row: Contradictory Mandatory Note -->
+                <div class="p-2 rounded-lg border-2 border-red-500 bg-red-50/30 space-y-1">
+                  <p class="text-[11px] text-zinc-400">Fields marked * are mandatory. All fields *</p>
+                  <div class="px-2 py-1 rounded bg-red-600 text-white font-mono text-[10px] font-bold">
+                    #4: Faint grey signifiers &amp; no “*” on any field labels!
+                  </div>
+                </div>
+
+                <p class="text-[11px] text-zinc-400">A verification code may be sent to your phone.</p>
+
+                <!-- Bottom Buttons: CANCEL (left) vs SUBMIT (right) -->
+                <div class="pt-3 flex items-center justify-between">
+                  <div class="px-4 py-2 rounded-lg bg-[#CED2D6] border border-zinc-500 text-xs text-zinc-800">CANCEL</div>
+                  <div class="px-5 py-2 rounded-lg bg-[#AEB8C4] border border-zinc-600 text-xs font-medium text-zinc-900">SUBMIT</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SCREEN 3 MOCKUP (Marker #5) -->
+        <div>
+          <div class="flex flex-wrap items-center justify-between gap-1 mb-2">
+            <span class="font-mono text-xs font-extrabold uppercase text-zinc-900 bg-zinc-200 px-2.5 py-1 rounded">SCREEN 3 — CHECK-IN SUMMARY (Marker #5)</span>
+            <span class="font-mono text-[11px] text-rose-700 font-bold">Missing clinic room / counter #!</span>
+          </div>
+
+          <div class="p-3 sm:p-4 rounded-3xl bg-[#3B4049] shadow-lg border-4 border-slate-700 h-full">
+            <div class="bg-[#F7F7F5] rounded-xl overflow-hidden border border-slate-300">
+              <!-- Header -->
+              <div class="bg-[#8CA6C1] px-4 py-3 flex items-center justify-between">
+                <span class="font-sans font-extrabold text-sm sm:text-base text-[#2A3342]">CITY GENERAL HOSPITAL</span>
+                <span class="font-sans text-xs text-[#2A3342]">STEP 3 / 3</span>
+              </div>
+
+              <!-- Body -->
+              <div class="p-4 sm:p-5 space-y-3.5">
+                <div>
+                  <h3 class="font-sans font-extrabold text-base text-[#2A3342]">CHECK-IN SUMMARY</h3>
+                  <p class="text-xs text-zinc-800">Please review before you continue.</p>
+                </div>
+
+                <!-- Summary Box -->
+                <div class="p-4 bg-white border border-slate-400 space-y-2 text-xs text-zinc-900">
+                  <div><span class="font-medium">Patient:</span> &nbsp; A. SAMPLE</div>
+                  <div><span class="font-medium">Appointment:</span> &nbsp; Internal Medicine</div>
+                  <div><span class="font-medium">Date:</span> &nbsp; 14/10/2026</div>
+                  <div><span class="font-medium">Time:</span> &nbsp; 09:30</div>
+                  <div class="pt-1 font-mono text-[10px] text-rose-700 font-bold">
+                    ⚠️ Missing: Assigned Counter #, Clinic Room #, Queue Ticket # (Q8)
+                  </div>
+                </div>
+
+                <!-- Marker #5 Box Around Action Area -->
+                <div class="p-3 rounded-xl border-2 border-red-500 bg-red-50/25 space-y-3">
+                  <div class="flex items-center justify-between gap-2">
+                    <div class="px-4 py-2.5 rounded-lg bg-[#BACAD2] border border-zinc-600 text-xs text-zinc-900">CHANGE DETAILS</div>
+                    <div class="px-6 py-2.5 rounded-lg bg-[#BACAD2] border border-zinc-600 text-xs text-zinc-900">CONFIRM</div>
+                  </div>
+
+                  <div class="px-2.5 py-1.5 rounded bg-red-600 text-white font-mono text-[10px] font-bold text-center">
+                    #5: Weak visual hierarchy, scattered targets &amp; hidden warning
+                  </div>
+
+                  <p class="text-[11px] text-zinc-400">After confirmation, please proceed to the assigned counter.</p>
+
+                  <div class="flex items-center justify-between pt-1">
+                    <div class="px-4 py-2 rounded-lg bg-[#D7DADC] border border-zinc-500 text-xs text-zinc-800">EXIT</div>
+                    <span class="px-2 py-0.5 border border-red-500 text-[10px] text-zinc-400">No changes can be made later.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cross-Screen Consistency Audit Strip -->
+      <div class="p-4 rounded-xl bg-zinc-900 text-white text-xs sm:text-sm">
+        <span class="font-mono text-xs text-amber-300 uppercase font-bold block mb-1">🔍 CROSS-SCREEN CONSISTENCY &amp; FLOW AUDIT (BETWEEN SCREENS 1 → 2 → 3)</span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 mt-2">
+          <div class="p-2.5 rounded bg-slate-900 border border-slate-700">
+            <strong class="text-sky-300">1. Primary Action Flip (Fitts's Law):</strong> Forward button is on the <strong>bottom-left</strong> on Screen 1 (<code class="font-mono">NEXT</code>), then flips to the <strong>bottom-right</strong> on Screen 2 (<code class="font-mono">SUBMIT</code>) and Screen 3 (<code class="font-mono">CONFIRM</code>).
+          </div>
+          <div class="p-2.5 rounded bg-slate-900 border border-slate-700">
+            <strong class="text-amber-300">2. Header State Loss:</strong> <code class="font-mono">TR EN AR</code> appears on Screen 1 but vanishes on Screens 2–3; <code class="font-mono">STEP X / 3</code> appears on Screens 2–3 but is missing on Screen 1.
+          </div>
+          <div class="p-2.5 rounded bg-slate-900 border border-slate-700">
+            <strong class="text-rose-300">3. Redundant &amp; Unlinked Data Flow:</strong> <code class="font-mono">Patient ID</code> is required on Screen 1 and asked again on Screen 2; Screen 3 tells the user to go to the "assigned counter" without displaying which counter.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 03: SECTION 1 — ALL 10 EVALUATION QUESTIONS (Q1–Q10, 50 PTS)
+         =================================================================== -->
+    <section id="section-1" data-toc="03. Section 1: Q1–Q10 Audit" class="scroll-mt-28 space-y-6">
+      <div class="note-sheet rounded-2xl p-6 sm:p-8 bg-zinc-900 text-white border-b-4 border-b-amber-400">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-400 text-zinc-900">SECTION 1 • 50 POINTS (10 QUESTIONS × 5 PTS)</span>
+          <span class="font-mono text-xs text-zinc-300">Structure: (a) Observed Element + (b) HCI Reasoning + (c) Impact / Testing Need</span>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-white mt-3">Section 1 — Complete 10-Question HCI Design Evaluation</h2>
+        <p class="text-xs sm:text-sm text-zinc-300 mt-1">
+          Study each card below carefully. Every question pairs your exact homework evidence with the underlying Weeks 1–6 lecture theory.
+        </p>
+      </div>
+
+      <!-- Q1: HUMAN-CENTERED DESIGN -->
+      <article class="note-sheet rounded-2xl p-6 sm:p-8 border-l-8 border-l-amber-500">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-lg bg-zinc-900 text-amber-300 font-mono text-xs font-bold">Q1 • 5 PTS</span>
+            <h3 class="text-xl font-extrabold text-zinc-900">Human-Centered Design (HCD)</h3>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-amber-100 text-amber-900 font-mono text-[11px] font-semibold">Linked: Week 1 (S03–04) • Week 6.1 (S02–07)</span>
+        </div>
+        <p class="text-xs sm:text-sm font-bold text-zinc-700 mb-4 italic">
+          Prompt: “Is this interface appropriate for its target users? Consider at least two user needs.”
+        </p>
+        <div class="space-y-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-sky-50/70 border border-sky-200">
+            <strong class="font-mono text-sky-900 uppercase block mb-1">(a) Observed UI Elements (Screen 1, 2, 3):</strong>
+            Screen 1 displays language selection (<span class="hl-blue font-semibold">“TR EN AR”</span>) as tiny, borderless plain text in the top-right header, while <span class="hl-pink font-semibold">Screens 2 and 3 lack any language selection buttons</span>. Users are forced to manually enter <span class="hl-blue font-semibold">“Patient ID” on both Screen 1 and Screen 2</span>. For error recovery, Screen 1 only provides a faint grey footer notice: <span class="hl-blue font-semibold">“If your operation fails, try again or visit the counter.”</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
+            <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning (2 Core Target User Needs Violated):</strong>
+            Human-Centered Design requires adapting technology to the physical, cognitive, and contextual limits of real users (older adults, first-time visitors, low digital literacy, stressed patients):
+            <ul class="list-disc pl-5 mt-1.5 space-y-1">
+              <li><strong>Need 1 — Visual &amp; Language Accessibility:</strong> Older adults with age-related <span class="hl-yellow font-semibold">presbyopia and reduced contrast sensitivity</span> struggle to read tiny, low-contrast grey instructions across Screens 1–3, and non-native speakers cannot switch languages once past Screen 1.</li>
+              <li><strong>Need 2 — Low-Friction Task Flow &amp; Guided Support:</strong> Forcing stressed patients to type a hospital ID twice without an alternative <span class="hl-green font-semibold">ID Card / Barcode Scanner</span> or a visible <span class="hl-green font-semibold">“Call Staff” help button</span> makes the system machine-centered rather than patient-centered.</li>
+            </ul>
+          </div>
+          <div class="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200">
+            <strong class="font-mono text-purple-900 uppercase block mb-1">(c) Likely User Impact &amp; What Must Be Tested:</strong>
+            <span class="hl-pink font-semibold">Impact:</span> Seniors and first-time visitors will likely abandon the kiosk and crowd the reception counter. <span class="hl-purple font-semibold">Usability Testing Need:</span> Because static mockups cannot show physical ergonomics or live error recovery, we must test with older adults and first-time visitors to measure <strong>task completion rates, standing-posture readability, and error recovery</strong> when a Patient ID is forgotten or unrecognized.
+          </div>
+        </div>
+      </article>
+
+      <!-- Q2: VISUAL PERCEPTION & ATTENTION -->
+      <article class="note-sheet rounded-2xl p-6 sm:p-8 border-l-8 border-l-sky-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-lg bg-zinc-900 text-sky-300 font-mono text-xs font-bold">Q2 • 5 PTS</span>
+            <h3 class="text-xl font-extrabold text-zinc-900">Visual Perception &amp; Attention</h3>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-sky-100 text-sky-900 font-mono text-[11px] font-semibold">Linked: Week 2 (S06–25) • Week 3 (S57–69)</span>
+        </div>
+        <p class="text-xs sm:text-sm font-bold text-zinc-700 mb-4 italic">
+          Prompt: “What elements attract attention? Is important information easy to notice and read?”
+        </p>
+        <div class="space-y-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-sky-50/70 border border-sky-200">
+            <strong class="font-mono text-sky-900 uppercase block mb-1">(a) Observed UI Elements:</strong>
+            The dark blue header banner (<span class="hl-blue font-semibold">“CITY GENERAL HOSPITAL”</span>) and bold black section headings (<span class="hl-blue font-semibold">“WELCOME / CHECK-IN”</span>) dominate visual attention. Conversely, critical operational warnings—<span class="hl-blue font-semibold">“* required”</span> (Screen 1), <span class="hl-blue font-semibold">“Fields marked * are mandatory. All fields *”</span> and <span class="hl-blue font-semibold">“Why needed?”</span> (Screen 2), and <span class="hl-blue font-semibold">“No changes can be made later.”</span> (Screen 3)—are rendered in tiny, low-contrast light-grey text on an off-white background. Furthermore, all buttons (<code class="font-mono">Appointment</code>, <code class="font-mono">Other</code>, <code class="font-mono">NEXT</code>, <code class="font-mono">CONFIRM</code>, <code class="font-mono">EXIT</code>) share the same muted grey-blue fill.
+          </div>
+          <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
+            <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning (Pre-Attentive Processing, Contrast &amp; Foveal/Peripheral Vision):</strong>
+            Effective visual hierarchy relies on <span class="hl-green font-semibold">figure-ground segregation and pre-attentive cues</span> (color contrast, luminance, size, and spatial isolation) to guide the user's <span class="hl-yellow font-semibold">2° foveal vision</span>. Styling all buttons in uniform desaturated grey-blue denies primary actions (<code class="font-mono">NEXT</code>, <code class="font-mono">CONFIRM</code>) pre-attentive pop. Placing the irreversible constraint <span class="hl-pink font-semibold">“No changes can be made later.”</span> in low-luminance grey in the bottom-right periphery guarantees <span class="hl-yellow font-semibold">inattentional blindness</span> when the user's gaze is fixated on the summary box or <code class="font-mono">CONFIRM</code> button.
+          </div>
+          <div class="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200">
+            <strong class="font-mono text-purple-900 uppercase block mb-1">(c) Likely User Impact &amp; What Must Be Tested:</strong>
+            <span class="hl-pink font-semibold">Impact:</span> Hurried users scanning the screen will miss mandatory field rules and lock-in warnings, causing submission errors or premature irreversible confirmation. <span class="hl-purple font-semibold">Usability Testing Need:</span> Conduct legibility and eye-tracking tests under <strong>simulated hospital lobby lighting (including overhead glare)</strong> to verify whether users fixate on and comprehend the warning messages.
+          </div>
+        </div>
+      </article>
+
+      <!-- Q3: MEMORY & COGNITIVE LOAD -->
+      <article class="note-sheet rounded-2xl p-6 sm:p-8 border-l-8 border-l-purple-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-lg bg-zinc-900 text-purple-300 font-mono text-xs font-bold">Q3 • 5 PTS</span>
+            <h3 class="text-xl font-extrabold text-zinc-900">Memory &amp; Cognitive Load</h3>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-purple-100 text-purple-900 font-mono text-[11px] font-semibold">Linked: Week 1 (S08) • Week 2 (S32–43) • Week 5 (H#6, R#8)</span>
+        </div>
+        <p class="text-xs sm:text-sm font-bold text-zinc-700 mb-4 italic">
+          Prompt: “Does the kiosk favor recognition over recall? What may increase mental effort?”
+        </p>
+        <div class="space-y-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-sky-50/70 border border-sky-200">
+            <strong class="font-mono text-sky-900 uppercase block mb-1">(a) Observed UI Elements:</strong>
+            Screen 1 demands <span class="hl-blue font-semibold">“Patient ID: (* required)”</span>. Upon advancing to Screen 2, the form asks the user to type <span class="hl-blue font-semibold">“Patient ID” a second time</span> alongside Full name, Date of birth (<code class="font-mono">DD/MM/YYYY</code>), and Mobile phone. Additionally, Screen 2 displays <span class="hl-blue font-semibold">“STEP 2 / 3”</span> but shows zero reminder of which service was selected on Screen 1.
+          </div>
+          <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
+            <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning (Recognition Rather Than Recall &amp; Working Memory 4±1 Limit):</strong>
+            This interface violates <span class="hl-green font-semibold">Recognition over Recall</span> and overloads fragile <span class="hl-yellow font-semibold">working memory (capacity ~4±1 chunks for 20–30 seconds)</span>. Instead of letting users recognize their appointment via a barcode scan or National ID lookup, it forces them to retrieve an arbitrary hospital <code class="font-mono">Patient ID</code> from long-term memory. Re-entering <code class="font-mono">Patient ID</code> on both Screen 1 and Screen 2 imposes redundant cognitive and motor load, hiding the selected service violates externalized state (Shneiderman Rule #8), and overlapping labels on Screen 1 (<code class="font-mono">Reports</code> vs. <code class="font-mono">Lab results</code>, <code class="font-mono">Information</code> vs. <code class="font-mono">FAQ</code> vs. <code class="font-mono">Help?</code>) force extra mental interpretation.
+          </div>
+          <div class="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200">
+            <strong class="font-mono text-purple-900 uppercase block mb-1">(c) Likely User Impact &amp; What Must Be Tested:</strong>
+            <span class="hl-pink font-semibold">Impact:</span> High memory burden increases patient anxiety, slows down check-in, and causes data-entry mistakes. <span class="hl-purple font-semibold">Usability Testing Need:</span> Test whether real patients actually know their hospital <code class="font-mono">Patient ID</code> unaided, and verify whether data typed on Screen 1 <strong>auto-populates on Screen 2</strong> (and remains preserved if the user taps <code class="font-mono">CHANGE DETAILS</code> on Screen 3).
+          </div>
+        </div>
+      </article>
+
+      <!-- Q4: FITTS'S LAW (WITH CUSTOM SVG DIAGRAM) -->
+      <article class="note-sheet rounded-2xl p-6 sm:p-8 border-l-8 border-l-emerald-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-lg bg-zinc-900 text-emerald-300 font-mono text-xs font-bold">Q4 • 5 PTS</span>
+            <h3 class="text-xl font-extrabold text-zinc-900">Fitts’s Law</h3>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-emerald-100 text-emerald-900 font-mono text-[11px] font-semibold">Linked: Week 3 (S17–23) • Week 6.1 (S04)</span>
+        </div>
+        <p class="text-xs sm:text-sm font-bold text-zinc-700 mb-4 italic">
+          Prompt: “Evaluate the size, spacing, and placement of touch targets for typical kiosk users.”
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center mb-4">
+          <div class="lg:col-span-7 space-y-3 text-xs sm:text-sm">
+            <div class="p-3.5 rounded-xl bg-sky-50/70 border border-sky-200">
+              <strong class="font-mono text-sky-900 uppercase block mb-1">(a) Observed UI Elements:</strong>
+              On Screen 1, the language options <span class="hl-blue font-semibold">“TR EN AR”</span> in the top-right header are tiny, unbordered text labels packed tightly together. The <span class="hl-blue font-semibold">“GO”</span> button is much smaller than the 12 service buttons. Across Screens 1–3, primary navigation buttons sit at opposite extreme corners: on Screen 1, <span class="hl-blue font-semibold">“NEXT” is at the bottom-left</span> and <span class="hl-blue font-semibold">“BACK” is at the bottom-right</span>, whereas on Screens 2 and 3, <span class="hl-blue font-semibold">“SUBMIT” and “CONFIRM” jump to the bottom-right</span>.
+            </div>
+            <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
+              <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning ($T = a + b \log_2(2D/W)$ &amp; 9–10mm Touch Baseline):</strong>
+              By <span class="hl-green font-semibold">Fitts’s Law, movement time $T = a + b \log_2(2D/W)$</span> increases with distance ($D$) and decreases with target width ($W$). The labels <code class="font-mono">TR EN AR</code> and <code class="font-mono">Why needed?</code> have a tiny width ($W$) and near-zero spacing, creating a high Index of Difficulty and violating the <span class="hl-yellow font-semibold">9–10 mm minimum touch target baseline</span> (Fat Finger problem). Flipping forward navigation from bottom-left (<code class="font-mono">NEXT</code> on Screen 1) to bottom-right (<code class="font-mono">SUBMIT</code> / <code class="font-mono">CONFIRM</code> on Screens 2–3) forces a large hand travel distance ($D$) across a wide kiosk screen.
+            </div>
+          </div>
+
+          <!-- Custom SVG Diagram for Q4 Fitts's Law on Kiosk -->
+          <div class="lg:col-span-5 p-4 rounded-2xl bg-slate-950 text-white border border-slate-800">
+            <div class="font-mono text-[10px] text-emerald-300 uppercase font-bold mb-2">FITTS'S LAW KIOSK DIAGNOSTIC DIAGRAM</div>
+            <svg viewBox="0 0 320 210" class="w-full h-auto" aria-label="Fitts Law diagram showing small W on TR EN AR and large D between NEXT and SUBMIT">
+              <rect x="10" y="10" width="300" height="160" rx="8" fill="#1E293B" stroke="#475569" stroke-width="2"/>
+              <!-- Tiny TR EN AR in top right -->
+              <rect x="235" y="20" width="62" height="16" rx="3" fill="#7F1D1D" stroke="#EF4444" stroke-width="1.5"/>
+              <text x="266" y="31" text-anchor="middle" class="font-mono text-[8px] fill-rose-200 font-bold">TR EN AR (Tiny W!)</text>
+
+              <!-- Bottom-Left NEXT (Screen 1) -->
+              <rect x="24" y="132" width="64" height="24" rx="4" fill="#3B82F6" stroke="#93C5FD" stroke-width="1.5"/>
+              <text x="56" y="147" text-anchor="middle" class="font-mono text-[9px] fill-white font-bold">S1: NEXT</text>
+
+              <!-- Bottom-Right SUBMIT / CONFIRM (Screens 2-3) -->
+              <rect x="220" y="132" width="76" height="24" rx="4" fill="#10B981" stroke="#6EE7B7" stroke-width="1.5"/>
+              <text x="258" y="147" text-anchor="middle" class="font-mono text-[9px] fill-white font-bold">S2/3: SUBMIT</text>
+
+              <!-- Large Distance D Arrow -->
+              <path d="M 94 144 L 214 144" stroke="#FACC15" stroke-width="2.5" stroke-dasharray="4 3"/>
+              <polygon points="214,144 206,139 206,149" fill="#FACC15"/>
+              <text x="154" y="135" text-anchor="middle" class="font-mono text-[9px] fill-amber-300 font-bold">Large Distance (D) Flip!</text>
+
+              <!-- Formula Footer -->
+              <text x="160" y="195" text-anchor="middle" class="font-mono text-[11px] fill-emerald-300 font-bold">T = a + b · log₂(2D / W)</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200 text-xs sm:text-sm">
+          <strong class="font-mono text-purple-900 uppercase block mb-1">(c) Likely User Impact &amp; What Must Be Tested:</strong>
+          <span class="hl-pink font-semibold">Impact:</span> Older users with hand tremors or reduced motor precision will mis-tap <code class="font-mono">TR EN AR</code> and experience slower movement between screens. <span class="hl-purple font-semibold">Usability Testing Need:</span> Measure actual physical target sizes in millimeters on the real kiosk display and record <strong>mis-tap error rates and movement times</strong> with senior participants.
+        </div>
+      </article>
+
+      <!-- Q5: HICK'S LAW (WITH CUSTOM SVG DIAGRAM) -->
+      <article class="note-sheet rounded-2xl p-6 sm:p-8 border-l-8 border-l-rose-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-lg bg-zinc-900 text-rose-300 font-mono text-xs font-bold">Q5 • 5 PTS</span>
+            <h3 class="text-xl font-extrabold text-zinc-900">Hick’s Law</h3>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-rose-100 text-rose-900 font-mono text-[11px] font-semibold">Linked: Week 2 (Satisficing) • Week 4 (S28) • Week 5 (H#8)</span>
+        </div>
+        <p class="text-xs sm:text-sm font-bold text-zinc-700 mb-4 italic">
+          Prompt: “How might the number and organization of choices affect decision-making?”
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center mb-4">
+          <div class="lg:col-span-7 space-y-3 text-xs sm:text-sm">
+            <div class="p-3.5 rounded-xl bg-sky-50/70 border border-sky-200">
+              <strong class="font-mono text-sky-900 uppercase block mb-1">(a) Observed UI Elements:</strong>
+              Screen 1 presents <span class="hl-blue font-semibold">12 identically sized service buttons in a flat 4×3 grid</span> (<code class="font-mono">Appointment</code>, <code class="font-mono">Register</code>, <code class="font-mono">Insurance</code>, <code class="font-mono">Payments</code>, <code class="font-mono">Lab results</code>, <code class="font-mono">Doctor</code>, <code class="font-mono">Reports</code>, <code class="font-mono">Other</code>, <code class="font-mono">Change / Cancel</code>, <code class="font-mono">Information</code>, <code class="font-mono">FAQ</code>, <code class="font-mono">Help?</code>), followed by two competing action buttons (<span class="hl-blue font-semibold">“GO” and “NEXT”</span>).
+            </div>
+            <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
+              <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning ($RT = a + b \log_2(n + 1)$ &amp; Overlapping Categories):</strong>
+              According to <span class="hl-green font-semibold">Hick’s Law, reaction/decision time rises logarithmically with the number of choices ($RT = a + b \log_2(n+1)$)</span>, and degrades into slow <strong>linear scanning</strong> when choices are ungrouped and semantically ambiguous. Here, patients must disambiguate overlapping pairs (<span class="hl-pink font-semibold">“Appointment” vs. “Doctor”</span>, <span class="hl-pink font-semibold">“Lab results” vs. “Reports”</span>, <span class="hl-pink font-semibold">“Information” vs. “FAQ” vs. “Help?”</span>) and then face a secondary decision bottleneck between pressing <code class="font-mono">GO</code> or <code class="font-mono">NEXT</code>.
+            </div>
+          </div>
+
+          <!-- Custom SVG Diagram for Q5 Hick's Law -->
+          <div class="lg:col-span-5 p-4 rounded-2xl bg-slate-950 text-white border border-slate-800">
+            <div class="font-mono text-[10px] text-rose-300 uppercase font-bold mb-2">HICK'S LAW: 12 FLAT vs. 4 GROUPED CHOICES</div>
+            <svg viewBox="0 0 320 205" class="w-full h-auto" aria-label="Comparison of 12 ungrouped choices versus 4 categorized choices under Hick's Law">
+              <!-- Left: 12 Flat Choices -->
+              <rect x="10" y="12" width="138" height="145" rx="6" fill="#1E293B" stroke="#EF4444" stroke-width="1.5"/>
+              <text x="79" y="28" text-anchor="middle" class="font-mono text-[8.5px] fill-rose-300 font-bold">BEFORE: n = 12 Flat</text>
+              <!-- 4x3 Mini Grid -->
+              <g fill="#475569" stroke="#94A3B8" stroke-width="0.8">
+                <rect x="20" y="38" width="26" height="18" rx="2"/><rect x="50" y="38" width="26" height="18" rx="2"/><rect x="80" y="38" width="26" height="18" rx="2"/><rect x="110" y="38" width="26" height="18" rx="2"/>
+                <rect x="20" y="62" width="26" height="18" rx="2"/><rect x="50" y="62" width="26" height="18" rx="2"/><rect x="80" y="62" width="26" height="18" rx="2"/><rect x="110" y="62" width="26" height="18" rx="2"/>
+                <rect x="20" y="86" width="26" height="18" rx="2"/><rect x="50" y="86" width="26" height="18" rx="2"/><rect x="80" y="86" width="26" height="18" rx="2"/><rect x="110" y="86" width="26" height="18" rx="2"/>
+              </g>
+              <text x="79" y="124" text-anchor="middle" class="font-mono text-[8px] fill-rose-200">Linear scan + overlap</text>
+              <text x="79" y="140" text-anchor="middle" class="font-mono text-[8px] fill-rose-400 font-bold">High Reaction Time (RT)</text>
+
+              <!-- Right: 4 Categorized Cards -->
+              <rect x="172" y="12" width="138" height="145" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="1.5"/>
+              <text x="241" y="28" text-anchor="middle" class="font-mono text-[8.5px] fill-emerald-300 font-bold">AFTER: n = 4 Categories</text>
+              <g fill="#065F46" stroke="#34D399" stroke-width="1.2">
+                <rect x="184" y="40" width="52" height="32" rx="4"/><rect x="244" y="40" width="52" height="32" rx="4"/>
+                <rect x="184" y="80" width="52" height="32" rx="4"/><rect x="244" y="80" width="52" height="32" rx="4"/>
+              </g>
+              <text x="241" y="128" text-anchor="middle" class="font-mono text-[8px] fill-emerald-200">Chunked &amp; self-explanatory</text>
+              <text x="241" y="142" text-anchor="middle" class="font-mono text-[8px] fill-emerald-400 font-bold">Low Reaction Time (RT)</text>
+
+              <text x="160" y="188" text-anchor="middle" class="font-mono text-[10.5px] fill-amber-300 font-bold">RT = a + b · log₂(n + 1)</text>
+            </svg>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200 text-xs sm:text-sm">
+          <strong class="font-mono text-purple-900 uppercase block mb-1">(c) Likely User Impact &amp; What Must Be Tested:</strong>
+          <span class="hl-pink font-semibold">Impact:</span> Causes choice paralysis, long dwell times on Screen 1, and wrong category clicks by urgent patients. <span class="hl-purple font-semibold">Usability Testing Need:</span> Measure <strong>time-to-first-click and category selection accuracy</strong> across realistic patient scenarios (e.g., checking in for an appointment vs. picking up a lab report).
+        </div>
+      </article>
+
+      <!-- Q6: GESTALT PRINCIPLES -->
+      <article class="note-sheet rounded-2xl p-6 sm:p-8 border-l-8 border-l-indigo-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-lg bg-zinc-900 text-indigo-300 font-mono text-xs font-bold">Q6 • 5 PTS</span>
+            <h3 class="text-xl font-extrabold text-zinc-900">Gestalt Principles</h3>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-indigo-100 text-indigo-900 font-mono text-[11px] font-semibold">Linked: Week 2 (S12–16)</span>
+        </div>
+        <p class="text-xs sm:text-sm font-bold text-zinc-700 mb-4 italic">
+          Prompt: “Are related functions grouped using proximity, similarity, and clear visual hierarchy?”
+        </p>
+        <div class="space-y-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-sky-50/70 border border-sky-200">
+            <strong class="font-mono text-sky-900 uppercase block mb-1">(a) Observed UI Elements:</strong>
+            On Screen 1, all 12 buttons share identical size, color, border, and grid spacing even though they mix clinical tasks (<code class="font-mono">Appointment</code>, <code class="font-mono">Lab results</code>), administrative/financial tasks (<code class="font-mono">Insurance</code>, <code class="font-mono">Payments</code>), and general support (<code class="font-mono">FAQ</code>, <code class="font-mono">Help?</code>). On Screen 3, <span class="hl-blue font-semibold">“CHANGE DETAILS”, “CONFIRM”, and “EXIT”</span> use the same rounded grey rectangle styling, while the warning <span class="hl-blue font-semibold">“No changes can be made later.”</span> sits isolated at the bottom-right corner far away from <code class="font-mono">CONFIRM</code>.
+          </div>
+          <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
+            <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning (Similarity, Proximity &amp; Common Region):</strong>
+            The interface misuses <span class="hl-green font-semibold">Similarity</span> (making unrelated service categories and destructive vs. primary actions look identical) and violates <span class="hl-green font-semibold">Proximity and Common Region</span>:
+            <ul class="list-disc pl-5 mt-1.5 space-y-1">
+              <li>On Screen 1, lack of Common Region makes it unclear whether the <code class="font-mono">Patient ID</code> field belongs to the 12 service buttons above it or operates as a separate lookup via <code class="font-mono">GO</code>.</li>
+              <li>On Screen 3, separating the warning <code class="font-mono">“No changes can be made later.”</code> from the <code class="font-mono">CONFIRM</code> button violates <strong>Proximity</strong>, so users do not associate the lock-in consequence with clicking <code class="font-mono">CONFIRM</code>.</li>
+            </ul>
+          </div>
+          <div class="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200">
+            <strong class="font-mono text-purple-900 uppercase block mb-1">(c) Likely User Impact &amp; What Must Be Tested:</strong>
+            <span class="hl-pink font-semibold">Impact:</span> Weak visual grouping increases motor slips (e.g., accidentally tapping <code class="font-mono">EXIT</code> when intending to tap <code class="font-mono">CHANGE DETAILS</code> on Screen 3). <span class="hl-purple font-semibold">Usability Testing Need:</span> Conduct <strong>card-sorting studies</strong> with patients to validate service groupings and <strong>eye-tracking</strong> to confirm visual hierarchy.
+          </div>
+        </div>
+      </article>
+
+      <!-- Q7: AFFORDANCES & SIGNIFIERS -->
+      <article class="note-sheet rounded-2xl p-6 sm:p-8 border-l-8 border-l-amber-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-lg bg-zinc-900 text-amber-300 font-mono text-xs font-bold">Q7 • 5 PTS</span>
+            <h3 class="text-xl font-extrabold text-zinc-900">Affordances &amp; Signifiers</h3>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-amber-100 text-amber-900 font-mono text-[11px] font-semibold">Linked: Week 1 (S10) • Week 4 (S29) • Week 5 (S05–07)</span>
+        </div>
+        <p class="text-xs sm:text-sm font-bold text-zinc-700 mb-4 italic">
+          Prompt: “Can users tell what is clickable, editable, or required? Give concrete examples.”
+        </p>
+        <div class="space-y-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-sky-50/70 border border-sky-200">
+            <strong class="font-mono text-sky-900 uppercase block mb-1">(a) Observed UI Elements:</strong>
+            On Screen 1, <span class="hl-blue font-semibold">“TR EN AR”</span> and <span class="hl-blue font-semibold">“Terms, Privacy, Consent, Registration Policy, Hospital Rules”</span> lack button borders, icons, color contrast, or underlines; the <code class="font-mono">Patient ID</code> box contains an ambiguous partial line <code class="font-mono">“________”</code>. On Screen 2, <span class="hl-blue font-semibold">“Why needed?”</span> is plain grey text, and the note states <span class="hl-blue font-semibold">“Fields marked * are mandatory. All fields *”</span>—yet <span class="hl-pink font-semibold">none of the 4 field labels (“Full name”, “Date of birth”, “Patient ID”, “Mobile phone”) have an asterisk (*)</span>. Only Date of birth has a format hint (<code class="font-mono">DD/MM/YYYY</code>).
+          </div>
+          <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
+            <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning (Norman's Affordances vs. Signifiers):</strong>
+            While a glass touchscreen physically <span class="hl-yellow font-semibold">affords</span> tapping anywhere, users depend on <span class="hl-green font-semibold">perceivable signifiers</span> (borders, 3D shadows, high-contrast labels, underlines, asterisks, input masks) to know <em>where</em> and <em>how</em> to act:
+            <ul class="list-disc pl-5 mt-1.5 space-y-1">
+              <li><strong>Missing Clickability Signifiers:</strong> <code class="font-mono">TR EN AR</code>, <code class="font-mono">Why needed?</code>, and the policy names look like static text rather than interactive links/buttons.</li>
+              <li><strong>Contradictory Mandatory &amp; Format Signifiers:</strong> Screen 2 tells users to look for <code class="font-mono">*</code> on mandatory fields while omitting <code class="font-mono">*</code> from every label, and <code class="font-mono">Patient ID</code> / <code class="font-mono">Mobile phone</code> lack format or digit-length signifiers.</li>
+            </ul>
+          </div>
+          <div class="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200">
+            <strong class="font-mono text-purple-900 uppercase block mb-1">(c) Likely User Impact &amp; What Must Be Tested:</strong>
+            <span class="hl-pink font-semibold">Impact:</span> Users will not discover that they can switch languages or tap <code class="font-mono">Why needed?</code>, and will make formatting mistakes on ID/phone inputs. <span class="hl-purple font-semibold">Usability Testing Need:</span> Test whether users perceive <code class="font-mono">TR EN AR</code> and <code class="font-mono">Why needed?</code> as tappable, and verify whether tapping an input box displays a <strong>clear focus border and pops up an on-screen keyboard</strong>.
+          </div>
+        </div>
+      </article>
+
+      <!-- Q8: FEEDBACK & VISIBILITY -->
+      <article class="note-sheet rounded-2xl p-6 sm:p-8 border-l-8 border-l-teal-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-lg bg-zinc-900 text-teal-300 font-mono text-xs font-bold">Q8 • 5 PTS</span>
+            <h3 class="text-xl font-extrabold text-zinc-900">Feedback &amp; Visibility</h3>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-teal-100 text-teal-900 font-mono text-[11px] font-semibold">Linked: Week 3 (S03–04, S83–88) • Week 5 (H#1, R#3–4)</span>
+        </div>
+        <p class="text-xs sm:text-sm font-bold text-zinc-700 mb-4 italic">
+          Prompt: “What feedback and state indicators should appear when moving between Screens 1–3, submitting invalid data, or completing check-in? What cannot be observed?”
+        </p>
+        <div class="space-y-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-sky-50/70 border border-sky-200">
+            <strong class="font-mono text-sky-900 uppercase block mb-1">(a) Observed UI Elements:</strong>
+            Screen 1 lacks a step indicator, whereas Screens 2 and 3 display <span class="hl-blue font-semibold">“STEP 2 / 3” and “STEP 3 / 3”</span>. None of the 12 service buttons on Screen 1 show an active/selected state. Screen 2 notes <span class="hl-blue font-semibold">“A verification code may be sent to your phone.”</span> Screen 3 states <span class="hl-blue font-semibold">“After confirmation, please proceed to the assigned counter.”</span>, yet the summary box (<code class="font-mono">Patient: A. SAMPLE, Appointment: Internal Medicine, Date: 14/10/2026, Time: 09:30</code>) omits the counter or room number.
+          </div>
+          <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
+            <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning (Visibility of System Status &amp; Dialog Closure):</strong>
+            <span class="hl-green font-semibold">Visibility of System Status (Nielsen Heuristic #1)</span> requires continuous state feedback:
+            <ul class="list-disc pl-5 mt-1.5 space-y-1">
+              <li><strong>Selection &amp; Progress State:</strong> Tapping a service on Screen 1 must highlight the button with a checkmark (<code class="font-mono">[✓ SELECTED]</code>), and Screen 1's header must show <code class="font-mono">STEP 1 / 3</code>.</li>
+              <li><strong>Actionable Error Feedback:</strong> Submitting invalid data on Screen 1 or 2 requires inline red field highlighting and plain-language instructions—the static footer <span class="hl-pink font-semibold">“If your operation fails, try again or visit the counter”</span> violates Heuristic #9.</li>
+              <li><strong>Dialog Closure (Shneiderman Rule #4):</strong> Screen 3 must display the exact <strong>assigned counter number, clinic room number, and queue number</strong>.</li>
+            </ul>
+          </div>
+          <div class="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200">
+            <strong class="font-mono text-purple-900 uppercase block mb-1">(c) What Cannot Be Observed in Static Images &amp; Must Be Tested:</strong>
+            <span class="hl-purple font-semibold">Cannot be observed statically:</span> Immediate button press acknowledgment (<code class="font-mono">&lt;100 ms</code>), loading spinners during database lookup (<code class="font-mono">&gt;1 s</code>), inline validation error messages, whether an SMS OTP verification step interrupts the transition from Screen 2 to Screen 3, and what final confirmation screen or printed ticket appears after tapping <code class="font-mono">CONFIRM</code>. All of these require interactive prototype usability testing.
+          </div>
+        </div>
+      </article>
+
+      <!-- Q9: INTERACTION STYLES -->
+      <article class="note-sheet rounded-2xl p-6 sm:p-8 border-l-8 border-l-cyan-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-lg bg-zinc-900 text-cyan-300 font-mono text-xs font-bold">Q9 • 5 PTS</span>
+            <h3 class="text-xl font-extrabold text-zinc-900">Interaction Styles</h3>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-cyan-100 text-cyan-900 font-mono text-[11px] font-semibold">Linked: Week 3 (S09–17, S31, S47) • Week 4 (S05–06, S20)</span>
+        </div>
+        <p class="text-xs sm:text-sm font-bold text-zinc-700 mb-4 italic">
+          Prompt: “Is touch interaction appropriate across this three-screen journey? Discuss one advantage and one limitation.”
+        </p>
+        <div class="space-y-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-sky-50/70 border border-sky-200">
+            <strong class="font-mono text-sky-900 uppercase block mb-1">(a) Observed UI Elements:</strong>
+            The three-screen journey combines <span class="hl-blue font-semibold">Direct Manipulation / Menu Selection</span> (tapping service buttons on Screen 1 and <code class="font-mono">CHANGE DETAILS</code> / <code class="font-mono">CONFIRM</code> on Screen 3) with intensive <span class="hl-blue font-semibold">Form Fill-In</span> across five text boxes (<code class="font-mono">Patient ID</code> on Screen 1; <code class="font-mono">Full name</code>, <code class="font-mono">Date of birth</code>, <code class="font-mono">Patient ID</code>, and <code class="font-mono">Mobile phone</code> on Screen 2), with <span class="hl-pink font-semibold">no visible on-screen keyboard on either screen</span>.
+          </div>
+          <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
+            <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning (One Advantage vs. One Limitation of Touch Interaction):</strong>
+            <ul class="list-disc pl-5 space-y-1.5">
+              <li><span class="hl-green font-semibold">Advantage (Screens 1 &amp; 3 — Menu Selection):</span> Direct touch requires zero intermediary devices (no mouse/physical keyboard to lose or vandalize) and provides immediate 1:1 hand-eye coordination for walk-up-and-use button selection and confirmation.</li>
+              <li><span class="hl-pink font-semibold">Limitation (Screen 2 — Heavy Alphanumeric Form Fill-In):</span> Typing 5 fields of names, dates with slashes (<code class="font-mono">DD/MM/YYYY</code>), and ID numbers on a vertical glass screen suffers from the <strong>loss of tactile key edges/resistance</strong> (high slip rate), <strong>screen occlusion</strong> (an on-screen keyboard covers ~40% of the display), and <strong>Gorilla Arm muscle fatigue</strong> while standing.</li>
+            </ul>
+          </div>
+          <div class="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200">
+            <strong class="font-mono text-purple-900 uppercase block mb-1">(c) Likely User Impact &amp; What Must Be Tested:</strong>
+            <span class="hl-pink font-semibold">Impact:</span> Slow, error-prone typing on Screen 2 creates long lobby queues and user frustration. <span class="hl-purple font-semibold">Usability Testing Need:</span> Test virtual keyboard ergonomics on the physical kiosk—specifically verifying whether the system automatically switches between a <strong>large numeric keypad</strong> (for ID, Date of birth, Mobile phone) and a <strong>QWERTY keyboard</strong> (for Full name).
+          </div>
+        </div>
+      </article>
+
+      <!-- Q10: MULTIMODAL INTERACTION -->
+      <article class="note-sheet rounded-2xl p-6 sm:p-8 border-l-8 border-l-fuchsia-600">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-lg bg-zinc-900 text-fuchsia-300 font-mono text-xs font-bold">Q10 • 5 PTS</span>
+            <h3 class="text-xl font-extrabold text-zinc-900">Multimodal Interaction</h3>
+          </div>
+          <span class="px-2.5 py-1 rounded bg-fuchsia-100 text-fuchsia-900 font-mono text-[11px] font-semibold">Linked: Week 3 (S51–82, S91–92) • Week 4 (S07–10, S20–22)</span>
+        </div>
+        <p class="text-xs sm:text-sm font-bold text-zinc-700 mb-4 italic">
+          Prompt: “Would speech, audio cues, or other modalities help? Specify a user need and a potential drawback.”
+        </p>
+        <div class="space-y-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-sky-50/70 border border-sky-200">
+            <strong class="font-mono text-sky-900 uppercase block mb-1">(a) Observed UI Elements:</strong>
+            The entire journey across Screens 1–3 relies <span class="hl-blue font-semibold">100% on visual reading and manual touch typing</span>. There are zero icons or instructions for audio output, headphone jack support, voice input, barcode/ID card scanning, or physical ticket printing.
+          </div>
+          <div class="p-3.5 rounded-xl bg-emerald-50/70 border border-emerald-200">
+            <strong class="font-mono text-emerald-900 uppercase block mb-1">(b) HCI Reasoning (User Needs Served by Multimodal Channels):</strong>
+            Adding complementary modalities addresses critical hospital user needs:
+            <ul class="list-disc pl-5 mt-1.5 space-y-1">
+              <li><strong>Optical Barcode / QR &amp; National ID Card Scanner (Screens 1–2):</strong> Allows elderly or hurried patients to scan their National ID card or appointment slip instead of recalling and typing 4 personal fields.</li>
+              <li><strong>Auditory Click Confirmation + Private Headphone Text-to-Speech (TTS):</strong> Helps visually impaired or low-literacy patients confirm button presses and hear instructions.</li>
+              <li><strong>Physical Printed Queue Slip (Screen 3):</strong> Provides a tangible paper reminder of the clinic room, counter, and appointment time.</li>
+            </ul>
+          </div>
+          <div class="p-3.5 rounded-xl bg-purple-50/70 border border-purple-200">
+            <strong class="font-mono text-purple-900 uppercase block mb-1">(c) Potential Drawback &amp; Field Testing Need:</strong>
+            <span class="hl-pink font-semibold">Major Drawback (Privacy &amp; Noise):</span> Using open-air speech recognition or loud speaker output in a public hospital lobby breaches <strong>medical privacy/confidentiality</strong> (broadcasting patient names, IDs, and <code class="font-mono">Internal Medicine</code> appointments to strangers) and suffers high recognition error rates due to <strong>ambient lobby noise</strong>. <span class="hl-purple font-semibold">Usability Testing Need:</span> Conduct field testing in a real hospital lobby to evaluate barcode scanner reliability and acoustic privacy.
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 04: PART 2B — CONNECTING THE 5 MARKERS TO SECTION 1 (10 PTS)
+         =================================================================== -->
+    <section id="part-2b" data-toc="04. Part 2B: 5-Marker Mapping" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-sky-600">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-sky-700 text-white">SECTION 2 • PART 2B (10 POINTS)</span>
+          <span class="text-xs font-mono font-semibold text-zinc-600">• Linking Markers #1–#5 to Section 1 Questions &amp; Principles</span>
+        </div>
+        <span class="font-mono text-xs text-sky-800 font-bold">2 pts × 5 rows = 10 pts</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-2">Part B. Connect Your Five Problems to Section 1</h2>
+      <p class="text-xs sm:text-sm text-zinc-600 mb-6">
+        This table directly links each numbered annotation marker (<code class="font-mono font-bold">#1</code>–<code class="font-mono font-bold">#5</code>) from Part 2A to your Section 1 evaluation questions (<code class="font-mono">Q1</code>–<code class="font-mono">Q10</code>) and the governing HCI principles.
+      </p>
+
+      <div class="overflow-x-auto rounded-2xl border-2 border-zinc-900">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+              <th class="py-3.5 px-4 w-20 text-center">Marker</th>
+              <th class="py-3.5 px-4">Screen # / Specific Problem</th>
+              <th class="py-3.5 px-4 w-36 text-amber-300">Related Question #</th>
+              <th class="py-3.5 px-4 w-64 text-emerald-300">Relevant Principle</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+            <tr>
+              <td class="py-3.5 px-4 font-mono font-extrabold text-center text-sky-800 bg-sky-50">#1</td>
+              <td class="py-3.5 px-4">
+                <strong>Screen 1:</strong> There are 12 separate service buttons that have confusing, overlapping label terms such as <span class="hl-pink">“Appointment” vs. “Doctor”</span>, <span class="hl-pink">“Reports” vs. “Lab results”</span>, and <span class="hl-pink">“FAQ” vs. “Help?” vs. “Information”</span>.
+              </td>
+              <td class="py-3.5 px-4 font-mono font-bold text-zinc-900">Q5 &amp; Q6</td>
+              <td class="py-3.5 px-4"><span class="hl-green font-semibold">Hick’s Law &amp; Gestalt Grouping (Similarity / Proximity)</span></td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 font-mono font-extrabold text-center text-rose-800 bg-rose-50">#2</td>
+              <td class="py-3.5 px-4">
+                <strong>Screen 1:</strong> There is no clarity regarding which forward button—the <span class="hl-pink">“GO”</span> next to the mandatory Patient ID field or the <span class="hl-pink">“NEXT”</span> located at the bottom-left—relates to the 12 service buttons.
+              </td>
+              <td class="py-3.5 px-4 font-mono font-bold text-zinc-900">Q4, Q6 &amp; Q7</td>
+              <td class="py-3.5 px-4"><span class="hl-green font-semibold">Gestalt Principles (Proximity / Common Region) &amp; Signifiers</span></td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 font-mono font-extrabold text-center text-sky-800 bg-sky-50">#3</td>
+              <td class="py-3.5 px-4">
+                <strong>Screen 2:</strong> The <span class="hl-pink">redundant Patient ID input field</span> requires users to manually re-enter the ID already entered on Screen 1 (<code class="font-mono">* required</code>). Neither an on-screen keyboard nor a barcode/ID scanner is present.
+              </td>
+              <td class="py-3.5 px-4 font-mono font-bold text-zinc-900">Q1, Q3 &amp; Q9</td>
+              <td class="py-3.5 px-4"><span class="hl-green font-semibold">Memory &amp; Cognitive Load (Recognition over Recall) &amp; Interaction Styles</span></td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 font-mono font-extrabold text-center text-rose-800 bg-rose-50">#4</td>
+              <td class="py-3.5 px-4">
+                <strong>Screen 2:</strong> Contradiction between the low-contrast grey mandatory note (<span class="hl-pink">“Fields marked * are mandatory. All fields *”</span>) and the fact that <span class="hl-pink">zero input field labels display an asterisk (*) mark</span>.
+              </td>
+              <td class="py-3.5 px-4 font-mono font-bold text-zinc-900">Q2 &amp; Q7</td>
+              <td class="py-3.5 px-4"><span class="hl-green font-semibold">Affordances &amp; Signifiers &amp; Visual Perception (Contrast / Salience)</span></td>
+            </tr>
+            <tr>
+              <td class="py-3.5 px-4 font-mono font-extrabold text-center text-rose-800 bg-rose-50">#5</td>
+              <td class="py-3.5 px-4">
+                <strong>Screen 3:</strong> <span class="hl-pink">“CHANGE DETAILS”, “CONFIRM”, and “EXIT”</span> have nearly identical visual styling and are scattered across opposite corners, while the critical warning <span class="hl-pink">“No changes can be made later.”</span> is in faint grey far from <code class="font-mono">CONFIRM</code>.
+              </td>
+              <td class="py-3.5 px-4 font-mono font-bold text-zinc-900">Q2, Q4 &amp; Q6</td>
+              <td class="py-3.5 px-4"><span class="hl-green font-semibold">Visual Perception &amp; Hierarchy, Fitts’s Law &amp; Gestalt Proximity</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 05: PART 2C — HAND-DRAWN REDESIGN OF SCREEN 1 (15 PTS)
+         =================================================================== -->
+    <section id="part-2c" data-toc="05. Part 2C: Screen Redesign" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-emerald-600">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-700 text-white">SECTION 2 • PART 2C (15 POINTS)</span>
+          <span class="text-xs font-mono font-semibold text-zinc-600">• Hand-Drawn Redesign of Screen 1 + 4 Intentional Changes</span>
+        </div>
+        <span class="font-hand text-xl text-emerald-800 font-bold">Screen Chosen: Screen 1</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900">Part C. Hand-Drawn Redesign Blueprint (Screen 1)</h2>
+      <p class="text-xs sm:text-sm text-zinc-700 mt-1 mb-6">
+        <strong>Main Problems Addressed:</strong> Choice overload from 12 ungrouped service buttons (<span class="hl-green font-semibold">Hick’s Law &amp; Gestalt Principles</span>), conflicting progression buttons (<code class="font-mono">GO</code> vs. <code class="font-mono">NEXT</code>), missing clickability signifiers for language/accessibility options, and high cognitive/motor load when entering <code class="font-mono">Patient ID</code>.
+      </p>
+
+      <!-- Architectural Sketch Wireframe Reconstruction of the Student's Hand-Drawn Redesign -->
+      <div class="sketch-paper rounded-2xl p-5 sm:p-8 mb-7">
+        <div class="flex flex-wrap items-center justify-between gap-2 pb-3 mb-4 border-b-2 border-zinc-800">
+          <span class="font-mono text-xs font-extrabold uppercase text-emerald-900 bg-emerald-100 px-2.5 py-1 rounded border border-emerald-700">
+            ✏️ HAND-DRAWN REDESIGN WIREFRAME RECONSTRUCTION — SCREEN 1
+          </span>
+          <span class="font-hand text-xl text-zinc-800 font-bold">4 Marked Intentional Design Changes</span>
+        </div>
+
+        <!-- Redesigned Header Row (Change 1) -->
+        <div class="p-3.5 rounded-xl border-2 border-zinc-900 bg-white mb-5">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="font-sans font-extrabold text-lg sm:text-xl text-zinc-900 tracking-tight">
+              CITY GENERAL HOSPITAL
+            </div>
+            <div class="flex flex-wrap items-center gap-2 font-mono text-xs font-bold">
+              <span class="px-3 py-1.5 rounded border-2 border-zinc-900 bg-amber-100 text-zinc-900">[STEP 1/3]</span>
+              <div class="flex items-center gap-1">
+                <span class="px-2.5 py-1.5 rounded border-2 border-zinc-900 bg-white">[TR]</span>
+                <span class="px-2.5 py-1.5 rounded border-2 border-zinc-900 bg-emerald-200 text-zinc-900">[EN*]</span>
+                <span class="px-2.5 py-1.5 rounded border-2 border-zinc-900 bg-white">[AR]</span>
+              </div>
+              <span class="px-3 py-1.5 rounded border-2 border-zinc-900 bg-sky-100 text-zinc-900">[🔊 (?) Audio Help]</span>
+            </div>
+          </div>
+          <div class="mt-2 pt-2 border-t border-dashed border-zinc-300 flex items-center justify-between text-[11px] font-mono text-emerald-800 font-bold">
+            <span>★ CHANGE 1 (Header Consistency &amp; Accessibility): Added [STEP 1/3], boxed language buttons with active [EN*] state, and [🔊 (?) Audio Help].</span>
+          </div>
+        </div>
+
+        <!-- Step 1: 4 Categorized Service Cards (Change 2) -->
+        <div class="mb-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <div>
+              <h3 class="font-hand text-2xl sm:text-3xl font-bold text-zinc-900">WELCOME! HOW CAN WE HELP YOU TODAY?</h3>
+              <p class="font-mono text-xs sm:text-sm font-bold text-zinc-800">1. Select ONE main service category below:</p>
+            </div>
+            <span class="px-3 py-1 rounded-full bg-emerald-700 text-white font-mono text-[11px] font-bold">
+              ★ CHANGE 2: 12 Flat Buttons → 4 Categorized Cards (Hick's Law)
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Card 1 (Selected) -->
+            <div class="p-4 rounded-xl border-2 border-zinc-900 bg-emerald-50/90 shadow-[3px_3px_0px_#1E293B] flex flex-col justify-between">
+              <div>
+                <div class="flex items-center justify-between gap-2">
+                  <span class="font-mono font-extrabold text-sm sm:text-base text-zinc-900">[1] APPOINTMENT CHECK-IN</span>
+                  <span class="px-2 py-0.5 rounded bg-emerald-700 text-white font-mono text-[11px] font-bold">[✓ SELECTED]</span>
+                </div>
+                <p class="font-hand text-xl text-zinc-800 mt-1">“I have a scheduled doctor visit today”</p>
+              </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="p-4 rounded-xl border-2 border-zinc-900 bg-white shadow-[3px_3px_0px_#1E293B] flex flex-col justify-between">
+              <div>
+                <span class="font-mono font-extrabold text-sm sm:text-base text-zinc-900">[2] NEW PATIENT / WALK-IN</span>
+                <p class="font-hand text-xl text-zinc-700 mt-1">“Register or book a doctor visit”</p>
+              </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="p-4 rounded-xl border-2 border-zinc-900 bg-white shadow-[3px_3px_0px_#1E293B] flex flex-col justify-between">
+              <div>
+                <span class="font-mono font-extrabold text-sm sm:text-base text-zinc-900">[3] LAB RESULTS / REPORTS</span>
+                <p class="font-hand text-xl text-zinc-700 mt-1">“Print blood test or medical report”</p>
+              </div>
+            </div>
+
+            <!-- Card 4 -->
+            <div class="p-4 rounded-xl border-2 border-zinc-900 bg-white shadow-[3px_3px_0px_#1E293B] flex flex-col justify-between">
+              <div>
+                <span class="font-mono font-extrabold text-sm sm:text-base text-zinc-900">[4] PAYMENTS / INSURANCE</span>
+                <p class="font-hand text-xl text-zinc-700 mt-1">“Pay bills or change / cancel”</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Identify Yourself Container (Change 3) -->
+        <div class="p-4 sm:p-5 rounded-xl border-2 border-zinc-900 bg-amber-50/40 mb-5">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+            <span class="font-mono text-xs sm:text-sm font-extrabold text-zinc-900">
+              2. IDENTIFY YOURSELF (Scan ID OR Enter ID) — Gestalt Common Region Box
+            </span>
+            <span class="px-3 py-1 rounded-full bg-sky-700 text-white font-mono text-[11px] font-bold">
+              ★ CHANGE 3: Barcode/ID Scanner + Embedded Numeric Keypad
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-stretch">
+            <!-- Left Option: Scan ID / Barcode -->
+            <div class="md:col-span-5 p-4 rounded-xl border-2 border-zinc-900 bg-white flex flex-col justify-between">
+              <div>
+                <span class="font-mono font-extrabold text-sm text-sky-900 block">📷 SCAN ID / BARCODE</span>
+                <p class="font-hand text-xl text-zinc-800 mt-1.5 leading-snug">
+                  Scan National ID card or appointment slip down the kiosk scanner
+                </p>
+              </div>
+              <div class="mt-3 pt-2 border-t border-dashed border-zinc-300 font-mono text-[11px] text-emerald-800 font-bold">
+                ✔ Zero typing or memory recall required!
+              </div>
+            </div>
+
+            <!-- Right Option: Manual ID Entry + Embedded Numeric Keypad -->
+            <div class="md:col-span-7 p-4 rounded-xl border-2 border-zinc-900 bg-white space-y-3">
+              <div>
+                <label class="font-mono text-xs sm:text-sm font-extrabold text-zinc-900 block mb-1">
+                  Patient / National ID: <span class="text-rose-700">* (Required)</span>
+                </label>
+                <div class="w-full h-10 rounded border-2 border-zinc-900 bg-zinc-50 px-3 flex items-center font-mono text-sm tracking-widest text-zinc-500">
+                  _ _ _ _ _ _ _ _ _ _ _
+                </div>
+              </div>
+
+              <!-- 2-Row Embedded Numeric Keypad (1-5 DEL / 6-0 CLR) -->
+              <div class="grid grid-cols-6 gap-1.5 font-mono text-xs sm:text-sm font-bold text-center">
+                <div class="py-2 rounded border-2 border-zinc-900 bg-zinc-100">1</div>
+                <div class="py-2 rounded border-2 border-zinc-900 bg-zinc-100">2</div>
+                <div class="py-2 rounded border-2 border-zinc-900 bg-zinc-100">3</div>
+                <div class="py-2 rounded border-2 border-zinc-900 bg-zinc-100">4</div>
+                <div class="py-2 rounded border-2 border-zinc-900 bg-zinc-100">5</div>
+                <div class="py-2 rounded border-2 border-zinc-900 bg-rose-100 text-rose-900">DEL</div>
+
+                <div class="py-2 rounded border-2 border-zinc-900 bg-zinc-100">6</div>
+                <div class="py-2 rounded border-2 border-zinc-900 bg-zinc-100">7</div>
+                <div class="py-2 rounded border-2 border-zinc-900 bg-zinc-100">8</div>
+                <div class="py-2 rounded border-2 border-zinc-900 bg-zinc-100">9</div>
+                <div class="py-2 rounded border-2 border-zinc-900 bg-zinc-100">0</div>
+                <div class="py-2 rounded border-2 border-zinc-900 bg-amber-100 text-amber-900">CLR</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Explicit Consent Checkbox -->
+        <div class="mb-5 flex items-center gap-2.5 px-2">
+          <span class="w-5 h-5 rounded border-2 border-zinc-900 bg-white inline-flex items-center justify-center font-mono text-xs font-bold">✓</span>
+          <span class="font-hand text-xl text-zinc-900 font-bold">
+            By continuing, you agree to hospital data verification
+          </span>
+        </div>
+
+        <!-- Bottom Action Bar (Change 4) -->
+        <div class="pt-4 border-t-2 border-zinc-900 flex flex-wrap items-center justify-between gap-4">
+          <div class="px-5 py-3 rounded-xl border-2 border-zinc-900 bg-amber-100 font-mono text-xs sm:text-sm font-extrabold text-zinc-900 shadow-[3px_3px_0px_#1E293B]">
+            [?] CALL STAFF
+          </div>
+
+          <span class="px-3 py-1 rounded-full bg-purple-700 text-white font-mono text-[11px] font-bold">
+            ★ CHANGE 4: Removed GO vs. NEXT conflict → Single Bottom-Right Action
+          </span>
+
+          <div class="px-7 py-3 rounded-xl border-2 border-zinc-900 bg-emerald-600 text-white font-mono text-xs sm:text-sm font-extrabold shadow-[3px_3px_0px_#1E293B]">
+            CONTINUE TO STEP 2 →
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary of the 4 Annotated Changes in Part 2C -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+        <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+          <span class="font-mono text-xs font-extrabold text-emerald-800 uppercase block mb-1">Change 1 • Header Consistency &amp; Accessibility</span>
+          Added <span class="hl-green font-semibold">“STEP 1 / 3”</span> to match Screens 2 and 3, enclosed <span class="hl-green font-semibold">[TR] [EN*] [AR]</span> in large bordered button boxes with an active selection indicator, and added an <span class="hl-green font-semibold">[🔊 (?) Audio Help]</span> button.
+        </div>
+        <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+          <span class="font-mono text-xs font-extrabold text-emerald-800 uppercase block mb-1">Change 2 • Hick’s Law &amp; Gestalt Categorization</span>
+          Condensed the 12 ungrouped buttons into <span class="hl-green font-semibold">4 major self-explanatory category cards</span> (<code class="font-mono">Appointment Check-In</code>, <code class="font-mono">New Patient / Walk-In</code>, <code class="font-mono">Lab Results / Reports</code>, <code class="font-mono">Payments / Insurance</code>) with descriptive subtitles and a visible <code class="font-mono">[SELECTED]</code> state.
+        </div>
+        <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+          <span class="font-mono text-xs font-extrabold text-emerald-800 uppercase block mb-1">Change 3 • Recognition &gt; Recall &amp; Multimodal Input</span>
+          Created a clear <span class="hl-green font-semibold">“2. Identify Yourself”</span> container offering either <span class="hl-green font-semibold">“Scan ID / Barcode”</span> (zero typing/recall) OR manual entry into <code class="font-mono">Patient / National ID: * (Required)</code> using an <strong>embedded large numeric keypad (0–9, DEL, CLR)</strong>.
+        </div>
+        <div class="p-4 rounded-xl bg-zinc-50 border border-zinc-200">
+          <span class="font-mono text-xs font-extrabold text-emerald-800 uppercase block mb-1">Change 4 • Signifiers &amp; Action Hierarchy</span>
+          Eliminated the competing <code class="font-mono">GO</code> and <code class="font-mono">NEXT</code> buttons in favor of one primary bottom-right button (<span class="hl-green font-semibold">“CONTINUE TO STEP 2”</span>—aligning with <code class="font-mono">SUBMIT</code> and <code class="font-mono">CONFIRM</code> on Screens 2–3) plus a bottom-left <span class="hl-green font-semibold">“[?] CALL STAFF”</span> button.
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 06: PART 2D — JUSTIFY REDESIGN CHOICES TABLE (10 PTS)
+         =================================================================== -->
+    <section id="part-2d" data-toc="06. Part 2D: 3 Principles" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-purple-600">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-purple-700 text-white">SECTION 2 • PART 2D (10 POINTS)</span>
+          <span class="text-xs font-mono font-semibold text-zinc-600">• Engineering Justification with ≥3 HCI Principles</span>
+        </div>
+        <span class="font-mono text-xs text-purple-800 font-bold">Change → Principle → Benefit</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-2">Part D. Justify Redesign Choices</h2>
+      <p class="text-xs sm:text-sm text-zinc-600 mb-6">
+        On the midterm exam, every visual change in your sketch must be defended using this 3-column engineering argument: <strong>What Changed → Which HCI Principle Supports It → How Users Benefit</strong>.
+      </p>
+
+      <div class="overflow-x-auto rounded-2xl border-2 border-zinc-900">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+              <th class="py-3.5 px-4 w-1/3">Change in Your Drawing</th>
+              <th class="py-3.5 px-4 w-1/4 text-amber-300">HCI Principle</th>
+              <th class="py-3.5 px-4 text-emerald-300">Expected Benefit</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-200 text-xs sm:text-sm bg-white">
+            <tr>
+              <td class="py-4 px-4 font-medium text-zinc-900">
+                <strong>1. Service Categorization &amp; Active State:</strong> Condensed 12 isolated service buttons into 4 major category cards (<code class="font-mono">Appointment Check-In</code>, <code class="font-mono">New Patient/Walk-In</code>, <code class="font-mono">Lab Results/Reports</code>, <code class="font-mono">Payments/Insurance</code>), each with explanatory subtitles and a visible <span class="hl-blue font-semibold">[SELECTED]</span> highlight badge.
+              </td>
+              <td class="py-4 px-4">
+                <span class="hl-green font-semibold">Hick’s Law, Gestalt Laws (Proximity, Similarity, Common Region), Feedback (Visibility of System Status)</span>
+              </td>
+              <td class="py-4 px-4 text-zinc-800">
+                Accelerates decision-making speed by letting users choose among <strong>4 clear macro-categories instead of scanning 12 overlapping labels</strong>. Subtitles clarify ambiguous pairs (<code class="font-mono">Lab results &amp; reports</code>), and the <code class="font-mono">[SELECTED]</code> badge gives immediate visual confirmation of the chosen card.
+              </td>
+            </tr>
+            <tr>
+              <td class="py-4 px-4 font-medium text-zinc-900">
+                <strong>2. Unified Navigation &amp; Header Signifiers:</strong> Removed the competing <code class="font-mono">GO</code> and bottom-left <code class="font-mono">NEXT</code> buttons, replacing them with a single bottom-right <span class="hl-blue font-semibold">“CONTINUE TO STEP 2”</span> button, a bottom-left <span class="hl-blue font-semibold">“[?] CALL STAFF”</span> button, and boxed <span class="hl-blue font-semibold">[TR][EN*][AR] + [STEP 1/3]</span> header controls.
+              </td>
+              <td class="py-4 px-4">
+                <span class="hl-green font-semibold">Fitts’s Law, Affordances &amp; Signifiers, Consistency Across Screens (Nielsen H#4 / Shneiderman R#1)</span>
+              </td>
+              <td class="py-4 px-4 text-zinc-800">
+                Eliminates decision confusion between <code class="font-mono">GO</code> and <code class="font-mono">NEXT</code>. Placing the primary forward action consistently at the <strong>bottom-right across all three screens</strong> (<code class="font-mono">CONTINUE</code> → <code class="font-mono">SUBMIT</code> → <code class="font-mono">CONFIRM</code>) preserves spatial muscle memory and reduces hand travel ($D$). Boxed language buttons increase target width ($W$) and clickability signifiers.
+              </td>
+            </tr>
+            <tr>
+              <td class="py-4 px-4 font-medium text-zinc-900">
+                <strong>3. Multimodal Scanner &amp; Embedded Numeric Keypad:</strong> Added a <span class="hl-blue font-semibold">“Scan ID / Barcode”</span> option alongside an on-screen numeric keypad (<code class="font-mono">0–9, DEL, CLR</code>) directly below the <span class="hl-blue font-semibold">“Patient / National ID: * (Required)”</span> input field.
+              </td>
+              <td class="py-4 px-4">
+                <span class="hl-green font-semibold">Memory &amp; Cognitive Load (Recognition &gt; Recall), Multimodal Interaction, Human-Centered Design</span>
+              </td>
+              <td class="py-4 px-4 text-zinc-800">
+                Allows seniors, first-time visitors, and hurried patients to identify themselves automatically by scanning a <strong>National ID card or appointment barcode</strong> without recalling a hospital ID. For users who type, the large numeric keypad prevents mode errors and minimizes typing slips.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 07: PART 2E — EVALUATE THE TRADE-OFF (5 PTS)
+         =================================================================== -->
+    <section id="part-2e" data-toc="07. Part 2E: Trade-Off Analysis" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-amber-500">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-600 text-white">SECTION 2 • PART 2E (5 POINTS)</span>
+          <span class="text-xs font-mono font-semibold text-zinc-600">• Before/After Comparison &amp; Remaining Usability Trade-Off</span>
+        </div>
+        <span class="font-hand text-xl text-amber-800 font-bold">Every design choice has a trade-off!</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-2">Part E. Evaluate the Trade-Off (Before vs. After)</h2>
+      <p class="text-xs sm:text-sm text-zinc-600 mb-6">
+        Compare the original and redesigned Screen 1: what improved, and what usability limitation, uncertainty, or engineering trade-off remains?
+      </p>
+
+      <!-- Side-by-Side Before vs. After Comparison Table -->
+      <div class="overflow-x-auto rounded-2xl border-2 border-zinc-900 mb-6">
+        <table class="w-full text-left border-collapse text-xs sm:text-sm">
+          <thead>
+            <tr class="bg-zinc-900 text-white font-mono text-xs uppercase">
+              <th class="py-3 px-4 w-44">Dimension</th>
+              <th class="py-3 px-4 text-rose-300">Original Screen 1 (Before)</th>
+              <th class="py-3 px-4 text-emerald-300">Redesigned Screen 1 (After)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-200 bg-white">
+            <tr>
+              <td class="py-3 px-4 font-bold text-zinc-900 bg-zinc-50">Service Selection</td>
+              <td class="py-3 px-4"><span class="hl-pink">12 flat, ungrouped buttons</span> with ambiguous labels and no selected state.</td>
+              <td class="py-3 px-4"><span class="hl-green">4 grouped category cards</span> with clear subtitles and <code class="font-mono">[✓ SELECTED]</code> feedback.</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-zinc-900 bg-zinc-50">Header &amp; Language</td>
+              <td class="py-3 px-4">Tiny borderless <code class="font-mono">TR EN AR</code> text; <span class="hl-pink">missing STEP 1/3</span>; no audio help.</td>
+              <td class="py-3 px-4">Boxed <code class="font-mono">[TR][EN*][AR]</code> buttons, <span class="hl-green">[STEP 1/3] indicator</span>, and <code class="font-mono">[Audio Help]</code> button.</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-zinc-900 bg-zinc-50">Patient Identification</td>
+              <td class="py-3 px-4">Manual recall of <code class="font-mono">Patient ID</code> with <span class="hl-pink">no visible keyboard or scanner</span>.</td>
+              <td class="py-3 px-4"><span class="hl-green">Scan ID / Barcode box</span> OR type on <span class="hl-green">embedded 0–9 numeric keypad</span>.</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-4 font-bold text-zinc-900 bg-zinc-50">Progression &amp; Help</td>
+              <td class="py-3 px-4"><span class="hl-pink">Competing GO vs. bottom-left NEXT</span>; passive text footer if operation fails.</td>
+              <td class="py-3 px-4">Single bottom-right <span class="hl-green">CONTINUE TO STEP 2</span> + bottom-left <span class="hl-green">[?] CALL STAFF</span>.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- The Two Remaining Engineering Trade-Offs -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div class="p-5 rounded-2xl bg-purple-50 border-2 border-purple-300">
+          <span class="font-mono text-xs font-extrabold uppercase text-purple-900 block mb-1">
+            ⚖️ TRADE-OFF 1 • PROGRESSIVE DISCLOSURE vs. INTERACTION DEPTH
+          </span>
+          <h3 class="text-base sm:text-lg font-extrabold text-zinc-900 mb-1.5">Fewer Initial Choices vs. One Extra Sub-Step Tap</h3>
+          <p class="text-xs sm:text-sm text-zinc-800 leading-relaxed">
+            Collapsing 12 flat buttons into 4 macro-categories (<span class="hl-green font-semibold">Progressive Disclosure</span>) drastically reduces initial choice paralysis on Screen 1 under <strong>Hick’s Law</strong>. However, the <span class="hl-purple font-semibold">trade-off is increased interaction depth</span>: a user who wants a specific secondary sub-action (e.g., choosing specifically between <em>“Pay bills”</em> vs. <em>“Change / Cancel”</em>) must now perform <strong>one additional sub-selection tap on the next screen</strong> instead of tapping it directly on Screen 1.
+          </p>
+        </div>
+
+        <div class="p-5 rounded-2xl bg-amber-50 border-2 border-amber-300">
+          <span class="font-mono text-xs font-extrabold uppercase text-amber-900 block mb-1">
+            ⚖️ TRADE-OFF 2 • SELF-CONTAINED INPUT vs. VISUAL SCREEN DENSITY
+          </span>
+          <h3 class="text-base sm:text-lg font-extrabold text-zinc-900 mb-1.5">Always-Visible Keypad &amp; Scanner vs. Higher Screen Density</h3>
+          <p class="text-xs sm:text-sm text-zinc-800 leading-relaxed">
+            Displaying both the <code class="font-mono">Scan ID / Barcode</code> instructions and the embedded <code class="font-mono">0–9</code> numeric keypad directly on Screen 1 eliminates hidden affordances and popup surprises. However, the <span class="hl-purple font-semibold">trade-off is higher visual density on Screen 1</span>, leaving less whitespace than a multi-page wizard that splits service selection and identification onto separate screens.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 08: MIDTERM MASTER CHEAT-SHEET (APPLYING Q1–Q10 TO ANY UI)
+         =================================================================== -->
+    <section id="cheat-sheet" data-toc="08. Midterm 10-Lens Matrix" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-zinc-900 border-b-4 border-b-zinc-900">
+      <div class="flex flex-wrap items-center justify-between gap-2 mb-5">
+        <div class="flex items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-amber-300">MIDTERM EXAM MASTER CHEAT-SHEET</span>
+          <span class="text-xs font-mono font-semibold text-zinc-600">• How to Answer Q1–Q10 on ANY Exam Interface</span>
+        </div>
+        <span class="font-hand text-xl text-rose-800 font-bold">★ Final Exam Prep Matrix</span>
+      </div>
+
+      <h2 class="text-2xl sm:text-3xl font-extrabold text-zinc-900 mb-2">Universal 10-Lens Midterm Diagnostic Matrix</h2>
+      <p class="text-xs sm:text-sm text-zinc-600 mb-6">
+        Since your instructor stated the midterm exam will closely mirror this homework, use this lookup table during the exam to immediately spot flaws, cite the exact Weeks 1–6 concept, and propose the right usability test for any 3-screen mockup.
+      </p>
+
+      <div class="overflow-x-auto rounded-2xl border-2 border-zinc-900">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-zinc-900 text-white font-mono uppercase">
+              <th class="py-3 px-3">Midterm Lens</th>
+              <th class="py-3 px-3 text-sky-300">(a) What to Spot in the Static Mockup</th>
+              <th class="py-3 px-3 text-emerald-300">(b) Weeks 1–6 Concept / Formula to Cite</th>
+              <th class="py-3 px-3 text-purple-300">(c) What to Verify in Usability Testing</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-zinc-200 bg-white">
+            <tr>
+              <td class="py-3 px-3 font-bold text-zinc-900 bg-zinc-50">Q1. Human-Centered Design</td>
+              <td class="py-3 px-3">Missing language switch on later screens, tiny grey text, no help/staff button, forced manual ID entry.</td>
+              <td class="py-3 px-3"><span class="hl-green">HCD (ISO 9241-210)</span>: Match physical/cognitive limits (presbyopia, tremors, stress, low tech literacy).</td>
+              <td class="py-3 px-3">Task completion rate with seniors/novices &amp; standing-posture readability.</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-bold text-zinc-900 bg-zinc-50">Q2. Visual Perception</td>
+              <td class="py-3 px-3">Low-contrast grey warnings in periphery, identical button colors for primary vs. secondary/exit actions.</td>
+              <td class="py-3 px-3"><span class="hl-green">2° Foveal vs. Peripheral Vision, Pre-Attentive Pop, Figure-Ground, Inattentional Blindness</span>.</td>
+              <td class="py-3 px-3">Eye-tracking fixation on warnings &amp; legibility under ambient lobby glare.</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-bold text-zinc-900 bg-zinc-50">Q3. Memory &amp; Load</td>
+              <td class="py-3 px-3">Asking for the same ID twice across screens, unmemorizable codes, missing summary of prior step choice.</td>
+              <td class="py-3 px-3"><span class="hl-green">Recognition Rather Than Recall (H#6), Working Memory (4±1 chunks), Externalized State (R#8)</span>.</td>
+              <td class="py-3 px-3">Whether users know their ID unaided &amp; whether fields auto-populate across steps.</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-bold text-zinc-900 bg-zinc-50">Q4. Fitts’s Law</td>
+              <td class="py-3 px-3">Tiny packed links (<code class="font-mono">TR EN AR</code>), small buttons (<code class="font-mono">GO</code>), primary button flipping from left (S1) to right (S2/S3).</td>
+              <td class="py-3 px-3"><span class="hl-green">$T = a + b \log_2(2D/W)$</span>, <span class="hl-yellow">9–10 mm minimum touch target</span>, Fat Finger problem.</td>
+              <td class="py-3 px-3">Physical target size in mm on real hardware, mis-tap error rate, movement time.</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-bold text-zinc-900 bg-zinc-50">Q5. Hick’s Law</td>
+              <td class="py-3 px-3">Large flat grid of ungrouped options (12 buttons), overlapping labels (<code class="font-mono">Doctor</code> vs <code class="font-mono">Appointment</code>), <code class="font-mono">GO</code> vs <code class="font-mono">NEXT</code>.</td>
+              <td class="py-3 px-3"><span class="hl-green">$RT = a + b \log_2(n+1)$</span>; uncategorized options force slow linear scanning &amp; choice paralysis.</td>
+              <td class="py-3 px-3">Time-to-first-click &amp; category selection accuracy across task scenarios.</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-bold text-zinc-900 bg-zinc-50">Q6. Gestalt Principles</td>
+              <td class="py-3 px-3">Unrelated buttons styled identically; warning text placed far away from the <code class="font-mono">CONFIRM</code> button it modifies.</td>
+              <td class="py-3 px-3"><span class="hl-green">Proximity, Similarity, Common Region</span> (distance dictates relationship; shared style implies same role).</td>
+              <td class="py-3 px-3">Card sorting with users for category grouping &amp; slip rate between <code class="font-mono">EXIT</code> / <code class="font-mono">CHANGE</code>.</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-bold text-zinc-900 bg-zinc-50">Q7. Affordances &amp; Signifiers</td>
+              <td class="py-3 px-3">Borderless clickable text, missing underlines, note saying “fields marked *” when labels have no <code class="font-mono">*</code>, missing input masks.</td>
+              <td class="py-3 px-3"><span class="hl-green">Affordance (possible action) vs. Signifier (perceivable visual cue: border, shadow, *, format mask)</span>.</td>
+              <td class="py-3 px-3">Whether users discover unbordered links &amp; whether tapping inputs shows focus + keyboard.</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-bold text-zinc-900 bg-zinc-50">Q8. Feedback &amp; Visibility</td>
+              <td class="py-3 px-3">Missing <code class="font-mono">STEP 1/3</code>, no selected button highlight, vague static error footer, missing room/counter # on summary.</td>
+              <td class="py-3 px-3"><span class="hl-green">Visibility of System Status (H#1), 0.1s / 1.0s / 10.0s time constants, Dialog Closure (R#4)</span>.</td>
+              <td class="py-3 px-3">Dynamic button press state (&lt;100ms), inline validation errors, SMS OTP flow, post-confirm screen.</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-bold text-zinc-900 bg-zinc-50">Q9. Interaction Styles</td>
+              <td class="py-3 px-3">Touch buttons (Screens 1 &amp; 3) vs. multi-field text entry (Screen 2) with no visible virtual keyboard.</td>
+              <td class="py-3 px-3"><span class="hl-green">Direct Manipulation (fast menu selection) vs. Form Fill-In on Soft Keyboard (no tactile edges, 40% occlusion, Gorilla Arm)</span>.</td>
+              <td class="py-3 px-3">Typing speed/errors on vertical kiosk &amp; auto-switching between Numeric Keypad vs. QWERTY.</td>
+            </tr>
+            <tr>
+              <td class="py-3 px-3 font-bold text-zinc-900 bg-zinc-50">Q10. Multimodal</td>
+              <td class="py-3 px-3">100% visual/manual-typing interface; no barcode/ID scanner, audio jack, or ticket printer.</td>
+              <td class="py-3 px-3"><span class="hl-green">Multimodal Redundancy &amp; Curb-Cut Effect</span> vs. <span class="hl-pink">Public Voice UI Privacy Breach &amp; Ambient Noise Failure</span>.</td>
+              <td class="py-3 px-3">Field-testing barcode scanner accuracy and acoustic privacy in a noisy lobby.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>

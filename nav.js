@@ -43,7 +43,7 @@
     { num: 'W5', title: 'Week 5: Interaction Principles & Heuristics', file: 'hci_week_5_study_notes.html', slides: '49 Slides' },
     { num: 'W6', title: 'Week 6: UCD, Requirements & Personas', file: 'hci_week_6_study_notes.html', slides: '49 Slides' },
     { num: 'W7', title: 'Week 7: Prototyping & Wireframing', file: '#', slides: 'Upcoming', planned: true },
-    { num: 'W8', title: 'Week 8: Midterm Examination Prep', file: '#', slides: 'Review Hub', planned: true },
+    { num: 'W8', title: 'Week 8: Midterm Exam & Kiosk Guide', file: 'hci_midterm_homework_study_guide.html', slides: '100 Pts Master Guide' },
     { num: 'W9', title: 'Week 9: High-Fi Prototypes & Design Systems', file: '#', slides: 'Upcoming', planned: true },
     { num: 'W10', title: 'Week 10: Heuristic Evaluation & Walkthroughs', file: '#', slides: 'Upcoming', planned: true },
     { num: 'W11', title: 'Week 11: Usability Testing & Metrics (SUS)', file: '#', slides: 'Upcoming', planned: true },
@@ -391,6 +391,54 @@
     html.dark .bg-\[\#FDFBF7\],
     html.dark .bg-\[\#FBF9F5\] {
       background-color: #151518 !important;
+    }
+    html.dark .bg-slate-900 {
+      background-color: #141419 !important;
+      border-color: #27272A !important;
+    }
+    html.dark .bg-slate-950 {
+      background-color: #0E0E12 !important;
+    }
+
+    /* Hand-Drawn Sketch Wireframe Blueprint in Dark Mode */
+    html.dark .sketch-paper {
+      background-color: #111115 !important;
+      background-image: radial-gradient(#334155 1px, transparent 1px) !important;
+      border-color: #475569 !important;
+      box-shadow: 6px 6px 0px #334155 !important;
+    }
+    html.dark .sketch-paper .border-zinc-900,
+    html.dark .sketch-paper .border-2 {
+      border-color: #475569 !important;
+    }
+
+    /* Physical Kiosk Hardware & Simulated Touchscreen Legibility Preservation */
+    html.dark [class*="bg-[#F7F7F5]"] {
+      background-color: #F7F7F5 !important;
+      color: #18181B !important;
+    }
+    html.dark [class*="bg-[#F7F7F5]"] .text-zinc-900,
+    html.dark [class*="bg-[#F7F7F5]"] .text-zinc-800,
+    html.dark [class*="bg-[#F7F7F5]"] .text-zinc-700,
+    html.dark [class*="bg-[#F7F7F5]"] .text-\[\#2A3342\],
+    html.dark [class*="bg-[#F7F7F5]"] label,
+    html.dark [class*="bg-[#F7F7F5]"] p,
+    html.dark [class*="bg-[#F7F7F5]"] h3,
+    html.dark [class*="bg-[#F7F7F5]"] div:not([class*="bg-sky-500"]):not([class*="bg-red-600"]):not([class*="bg-amber-300"]),
+    html.dark [class*="bg-[#F7F7F5]"] span:not([class*="bg-"]):not([class*="hl-"]) {
+      color: #18181B !important;
+    }
+    html.dark [class*="bg-[#F7F7F5]"] .bg-white {
+      background-color: #FFFFFF !important;
+      color: #18181B !important;
+    }
+    html.dark [class*="bg-[#BACAD2]"],
+    html.dark [class*="bg-[#B8BEC6]"],
+    html.dark [class*="bg-[#9EB1C2]"],
+    html.dark [class*="bg-[#CED2D6]"],
+    html.dark [class*="bg-[#AEB8C4]"],
+    html.dark [class*="bg-[#D7DADC]"] {
+      color: #18181B !important;
     }
 
     /* =========================================================================
@@ -1245,30 +1293,43 @@
     const tocContainer = document.getElementById('hci-inpage-toc');
     if (!tocContainer) return;
 
-    // Scan for section elements or headings with IDs
-    const sections = Array.from(document.querySelectorAll('div[id^="sec-"], section[id^="sec-"], div[id^="slide-"], section[id^="slide-"]'));
+    // Scan for section elements or containers with IDs inside <main> and across the page
+    let rawSections = Array.from(document.querySelectorAll('main > section[id], main > div[id], div[id^="sec-"], section[id^="sec-"], div[id^="slide-"], section[id^="slide-"]'));
+    // Filter duplicates while preserving document order
+    const seenIds = new Set();
+    const sections = rawSections.filter(sec => {
+      const id = sec.getAttribute('id');
+      if (!id || seenIds.has(id)) return false;
+      seenIds.add(id);
+      return true;
+    });
     if (sections.length === 0) return;
 
     sections.forEach((sec) => {
       const id = sec.getAttribute('id');
       if (!id) return;
 
-      // Extract title from slide badge or heading
+      // Extract title from data-toc, slide badge, or heading
       let label = '';
+      const customTitle = sec.getAttribute('data-toc') || sec.getAttribute('data-title');
       const badge = sec.querySelector('.font-mono, [class*="font-mono"]');
       const heading = sec.querySelector('h1, h2, h3');
 
-      if (badge && heading) {
+      if (customTitle) {
+        label = customTitle;
+      } else if (badge && /^SLIDE\s+\d+/i.test(badge.textContent.trim()) && heading) {
         label = badge.textContent.trim().replace(/\s+/g, ' ') + ' ' + heading.textContent.trim().replace(/\s+/g, ' ');
       } else if (heading) {
         label = heading.textContent.trim().replace(/\s+/g, ' ');
+      } else if (badge) {
+        label = badge.textContent.trim().replace(/\s+/g, ' ');
       } else {
-        label = id.replace('sec-', '').replace('slide-', 'Slide ');
+        label = id.replace(/^sec-/, '').replace(/^slide-/, 'Slide ');
       }
 
       // Truncate long labels for sidebar
-      if (label.length > 32) {
-        label = label.substring(0, 30) + '...';
+      if (label.length > 34) {
+        label = label.substring(0, 32) + '...';
       }
 
       const a = document.createElement('a');
