@@ -42,7 +42,7 @@
     { num: 'W4', title: 'Week 4: Next-Gen & Disappearing Screen', file: 'hci_week_4_study_notes.html', slides: '32 Slides' },
     { num: 'W5', title: 'Week 5: Interaction Principles & Heuristics', file: 'hci_week_5_study_notes.html', slides: '49 Slides' },
     { num: 'W6', title: 'Week 6: UCD, Requirements & Personas', file: 'hci_week_6_study_notes.html', slides: '49 Slides' },
-    { num: 'MID', title: 'Midterm Prep: Hospital Kiosk Guide', file: 'hci_midterm_homework_study_guide.html', slides: '100 Pts Master Guide' },
+    { num: 'PREP', title: 'Midterm Prep: Hospital Kiosk Guide', file: 'hci_midterm_homework_study_guide.html', slides: '100 Pts Master Guide', isMidterm: true },
     { num: 'W7', title: 'Week 7: Prototyping & Wireframing', file: '#', slides: 'Upcoming', planned: true },
     { num: 'W8', title: 'Week 8: High-Fi Prototypes & Design Systems', file: '#', slides: 'Upcoming', planned: true },
     { num: 'W9', title: 'Week 9: Heuristic Evaluation & Walkthroughs', file: '#', slides: 'Upcoming', planned: true },
@@ -317,7 +317,11 @@
     /* =========================================================================
        COMPLETE, FLAWLESS DARK MODE SYSTEM (html.dark)
        ========================================================================= */
-    html.dark, html.dark body {
+    html.dark,
+    html.dark body,
+    html.dark body[class],
+    html.dark body.hci-sidebar-open,
+    html.dark body.hci-sidebar-closed {
       background-color: #121215 !important;
       color: #E4E4E7 !important;
       background-image: 
@@ -541,9 +545,9 @@
        SEMANTIC TINTED BOXES & BADGES (Pastels -> Translucent Luminous Dark)
        ========================================================================= */
     /* Emerald / Green (Cures, Redesigns, ISO Standards) */
-    html.dark [class*="bg-emerald-50"],
-    html.dark [class*="bg-emerald-100"],
-    html.dark [class*="bg-emerald-200"] {
+    html.dark :not(body)[class*="bg-emerald-50"],
+    html.dark :not(body)[class*="bg-emerald-100"],
+    html.dark :not(body)[class*="bg-emerald-200"] {
       background-color: rgba(6, 78, 59, 0.3) !important;
       border-color: rgba(16, 185, 129, 0.4) !important;
     }
@@ -554,10 +558,10 @@
     }
 
     /* Sky / Blue (Principles, Models, Interaction Paradigms) */
-    html.dark [class*="bg-sky-50"],
-    html.dark [class*="bg-sky-100"],
-    html.dark [class*="bg-sky-200"],
-    html.dark [class*="bg-blue-50"] {
+    html.dark :not(body)[class*="bg-sky-50"],
+    html.dark :not(body)[class*="bg-sky-100"],
+    html.dark :not(body)[class*="bg-sky-200"],
+    html.dark :not(body)[class*="bg-blue-50"] {
       background-color: rgba(12, 74, 110, 0.3) !important;
       border-color: rgba(14, 165, 233, 0.4) !important;
     }
@@ -570,9 +574,9 @@
     }
 
     /* Rose / Red (Errors, Slips, Mistakes, Anti-Patterns) */
-    html.dark [class*="bg-rose-50"],
-    html.dark [class*="bg-rose-100"],
-    html.dark [class*="bg-rose-200"] {
+    html.dark :not(body)[class*="bg-rose-50"],
+    html.dark :not(body)[class*="bg-rose-100"],
+    html.dark :not(body)[class*="bg-rose-200"] {
       background-color: rgba(136, 19, 55, 0.3) !important;
       border-color: rgba(244, 63, 94, 0.4) !important;
     }
@@ -583,11 +587,11 @@
     }
 
     /* Amber / Yellow / Orange (Definitions, Formulas, Warnings) */
-    html.dark [class*="bg-amber-50"],
-    html.dark [class*="bg-amber-100"],
-    html.dark [class*="bg-amber-200"],
-    html.dark [class*="bg-yellow-200"],
-    html.dark [class*="bg-orange-50"] {
+    html.dark :not(body)[class*="bg-amber-50"],
+    html.dark :not(body)[class*="bg-amber-100"],
+    html.dark :not(body)[class*="bg-amber-200"],
+    html.dark :not(body)[class*="bg-yellow-200"],
+    html.dark :not(body)[class*="bg-orange-50"] {
       background-color: rgba(120, 53, 15, 0.3) !important;
       border-color: rgba(245, 158, 11, 0.4) !important;
     }
@@ -599,9 +603,9 @@
     }
 
     /* Purple (Case Studies, Frameworks, History) */
-    html.dark [class*="bg-purple-50"],
-    html.dark [class*="bg-purple-100"],
-    html.dark [class*="bg-purple-200"] {
+    html.dark :not(body)[class*="bg-purple-50"],
+    html.dark :not(body)[class*="bg-purple-100"],
+    html.dark :not(body)[class*="bg-purple-200"] {
       background-color: rgba(88, 28, 135, 0.3) !important;
       border-color: rgba(168, 85, 247, 0.4) !important;
     }
@@ -612,8 +616,8 @@
     }
 
     /* Indigo */
-    html.dark [class*="bg-indigo-50"],
-    html.dark [class*="bg-indigo-100"] {
+    html.dark :not(body)[class*="bg-indigo-50"],
+    html.dark :not(body)[class*="bg-indigo-100"] {
       background-color: rgba(49, 46, 129, 0.3) !important;
       border-color: rgba(99, 102, 241, 0.4) !important;
     }
@@ -870,6 +874,211 @@
       color: #18181B !important;
       border-color: #F59E0B !important;
     }
+    /* =========================================================================
+       COMPREHENSIVE DARK MODE ENHANCEMENTS (Index, W1, W5, W6, Midterm, Nav)
+       ========================================================================= */
+
+    /* Close Button & Theme Box in Nav Bar */
+    html.dark #hci-close-btn:hover {
+      background-color: #272732 !important;
+      color: #F4F4F5 !important;
+    }
+    html.dark .hci-theme-box {
+      background-color: #121215 !important;
+      border-color: #24242A !important;
+    }
+    html.dark #hci-theme-mode-title {
+      color: #F4F4F5 !important;
+    }
+    html.dark #hci-theme-icon-slot {
+      background-color: #272732 !important;
+      color: #FDE047 !important;
+    }
+    html.dark kbd,
+    html.dark #hci-sidebar kbd {
+      background-color: #24242B !important;
+      color: #E4E4E7 !important;
+      border: 1px solid #3F3F46 !important;
+    }
+
+    /* Highlighter Legend Swatches in Sidebar: Vivid Glowing Indicators */
+    html.dark #hci-sidebar .bg-yellow-200 {
+      background-color: #FACC15 !important;
+      border-color: #EAB308 !important;
+      box-shadow: 0 0 6px rgba(250, 204, 21, 0.45) !important;
+    }
+    html.dark #hci-sidebar .bg-sky-200 {
+      background-color: #38BDF8 !important;
+      border-color: #0284C7 !important;
+      box-shadow: 0 0 6px rgba(56, 189, 248, 0.45) !important;
+    }
+    html.dark #hci-sidebar .bg-green-200 {
+      background-color: #4ADE80 !important;
+      border-color: #16A34A !important;
+      box-shadow: 0 0 6px rgba(74, 222, 128, 0.45) !important;
+    }
+    html.dark #hci-sidebar .bg-rose-200 {
+      background-color: #FB7185 !important;
+      border-color: #E11D48 !important;
+      box-shadow: 0 0 6px rgba(251, 113, 133, 0.45) !important;
+    }
+    html.dark #hci-sidebar .bg-purple-200 {
+      background-color: #C084FC !important;
+      border-color: #9333EA !important;
+      box-shadow: 0 0 6px rgba(192, 132, 252, 0.45) !important;
+    }
+
+    /* Search & Filter Buttons Hover in Index */
+    html.dark #hci-search-input {
+      color: #F4F4F5 !important;
+    }
+    html.dark button.bg-zinc-100:hover {
+      background-color: #2F2F3A !important;
+      color: #FFFFFF !important;
+      border-color: #4B5563 !important;
+    }
+
+    /* Table Thead & Header Color Preservations */
+    html.dark table thead tr.bg-zinc-900,
+    html.dark table thead tr {
+      background-color: #1A1A22 !important;
+      border-bottom: 2px solid #3F3F46 !important;
+    }
+    html.dark table thead th {
+      background-color: #1A1A22 !important;
+      border-color: #3F3F46 !important;
+    }
+    html.dark table thead th:not([class*="text-"]) {
+      color: #F4F4F5 !important;
+    }
+    html.dark table thead th.text-rose-300 {
+      color: #FDA4AF !important;
+    }
+    html.dark table thead th.text-sky-300 {
+      color: #7DD3FC !important;
+    }
+    html.dark table thead th.text-emerald-300 {
+      color: #6EE7B7 !important;
+    }
+    html.dark table thead th.text-purple-300 {
+      color: #D8B4FE !important;
+    }
+    html.dark table thead th.text-amber-300 {
+      color: #FCD34D !important;
+    }
+    html.dark table thead th.text-zinc-700 {
+      color: #E4E4E7 !important;
+    }
+
+    /* Table Zebra & Column Highlights */
+    html.dark table tbody.bg-white,
+    html.dark table tbody {
+      background-color: #151518 !important;
+    }
+    html.dark table tbody td {
+      border-color: #272730 !important;
+      color: #D4D4D8 !important;
+    }
+    html.dark table tbody td.bg-zinc-50 {
+      background-color: #121215 !important;
+      color: #F4F4F5 !important;
+    }
+    html.dark table tbody tr:hover td {
+      background-color: rgba(255, 255, 255, 0.04) !important;
+    }
+
+    /* SVG Shapes in Dark Mode: Map Light/Pastel Fills to Translucent Luminous Dark Containers */
+    html.dark svg polygon[fill="#E0F2FE"],
+    html.dark svg circle[fill="#DBEAFE"],
+    html.dark svg ellipse[fill="#DBEAFE"] {
+      fill: #082F49 !important;
+      stroke: #0284C7 !important;
+    }
+    html.dark svg polygon[fill="#EDE9FE"],
+    html.dark svg circle[fill="#F3E8FF"],
+    html.dark svg ellipse[fill="#F3E8FF"] {
+      fill: #2E1065 !important;
+      stroke: #7E22CE !important;
+    }
+    html.dark svg polygon[fill="#FEF3C7"],
+    html.dark svg circle[fill="#FFEDD5"],
+    html.dark svg ellipse[fill="#FFEDD5"] {
+      fill: #451A03 !important;
+      stroke: #D97706 !important;
+    }
+    html.dark svg polygon[fill="#DCFCE7"],
+    html.dark svg circle[fill="#DCFCE7"],
+    html.dark svg ellipse[fill="#DCFCE7"] {
+      fill: #064E3B !important;
+      stroke: #059669 !important;
+    }
+    html.dark svg circle[fill="#FFE4E6"],
+    html.dark svg circle[fill="#FEF2F2"],
+    html.dark svg ellipse[fill="#FFE4E6"] {
+      fill: #4C0519 !important;
+      stroke: #E11D48 !important;
+    }
+    html.dark svg circle[fill="#CCFBF1"],
+    html.dark svg ellipse[fill="#CCFBF1"] {
+      fill: #134E4A !important;
+      stroke: #0D9488 !important;
+    }
+
+    /* White & Light Grey SVG Background Shapes */
+    html.dark svg rect[fill="#F8FAFC"],
+    html.dark svg rect[fill="#FFFFFF"],
+    html.dark svg rect[fill="white"],
+    html.dark svg rect[fill="#FAF8F5"],
+    html.dark svg rect[fill="#F6F4F0"],
+    html.dark svg rect[fill="#E2E8F0"],
+    html.dark svg rect[fill="#CBD5E1"],
+    html.dark svg ellipse[fill="#F8FAFC"],
+    html.dark svg ellipse[fill="#FFFFFF"],
+    html.dark svg ellipse[fill="white"],
+    html.dark svg ellipse[fill="#FAF8F5"] {
+      fill: #1E1E26 !important;
+      stroke: #475569 !important;
+    }
+
+    /* Preserve Dark Text on Yellow Center Overlaps like GOOD HCI in Week 1 */
+    html.dark svg circle[fill="#FACC15"] + text,
+    html.dark svg circle[fill="#FACC15"] ~ text.fill-zinc-950,
+    html.dark svg circle[fill="#FACC15"] ~ text[class*="fill-zinc"] {
+      fill: #18181B !important;
+    }
+
+    /* Part 2C Blueprint Grid Styling in Dark Mode */
+    html.dark .sketch-paper {
+      background-color: #0E0E12 !important;
+      background-image: radial-gradient(#334155 1.2px, transparent 1.2px) !important;
+      border-color: #475569 !important;
+      box-shadow: 6px 6px 0px #1E293B !important;
+    }
+    html.dark .sketch-paper .border-zinc-900,
+    html.dark .sketch-paper .border-2 {
+      border-color: #475569 !important;
+    }
+    html.dark .sketch-paper .bg-white {
+      background-color: #16161D !important;
+      color: #F4F4F5 !important;
+    }
+    html.dark .sketch-paper .bg-zinc-100 {
+      background-color: #23232E !important;
+      color: #F4F4F5 !important;
+      border-color: #475569 !important;
+    }
+    html.dark .sketch-paper .bg-zinc-50 {
+      background-color: #121216 !important;
+      color: #E4E4E7 !important;
+      border-color: #475569 !important;
+    }
+    html.dark .sketch-paper .font-hand {
+      color: #FEF08A !important;
+    }
+    html.dark .sketch-paper [class*="shadow-"] {
+      box-shadow: 3px 3px 0px #334155 !important;
+    }
+
   `;
   document.head.appendChild(styleEl);
 
@@ -967,23 +1176,23 @@
 
   WEEKS.forEach((w) => {
     const isCurrent = currentPage.toLowerCase() === w.file.toLowerCase();
-    const isMid = w.num === 'MID';
+    const isMid = w.num === 'PREP' || w.isMidterm;
     let badgeClass = '';
     if (isCurrent) {
-      badgeClass = isMid ? 'bg-rose-600 text-white shadow-sm' : 'bg-amber-300 text-zinc-900';
+      badgeClass = isMid ? 'bg-rose-600 text-white shadow-sm ring-1 ring-rose-400' : 'bg-amber-300 text-zinc-900';
     } else {
       badgeClass = isMid ? 'bg-rose-100 text-rose-800 dark:bg-rose-950 dark:text-rose-300 border border-rose-300 dark:border-rose-800' : 'bg-zinc-200 text-zinc-700';
     }
 
     navItemsHtml += `
       <div class="hci-week-group">
-        <a href="${w.file}" class="hci-nav-item ${isCurrent ? 'active' : ''} ${w.planned ? 'opacity-60 cursor-not-allowed' : ''} ${isMid && !isCurrent ? 'border-l-2 border-l-rose-500 bg-rose-50/40 dark:bg-rose-950/20' : ''}" title="${w.title}" ${w.planned ? 'onclick="event.preventDefault(); alert(\'Week ' + w.num + ' module is planned for release in the second half of the semester!\')"' : ''}>
-          <span class="hci-badge min-w-[26px] px-1 h-6 rounded font-mono text-[10px] font-bold flex items-center justify-center shrink-0 ${badgeClass}">
+        <a href="${w.file}" class="hci-nav-item ${isCurrent ? 'active' : ''} ${w.planned ? 'opacity-60 cursor-not-allowed' : ''} ${isMid && !isCurrent ? 'border-l-2 border-l-rose-500 bg-rose-50/50 dark:bg-rose-950/30' : ''}" title="${w.title}" ${w.planned ? 'onclick="event.preventDefault(); alert(\'Week ' + w.num + ' module is planned for release in the second half of the semester!\')"' : ''}>
+          <span class="hci-badge min-w-[34px] px-1 h-6 rounded font-mono text-[9.5px] font-extrabold flex items-center justify-center shrink-0 ${badgeClass}">
             ${w.num}
           </span>
           <span class="truncate flex-1 ${isMid ? 'font-bold text-rose-950 dark:text-rose-200' : ''}">${w.title}</span>
           ${w.planned ? '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-zinc-100 text-zinc-400">Soon</span>' : ''}
-          ${isMid && !isCurrent ? '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-rose-100 text-rose-700 dark:bg-rose-900 dark:text-rose-200 font-bold">Prep</span>' : ''}
+          ${isMid && !isCurrent ? '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-rose-100 text-rose-700 dark:bg-rose-900/60 dark:text-rose-200 font-bold">Prep</span>' : ''}
         </a>
         ${isCurrent ? '<div id="hci-inpage-toc" class="space-y-0.5 my-1.5 border-l-2 border-zinc-200 ml-3.5 pl-1"></div>' : ''}
       </div>
