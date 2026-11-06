@@ -512,38 +512,63 @@
     /* Neutrals / Body text */
     html.dark .text-zinc-900,
     html.dark .text-slate-900,
+    html.dark .text-gray-900,
+    html.dark .text-neutral-900,
     html.dark .text-black {
       color: #F4F4F5 !important;
     }
-    html.dark .text-zinc-800 {
+    html.dark .text-zinc-800,
+    html.dark .text-slate-800,
+    html.dark .text-gray-800,
+    html.dark .text-neutral-800 {
       color: #E4E4E7 !important;
     }
-    html.dark .text-zinc-700 {
+    html.dark .text-zinc-700,
+    html.dark .text-slate-700,
+    html.dark .text-gray-700,
+    html.dark .text-neutral-700 {
       color: #D4D4D8 !important;
     }
-    html.dark .text-zinc-600 {
+    html.dark .text-zinc-600,
+    html.dark .text-slate-600,
+    html.dark .text-gray-600,
+    html.dark .text-neutral-600 {
       color: #A1A1AA !important;
     }
     html.dark .text-zinc-500,
     html.dark .text-slate-500,
-    html.dark .text-slate-600 {
+    html.dark .text-gray-500,
+    html.dark .text-neutral-500 {
       color: #9CA3AF !important;
     }
-    html.dark .text-zinc-400 {
+    html.dark .text-zinc-400,
+    html.dark .text-slate-400,
+    html.dark .text-gray-400,
+    html.dark .text-neutral-400 {
       color: #9CA3AF !important;
     }
 
-    /* Keep dark text on bright amber badges/buttons */
+    /* Keep dark text on bright badges/buttons */
     html.dark .bg-amber-400,
     html.dark .bg-amber-400 *,
     html.dark .bg-amber-500,
     html.dark .bg-amber-500 *,
     html.dark .bg-amber-300,
-    html.dark .bg-amber-300 * {
+    html.dark .bg-amber-300 *,
+    html.dark .bg-sky-400,
+    html.dark .bg-sky-400 *,
+    html.dark .bg-emerald-400,
+    html.dark .bg-emerald-400 *,
+    html.dark .bg-rose-400,
+    html.dark .bg-rose-400 *,
+    html.dark .bg-indigo-400,
+    html.dark .bg-indigo-400 * {
       color: #18181B !important;
     }
-    /* Otherwise, map text-zinc-950 to crisp white */
-    html.dark :not(.bg-amber-400):not(.bg-amber-500):not(.bg-amber-300).text-zinc-950 {
+    /* Otherwise, map text-*-950 to crisp white */
+    html.dark :not(.bg-amber-400):not(.bg-amber-500):not(.bg-amber-300):not(.bg-sky-400):not(.bg-emerald-400):not(.bg-rose-400):not(.bg-indigo-400).text-zinc-950,
+    html.dark :not(.bg-amber-400):not(.bg-amber-500):not(.bg-amber-300):not(.bg-sky-400):not(.bg-emerald-400):not(.bg-rose-400):not(.bg-indigo-400).text-slate-950,
+    html.dark :not(.bg-amber-400):not(.bg-amber-500):not(.bg-amber-300):not(.bg-sky-400):not(.bg-emerald-400):not(.bg-rose-400):not(.bg-indigo-400).text-gray-950 {
       color: #F4F4F5 !important;
     }
 
