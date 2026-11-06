@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HCI Week 7 — Understanding Users: Personas, Scenarios, Use Cases, HTA & Journey Maps (Annotated Exam Study Notes)</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Plus Jakarta Sans, JetBrains Mono, Caveat -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+            hand: ['"Caveat"', 'cursive'],
+          },
+          colors: {
+            paper: '#FAF8F5',
+            card: '#FFFFFF',
+            ink: '#18181B',
+            muted: '#52525B',
+            borderLight: '#E4E2DD',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* Warm Academic Engineering Notebook Paper Background with Ruled Lines & Margin */
+    body {
+      background-color: #FAF8F5;
+      color: #18181B;
+      background-image:
+        radial-gradient(#D4D0C8 1.15px, transparent 1.15px),
+        linear-gradient(to right, rgba(220, 216, 208, 0.35) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(220, 216, 208, 0.35) 1px, transparent 1px);
+      background-size: 24px 24px, 96px 96px, 96px 96px;
+    }
+
+    /* Realistic Marker Highlighter Spans */
+    .hl-yellow {
+      background: linear-gradient(104deg, rgba(254, 240, 138, 0) 0.9%, rgba(254, 240, 138, 0.95) 2.4%, rgba(254, 240, 138, 0.65) 5.8%, rgba(254, 240, 138, 0.88) 93%, rgba(254, 240, 138, 0.7) 96%, rgba(254, 240, 138, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-green {
+      background: linear-gradient(104deg, rgba(187, 247, 208, 0) 0.9%, rgba(187, 247, 208, 0.95) 2.4%, rgba(187, 247, 208, 0.65) 5.8%, rgba(187, 247, 208, 0.88) 93%, rgba(187, 247, 208, 0.7) 96%, rgba(187, 247, 208, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-blue {
+      background: linear-gradient(104deg, rgba(186, 230, 253, 0) 0.9%, rgba(186, 230, 253, 0.92) 2.4%, rgba(186, 230, 253, 0.65) 5.8%, rgba(186, 230, 253, 0.88) 93%, rgba(186, 230, 253, 0.7) 96%, rgba(186, 230, 253, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-pink {
+      background: linear-gradient(104deg, rgba(254, 205, 211, 0) 0.9%, rgba(254, 205, 211, 0.92) 2.4%, rgba(254, 205, 211, 0.65) 5.8%, rgba(254, 205, 211, 0.88) 93%, rgba(254, 205, 211, 0.7) 96%, rgba(254, 205, 211, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-purple {
+      background: linear-gradient(104deg, rgba(233, 213, 255, 0) 0.9%, rgba(233, 213, 255, 0.92) 2.4%, rgba(233, 213, 255, 0.65) 5.8%, rgba(233, 213, 255, 0.88) 93%, rgba(233, 213, 255, 0.7) 96%, rgba(233, 213, 255, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    .hl-orange {
+      background: linear-gradient(104deg, rgba(254, 215, 170, 0) 0.9%, rgba(254, 215, 170, 0.95) 2.4%, rgba(254, 215, 170, 0.65) 5.8%, rgba(254, 215, 170, 0.88) 93%, rgba(254, 215, 170, 0.7) 96%, rgba(254, 215, 170, 0) 98%);
+      padding: 0.06em 0.32em;
+      margin: 0 -0.12em;
+      border-radius: 0.25em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+    }
+
+    /* Notebook Sheet Card */
+    .note-sheet {
+      background-color: #FFFFFF;
+      border: 1px solid #E4E2DD;
+      box-shadow: 0 4px 20px -4px rgba(24, 24, 27, 0.06), 0 2px 6px -1px rgba(24, 24, 27, 0.03);
+      position: relative;
+    }
+
+    /* Sticky Note Callout */
+    .sticky-callout {
+      background-color: #FEF9C3;
+      border: 1px solid #FDE047;
+      box-shadow: 2px 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    /* Scrollbar Utility */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+
+  <!-- Modular Collapsible Navigation Engine -->
+  <script src="nav.js?v=20261106b" defer></script>
+</head>
+<body class="antialiased selection:bg-yellow-200 selection:text-zinc-900">
+
+  <!-- =====================================================================
+       STICKY STATUS BAR (ULTRA-SLIM)
+       ===================================================================== -->
+  <header class="sticky top-0 z-50 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E4E2DD] shadow-sm">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2.5 flex items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
+        <span class="inline-flex items-center justify-center w-7 h-7 rounded-lg bg-zinc-900 text-amber-300 font-mono text-xs font-bold">W7</span>
+        <div>
+          <span class="font-extrabold text-sm text-zinc-900 tracking-tight">HCI Week 7: Understanding Users: Personas, Scenarios, Use Cases, HTA &amp; Journey Maps</span>
+          <span class="hidden md:inline-block text-xs text-zinc-500 ml-1.5 font-mono">• Slides 01–37 Complete (Zero Hidden Content)</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- =====================================================================
+       MAIN STUDY NOTEBOOK CONTAINER
+       ===================================================================== -->
+  <main class="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-10 space-y-12">
+
+    <!-- ===================================================================
+         SECTION 1: UCD FOUNDATION & THE RESEARCH-TO-DESIGN PIPELINE
+         (Slides 01–06 | PDF pp. 01–06)
+         =================================================================== -->
+    <section id="sec-1" data-toc="01. UCD Pipeline (Maya App)" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-slate-900 space-y-8">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-slate-900 text-white">SECTION 1 • SLIDES 01–06</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-100 text-amber-900 border border-amber-300">PDF pp. 01–06</span>
+        </div>
+        <span class="font-hand text-xl text-slate-700 font-bold">Start with people, not screens!</span>
+      </div>
+
+      <div>
+        <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900">
+          UCD Foundation &amp; The Research-to-Design Pipeline
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 mt-1">
+          Running lecture example: <strong>One simple hospital appointment app</strong> (`Slide 01 • PDF p.01`).
+        </p>
+      </div>
+
+      <!-- Slide 02: What will you learn today? -->
+      <div class="p-5 rounded-2xl bg-slate-50 border border-slate-200 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="font-mono text-xs font-bold uppercase text-slate-700">SLIDE 02 • PDF p.02 — WHAT WILL YOU LEARN TODAY?</span>
+          <span class="px-2.5 py-0.5 rounded bg-amber-200 text-slate-900 font-mono text-[11px] font-bold">No coding required. Think like a designer, not a programmer.</span>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
+          <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
+            <span class="font-mono text-xs font-extrabold text-amber-700 block mb-1">01 • Find insights</span>
+            <p class="text-slate-800">Turn user observations into <span class="hl-yellow font-semibold">real needs</span>.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
+            <span class="font-mono text-xs font-extrabold text-sky-700 block mb-1">02 • Describe users</span>
+            <p class="text-slate-800">Create a <span class="hl-blue font-semibold">persona</span> and realistic <span class="hl-blue font-semibold">scenario</span>.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
+            <span class="font-mono text-xs font-extrabold text-emerald-700 block mb-1">03 • Break down tasks</span>
+            <p class="text-slate-800">Write a <span class="hl-green font-semibold">use case</span> and an <span class="hl-green font-semibold">HTA</span>.</p>
+          </div>
+          <div class="p-4 rounded-xl bg-white border border-slate-200 shadow-sm">
+            <span class="font-mono text-xs font-extrabold text-rose-700 block mb-1">04 • Improve experiences</span>
+            <p class="text-slate-800">Use a <span class="hl-pink font-semibold">journey map</span> to locate pain points.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 03 & Slide 04 Side-by-Side -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Slide 03: Remember Week 6: User-centered design -->
+        <div class="p-5 rounded-2xl bg-white border-2 border-slate-200 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase text-indigo-700 block mb-1">SLIDE 03 • PDF p.03 — THE IDEA</span>
+            <h3 class="font-display text-lg font-extrabold text-slate-900">Remember Week 6: User-Centered Design</h3>
+            <ol class="mt-3 space-y-2 text-xs sm:text-sm text-slate-800 list-decimal pl-5">
+              <li><span class="hl-yellow font-semibold">We do not start with screens. We start with people.</span></li>
+              <li>We collect data: <span class="hl-blue font-semibold">interviews, questionnaires, and observation</span>.</li>
+              <li>We identify <span class="hl-pink font-semibold">goals, difficulties, and the environment</span>.</li>
+              <li>Then we turn findings into <span class="hl-green font-semibold">design requirements</span>.</li>
+            </ol>
+          </div>
+          <div class="p-2.5 rounded-lg bg-indigo-50 border border-indigo-200 font-mono text-[11px] text-indigo-900">
+            Bridge: Week 6 gathered raw data → Week 7 structures it into models.
+          </div>
+        </div>
+
+        <!-- Slide 04: Our example: a hospital appointment app -->
+        <div class="p-5 rounded-2xl bg-white border-2 border-slate-200 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase text-rose-700 block mb-1">SLIDE 04 • PDF p.04 — RUNNING EXAMPLE</span>
+            <h3 class="font-display text-lg font-extrabold text-slate-900">Our Example: A Hospital Appointment App</h3>
+            <div class="mt-3 space-y-2.5 text-xs sm:text-sm">
+              <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+                <strong class="font-mono text-xs text-emerald-900 uppercase block">USER GOAL:</strong>
+                Book a doctor appointment <span class="hl-green font-semibold">quickly, without confusion</span>.
+              </div>
+              <div class="p-3 rounded-xl bg-rose-50 border border-rose-200">
+                <strong class="font-mono text-xs text-rose-900 uppercase block">POSSIBLE PROBLEMS:</strong>
+                <span class="hl-pink">Too many options; unclear clinic names; hidden available times; hard-to-read buttons.</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900 text-white text-xs">
+            <strong class="text-amber-300 font-mono">Core Question:</strong> “Should we design the home screen before understanding users?” → <span class="underline decoration-amber-400 font-bold">No! Understand users and their tasks first.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 05: Data → Findings → Insights → Design (SVG + Cards) -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-slate-950 text-white space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="font-mono text-xs font-bold uppercase text-amber-300">SLIDE 05 • PDF p.05 — THE TRANSLATION PIPELINE</span>
+          <span class="px-3 py-1 rounded-full bg-amber-400 text-slate-950 font-mono text-xs font-extrabold">
+            ★ Exam Rule: “An insight explains WHY a finding matters for design.”
+          </span>
+        </div>
+
+        <!-- Custom SVG Flowchart: Data -> Finding -> Insight -> Decision -->
+        <svg viewBox="0 0 880 140" class="w-full h-auto" aria-label="Data to Finding to Insight to Design Decision pipeline">
+          <!-- Box 1: 01 Data -->
+          <rect x="10" y="15" width="195" height="110" rx="12" fill="#1E293B" stroke="#38BDF8" stroke-width="2"/>
+          <text x="26" y="40" class="font-mono text-[12px] fill-sky-300 font-bold">01 • DATA (Raw Quote)</text>
+          <text x="26" y="65" class="font-sans text-[12px] fill-white">4 users say:</text>
+          <text x="26" y="84" class="font-sans text-[12px] fill-sky-200 font-semibold">“I cannot find</text>
+          <text x="26" y="102" class="font-sans text-[12px] fill-sky-200 font-semibold">available times.”</text>
+
+          <!-- Arrow 1 -->
+          <path d="M 208 70 L 232 70" stroke="#94A3B8" stroke-width="2.5"/>
+          <polygon points="232,70 224,65 224,75" fill="#94A3B8"/>
+
+          <!-- Box 2: 02 Finding -->
+          <rect x="235" y="15" width="195" height="110" rx="12" fill="#1E293B" stroke="#F43F5E" stroke-width="2"/>
+          <text x="251" y="40" class="font-mono text-[12px] fill-rose-300 font-bold">02 • FINDING (Pattern)</text>
+          <text x="251" y="65" class="font-sans text-[12px] fill-white">Users struggle to</text>
+          <text x="251" y="84" class="font-sans text-[12px] fill-rose-200 font-semibold">locate free</text>
+          <text x="251" y="102" class="font-sans text-[12px] fill-rose-200 font-semibold">appointment slots.</text>
+
+          <!-- Arrow 2 -->
+          <path d="M 433 70 L 457 70" stroke="#94A3B8" stroke-width="2.5"/>
+          <polygon points="457,70 449,65 449,75" fill="#94A3B8"/>
+
+          <!-- Box 3: 03 Insight -->
+          <rect x="460" y="15" width="195" height="110" rx="12" fill="#1E293B" stroke="#FACC15" stroke-width="2"/>
+          <text x="476" y="40" class="font-mono text-[12px] fill-amber-300 font-bold">03 • INSIGHT (Why)</text>
+          <text x="476" y="65" class="font-sans text-[12px] fill-white">Availability must be</text>
+          <text x="476" y="84" class="font-sans text-[12px] fill-amber-200 font-semibold">visible early in</text>
+          <text x="476" y="102" class="font-sans text-[12px] fill-amber-200 font-semibold">the flow.</text>
+
+          <!-- Arrow 3 -->
+          <path d="M 658 70 L 682 70" stroke="#94A3B8" stroke-width="2.5"/>
+          <polygon points="682,70 674,65 674,75" fill="#94A3B8"/>
+
+          <!-- Box 4: 04 Decision -->
+          <rect x="685" y="15" width="185" height="110" rx="12" fill="#064E3B" stroke="#34D399" stroke-width="2"/>
+          <text x="701" y="40" class="font-mono text-[12px] fill-emerald-300 font-bold">04 • DECISION (UI)</text>
+          <text x="701" y="65" class="font-sans text-[12px] fill-white">Show next available</text>
+          <text x="701" y="84" class="font-sans text-[12px] fill-emerald-200 font-semibold">dates before</text>
+          <text x="701" y="102" class="font-sans text-[12px] fill-emerald-200 font-semibold">long forms.</text>
+        </svg>
+      </div>
+
+      <!-- Slide 06: Research evidence: a small fictional dataset -->
+      <div class="p-5 rounded-2xl bg-amber-50/70 border border-amber-200">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <span class="font-mono text-xs font-bold uppercase text-amber-900">SLIDE 06 • PDF p.06 — RESEARCH EVIDENCE: A SMALL FICTIONAL DATASET</span>
+          <span class="font-mono text-[11px] text-amber-800 italic">Note: These are teaching examples, not real study results.</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-white border border-amber-200">
+            <span class="font-mono font-bold text-slate-900 block mb-1">User A</span>
+            <p class="text-slate-700 italic">“I do not know <span class="hl-pink">which clinic to choose</span>.”</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white border border-amber-200">
+            <span class="font-mono font-bold text-slate-900 block mb-1">User B</span>
+            <p class="text-slate-700 italic">“The <span class="hl-pink">available dates are difficult to find</span>.”</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white border border-amber-200">
+            <span class="font-mono font-bold text-slate-900 block mb-1">User C</span>
+            <p class="text-slate-700 italic">“The <span class="hl-pink">letters are too small</span> on my phone.”</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white border border-amber-200">
+            <span class="font-mono font-bold text-slate-900 block mb-1">User D</span>
+            <p class="text-slate-700 italic">“I need to <span class="hl-green">reschedule easily</span>.”</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 2: PERSONAS — RESEARCH-BASED USER REPRESENTATIONS
+         (Slides 07–10 + Practice & Reveal | PDF pp. 07–12)
+         =================================================================== -->
+    <section id="sec-2" data-toc="02. Persona Modeling (Maya)" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-amber-500 space-y-8">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-amber-500 text-slate-950">SECTION 2 • SLIDES 07–10 + PRACTICE</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-100 text-amber-900 border border-amber-300">PDF pp. 07–12</span>
+        </div>
+        <span class="font-mono text-xs font-bold text-amber-900">PERSONA = WHO WE DESIGN FOR</span>
+      </div>
+
+      <!-- Slide 07: What is a persona? -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-slate-900 text-white">
+        <span class="font-mono text-xs font-bold uppercase text-amber-300 block mb-1">SLIDE 07 • PDF p.07 — DEFINITION</span>
+        <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-white">
+          What is a Persona? <span class="text-amber-300 font-mono text-lg sm:text-xl">PERSONA = A RESEARCH-BASED USER REPRESENTATION</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-200 mt-2">
+          A simple, fictional profile representing an <span class="hl-yellow text-slate-950 font-semibold">important user pattern, based on real research evidence</span>.
+        </p>
+        <div class="flex flex-wrap gap-3 mt-4 text-xs font-mono font-bold">
+          <span class="px-3 py-1.5 rounded-lg bg-rose-950 text-rose-200 border border-rose-500">✗ NOT a random imaginary person.</span>
+          <span class="px-3 py-1.5 rounded-lg bg-rose-950 text-rose-200 border border-rose-500">✗ NOT every user.</span>
+        </div>
+      </div>
+
+      <!-- Slide 08 (Maya Persona Card) & Slide 09 (5 Ingredients) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Slide 08: Meet our example persona: Maya, 34 -->
+        <div class="lg:col-span-7 p-5 sm:p-6 rounded-2xl bg-white border-2 border-slate-900 shadow-[4px_4px_0px_#0F172A] space-y-4">
+          <div class="flex items-center justify-between border-b border-slate-200 pb-3">
+            <span class="font-mono text-xs font-bold uppercase text-slate-600">SLIDE 08 • PDF p.08 — EXAMPLE PERSONA CARD</span>
+            <span class="px-2.5 py-0.5 rounded bg-amber-100 text-amber-900 font-mono text-[11px] font-bold">Hospital App Case</span>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <div class="w-14 h-14 rounded-2xl bg-amber-500 text-slate-950 font-display text-2xl font-extrabold flex items-center justify-center shrink-0">
+              M
+            </div>
+            <div>
+              <h3 class="font-display text-xl font-extrabold text-slate-900">Maya, 34</h3>
+              <p class="text-xs sm:text-sm text-slate-700 font-medium">
+                <span class="hl-blue font-semibold">Busy working parent</span> • <span class="hl-yellow font-semibold">Uses her phone on the bus</span>
+              </p>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs sm:text-sm pt-1">
+            <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200">
+              <span class="font-mono text-[11px] font-extrabold text-emerald-900 uppercase block mb-1">GOAL</span>
+              Book an appointment in <span class="hl-green font-semibold">under five minutes</span>.
+            </div>
+            <div class="p-3.5 rounded-xl bg-rose-50 border border-rose-200">
+              <span class="font-mono text-[11px] font-extrabold text-rose-900 uppercase block mb-1">PAIN POINT</span>
+              <span class="hl-pink font-semibold">Finding available appointment times</span> is difficult.
+            </div>
+            <div class="p-3.5 rounded-xl bg-sky-50 border border-sky-200">
+              <span class="font-mono text-[11px] font-extrabold text-sky-900 uppercase block mb-1">NEED</span>
+              <span class="hl-blue font-semibold">Clear steps, readable text, and visible dates.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 09: Build a strong persona: five ingredients -->
+        <div class="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-amber-50/80 border-2 border-amber-200 flex flex-col justify-between">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase text-amber-900 block mb-1">SLIDE 09 • PDF p.09 — THE IDEA</span>
+            <h3 class="font-display text-lg font-extrabold text-slate-900 mb-3">Build a Strong Persona: 5 Ingredients</h3>
+            <ol class="space-y-2 text-xs sm:text-sm text-slate-800 list-decimal pl-5">
+              <li><strong>Who are they?</strong> <span class="text-slate-600">(relevant background and context)</span></li>
+              <li><strong>What are they trying to do?</strong> <span class="hl-green font-semibold">(goal)</span></li>
+              <li><strong>What makes the task difficult?</strong> <span class="hl-pink font-semibold">(pain point)</span></li>
+              <li><strong>How do they behave?</strong> <span class="hl-yellow font-semibold">(habits and environment)</span></li>
+              <li><strong>What must the interface support?</strong> <span class="hl-blue font-semibold">(need)</span></li>
+            </ol>
+          </div>
+          <div class="mt-4 pt-3 border-t border-amber-300 font-hand text-xl text-amber-900 font-bold">
+            Every ingredient must trace back to research data!
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 10: Weak persona vs. useful persona -->
+      <div class="p-5 rounded-2xl bg-white border border-slate-200">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+          <span class="font-mono text-xs font-bold uppercase text-slate-600">SLIDE 10 • PDF p.10 — DIAGNOSTIC COMPARISON</span>
+          <span class="font-mono text-xs font-bold text-emerald-800">“A persona helps us make choices.”</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs sm:text-sm">
+          <div class="p-4 rounded-xl bg-rose-50 border-2 border-rose-300">
+            <span class="px-2 py-0.5 rounded bg-rose-700 text-white font-mono text-[10px] font-bold uppercase">✗ WEAK PERSONA</span>
+            <p class="font-semibold text-slate-900 mt-2">“Ali, 25. Likes technology and coffee.”</p>
+            <p class="text-rose-800 mt-1 font-medium">→ <span class="hl-pink">This does not tell us how to design.</span> (Irrelevant trivia with zero task or interface implications).</p>
+          </div>
+          <div class="p-4 rounded-xl bg-emerald-50 border-2 border-emerald-300">
+            <span class="px-2 py-0.5 rounded bg-emerald-700 text-white font-mono text-[10px] font-bold uppercase">✓ USEFUL PERSONA</span>
+            <p class="font-semibold text-slate-900 mt-2">“Ali books appointments on a small phone screen. He needs to see the next free time quickly.”</p>
+            <p class="text-emerald-900 mt-1 font-medium">→ <span class="hl-green">Now we know what to improve.</span> (Specifies device constraint + actionable UI priority).</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Practice & Reveal (PDF pp. 11–12): Campus Library Room Booking — Deniz -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-slate-900 text-white border-2 border-amber-400 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="font-mono text-xs font-bold uppercase text-amber-300">PRACTICE (7 MIN) &amp; REVEAL SAMPLE ANSWER • PDF pp. 11–12</span>
+          <span class="px-2.5 py-0.5 rounded bg-amber-400 text-slate-950 font-mono text-[11px] font-bold">Case Study 2: Campus Library Room Booking</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 text-xs sm:text-sm">
+          <!-- Left: Research Notes Prompt (PDF p.11) -->
+          <div class="lg:col-span-5 p-4 rounded-xl bg-slate-800 border border-slate-700 space-y-2.5">
+            <span class="font-mono text-xs font-bold text-sky-300 uppercase block">1. INPUT RESEARCH NOTES (PDF p.11)</span>
+            <ul class="list-disc pl-5 space-y-1.5 text-slate-200">
+              <li><strong>6 of 10 students</strong> book rooms between classes.</li>
+              <li><strong>5 say</strong> they cannot tell which rooms are free.</li>
+              <li><strong>4 study</strong> in groups of 3–4.</li>
+              <li><strong>3 report</strong> failed bookings because of schedule conflicts.</li>
+            </ul>
+            <p class="pt-2 border-t border-slate-700 text-[11px] text-amber-300 font-mono">
+              TASK: Create ONE evidence-based persona: context, goal, need, two frustrations. (Use only the evidence above).
+            </p>
+          </div>
+
+          <!-- Right: Revealed Sample Answer (PDF p.12) -->
+          <div class="lg:col-span-7 p-4 rounded-xl bg-slate-950 border-2 border-emerald-400 space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-bold text-emerald-300 uppercase">2. MODEL ANSWER: DENIZ, THE GROUP-STUDY STUDENT (PDF p.12)</span>
+              <span class="font-mono text-[10px] text-slate-400">Evidence-Backed ✓</span>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+              <div class="p-2.5 rounded bg-slate-900 border border-slate-800">
+                <strong class="text-sky-300 font-mono text-[11px] block">CONTEXT:</strong>
+                Third-year student; books study rooms between classes.
+              </div>
+              <div class="p-2.5 rounded bg-slate-900 border border-slate-800">
+                <strong class="text-emerald-300 font-mono text-[11px] block">GOAL:</strong>
+                Reserve a room for a group of four.
+              </div>
+              <div class="p-2.5 rounded bg-slate-900 border border-slate-800">
+                <strong class="text-amber-300 font-mono text-[11px] block">NEED:</strong>
+                See free rooms and time slots clearly.
+              </div>
+              <div class="p-2.5 rounded bg-slate-900 border border-slate-800">
+                <strong class="text-rose-300 font-mono text-[11px] block">PAIN POINTS (1 &amp; 2):</strong>
+                1. Availability is difficult to identify.<br/>
+                2. Timetable conflicts are discovered too late.
+              </div>
+            </div>
+            <div class="p-2.5 rounded bg-emerald-950/80 border border-emerald-500/60 text-emerald-200 font-mono text-xs">
+              <strong>DESIGN IMPLICATION:</strong> Show live availability and conflict alerts.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 3: SCENARIOS — CONTEXT & NARRATIVE STORIES
+         (Slides 11–13 + Practice & Reveal | PDF pp. 13–17)
+         =================================================================== -->
+    <section id="sec-3" data-toc="03. Scenarios & Context Stories" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-sky-600 space-y-8">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-sky-700 text-white">SECTION 3 • SLIDES 11–13 + PRACTICE</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-sky-100 text-sky-900 border border-sky-300">PDF pp. 13–17</span>
+        </div>
+        <span class="font-mono text-xs font-bold text-sky-900">SCENARIO = WHEN + WHAT (CONTEXT STORY)</span>
+      </div>
+
+      <!-- Slide 11: What is a scenario? -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-sky-50/70 border-2 border-sky-200 space-y-4">
+        <span class="font-mono text-xs font-bold uppercase text-sky-900 block">SLIDE 11 • PDF p.13 — DEFINITION &amp; FORMULA</span>
+        <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900">
+          What is a Scenario? <span class="text-sky-700 font-mono text-lg sm:text-xl">SCENARIO = A SHORT STORY</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-700">
+          It describes a person trying to achieve a goal in a <span class="hl-yellow font-semibold">real situation</span>. Focus on human context, not low-level UI widgets.
+        </p>
+
+        <!-- 5-Block Formula Bar -->
+        <div class="grid grid-cols-2 sm:grid-cols-5 gap-2 text-center font-mono text-xs font-bold pt-1">
+          <div class="p-3 rounded-xl bg-white border-2 border-slate-900 shadow-sm">1. WHO<br/><span class="text-[10px] font-normal text-slate-500">(Actor/Persona)</span></div>
+          <div class="p-3 rounded-xl bg-white border-2 border-slate-900 shadow-sm">2. WHERE / WHEN<br/><span class="text-[10px] font-normal text-slate-500">(Real Context)</span></div>
+          <div class="p-3 rounded-xl bg-white border-2 border-slate-900 shadow-sm">3. GOAL<br/><span class="text-[10px] font-normal text-slate-500">(Why Needed)</span></div>
+          <div class="p-3 rounded-xl bg-white border-2 border-slate-900 shadow-sm">4. ACTION<br/><span class="text-[10px] font-normal text-slate-500">(What They Do)</span></div>
+          <div class="p-3 rounded-xl bg-rose-50 border-2 border-rose-700 text-rose-900 col-span-2 sm:col-span-1">5. DIFFICULTY<br/><span class="text-[10px] font-normal text-rose-700">(Obstacle/Time Limit)</span></div>
+        </div>
+      </div>
+
+      <!-- Slide 12 (Maya Scenario) & Slide 13 (Persona vs Scenario) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Slide 12: Example scenario: Maya books a visit -->
+        <div class="p-5 rounded-2xl bg-white border-2 border-slate-200 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase text-sky-700 block mb-1">SLIDE 12 • PDF p.14 — EXAMPLE SCENARIO</span>
+            <h3 class="font-display text-lg font-extrabold text-slate-900">Maya Books a Visit</h3>
+            <blockquote class="mt-3 p-4 rounded-xl bg-slate-50 border-l-4 border-sky-600 text-xs sm:text-sm text-slate-800 italic leading-relaxed">
+              “<span class="hl-blue font-semibold not-italic">Maya</span> is <span class="hl-yellow font-semibold not-italic">on the bus to work</span>. Her child needs a doctor visit. She opens the hospital app, checks free times, and <span class="hl-green font-semibold not-italic">books a pediatric appointment</span>. She wants to <span class="hl-pink font-semibold not-italic">finish before her bus stop</span>.”
+            </blockquote>
+          </div>
+          <div class="p-3 rounded-xl bg-amber-50 border border-amber-200 text-xs text-slate-800">
+            <strong>Discuss: Why does the bus context change our design?</strong><br/>
+            Because she is on a moving bus with divided attention, one hand holding a strap, small mobile screen glare, and a strict time deadline before her stop—requiring large targets, minimal typing, and immediate slot visibility.
+          </div>
+        </div>
+
+        <!-- Slide 13: Persona vs. Scenario -->
+        <div class="p-5 rounded-2xl bg-white border-2 border-slate-200 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase text-purple-700 block mb-1">SLIDE 13 • PDF p.15 — KEY DISTINCTION</span>
+            <h3 class="font-display text-lg font-extrabold text-slate-900">Persona vs. Scenario</h3>
+            <div class="grid grid-cols-2 gap-3 mt-3 text-xs sm:text-sm">
+              <div class="p-3.5 rounded-xl bg-amber-50 border border-amber-200">
+                <span class="font-mono font-extrabold text-amber-900 block mb-1.5">PERSONA = WHO</span>
+                <ul class="list-disc pl-4 space-y-1 text-slate-800">
+                  <li>Maya</li>
+                  <li>Working parent</li>
+                  <li>Uses a mobile phone</li>
+                  <li>Needs short, clear steps</li>
+                </ul>
+              </div>
+              <div class="p-3.5 rounded-xl bg-sky-50 border border-sky-200">
+                <span class="font-mono font-extrabold text-sky-900 block mb-1.5">SCENARIO = WHEN + WHAT</span>
+                <ul class="list-disc pl-4 space-y-1 text-slate-800">
+                  <li>On a bus before work</li>
+                  <li>Needs pediatric care</li>
+                  <li>Looks for free times</li>
+                  <li>Books an appointment</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-900 text-white font-mono text-xs text-center">
+            ★ Rule: <span class="text-amber-300 font-bold">Same persona → many possible scenarios.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Practice & Reveal (PDF pp. 16–17): Deniz Scenario -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-slate-900 text-white border-2 border-sky-400 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="font-mono text-xs font-bold uppercase text-sky-300">PRACTICE (6 MIN) &amp; REVEAL SAMPLE ANSWER • PDF pp. 16–17</span>
+          <span class="px-2.5 py-0.5 rounded bg-sky-400 text-slate-950 font-mono text-[11px] font-bold">Focus on context, not UI features</span>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 text-xs sm:text-sm">
+          <div class="lg:col-span-5 p-4 rounded-xl bg-slate-800 border border-slate-700 space-y-2">
+            <span class="font-mono text-xs font-bold text-amber-300 uppercase block">PROMPT: 5 SENTENCE ELEMENTS (PDF p.16)</span>
+            <p class="text-slate-300 text-xs">Use Deniz and the SAME library-booking case. Write 4–5 sentences showing:</p>
+            <ol class="list-decimal pl-5 space-y-1 text-slate-200">
+              <li>Where and when Deniz uses the system</li>
+              <li>Why the booking is needed</li>
+              <li>What Deniz tries to do</li>
+              <li>What obstacle appears</li>
+              <li>What successful completion looks like</li>
+            </ol>
+          </div>
+
+          <div class="lg:col-span-7 p-4 rounded-xl bg-slate-950 border-2 border-emerald-400 flex flex-col justify-between space-y-3">
+            <div>
+              <span class="font-mono text-xs font-bold text-emerald-300 uppercase block mb-2">REVEALED SAMPLE SCENARIO: DENIZ FINDS A STUDY ROOM (PDF p.17)</span>
+              <p class="text-slate-100 leading-relaxed italic bg-slate-900 p-3.5 rounded-lg border border-slate-800">
+                “<span class="hl-yellow text-slate-950 not-italic font-semibold">Between two lectures</span>, <span class="hl-blue text-slate-950 not-italic font-semibold">Deniz</span> needs a quiet room for four teammates. On a phone, Deniz opens the university library portal and searches for rooms available at 15:00. <span class="hl-pink text-slate-950 not-italic font-semibold">A room appears free, but it overlaps a class on Deniz's calendar.</span> Deniz changes the time to 16:00, finds a suitable room, <span class="hl-green text-slate-950 not-italic font-semibold">confirms the reservation, and receives a booking code.</span>”
+              </p>
+            </div>
+            <div class="font-mono text-xs text-emerald-300">
+              <strong>WHY THIS WORKS:</strong> <code class="text-white">Actor + context + goal + obstacle + outcome</code>.
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 4: USE CASES — ACTOR-SYSTEM INTERACTION & FLOWS
+         (Slides 14–15 + Practice & Reveal | PDF pp. 18–21)
+         =================================================================== -->
+    <section id="sec-4" data-toc="04. Use Cases (Actor ↔ System)" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-emerald-600 space-y-8">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-emerald-700 text-white">SECTION 4 • SLIDES 14–15 + PRACTICE</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-emerald-100 text-emerald-900 border border-emerald-300">PDF pp. 18–21</span>
+        </div>
+        <span class="font-mono text-xs font-bold text-emerald-900">USE CASE = USER + SYSTEM INTERACTION</span>
+      </div>
+
+      <!-- Slide 14 & Slide 15 -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Slide 14: What is a use case? -->
+        <div class="lg:col-span-5 p-5 rounded-2xl bg-emerald-50/70 border-2 border-emerald-200 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase text-emerald-900 block mb-1">SLIDE 14 • PDF p.18 — DEFINITION</span>
+            <h2 class="font-display text-xl sm:text-2xl font-extrabold text-slate-900">What is a Use Case?</h2>
+            <p class="text-xs sm:text-sm text-slate-700 mt-1">
+              <span class="hl-yellow font-semibold">USE CASE = USER + SYSTEM INTERACTION</span>. A structured description of how an actor reaches a goal using a system.
+            </p>
+            <div class="space-y-2 mt-4 text-xs sm:text-sm">
+              <div class="p-3 rounded-xl bg-white border border-emerald-200 flex items-center justify-between">
+                <span class="font-mono font-bold text-emerald-800">01 • Actor</span>
+                <span class="font-semibold text-slate-900">Patient (Maya)</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-emerald-200 flex items-center justify-between">
+                <span class="font-mono font-bold text-emerald-800">02 • Trigger</span>
+                <span class="font-semibold text-slate-900">Needs appointment</span>
+              </div>
+              <div class="p-3 rounded-xl bg-white border border-emerald-200 flex items-center justify-between">
+                <span class="font-mono font-bold text-emerald-800">03 • Main success</span>
+                <span class="font-semibold text-slate-900">Appointment confirmed</span>
+              </div>
+            </div>
+          </div>
+          <div class="p-2.5 rounded-lg bg-slate-900 text-white font-mono text-[11px] text-center">
+            Emphasize: Use cases describe interactions, not screen layouts.
+          </div>
+        </div>
+
+        <!-- Slide 15: Use case: Book an appointment -->
+        <div class="lg:col-span-7 p-5 rounded-2xl bg-white border-2 border-slate-200 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase text-slate-600 block mb-1">SLIDE 15 • PDF p.19 — HOSPITAL APP USE CASE</span>
+            <h3 class="font-display text-lg font-extrabold text-slate-900 mb-3">Use Case: Book an Appointment (Actor ↔ System Dialogue)</h3>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-xs sm:text-sm">
+              <div class="p-3 rounded-xl bg-sky-50 border border-sky-200">
+                <span class="font-mono font-bold text-sky-900">Step 1 (User):</span> User opens the app
+              </div>
+              <div class="p-3 rounded-xl bg-slate-100 border border-slate-300">
+                <span class="font-mono font-bold text-slate-900">Step 2 (System):</span> System displays clinic choices
+              </div>
+              <div class="p-3 rounded-xl bg-sky-50 border border-sky-200">
+                <span class="font-mono font-bold text-sky-900">Step 3 (User):</span> User selects Pediatrics
+              </div>
+              <div class="p-3 rounded-xl bg-slate-100 border border-slate-300">
+                <span class="font-mono font-bold text-slate-900">Step 4 (System):</span> System shows available slots
+              </div>
+              <div class="p-3 rounded-xl bg-sky-50 border border-sky-200">
+                <span class="font-mono font-bold text-sky-900">Step 5 (User):</span> User chooses a slot
+              </div>
+              <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-300">
+                <span class="font-mono font-bold text-emerald-900">Step 6 (System):</span> System confirms booking
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3.5 rounded-xl bg-amber-50 border-2 border-amber-300 text-xs sm:text-sm font-medium text-slate-900">
+            <strong class="font-mono text-amber-900">🔀 Alternative Flow:</strong> No slots? → <span class="hl-green font-semibold">Show other dates or clinics.</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Practice & Reveal (PDF pp. 20–21): Use Case for Reserve a Library Study Room -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-slate-900 text-white border-2 border-emerald-400 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="font-mono text-xs font-bold uppercase text-emerald-300">PRACTICE (8 MIN) &amp; REVEAL SAMPLE ANSWER • PDF pp. 20–21</span>
+          <span class="px-2.5 py-0.5 rounded bg-emerald-400 text-slate-950 font-mono text-[11px] font-bold">Main + Alternate + Error Flows</span>
+        </div>
+
+        <div class="flex flex-wrap gap-3 text-xs font-mono bg-slate-800 p-3 rounded-xl border border-slate-700">
+          <span><strong class="text-amber-300">USE CASE:</strong> Reserve a library study room</span>
+          <span>• <strong class="text-sky-300">Actor:</strong> Student (Deniz)</span>
+          <span>• <strong class="text-purple-300">Precondition:</strong> Signed in to the portal</span>
+          <span>• <strong class="text-emerald-300">Success:</strong> Booking confirmation issued</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs sm:text-sm">
+          <!-- Main Flow -->
+          <div class="p-4 rounded-xl bg-slate-950 border border-emerald-500/60 space-y-2">
+            <span class="font-mono text-xs font-extrabold text-emerald-300 uppercase block">1. MAIN SUCCESS FLOW (6 STEPS)</span>
+            <ol class="list-decimal pl-5 space-y-1 text-slate-200">
+              <li><strong>Student</strong> requests rooms</li>
+              <li><strong>System</strong> lists availability</li>
+              <li><strong>Student</strong> selects slot</li>
+              <li><strong>System</strong> checks slot</li>
+              <li><strong>Student</strong> confirms</li>
+              <li><strong>System</strong> saves booking and displays code.</li>
+            </ol>
+          </div>
+
+          <!-- Alternate Flow -->
+          <div class="p-4 rounded-xl bg-slate-950 border border-amber-400/60 space-y-2">
+            <span class="font-mono text-xs font-extrabold text-amber-300 uppercase block">2. ALTERNATE PATH (ROOM FULL)</span>
+            <p class="text-slate-200 leading-relaxed">
+              At <strong>step 4</strong>, system says unavailable → <span class="hl-yellow text-slate-950 font-semibold">shows alternatives</span> → user selects another slot → <strong>return to step 4</strong>.
+            </p>
+          </div>
+
+          <!-- Error Flow -->
+          <div class="p-4 rounded-xl bg-slate-950 border border-rose-500/60 space-y-2">
+            <span class="font-mono text-xs font-extrabold text-rose-300 uppercase block">3. ERROR PATH (CONNECTION LOST)</span>
+            <p class="text-slate-200 leading-relaxed">
+              At <strong>step 6</strong>, show <span class="hl-green text-slate-950 font-semibold">safe retry/status</span>; <span class="hl-pink text-slate-950 font-semibold">do not create a duplicate booking</span>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 5: TASK ANALYSIS & HIERARCHICAL TASK ANALYSIS (HTA)
+         (Slides 16–18 + Practice & Reveal | PDF pp. 22–26)
+         =================================================================== -->
+    <section id="sec-5" data-toc="05. Task Analysis & HTA" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-purple-600 space-y-8">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-purple-700 text-white">SECTION 5 • SLIDES 16–18 + PRACTICE</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-purple-100 text-purple-900 border border-purple-300">PDF pp. 22–26</span>
+        </div>
+        <span class="font-mono text-xs font-bold text-purple-900">HTA = NUMBERED HIERARCHY + PLAN</span>
+      </div>
+
+      <!-- Slide 16: What is task analysis? -->
+      <div class="p-5 rounded-2xl bg-purple-50/70 border-2 border-purple-200">
+        <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+          <span class="font-mono text-xs font-bold uppercase text-purple-900">SLIDE 16 • PDF p.22 — TASK ANALYSIS</span>
+          <span class="font-mono text-xs font-bold text-rose-800">★ Rule: Break down user goals, NOT screen names!</span>
+        </div>
+        <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-slate-900">What is Task Analysis?</h2>
+        <p class="text-xs sm:text-sm text-slate-700 mt-1">
+          <span class="hl-yellow font-semibold">Break a user goal into smaller steps</span> so we can understand what users must do:
+          <code class="font-mono bg-white px-2 py-0.5 rounded border ml-1">Goal: Book an appointment → Choose clinic → Choose doctor → Choose time → Confirm</code>
+        </p>
+      </div>
+
+      <!-- Slides 17 & 18 (PDF pp. 23–24) AND Practice/Reveal (PDF pp. 25–26) SVG HTA Diagrams Side-by-Side -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+        <!-- Left SVG: Slides 17 & 18 — HTA: Book a Medical Appointment -->
+        <div class="p-5 rounded-2xl bg-slate-950 text-white border-2 border-slate-800 flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="font-mono text-[11px] font-bold uppercase text-purple-300">SLIDES 17 &amp; 18 • PDF pp. 23–24</span>
+              <span class="px-2 py-0.5 rounded bg-purple-900 text-purple-200 font-mono text-[10px]">2-Level Decomposition</span>
+            </div>
+            <h3 class="font-display text-lg font-extrabold text-white">HTA 1: Book a Medical Appointment</h3>
+            <p class="text-xs text-slate-300 mt-0.5">“If a task is confusing, break it into smaller actions.”</p>
+          </div>
+
+          <svg viewBox="0 0 420 265" class="w-full h-auto" aria-label="HTA diagram for booking a medical appointment">
+            <!-- Goal 0 -->
+            <rect x="95" y="10" width="230" height="36" rx="8" fill="#581C87" stroke="#C084FC" stroke-width="2"/>
+            <text x="210" y="32" text-anchor="middle" class="font-mono text-[11px] fill-white font-bold">0. Book a medical appointment</text>
+
+            <!-- Connectors from Goal 0 to 1, 2, 3, 4 -->
+            <line x1="210" y1="46" x2="210" y2="64" stroke="#94A3B8" stroke-width="1.8"/>
+            <line x1="52" y1="64" x2="368" y2="64" stroke="#94A3B8" stroke-width="1.8"/>
+            <line x1="52" y1="64" x2="52" y2="80" stroke="#94A3B8" stroke-width="1.8"/>
+            <line x1="156" y1="64" x2="156" y2="80" stroke="#94A3B8" stroke-width="1.8"/>
+            <line x1="264" y1="64" x2="264" y2="80" stroke="#94A3B8" stroke-width="1.8"/>
+            <line x1="368" y1="64" x2="368" y2="80" stroke="#94A3B8" stroke-width="1.8"/>
+
+            <!-- Subtasks 1, 2, 3, 4 -->
+            <rect x="8" y="80" width="88" height="38" rx="6" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/>
+            <text x="52" y="103" text-anchor="middle" class="font-mono text-[9.5px] fill-slate-200 font-semibold">1. Choose clinic</text>
+
+            <rect x="110" y="80" width="92" height="38" rx="6" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/>
+            <text x="156" y="103" text-anchor="middle" class="font-mono text-[9.5px] fill-slate-200 font-semibold">2. Choose doctor</text>
+
+            <rect x="214" y="80" width="100" height="38" rx="6" fill="#0F766E" stroke="#2DD4BF" stroke-width="2"/>
+            <text x="264" y="97" text-anchor="middle" class="font-mono text-[9px] fill-white font-bold">3. Find available</text>
+            <text x="264" y="110" text-anchor="middle" class="font-mono text-[9px] fill-white font-bold">time</text>
+
+            <rect x="324" y="80" width="88" height="38" rx="6" fill="#1E293B" stroke="#64748B" stroke-width="1.5"/>
+            <text x="368" y="97" text-anchor="middle" class="font-mono text-[9px] fill-slate-200 font-semibold">4. Confirm</text>
+            <text x="368" y="110" text-anchor="middle" class="font-mono text-[9px] fill-slate-200 font-semibold">booking</text>
+
+            <!-- Connectors from 3 to 3.1, 3.2, 3.3 -->
+            <line x1="264" y1="118" x2="264" y2="140" stroke="#2DD4BF" stroke-width="1.8"/>
+            <line x1="130" y1="140" x2="365" y2="140" stroke="#2DD4BF" stroke-width="1.8"/>
+            <line x1="130" y1="140" x2="130" y2="156" stroke="#2DD4BF" stroke-width="1.8"/>
+            <line x1="250" y1="140" x2="250" y2="156" stroke="#2DD4BF" stroke-width="1.8"/>
+            <line x1="365" y1="140" x2="365" y2="156" stroke="#2DD4BF" stroke-width="1.8"/>
+
+            <!-- Subtasks 3.1, 3.2, 3.3 -->
+            <rect x="80" y="156" width="100" height="36" rx="5" fill="#134E4A" stroke="#5EEAD4" stroke-width="1.2"/>
+            <text x="130" y="178" text-anchor="middle" class="font-mono text-[9px] fill-teal-100">3.1 Open calendar</text>
+
+            <rect x="192" y="156" width="116" height="36" rx="5" fill="#134E4A" stroke="#5EEAD4" stroke-width="1.2"/>
+            <text x="250" y="172" text-anchor="middle" class="font-mono text-[8.5px] fill-teal-100">3.2 Inspect</text>
+            <text x="250" y="184" text-anchor="middle" class="font-mono text-[8.5px] fill-teal-100">available dates</text>
+
+            <rect x="318" y="156" width="94" height="36" rx="5" fill="#134E4A" stroke="#5EEAD4" stroke-width="1.2"/>
+            <text x="365" y="178" text-anchor="middle" class="font-mono text-[9px] fill-teal-100">3.3 Select a time</text>
+
+            <!-- Plan 0 Box -->
+            <rect x="15" y="212" width="390" height="40" rx="8" fill="#3B0764" stroke="#FACC15" stroke-width="1.5"/>
+            <text x="210" y="236" text-anchor="middle" class="font-mono text-[11px] fill-amber-300 font-bold">Plan 0: Do steps 1 → 2 → 3 → 4 in order.</text>
+          </svg>
+        </div>
+
+        <!-- Right SVG: Practice & Reveal (PDF pp. 25–26) — HTA: Reserve Study Room -->
+        <div class="p-5 rounded-2xl bg-slate-950 text-white border-2 border-emerald-500 flex flex-col justify-between space-y-4">
+          <div>
+            <div class="flex items-center justify-between gap-2 mb-2">
+              <span class="font-mono text-[11px] font-bold uppercase text-emerald-300">PRACTICE &amp; MODEL HTA • PDF pp. 25–26</span>
+              <span class="px-2 py-0.5 rounded bg-emerald-900 text-emerald-200 font-mono text-[10px]">Includes Retry Loop Plan</span>
+            </div>
+            <h3 class="font-display text-lg font-extrabold text-white">HTA 2: Reserve a Study Room (Deniz)</h3>
+            <p class="text-xs text-amber-300 font-mono mt-0.5">★ “A hierarchy is not enough; HTA needs a plan.”</p>
+          </div>
+
+          <svg viewBox="0 0 440 265" class="w-full h-auto" aria-label="HTA diagram for reserving a library study room">
+            <!-- Goal 0 -->
+            <rect x="115" y="10" width="210" height="36" rx="8" fill="#065F46" stroke="#34D399" stroke-width="2"/>
+            <text x="220" y="32" text-anchor="middle" class="font-mono text-[11px] fill-white font-bold">0 RESERVE STUDY ROOM</text>
+
+            <!-- Connectors to 1..5 -->
+            <line x1="220" y1="46" x2="220" y2="62" stroke="#94A3B8" stroke-width="1.6"/>
+            <line x1="36" y1="62" x2="400" y2="62" stroke="#94A3B8" stroke-width="1.6"/>
+            <line x1="36" y1="62" x2="36" y2="78" stroke="#94A3B8" stroke-width="1.6"/>
+            <line x1="118" y1="62" x2="118" y2="78" stroke="#94A3B8" stroke-width="1.6"/>
+            <line x1="220" y1="62" x2="220" y2="78" stroke="#94A3B8" stroke-width="1.6"/>
+            <line x1="318" y1="62" x2="318" y2="78" stroke="#94A3B8" stroke-width="1.6"/>
+            <line x1="400" y1="62" x2="400" y2="78" stroke="#94A3B8" stroke-width="1.6"/>
+
+            <!-- 1..5 Nodes -->
+            <rect x="6" y="78" width="60" height="40" rx="5" fill="#1E293B" stroke="#64748B"/>
+            <text x="36" y="102" text-anchor="middle" class="font-mono text-[8.5px] fill-slate-200">1 Sign in</text>
+
+            <rect x="72" y="78" width="92" height="40" rx="5" fill="#0284C7" stroke="#7DD3FC" stroke-width="1.8"/>
+            <text x="118" y="95" text-anchor="middle" class="font-mono text-[8.5px] fill-white font-bold">2 Find a</text>
+            <text x="118" y="108" text-anchor="middle" class="font-mono text-[8.5px] fill-white font-bold">suitable room</text>
+
+            <rect x="170" y="78" width="100" height="40" rx="5" fill="#1E293B" stroke="#F43F5E" stroke-width="1.5"/>
+            <text x="220" y="95" text-anchor="middle" class="font-mono text-[8px] fill-rose-200">3 Select room &amp;</text>
+            <text x="220" y="108" text-anchor="middle" class="font-mono text-[8px] fill-rose-200">check constraints</text>
+
+            <rect x="276" y="78" width="84" height="40" rx="5" fill="#1E293B" stroke="#64748B"/>
+            <text x="318" y="95" text-anchor="middle" class="font-mono text-[8.5px] fill-slate-200">4 Confirm</text>
+            <text x="318" y="108" text-anchor="middle" class="font-mono text-[8.5px] fill-slate-200">reservation</text>
+
+            <rect x="366" y="78" width="68" height="40" rx="5" fill="#1E293B" stroke="#64748B"/>
+            <text x="400" y="95" text-anchor="middle" class="font-mono text-[8px] fill-slate-200">5 Verify</text>
+            <text x="400" y="108" text-anchor="middle" class="font-mono text-[8px] fill-slate-200">booking code</text>
+
+            <!-- Connectors from 2 to 2.1, 2.2, 2.3 -->
+            <line x1="118" y1="118" x2="118" y2="140" stroke="#38BDF8" stroke-width="1.6"/>
+            <line x1="65" y1="140" x2="295" y2="140" stroke="#38BDF8" stroke-width="1.6"/>
+            <line x1="65" y1="140" x2="65" y2="156" stroke="#38BDF8" stroke-width="1.6"/>
+            <line x1="175" y1="140" x2="175" y2="156" stroke="#38BDF8" stroke-width="1.6"/>
+            <line x1="295" y1="140" x2="295" y2="156" stroke="#38BDF8" stroke-width="1.6"/>
+
+            <rect x="12" y="156" width="106" height="36" rx="5" fill="#0C4A6E" stroke="#38BDF8"/>
+            <text x="65" y="172" text-anchor="middle" class="font-mono text-[8px] fill-sky-100">2.1 Choose date</text>
+            <text x="65" y="184" text-anchor="middle" class="font-mono text-[8px] fill-sky-100">and time</text>
+
+            <rect x="126" y="156" width="98" height="36" rx="5" fill="#0C4A6E" stroke="#38BDF8"/>
+            <text x="175" y="178" text-anchor="middle" class="font-mono text-[8px] fill-sky-100">2.2 Set group size</text>
+
+            <rect x="232" y="156" width="126" height="36" rx="5" fill="#0C4A6E" stroke="#38BDF8"/>
+            <text x="295" y="172" text-anchor="middle" class="font-mono text-[8px] fill-sky-100">2.3 Compare</text>
+            <text x="295" y="184" text-anchor="middle" class="font-mono text-[8px] fill-sky-100">available rooms</text>
+
+            <!-- Plan 0 Box -->
+            <rect x="10" y="210" width="420" height="44" rx="8" fill="#064E3B" stroke="#FACC15" stroke-width="1.5"/>
+            <text x="220" y="229" text-anchor="middle" class="font-mono text-[10px] fill-amber-300 font-bold">PLAN 0: Do 1 → 2 → 3 → 4 → 5;</text>
+            <text x="220" y="244" text-anchor="middle" class="font-mono text-[10px] fill-emerald-200 font-bold">if room unavailable at 3, repeat 2–3.</text>
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 6: TOOL SELECTION & USER JOURNEY MAPS
+         (Slides 19–21 + Practice & Reveal | PDF pp. 27–31)
+         =================================================================== -->
+    <section id="sec-6" data-toc="06. Journey Maps & Tool Fit" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-rose-600 space-y-8">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-rose-700 text-white">SECTION 6 • SLIDES 19–21 + PRACTICE</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-rose-100 text-rose-900 border border-rose-300">PDF pp. 27–31</span>
+        </div>
+        <span class="font-mono text-xs font-bold text-rose-900">JOURNEY MAP = WHOLE EXPERIENCE &amp; EMOTIONS</span>
+      </div>
+
+      <!-- Slide 19: When would we use each tool? -->
+      <div class="p-5 rounded-2xl bg-slate-50 border-2 border-slate-200">
+        <span class="font-mono text-xs font-bold uppercase text-slate-600 block mb-2">SLIDE 19 • PDF p.27 — MASTER TOOL SELECTION MATRIX</span>
+        <h2 class="font-display text-2xl font-extrabold text-slate-900 mb-4">When Would We Use Each Tool?</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-white border-2 border-amber-300">
+            <span class="font-mono font-extrabold text-amber-800 block">1. Persona</span>
+            <p class="mt-1 text-slate-800">Understand <span class="hl-yellow font-bold">WHO</span> we design for</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white border-2 border-sky-300">
+            <span class="font-mono font-extrabold text-sky-800 block">2. Scenario</span>
+            <p class="mt-1 text-slate-800">Understand <span class="hl-blue font-bold">CONTEXT</span> and goals</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white border-2 border-emerald-300">
+            <span class="font-mono font-extrabold text-emerald-800 block">3. Use case</span>
+            <p class="mt-1 text-slate-800">Describe <span class="hl-green font-bold">ACTOR-SYSTEM</span> interactions</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white border-2 border-purple-300">
+            <span class="font-mono font-extrabold text-purple-800 block">4. HTA</span>
+            <p class="mt-1 text-slate-800">Break down <span class="hl-purple font-bold">HOW</span> a task is completed</p>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white border-2 border-rose-300">
+            <span class="font-mono font-extrabold text-rose-800 block">5. Journey map</span>
+            <p class="mt-1 text-slate-800">See the <span class="hl-pink font-bold">WHOLE EXPERIENCE</span> and emotions</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 20 & Slide 21: Maya's Appointment Journey Map -->
+      <div class="space-y-4">
+        <div class="p-4 rounded-xl bg-rose-50/70 border border-rose-200 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase text-rose-900">SLIDE 20 &amp; SLIDE 21 • PDF pp. 28–29 — WHAT IS A USER JOURNEY MAP?</span>
+            <p class="text-xs sm:text-sm text-slate-800 mt-0.5">
+              A timeline (<code class="font-mono font-bold">Before → During → After</code>) showing the user's <strong>actions, thoughts, feelings, and difficulties</strong> from start to finish. Look for moments of confusion and opportunities to improve.
+            </p>
+          </div>
+        </div>
+
+        <!-- Slide 21 Table: Maya's Appointment Journey -->
+        <div class="overflow-x-auto rounded-2xl border-2 border-slate-900">
+          <div class="bg-slate-900 text-white px-4 py-2.5 font-mono text-xs font-bold uppercase flex items-center justify-between">
+            <span>SLIDE 21 • PDF p.29 — MAYA’S APPOINTMENT JOURNEY MAP</span>
+            <span class="text-amber-300">Pain Point → Design Opportunity</span>
+          </div>
+          <table class="w-full text-left border-collapse text-xs sm:text-sm bg-white">
+            <thead>
+              <tr class="bg-slate-100 text-slate-800 font-mono border-b border-slate-300">
+                <th class="py-3 px-4 w-32">Row</th>
+                <th class="py-3 px-4">1. Search</th>
+                <th class="py-3 px-4">2. Select</th>
+                <th class="py-3 px-4">3. Book</th>
+                <th class="py-3 px-4">4. After booking</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200">
+              <tr>
+                <td class="py-3 px-4 font-mono font-bold bg-slate-50">Action</td>
+                <td class="py-3 px-4">Opens app</td>
+                <td class="py-3 px-4">Checks clinic</td>
+                <td class="py-3 px-4">Chooses slot</td>
+                <td class="py-3 px-4">Reads SMS</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-mono font-bold bg-slate-50">Feeling</td>
+                <td class="py-3 px-4"><span class="hl-blue font-semibold">Hopeful</span></td>
+                <td class="py-3 px-4"><span class="hl-pink font-semibold">Unsure</span></td>
+                <td class="py-3 px-4"><span class="hl-green font-semibold">Relieved</span></td>
+                <td class="py-3 px-4"><span class="hl-green font-semibold">Confident</span></td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-mono font-bold bg-slate-50">Pain point</td>
+                <td class="py-3 px-4"><span class="hl-pink">Too many menus</span></td>
+                <td class="py-3 px-4"><span class="hl-pink">Clinic names unclear</span></td>
+                <td class="py-3 px-4"><span class="hl-pink">Slow loading</span></td>
+                <td class="py-3 px-4 text-slate-400">None</td>
+              </tr>
+              <tr>
+                <td class="py-3 px-4 font-mono font-bold bg-slate-50">Opportunity</td>
+                <td class="py-3 px-4"><span class="hl-green font-semibold">Clear shortcut</span></td>
+                <td class="py-3 px-4"><span class="hl-green font-semibold">Explain clinics</span></td>
+                <td class="py-3 px-4"><span class="hl-green font-semibold">Show progress</span></td>
+                <td class="py-3 px-4"><span class="hl-green font-semibold">Easy reschedule</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Practice & Reveal (PDF pp. 30–31): Deniz's Library Room Booking Journey Map -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-slate-900 text-white border-2 border-rose-400 space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="font-mono text-xs font-bold uppercase text-rose-300">PRACTICE (9 MIN) &amp; REVEAL MODEL ANSWER • PDF pp. 30–31</span>
+          <span class="px-2.5 py-0.5 rounded bg-rose-400 text-slate-950 font-mono text-[11px] font-bold">Deniz Library Booking: Evidence → Opportunity</span>
+        </div>
+
+        <div class="overflow-x-auto rounded-xl border border-slate-700">
+          <table class="w-full text-left border-collapse text-xs sm:text-sm">
+            <thead>
+              <tr class="bg-slate-800 text-slate-200 font-mono text-xs uppercase">
+                <th class="py-2.5 px-3">Stage</th>
+                <th class="py-2.5 px-3 text-sky-300">Student Action</th>
+                <th class="py-2.5 px-3 text-amber-300">Thought / Emotion</th>
+                <th class="py-2.5 px-3 text-rose-300">Friction Point</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800 bg-slate-950">
+              <tr>
+                <td class="py-2.5 px-3 font-mono font-bold text-white">1. SEARCH</td>
+                <td class="py-2.5 px-3">Browse rooms</td>
+                <td class="py-2.5 px-3 text-amber-200">Uncertain</td>
+                <td class="py-2.5 px-3 text-rose-300 font-semibold">Free slots hard to see</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-3 font-mono font-bold text-white">2. CHOOSE</td>
+                <td class="py-2.5 px-3">Compare times</td>
+                <td class="py-2.5 px-3 text-rose-300">Frustrated</td>
+                <td class="py-2.5 px-3 text-rose-300 font-semibold">Class clashes hidden</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-3 font-mono font-bold text-white">3. CONFIRM</td>
+                <td class="py-2.5 px-3">Submit booking</td>
+                <td class="py-2.5 px-3 text-amber-200">Anxious</td>
+                <td class="py-2.5 px-3 text-rose-300 font-semibold">Unsure if saved</td>
+              </tr>
+              <tr>
+                <td class="py-2.5 px-3 font-mono font-bold text-white">4. ARRIVE</td>
+                <td class="py-2.5 px-3">Show booking code</td>
+                <td class="py-2.5 px-3 text-emerald-300">Relieved</td>
+                <td class="py-2.5 px-3 text-rose-300 font-semibold">Code hard to find</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs font-mono">
+          <div class="p-3 rounded-xl bg-emerald-950 border border-emerald-500 text-emerald-200">
+            <strong>IMPROVEMENT A (Search Friction):</strong><br/>Availability filter + clear status labels.
+          </div>
+          <div class="p-3 rounded-xl bg-emerald-950 border border-emerald-500 text-emerald-200">
+            <strong>IMPROVEMENT B (Choose Friction):</strong><br/>Detect timetable conflicts before confirmation.
+          </div>
+          <div class="p-3 rounded-xl bg-slate-800 border border-slate-600 text-slate-200">
+            <strong>OPTIONAL (Confirm/Arrive Friction):</strong><br/>Confirmation screen + saved booking code.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 7: TURNING INSIGHTS INTO REQUIREMENTS & COURSE PORTAL CASE
+         (Slides 22–25 + Group Case Study | PDF pp. 32–41)
+         =================================================================== -->
+    <section id="sec-7" data-toc="07. Requirements & Portal Case" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-indigo-600 space-y-8">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-indigo-700 text-white">SECTION 7 • SLIDES 22–25 + GROUP CASE</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-indigo-100 text-indigo-900 border border-indigo-300">PDF pp. 32–41</span>
+        </div>
+        <span class="font-mono text-xs font-bold text-indigo-900">INSIGHT → USER REQ → DESIGN REQ → EVALUATION</span>
+      </div>
+
+      <!-- Slide 22 (Insights to Requirements) & Slides 23–24 (Missed Appointment Practice) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Slide 22: How insights become requirements -->
+        <div class="p-5 rounded-2xl bg-indigo-50/60 border-2 border-indigo-200 space-y-3">
+          <span class="font-mono text-xs font-bold uppercase text-indigo-900 block">SLIDE 22 • PDF p.32 — REQUIREMENTS CHAIN</span>
+          <h3 class="font-display text-xl font-extrabold text-slate-900">How Insights Become Requirements</h3>
+          <div class="space-y-2 text-xs sm:text-sm">
+            <div class="p-3 rounded-xl bg-white border border-sky-200">
+              <strong class="font-mono text-sky-800 block">1. Research insight:</strong>
+              People cannot find the next available date.
+            </div>
+            <div class="p-3 rounded-xl bg-white border border-slate-200">
+              <strong class="font-mono text-slate-700 block">2. User requirement:</strong>
+              Users need to view available dates quickly.
+            </div>
+            <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-300">
+              <strong class="font-mono text-emerald-900 block">3. Design requirement:</strong>
+              <span class="hl-green font-semibold">Show next available appointments on the first results screen.</span>
+            </div>
+            <div class="p-3 rounded-xl bg-amber-50 border border-amber-300">
+              <strong class="font-mono text-amber-900 block">4. Evaluation question:</strong>
+              <span class="hl-yellow font-semibold">Can users find a free time without help?</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slides 23 & 24: Practice together: identify the problem -->
+        <div class="p-5 rounded-2xl bg-white border-2 border-slate-200 flex flex-col justify-between space-y-4">
+          <div>
+            <span class="font-mono text-xs font-bold uppercase text-rose-700 block">SLIDES 23 &amp; 24 • PDF pp. 33–34 — FROM PAIN TO DESIGN</span>
+            <h3 class="font-display text-xl font-extrabold text-slate-900 mt-1">Practice Together: Identify the Problem</h3>
+            <blockquote class="mt-2 p-3 rounded-xl bg-rose-50 border-l-4 border-rose-600 text-xs sm:text-sm italic text-slate-900">
+              “I missed my appointment because I could not find where to cancel or reschedule.”
+            </blockquote>
+
+            <div class="grid grid-cols-2 gap-2.5 mt-3 text-xs sm:text-sm">
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-mono font-bold text-rose-800 block">01 • Pain point</span>
+                Cancel / reschedule option is <span class="hl-pink">difficult to find</span>.
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+                <span class="font-mono font-bold text-sky-800 block">02 • Need</span>
+                <span class="hl-blue">Manage existing bookings</span> without searching.
+              </div>
+              <div class="p-3 rounded-xl bg-emerald-50 border border-emerald-200">
+                <span class="font-mono font-bold text-emerald-900 block">03 • Design</span>
+                Add a visible <span class="hl-green font-semibold">“My Appointments” button</span>.
+              </div>
+              <div class="p-3 rounded-xl bg-amber-50 border border-amber-200">
+                <span class="font-mono font-bold text-amber-900 block">04 • Test</span>
+                Ask a participant to <span class="hl-yellow font-semibold">reschedule a booking</span>.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 25 & PDF p.36: Class Exercise + 3-Hour Learning Route -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <span class="font-mono font-bold text-slate-700 uppercase block mb-1.5">SLIDE 25 • PDF p.35 — CLASS EXERCISE: DESIGN FOR A REAL USER</span>
+          <ol class="list-decimal pl-5 space-y-1 text-slate-800">
+            <li><strong>Step 1 (4 min):</strong> Write a simple research finding from the sample.</li>
+            <li><strong>Step 2 (5 min):</strong> Create a mini persona: goal, pain, context.</li>
+            <li><strong>Step 3 (5 min):</strong> Write a 3-sentence scenario.</li>
+            <li><strong>Step 4 (7 min):</strong> Draw HTA and one journey pain point.</li>
+          </ol>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200">
+          <span class="font-mono font-bold text-slate-700 uppercase block mb-1.5">WEEK 07 CLASS PLAN • PDF p.36 — 3-HOUR LEARNING ROUTE</span>
+          <ul class="space-y-1 text-slate-700 font-mono text-[11px]">
+            <li>• 00–25 min: Research evidence to insights &amp; personas</li>
+            <li>• 25–55 min: Scenarios &amp; use cases; alternative flows</li>
+            <li>• 55–90 min: Task analysis &amp; instructor-led HTA example</li>
+            <li>• 90–100 min: Break | 100–140 min: Group case &amp; diagrams</li>
+            <li>• 140–170 min: Journey maps, requirements &amp; critique | 170–180: Quiz</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Case Study 3 (PDF pp. 37–41): University Course Registration Portal -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-slate-900 text-white border-2 border-indigo-400 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="font-mono text-xs font-bold uppercase text-indigo-300">PRACTICE CASE 3 &amp; INSTRUCTOR SOLUTIONS • PDF pp. 37–41</span>
+          <span class="px-2.5 py-0.5 rounded bg-indigo-400 text-slate-950 font-mono text-[11px] font-bold">University Course Registration Portal</span>
+        </div>
+
+        <p class="text-xs sm:text-sm text-slate-300">
+          <strong>Context (PDF p.37):</strong> Students must register for courses before a deadline; some courses have <span class="hl-pink text-slate-950 font-semibold">prerequisites and limited seats</span>.
+        </p>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-center">
+          <!-- Left: Revealed Use Case Flows (PDF p.38) -->
+          <div class="lg:col-span-6 p-4 rounded-xl bg-slate-950 border border-slate-700 space-y-2.5 text-xs sm:text-sm">
+            <span class="font-mono text-xs font-extrabold text-emerald-300 uppercase block">1. INSTRUCTOR USE CASE FLOWS (PDF p.38)</span>
+            <div class="p-2.5 rounded bg-slate-900 border border-emerald-500/50">
+              <strong class="text-emerald-300 font-mono block">Main Success Flow:</strong>
+              Sign in → Search course → Check details → Select section → Confirm → See timetable.
+            </div>
+            <div class="p-2.5 rounded bg-slate-900 border border-amber-500/50">
+              <strong class="text-amber-300 font-mono block">Alternative A (Course full):</strong>
+              Show availability and a waitlist / alternative-section option.
+            </div>
+            <div class="p-2.5 rounded bg-slate-900 border border-rose-500/50">
+              <strong class="text-rose-300 font-mono block">Alternative B (Prerequisite missing):</strong>
+              Explain the exact requirement and link to guidance.
+            </div>
+            <p class="text-[11px] font-mono text-indigo-300 pt-1">
+              <strong>Design Rationale:</strong> Visibility, error prevention, feedback &amp; clear next steps (Week 5 principles).
+            </p>
+          </div>
+
+          <!-- Right: Revealed Course Registration HTA SVG (PDF pp. 39–40) -->
+          <div class="lg:col-span-6 p-4 rounded-xl bg-slate-950 border border-indigo-400/60">
+            <span class="font-mono text-xs font-extrabold text-indigo-300 uppercase block mb-2">2. SAMPLE HTA: REGISTER FOR A COURSE (PDF p.40)</span>
+            <svg viewBox="0 0 420 205" class="w-full h-auto" aria-label="Sample HTA for registering for a university course">
+              <rect x="110" y="8" width="200" height="32" rx="6" fill="#3730A3" stroke="#818CF8" stroke-width="1.8"/>
+              <text x="210" y="28" text-anchor="middle" class="font-mono text-[10.5px] fill-white font-bold">0: Register for a course</text>
+
+              <!-- Lines -->
+              <line x1="210" y1="40" x2="210" y2="56" stroke="#94A3B8" stroke-width="1.5"/>
+              <line x1="65" y1="56" x2="355" y2="56" stroke="#94A3B8" stroke-width="1.5"/>
+              <line x1="65" y1="56" x2="65" y2="72" stroke="#94A3B8" stroke-width="1.5"/>
+              <line x1="210" y1="56" x2="210" y2="72" stroke="#94A3B8" stroke-width="1.5"/>
+              <line x1="355" y1="56" x2="355" y2="72" stroke="#94A3B8" stroke-width="1.5"/>
+
+              <!-- Box 1->2 -->
+              <rect x="10" y="72" width="115" height="52" rx="6" fill="#1E293B" stroke="#38BDF8"/>
+              <text x="67" y="92" text-anchor="middle" class="font-mono text-[8.5px] fill-sky-300 font-bold">1. Sign in</text>
+              <text x="67" y="108" text-anchor="middle" class="font-mono text-[8.5px] fill-slate-200">2. Find course &amp;</text>
+              <text x="67" y="119" text-anchor="middle" class="font-mono text-[8.5px] fill-slate-200">section</text>
+
+              <!-- Box 3 -->
+              <rect x="135" y="72" width="150" height="52" rx="6" fill="#1E293B" stroke="#F43F5E" stroke-width="1.6"/>
+              <text x="210" y="90" text-anchor="middle" class="font-mono text-[8.5px] fill-rose-300 font-bold">3. Check prerequisite,</text>
+              <text x="210" y="103" text-anchor="middle" class="font-mono text-[8.5px] fill-rose-200">schedule conflict</text>
+              <text x="210" y="116" text-anchor="middle" class="font-mono text-[8.5px] fill-rose-200">and capacity</text>
+
+              <!-- Box 4->5 -->
+              <rect x="295" y="72" width="115" height="52" rx="6" fill="#1E293B" stroke="#34D399"/>
+              <text x="352" y="92" text-anchor="middle" class="font-mono text-[8.5px] fill-emerald-300 font-bold">4. Submit reg.</text>
+              <text x="352" y="108" text-anchor="middle" class="font-mono text-[8.5px] fill-slate-200">5. Verify updated</text>
+              <text x="352" y="119" text-anchor="middle" class="font-mono text-[8.5px] fill-slate-200">timetable</text>
+
+              <!-- Plan 0 -->
+              <rect x="10" y="142" width="400" height="50" rx="8" fill="#1E1B4B" stroke="#FACC15" stroke-width="1.5"/>
+              <text x="210" y="162" text-anchor="middle" class="font-mono text-[9.5px] fill-amber-300 font-bold">Plan 0: Do 1–3; if eligible and seats available, do 4–5;</text>
+              <text x="210" y="178" text-anchor="middle" class="font-mono text-[9.5px] fill-indigo-200 font-bold">otherwise choose another section or stop.</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- Group Critique Journey Map Stages (PDF p.41) -->
+        <div class="p-3.5 rounded-xl bg-slate-800 border border-slate-700 text-xs flex flex-wrap items-center justify-between gap-2">
+          <span><strong class="font-mono text-amber-300">GROUP CRITIQUE JOURNEY STAGES (PDF p.41):</strong> <code class="font-mono">Search → Select → Check eligibility → Confirm → Verify</code></span>
+          <span class="text-slate-300">Convert highest-priority pain point into <strong>one testable requirement</strong>.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================================================================
+         SECTION 8: EXAM PITFALLS, WEEKS 1–7 MIDTERM SYNTHESIS & MINI-QUIZ
+         (Slides 32–37 | PDF pp. 42–47)
+         =================================================================== -->
+    <section id="sec-8" data-toc="08. Common Pitfalls & Quiz" class="scroll-mt-28 note-sheet rounded-2xl p-6 sm:p-10 border-t-4 border-t-slate-900 border-b-4 border-b-slate-900 space-y-8">
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-bold bg-slate-900 text-amber-300">SECTION 8 • SLIDES 32–37</span>
+          <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-100 text-amber-900 border border-amber-300">PDF pp. 42–47</span>
+        </div>
+        <span class="font-hand text-xl text-rose-800 font-bold">★ High-Yield Exam Review</span>
+      </div>
+
+      <!-- Slide 32 (Common Mistakes) & Slide 33 (Weeks 1-7 Midterm Connection) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <!-- Slide 32: Common mistakes to avoid -->
+        <div class="lg:col-span-6 p-5 rounded-2xl bg-rose-50/70 border-2 border-rose-300 space-y-3">
+          <span class="font-mono text-xs font-bold uppercase text-rose-900 block">SLIDE 32 • PDF p.42 — EXAM TRAP ALERT</span>
+          <h2 class="font-display text-xl sm:text-2xl font-extrabold text-slate-900">Common Mistakes to Avoid</h2>
+          <div class="space-y-2 text-xs sm:text-sm">
+            <div class="p-3 rounded-xl bg-white border border-rose-200 flex items-center justify-between gap-2">
+              <span class="font-mono font-bold text-rose-800">Persona</span>
+              <span class="text-slate-800 text-right"><span class="hl-pink font-semibold">Inventing facts without evidence</span></span>
+            </div>
+            <div class="p-3 rounded-xl bg-white border border-rose-200 flex items-center justify-between gap-2">
+              <span class="font-mono font-bold text-rose-800">Scenario</span>
+              <span class="text-slate-800 text-right"><span class="hl-pink font-semibold">Writing a feature list instead of a story</span></span>
+            </div>
+            <div class="p-3 rounded-xl bg-white border border-rose-200 flex items-center justify-between gap-2">
+              <span class="font-mono font-bold text-rose-800">Use case</span>
+              <span class="text-slate-800 text-right"><span class="hl-pink font-semibold">Forgetting the system response or alternate path</span></span>
+            </div>
+            <div class="p-3 rounded-xl bg-white border border-rose-200 flex items-center justify-between gap-2">
+              <span class="font-mono font-bold text-rose-800">HTA</span>
+              <span class="text-slate-800 text-right"><span class="hl-pink font-semibold">Listing screens, not user tasks</span></span>
+            </div>
+            <div class="p-3 rounded-xl bg-white border border-rose-200 flex items-center justify-between gap-2">
+              <span class="font-mono font-bold text-rose-800">Journey</span>
+              <span class="text-slate-800 text-right"><span class="hl-pink font-semibold">Listing only clicks, ignoring emotions and problems</span></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Slide 33: Midterm review: connect Weeks 1–7 -->
+        <div class="lg:col-span-6 p-5 rounded-2xl bg-white border-2 border-slate-900 space-y-3">
+          <span class="font-mono text-xs font-bold uppercase text-slate-600 block">SLIDE 33 • PDF p.43 — COURSE SYNTHESIS</span>
+          <h2 class="font-display text-xl sm:text-2xl font-extrabold text-slate-900">Midterm Review: Connect Weeks 1–7</h2>
+          <div class="overflow-hidden rounded-xl border border-slate-300">
+            <table class="w-full text-left border-collapse text-xs sm:text-sm">
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="py-2.5 px-3 font-mono font-extrabold bg-slate-100 w-16">W1</td>
+                  <td class="py-2.5 px-3">HCI and usability</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-mono font-extrabold bg-slate-100">W2</td>
+                  <td class="py-2.5 px-3">Perception, memory, attention</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-mono font-extrabold bg-slate-100">W3</td>
+                  <td class="py-2.5 px-3">Input and output</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-mono font-extrabold bg-slate-100">W4</td>
+                  <td class="py-2.5 px-3">Interaction styles</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-mono font-extrabold bg-slate-100">W5</td>
+                  <td class="py-2.5 px-3">Design principles and heuristics</td>
+                </tr>
+                <tr>
+                  <td class="py-2.5 px-3 font-mono font-extrabold bg-slate-100">W6</td>
+                  <td class="py-2.5 px-3">User research and requirements</td>
+                </tr>
+                <tr class="bg-amber-50">
+                  <td class="py-2.5 px-3 font-mono font-extrabold text-amber-900">W7</td>
+                  <td class="py-2.5 px-3 font-bold text-slate-900"><span class="hl-yellow">Personas, scenarios, HTA, journey maps</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 34: Mini-Quiz: Can you choose the right tool? -->
+      <div class="p-5 rounded-2xl bg-emerald-50/70 border-2 border-emerald-300">
+        <span class="font-mono text-xs font-bold uppercase text-emerald-900 block mb-2">SLIDE 34 • PDF p.44 — MINI-QUIZ: CAN YOU CHOOSE THE RIGHT TOOL?</span>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-white border border-emerald-200 flex items-center justify-between gap-3">
+            <span><strong>1.</strong> A profile describes users' goals and frustrations.</span>
+            <span class="px-2.5 py-1 rounded bg-emerald-700 text-white font-mono text-xs font-bold shrink-0">Persona</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white border border-emerald-200 flex items-center justify-between gap-3">
+            <span><strong>2.</strong> A story explains a user booking while on a bus.</span>
+            <span class="px-2.5 py-1 rounded bg-emerald-700 text-white font-mono text-xs font-bold shrink-0">Scenario</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white border border-emerald-200 flex items-center justify-between gap-3">
+            <span><strong>3.</strong> A tree splits one goal into smaller subtasks.</span>
+            <span class="px-2.5 py-1 rounded bg-emerald-700 text-white font-mono text-xs font-bold shrink-0">HTA</span>
+          </div>
+          <div class="p-3.5 rounded-xl bg-white border border-emerald-200 flex items-center justify-between gap-3">
+            <span><strong>4.</strong> A timeline shows frustration across touchpoints.</span>
+            <span class="px-2.5 py-1 rounded bg-emerald-700 text-white font-mono text-xs font-bold shrink-0">Journey map</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 35: One complete design story -->
+      <div class="p-5 rounded-2xl bg-white border border-slate-200 space-y-3">
+        <div class="flex flex-wrap items-center justify-between gap-2">
+          <span class="font-mono text-xs font-bold uppercase text-slate-600">SLIDE 35 • PDF p.45 — ONE COMPLETE DESIGN STORY</span>
+          <span class="font-mono text-xs font-bold text-indigo-800">Evidence → Understanding → Design → Evaluation</span>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs sm:text-sm">
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+            <span class="font-mono font-bold text-sky-800 block mb-1">01 • Research</span>
+            Users struggle to find appointment times.
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+            <span class="font-mono font-bold text-amber-800 block mb-1">02 • Model user</span>
+            Maya has limited time and a mobile phone.
+          </div>
+          <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200">
+            <span class="font-mono font-bold text-purple-800 block mb-1">03 • Analyze</span>
+            Booking requires <code class="font-mono">clinic → time → confirm</code>.
+          </div>
+          <div class="p-3.5 rounded-xl bg-emerald-50 border border-emerald-200">
+            <span class="font-mono font-bold text-emerald-900 block mb-1">04 • Improve &amp; test</span>
+            Make slots visible; test a realistic task.
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 36 (Key Takeaways & Next Week) & Slide 37 (Sources) -->
+      <div class="p-5 sm:p-6 rounded-2xl bg-slate-900 text-white space-y-4">
+        <span class="font-mono text-xs font-bold uppercase text-amber-300 block">SLIDE 36 &amp; SLIDE 37 • PDF pp. 46–47 — KEY TAKEAWAYS &amp; SOURCES</span>
+        <div class="p-4 rounded-xl bg-slate-950 border border-amber-400/70 font-mono text-xs sm:text-sm text-center">
+          <span class="text-amber-300 font-bold">Persona = WHO</span> &nbsp;|&nbsp;
+          <span class="text-sky-300 font-bold">Scenario = CONTEXT</span> &nbsp;|&nbsp;
+          <span class="text-emerald-300 font-bold">Use case = INTERACTION</span> &nbsp;|&nbsp;
+          <span class="text-purple-300 font-bold">HTA = TASK STEPS</span> &nbsp;|&nbsp;
+          <span class="text-rose-300 font-bold">Journey map = EXPERIENCE</span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-300 pt-1">
+          <div>
+            <strong class="text-white font-mono uppercase block mb-1">NEXT WEEK: PROTOTYPING (Slide 36)</strong>
+            We turn our insights into sketches, wireframes, and simple interactive prototypes.
+          </div>
+          <div>
+            <strong class="text-white font-mono uppercase block mb-1">SOURCES / FURTHER READING (Slide 37)</strong>
+            • Rogers, Y., Sharp, H., &amp; Preece, J. (2023). <em>Interaction Design: Beyond HCI</em> (6th ed.), Ch. 11.<br/>
+            • Dix, A. et al. (2004). <em>Human-Computer Interaction</em> (3rd ed.), Ch. 15.
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
