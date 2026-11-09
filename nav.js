@@ -1174,6 +1174,43 @@
       box-shadow: 3px 3px 0px #334155 !important;
     }
 
+    /* =========================================================================
+       DIRECT LECTURE BRIEFING BOX IN DARK MODE (ABSOLUTE HIGHEST PRECEDENCE)
+       ========================================================================= */
+    html.dark #lecture-briefing-box,
+    html.dark .lecture-briefing-box,
+    html.dark div#lecture-briefing-box {
+      background-color: #18181F !important;
+      background-image: none !important;
+      border-color: #D97706 !important;
+      box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.8) !important;
+    }
+    html.dark #lecture-briefing-box .p-4,
+    html.dark #lecture-briefing-box .p-3,
+    html.dark #lecture-briefing-box .bg-white,
+    html.dark #lecture-briefing-box [class*="bg-white"] {
+      background-color: #21212B !important;
+      border-color: #383848 !important;
+    }
+    html.dark #lecture-briefing-box .text-amber-950 {
+      color: #FCD34D !important;
+    }
+    html.dark #lecture-briefing-box .text-amber-900 {
+      color: #FDE047 !important;
+    }
+    html.dark #lecture-briefing-box .text-amber-800 {
+      color: #FCD34D !important;
+    }
+    html.dark #lecture-briefing-box .text-sky-800 {
+      color: #7DD3FC !important;
+    }
+    html.dark #lecture-briefing-box .text-purple-800 {
+      color: #D8B4FE !important;
+    }
+    html.dark #lecture-briefing-box .text-emerald-800 {
+      color: #6EE7B7 !important;
+    }
+
   `;
   document.head.appendChild(styleEl);
 

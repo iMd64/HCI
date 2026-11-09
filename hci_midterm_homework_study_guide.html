@@ -123,9 +123,38 @@
     }
 
 
+    /* Direct Lecture Briefing Box in Dark Mode */
+    html.dark #lecture-briefing-box {
+      background-color: #18181F !important;
+      background-image: none !important;
+      border-color: #D97706 !important;
+      box-shadow: 0 4px 24px -4px rgba(0, 0, 0, 0.8) !important;
+    }
+    html.dark #lecture-briefing-box .p-4,
+    html.dark #lecture-briefing-box .p-3,
+    html.dark #lecture-briefing-box .bg-white {
+      background-color: #21212B !important;
+      border-color: #383848 !important;
+    }
+    html.dark #lecture-briefing-box .text-amber-950,
+    html.dark #lecture-briefing-box .text-amber-800 {
+      color: #FCD34D !important;
+    }
+    html.dark #lecture-briefing-box .text-amber-900 {
+      color: #FDE047 !important;
+    }
+    html.dark #lecture-briefing-box .text-sky-800 {
+      color: #7DD3FC !important;
+    }
+    html.dark #lecture-briefing-box .text-purple-800 {
+      color: #D8B4FE !important;
+    }
+    html.dark #lecture-briefing-box .text-emerald-800 {
+      color: #6EE7B7 !important;
+    }
   </style>
   <!-- Modular Collapsible Navigation Engine -->
-  <script src="nav.js?v=20261106b" defer></script>
+  <script src="nav.js?v=20261109" defer></script>
 </head>
 <body class="antialiased selection:bg-yellow-200 selection:text-zinc-900">
 
@@ -158,7 +187,7 @@
           <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-zinc-900 text-white">HOMEWORK &amp; MIDTERM BLUEPRINT</span>
           <span class="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-100 text-amber-900 border border-amber-300">100 POINTS TOTAL</span>
         </div>
-        <span class="font-mono text-xs text-zinc-500">Mohamad Ayesh • B2305.010023 • HCI Section 1</span>
+        <span class="font-mono text-xs text-zinc-500">COM481 • HCI Section 1</span>
       </div>
 
       <h1 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-zinc-900 leading-tight">
@@ -171,7 +200,7 @@
       <!-- ===================================================================
            DR. DAMLA LECTURE BRIEFING: AUDIO INTEL & MIDTERM BLUEPRINT
            =================================================================== -->
-      <div class="mb-7 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-amber-50 to-orange-50/60 border-2 border-amber-300 shadow-sm space-y-4">
+      <div id="lecture-briefing-box" class="lecture-briefing-box mb-7 p-5 sm:p-6 rounded-2xl bg-amber-50/70 border-2 border-amber-300 shadow-sm space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2">
           <div class="flex items-center gap-2">
             <span class="inline-flex items-center px-2.5 py-1 rounded-md bg-amber-500 text-zinc-950 font-mono text-xs font-extrabold tracking-wide uppercase">
@@ -184,7 +213,7 @@
           </span>
         </div>
 
-        <div class="p-4 rounded-xl bg-white/90 border border-amber-200 text-xs sm:text-sm text-zinc-800 space-y-2.5 leading-relaxed">
+        <div class="p-4 rounded-xl bg-white border border-amber-200 text-xs sm:text-sm text-zinc-800 space-y-2.5 leading-relaxed">
           <div class="flex items-start gap-2">
             <span class="text-amber-600 font-bold text-base leading-none">“</span>
             <p class="italic text-zinc-700">
